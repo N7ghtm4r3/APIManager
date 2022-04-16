@@ -40,7 +40,6 @@ public class APIRequest {
     public APIRequest(String defaultErrorResponse, int requestTimeout) {
         this.defaultErrorResponse = defaultErrorResponse;
         this.requestTimeout = requestTimeout;
-        response = null;
     }
 
     /** Constructor to init APIRequest manager
@@ -48,7 +47,6 @@ public class APIRequest {
      * **/
     public APIRequest(String defaultErrorResponse) {
         this.defaultErrorResponse = defaultErrorResponse;
-        response = null;
     }
 
     /** Constructor to init APIRequest manager
@@ -57,7 +55,6 @@ public class APIRequest {
     public APIRequest(int requestTimeout) {
         this.requestTimeout = requestTimeout;
         defaultErrorResponse = "Error is not in api request, check out your code";
-        response = null;
     }
 
     /** Constructor to init APIRequest manager
@@ -66,7 +63,6 @@ public class APIRequest {
     public APIRequest() {
         requestTimeout = 10000;
         defaultErrorResponse = "Error is not in api request, check out your code";
-        response = null;
     }
 
     /** Method to set programmatically timeout for the request
@@ -137,21 +133,23 @@ public class APIRequest {
      * @return response of the HTTP request, in case of error return error stream of the HTTP request
      * **/
     public String getRequestResponse() throws IOException {
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader;
-        String line;
-        boolean isInError = false;
-        try {
-            bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-        } catch (IOException e) {
-            bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getErrorStream()));
-            isInError = true;
+        if(response == null){
+            StringBuilder stringBuilder = new StringBuilder();
+            BufferedReader bufferedReader;
+            String line;
+            boolean isInError = false;
+            try {
+                bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+            } catch (IOException e) {
+                bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getErrorStream()));
+                isInError = true;
+            }
+            while ((line = bufferedReader.readLine()) != null)
+                stringBuilder.append(line);
+            response = stringBuilder.toString();
+            if(isInError)
+                errorResponse = response;
         }
-        while ((line = bufferedReader.readLine()) != null)
-            stringBuilder.append(line);
-        response = stringBuilder.toString();
-        if(isInError)
-            errorResponse = response;
         return response;
     }
 
@@ -193,6 +191,7 @@ public class APIRequest {
      * **/
     public Object getJSONResponse() throws IOException {
         initResponse();
+        System.out.println(response);
         return getJSONResponseObject(response);
     }
 
