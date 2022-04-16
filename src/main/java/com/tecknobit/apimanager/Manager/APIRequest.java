@@ -167,7 +167,7 @@ public class APIRequest {
      * @param #extraParams: not mandatory params of request that have to be concatenated (&param2=valueParam2&param3=valueParam3)
      * @return params as {@link String} assembled es. ?param=mandatory1&param2=mandatory2&param2=valueParam2&param3=valueParam3
      * **/
-    public String assembleAdditionalParams(String mandatoryParams, HashMap<String, String> extraParams){
+    public String assembleAdditionalParams(String mandatoryParams, HashMap<String, Object> extraParams){
         StringBuilder params = new StringBuilder(mandatoryParams);
         for (String key : extraParams.keySet())
             params.append("&").append(key).append("=").append(extraParams.get(key));
