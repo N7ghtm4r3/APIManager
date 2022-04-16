@@ -158,6 +158,9 @@ public class APIRequest {
             response = stringBuilder.toString();
             if(isInError)
                 errorResponse = response;
+        }else{
+            response = null;
+            getRequestResponse();
         }
     }
 
