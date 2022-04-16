@@ -66,7 +66,7 @@ public class TradingTools {
         if(percent > 0)
             return "+" + percent + "%";
         else if(percent < 0)
-            return "-" + percent + "%";
+            return percent + "%";
         else
             return "=" + percent + "%";
     }
@@ -156,5 +156,5 @@ public class TradingTools {
                                     int decimalDigits){
         return roundValue(computeTPTOPAsset(historicalValues, lastValue, intervalDays,offsetRange), decimalDigits);
     }
-
+    
 }
