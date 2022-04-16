@@ -80,7 +80,7 @@ public class TradingTools {
     public double roundValue(double value, int decimalDigits){
         if(decimalDigits < 0)
             throw new IllegalArgumentException("Decimal digits number cannot be less than 0");
-        return parseDouble(format("%."+decimalDigits+"f", value));
+        return parseDouble(format("%."+decimalDigits+"f", value).replace(",","."));
     }
 
     /** Method to get prevision of an asset in base of days's gap inserted
