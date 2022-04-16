@@ -178,7 +178,8 @@ public class APIRequest {
      * any params required
      * @return response of request as {@link String}
      * **/
-    public String getResponse(){
+    public String getResponse() throws IOException {
+        initResponse();
         return response;
     }
 
@@ -186,7 +187,8 @@ public class APIRequest {
      * any params required
      * @return response of request formatted as {@link JSONObject} or {@link JSONArray} object
      * **/
-    public Object getJSONResponse(){
+    public Object getJSONResponse() throws IOException {
+        initResponse();
         return getJSONResponseObject(response);
     }
 
@@ -195,7 +197,8 @@ public class APIRequest {
      * @return error response of request as {@link String} or defaultErrorResponse as {@link String} if is not a request
      * error
      * **/
-    public String getErrorResponse() {
+    public String getErrorResponse() throws IOException {
+        initResponse();
         if(errorResponse == null)
             return defaultErrorResponse;
         return errorResponse;
@@ -206,10 +209,19 @@ public class APIRequest {
      * @return error response of request formatted as {@link JSONObject} or {@link JSONArray} object or defaultErrorResponse
      * as {@link String} if is not a request error
      * **/
-    public Object getJSONErrorResponse() {
+    public Object getJSONErrorResponse() throws IOException {
+        initResponse();
         if(errorResponse == null)
             return defaultErrorResponse;
         return getJSONResponseObject(errorResponse);
+    }
+
+    /** Method to read {@link HttpURLConnection} stream if base response is null
+     * any return
+     * **/
+    private void initResponse() throws IOException {
+        if(response == null)
+            response = getRequestResponse();
     }
 
     /** Method to get JSON object of response of request, already red, without read again {@link HttpURLConnection}'s stream
