@@ -88,7 +88,7 @@ public class APIRequest {
      * **/
     public void sendAPIRequest(String requestUrl, String method) throws IOException {
         setRequestConnection(requestUrl, method);
-        httpURLConnection.connect();
+        sendRequest();
     }
 
     /** Method to make api request with one mandatory header es. api key and its key header value
@@ -101,7 +101,7 @@ public class APIRequest {
     public void sendAPIRequest(String requestUrl, String method, String headerKey, String headerValue) throws IOException {
         setRequestConnection(requestUrl, method);
         httpURLConnection.setRequestProperty(headerKey, headerValue);
-        httpURLConnection.connect();
+        sendRequest();
     }
 
     /** Method to make api request with many mandatory headers es. api key and its key header value
@@ -114,7 +114,7 @@ public class APIRequest {
         setRequestConnection(requestUrl, method);
         for (String key : headers.keySet())
             httpURLConnection.setRequestProperty(key, headers.get(key));
-        httpURLConnection.connect();
+        sendRequest();
     }
 
     /** Method to set up connection by an endpoint
@@ -128,11 +128,20 @@ public class APIRequest {
         httpURLConnection.setConnectTimeout(requestTimeout);
     }
 
+    /** Method to send an HTTP request and get it response
+     * any params required
+     * any return
+     * **/
+    private void sendRequest() throws IOException {
+        httpURLConnection.connect();
+        getRequestResponse();
+    }
+
     /** Method to get response of an HTTP request
      * any params required
-     * @return response of the HTTP request, in case of error return error stream of the HTTP request
+     * any return
      * **/
-    public String getRequestResponse() throws IOException {
+    private void getRequestResponse() throws IOException {
         if(response == null){
             StringBuilder stringBuilder = new StringBuilder();
             BufferedReader bufferedReader;
@@ -150,7 +159,6 @@ public class APIRequest {
             if(isInError)
                 errorResponse = response;
         }
-        return response;
     }
 
     /** Method to get params signature of an HTTP request
@@ -180,9 +188,7 @@ public class APIRequest {
      * any params required
      * @return response of request as {@link String}
      * **/
-    public String getResponse() throws IOException {
-        if(response == null)
-            return getRequestResponse();
+    public String getResponse() {
         return response;
     }
 
@@ -191,8 +197,6 @@ public class APIRequest {
      * @return response of request formatted as {@link JSONObject} or {@link JSONArray} object
      * **/
     public Object getJSONResponse() throws IOException {
-        if(response == null)
-            return getRequestResponse();
         return getJSONResponseObject(response);
     }
 
@@ -201,7 +205,7 @@ public class APIRequest {
      * @return error response of request as {@link String} or defaultErrorResponse as {@link String} if is not a request
      * error
      * **/
-    public String getErrorResponse() throws IOException {
+    public String getErrorResponse(){
         if(errorResponse == null)
             return defaultErrorResponse;
         return errorResponse;
@@ -212,19 +216,10 @@ public class APIRequest {
      * @return error response of request formatted as {@link JSONObject} or {@link JSONArray} object or defaultErrorResponse
      * as {@link String} if is not a request error
      * **/
-    public Object getJSONErrorResponse() throws IOException {
-        initResponse();
+    public Object getJSONErrorResponse() {
         if(errorResponse == null)
             return defaultErrorResponse;
         return getJSONResponseObject(errorResponse);
-    }
-
-    /** Method to read {@link HttpURLConnection} stream if base response is null
-     * any return
-     * **/
-    private void initResponse() throws IOException {
-        if(response == null)
-            response = getRequestResponse();
     }
 
     /** Method to get JSON object of response of request, already red, without read again {@link HttpURLConnection}'s stream
