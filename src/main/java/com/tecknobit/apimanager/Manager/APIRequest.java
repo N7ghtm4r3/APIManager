@@ -181,7 +181,8 @@ public class APIRequest {
      * @return response of request as {@link String}
      * **/
     public String getResponse() throws IOException {
-        initResponse();
+        if(response == null)
+            return getRequestResponse();
         return response;
     }
 
@@ -190,8 +191,8 @@ public class APIRequest {
      * @return response of request formatted as {@link JSONObject} or {@link JSONArray} object
      * **/
     public Object getJSONResponse() throws IOException {
-        initResponse();
-        System.out.println(response);
+        if(response == null)
+            return getRequestResponse();
         return getJSONResponseObject(response);
     }
 
@@ -201,7 +202,6 @@ public class APIRequest {
      * error
      * **/
     public String getErrorResponse() throws IOException {
-        initResponse();
         if(errorResponse == null)
             return defaultErrorResponse;
         return errorResponse;
