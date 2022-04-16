@@ -106,7 +106,7 @@ try {
     System.out.println(apiRequest.getResponse());
     // example output: Success request!
 } catch (IOException e) {
-    e.printStackTrace();
+   System.out.println(apiRequest.getErrorResponse());
 }
 
 ```
@@ -119,7 +119,7 @@ try {
     System.out.println(apiRequest.getJSONResponse());
     // example output: {"msg":"Success request!"}
 } catch (IOException e) {
-    e.printStackTrace();
+   System.out.println(apiRequest.getJSONErrorResponse());
 }
 
 ```
