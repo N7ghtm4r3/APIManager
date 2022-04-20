@@ -83,49 +83,49 @@ public class TradingTools {
         return parseDouble(format("%."+decimalDigits+"f", value).replace(",","."));
     }
 
-    /** Method to get prevision of an asset in base of days's gap inserted
-     * @param #historicalValues: previous values of asset used to compute prevision
-     * @param #lastValue: last value of the asset to compare and fetch prevision
-     * @param #intervalDays: days gap for the prevision range
+    /** Method to get forecast of an asset in base of days's gap inserted
+     * @param #historicalValues: previous values of asset used to compute forecast
+     * @param #lastValue: last value of the asset to compare and fetch forecast
+     * @param #intervalDays: days gap for the forecast range
      * @param #offsetRange: tolerance for select similar value compared to lastValue inserted
-     * @return prevision value as a double es. 8 or -8
+     * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
      * **/
-    public double computeTPTOPAsset(ArrayList<Double> historicalValues, double lastValue, int intervalDays, int offsetRange){
+    public double computeTPTOPAsset(ArrayList<Double> historicalValues, double lastValue, int intervalDays, double offsetRange){
         if(lastValue < 0)
-            throw new IllegalArgumentException("lastValue must be positive");
+            throw new IllegalArgumentException("Last asset value must be positive");
         if(intervalDays <= 0)
-            throw new IllegalArgumentException("intervalDays's gap must be more than 0");
+            throw new IllegalArgumentException("Interval days value gap must be more than 0");
         return computeTPTOPAsset(historicalValues.toArray(new Double[historicalValues.size()]),lastValue,intervalDays,offsetRange);
     }
 
-    /** Method to get prevision of an asset in base of days's gap inserted and round it
-     * @param #historicalValues: previous values of asset used to compute prevision
-     * @param #lastValue: last value of the asset to compare and fetch prevision
-     * @param #intervalDays: days gap for the prevision range
+    /** Method to get forecast of an asset in base of days's gap inserted and round it
+     * @param #historicalValues: previous values of asset used to compute forecast
+     * @param #lastValue: last value of the asset to compare and fetch forecast
+     * @param #intervalDays: days gap for the forecast range
      * @param #offsetRange: tolerance for select similar value compared to lastValue inserted
-     * @param #decimalDigits: number of digits to round final prevision value
-     * @return prevision value as a double es. 8 or -8
+     * @param #decimalDigits: number of digits to round final forecast value
+     * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
      * **/
-    public double computeTPTOPAsset(ArrayList<Double> historicalValues, double lastValue, int intervalDays, int offsetRange,
+    public double computeTPTOPAsset(ArrayList<Double> historicalValues, double lastValue, int intervalDays, double offsetRange,
                                     int decimalDigits){
         return roundValue(computeTPTOPAsset(historicalValues,lastValue, intervalDays,offsetRange), decimalDigits);
     }
 
-    /** Method to get prevision of an asset in base of days's gap inserted
-     * @param #historicalValues: previous values of asset used to compute prevision
-     * @param #lastValue: last value of the asset to compare and fetch prevision
-     * @param #intervalDays: days gap for the prevision range
+    /** Method to get forecast of an asset in base of days's gap inserted
+     * @param #historicalValues: previous values of asset used to compute forecast
+     * @param #lastValue: last value of the asset to compare and fetch forecast
+     * @param #intervalDays: days gap for the forecast range
      * @param #offsetRange: tolerance for select similar value compared to lastValue inserted
-     * @return prevision value as a double es. 8 or -8
+     * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
      * **/
-    public double computeTPTOPAsset(Double[] historicalValues, double lastValue, int intervalDays, int offsetRange){
+    public double computeTPTOPAsset(Double[] historicalValues, double lastValue, int intervalDays, double offsetRange){
         if(lastValue < 0)
-            throw new IllegalArgumentException("lastValue must be positive");
+            throw new IllegalArgumentException("Last asset value must be positive");
         if(intervalDays <= 0)
-            throw new IllegalArgumentException("intervalDays's gap must be more than 0");
+            throw new IllegalArgumentException("Interval days value gap must be more than 0");
         double[] trends = new double[historicalValues.length];
         double sumTrends;
         double offset = (((lastValue * offsetRange) / 100) + lastValue);
@@ -143,18 +143,18 @@ public class TradingTools {
         return sumTrends/trends.length;
     }
 
-    /** Method to get prevision of an asset in base of days's gap inserted and round it
-     * @param #historicalValues: previous values of asset used to compute prevision
-     * @param #lastValue: last value of the asset to compare and fetch prevision
-     * @param #intervalDays: days gap for the prevision range
+    /** Method to get forecast of an asset in base of days's gap inserted and round it
+     * @param #historicalValues: previous values of asset used to compute forecast
+     * @param #lastValue: last value of the asset to compare and fetch forecast
+     * @param #intervalDays: days gap for the forecast range
      * @param #offsetRange: tolerance for select similar value compared to lastValue inserted
-     * @param #decimalDigits: number of digits to round final prevision value
-     * @return prevision value as a double es. 8 or -8
+     * @param #decimalDigits: number of digits to round final forecast value
+     * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
      * **/
-    public double computeTPTOPAsset(Double[] historicalValues, double lastValue, int intervalDays, int offsetRange,
+    public double computeTPTOPAsset(Double[] historicalValues, double lastValue, int intervalDays, double offsetRange,
                                     int decimalDigits){
         return roundValue(computeTPTOPAsset(historicalValues, lastValue, intervalDays,offsetRange), decimalDigits);
     }
-    
+
 }

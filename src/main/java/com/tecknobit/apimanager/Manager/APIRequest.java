@@ -6,11 +6,10 @@ import org.json.JSONObject;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Base64;
 import java.util.HashMap;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -110,6 +109,44 @@ public class APIRequest {
      * @param #headers: mandatory headers key and headers value for the request
      * any return
      * **/
+    public void sendAPIRequest(String requestUrl, String method, HashMap<String, String> headers) throws IOException {
+        setRequestConnection(requestUrl, method);
+        for (String key : headers.keySet())
+            httpURLConnection.setRequestProperty(key, headers.get(key));
+        sendRequest();
+    }
+
+    /** Method to make api request
+     * @param #requestUrl: url used to make api request
+     * @param #method: method used to make api request
+     * any return
+     * **/
+    public void sendAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
+        setRequestConnection(requestUrl, POST_METHOD);
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
+        
+        sendRequest();
+    }
+
+    /** Method to make api request with one mandatory header es. api key and its key header value
+     * @param #requestUrl: url used to make api request
+     * @param #method: method used to make api request
+     * @param #headerKey: mandatory header key for the request
+     * @param #headerValue: mandatory header value for the request
+     * any return
+     * **/
+    public void sendAPIRequest(String requestUrl, String method, String headerKey, String headerValue) throws IOException {
+        setRequestConnection(requestUrl, method);
+        httpURLConnection.setRequestProperty(headerKey, headerValue);
+        sendRequest();
+    }
+
+    /** Method to make api request with many mandatory headers es. api key and its key header value
+     * @param #requestUrl: url used to make api request
+     * @param #method: method used to make api request
+     * @param #headers: mandatory headers key and headers value for the request
+     * any return
+     * **/
     public void sendAPIRequest(String requestUrl, String method, HashMap<String,String> headers) throws IOException {
         setRequestConnection(requestUrl, method);
         for (String key : headers.keySet())
@@ -165,14 +202,24 @@ public class APIRequest {
     }
 
     /** Method to get params signature of an HTTP request
-     * @param #key: secret key used to signature request
+     * @param #signatureKey: key used to signature request
      * @param #data: data to sign
      * @return signature es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4"
      * **/
-    public String getSignature(String key, String data) throws Exception {
+    public String getSignature(String signatureKey, String data) throws Exception {
         Mac sha256 = Mac.getInstance("HmacSHA256");
-        sha256.init(new SecretKeySpec(key.getBytes(UTF_8), "HmacSHA256"));
+        sha256.init(new SecretKeySpec(signatureKey.getBytes(UTF_8), "HmacSHA256"));
         return encodeHexString(sha256.doFinal(data.replace("?","").getBytes(UTF_8)));
+    }
+
+    public String getBase64Signature(byte[] signatureKey, String data) throws Exception {
+        Mac mac = Mac.getInstance("HmacSHA256");
+        mac.init(new SecretKeySpec(signatureKey, "HmacSHA256"));
+        return Base64.getEncoder().encodeToString(mac.doFinal(data.getBytes()));
+    }
+
+    public String getBase64Signature(String signatureKey, String data) throws Exception {
+        return getBase64Signature(Base64.getDecoder().decode(signatureKey),data);
     }
 
     /** Method to assemble a String params of an HTTP request
@@ -181,9 +228,21 @@ public class APIRequest {
      * @return params as {@link String} assembled es. ?param=mandatory1&param2=mandatory2&param2=valueParam2&param3=valueParam3
      * **/
     public String assembleAdditionalParams(String mandatoryParams, HashMap<String, Object> extraParams){
+        String queryEncoderChar = "&";
+        if(mandatoryParams == null || mandatoryParams.equals("") || mandatoryParams.equals("?")) {
+            mandatoryParams = "";
+            queryEncoderChar = "?";
+        }
         StringBuilder params = new StringBuilder(mandatoryParams);
-        for (String key : extraParams.keySet())
-            params.append("&").append(key).append("=").append(extraParams.get(key));
+        for (String key : extraParams.keySet()) {
+            Object param = extraParams.get(key);
+            if((key != null && !key.equals("")) && (param != null && !param.equals(""))) {
+                params.append(queryEncoderChar).append(key).append("=").append(param);
+                if(queryEncoderChar.equals("?"))
+                    queryEncoderChar = "&";
+            }else
+                throw new NullPointerException("Extraparams key or value cannot be empty or null");
+        }
         return params.toString();
     }
 
@@ -237,6 +296,14 @@ public class APIRequest {
             return new JSONObject(response);
         }catch (JSONException e){
             return response;
+        }
+    }
+
+    public int getResponseStatusCode(){
+        try {
+            return httpURLConnection.getResponseCode();
+        } catch (IOException e) {
+            return -1;
         }
     }
 
