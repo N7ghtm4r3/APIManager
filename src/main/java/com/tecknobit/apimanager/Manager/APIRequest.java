@@ -152,6 +152,11 @@ public class APIRequest {
         sendRequest();
     }
 
+    /** Method to set up a post HTTP reques
+     * @param #requestUrl: url used to make api request
+     * @param #bodyParams: params to insert in the http body post request
+     * any return
+     * **/
     private void setPostAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
         setRequestConnection(requestUrl, POST_METHOD);
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
