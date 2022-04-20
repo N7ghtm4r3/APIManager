@@ -116,42 +116,48 @@ public class APIRequest {
         sendRequest();
     }
 
-    /** Method to make api request
+    /** Method to make api request with body params (POST requests)
      * @param #requestUrl: url used to make api request
-     * @param #method: method used to make api request
+     * @param #bodyParams: params to insert in the http body post request
      * any return
      * **/
     public void sendAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
-        setRequestConnection(requestUrl, POST_METHOD);
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
-        
+        setPostAPIRequest(requestUrl, bodyParams);
         sendRequest();
     }
 
-    /** Method to make api request with one mandatory header es. api key and its key header value
+    /** Method to make api request with body params (POST requests) and with one mandatory header es. api key and its key header value
      * @param #requestUrl: url used to make api request
-     * @param #method: method used to make api request
      * @param #headerKey: mandatory header key for the request
      * @param #headerValue: mandatory header value for the request
+     * @param #bodyParams: params to insert in the http body post request
      * any return
      * **/
-    public void sendAPIRequest(String requestUrl, String method, String headerKey, String headerValue) throws IOException {
-        setRequestConnection(requestUrl, method);
+    public void sendAPIRequest(String requestUrl, String headerKey, String headerValue, HashMap<String, Object> bodyParams) throws IOException {
+        setPostAPIRequest(requestUrl, bodyParams);
         httpURLConnection.setRequestProperty(headerKey, headerValue);
         sendRequest();
     }
 
-    /** Method to make api request with many mandatory headers es. api key and its key header value
+    /** Method to make api request with body params (POST requests) and with many mandatory headers es. api key and its key header value
      * @param #requestUrl: url used to make api request
-     * @param #method: method used to make api request
      * @param #headers: mandatory headers key and headers value for the request
+     * @param #bodyParams: params to insert in the http body post request
      * any return
      * **/
-    public void sendAPIRequest(String requestUrl, String method, HashMap<String,String> headers) throws IOException {
-        setRequestConnection(requestUrl, method);
+    public void sendAPIRequest(String requestUrl, HashMap<String,String> headers, HashMap<String, Object> bodyParams) throws IOException {
+        setPostAPIRequest(requestUrl, bodyParams);
         for (String key : headers.keySet())
             httpURLConnection.setRequestProperty(key, headers.get(key));
         sendRequest();
+    }
+
+    private void setPostAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
+        setRequestConnection(requestUrl, POST_METHOD);
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
+        bufferedWriter.write(assembleBodyParams(bodyParams));
+        bufferedWriter.flush();
+        bufferedWriter.close();
     }
 
     /** Method to set up connection by an endpoint
@@ -212,17 +218,27 @@ public class APIRequest {
         return encodeHexString(sha256.doFinal(data.replace("?","").getBytes(UTF_8)));
     }
 
+    /** Method to get params signature of an HTTP request
+     * @param #signatureKey: key bytes used to signature request
+     * @param #data: data to sign
+     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
+     * **/
     public String getBase64Signature(byte[] signatureKey, String data) throws Exception {
         Mac mac = Mac.getInstance("HmacSHA256");
         mac.init(new SecretKeySpec(signatureKey, "HmacSHA256"));
         return Base64.getEncoder().encodeToString(mac.doFinal(data.getBytes()));
     }
 
+    /** Method to get params signature of an HTTP request
+     * @param #signatureKey: key used to signature request
+     * @param #data: data to sign
+     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
+     * **/
     public String getBase64Signature(String signatureKey, String data) throws Exception {
         return getBase64Signature(Base64.getDecoder().decode(signatureKey),data);
     }
 
-    /** Method to assemble a String params of an HTTP request
+    /** Method to assemble a query string params of an HTTP request
      * @param #mandatoryParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
      * @param #extraParams: not mandatory params of request that have to be concatenated (&param2=valueParam2&param3=valueParam3)
      * @return params as {@link String} assembled es. ?param=mandatory1&param2=mandatory2&param2=valueParam2&param3=valueParam3
@@ -246,6 +262,14 @@ public class APIRequest {
         return params.toString();
     }
 
+    /** Method to assemble a body params of an HTTP Post request
+     * @param #bodyParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
+     * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
+     * **/
+    public String assembleBodyParams(HashMap<String, Object> bodyParams){
+        return assembleAdditionalParams(null, bodyParams).replace("?","");
+    }
+
     /** Method to get response of request, already red, without read again {@link HttpURLConnection}'s stream
      * any params required
      * @return response of request as {@link String}
@@ -258,7 +282,7 @@ public class APIRequest {
      * any params required
      * @return response of request formatted as {@link JSONObject} or {@link JSONArray} object
      * **/
-    public Object getJSONResponse() throws IOException {
+    public Object getJSONResponse() {
         return getJSONResponseObject(response);
     }
 
@@ -299,6 +323,10 @@ public class APIRequest {
         }
     }
 
+    /** Method to get status response code of request
+     * any params required
+     * @return response of request as int, if is in error code will be: -1
+     * **/
     public int getResponseStatusCode(){
         try {
             return httpURLConnection.getResponseCode();
