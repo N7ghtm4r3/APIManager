@@ -121,7 +121,7 @@ public class APIRequest {
      * @param #bodyParams: params to insert in the http body post request
      * any return
      * **/
-    public void sendAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
+    public void sendPostAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
         setPostAPIRequest(requestUrl, bodyParams);
         sendRequest();
     }
@@ -133,7 +133,8 @@ public class APIRequest {
      * @param #bodyParams: params to insert in the http body post request
      * any return
      * **/
-    public void sendAPIRequest(String requestUrl, String headerKey, String headerValue, HashMap<String, Object> bodyParams) throws IOException {
+    public void sendPostAPIRequest(String requestUrl, String headerKey, String headerValue, HashMap<String,
+                                    Object> bodyParams) throws IOException {
         setPostAPIRequest(requestUrl, bodyParams);
         httpURLConnection.setRequestProperty(headerKey, headerValue);
         sendRequest();
@@ -145,7 +146,8 @@ public class APIRequest {
      * @param #bodyParams: params to insert in the http body post request
      * any return
      * **/
-    public void sendAPIRequest(String requestUrl, HashMap<String,String> headers, HashMap<String, Object> bodyParams) throws IOException {
+    public void sendPostAPIRequest(String requestUrl, HashMap<String,String> headers,
+                                   HashMap<String, Object> bodyParams) throws IOException {
         setPostAPIRequest(requestUrl, bodyParams);
         for (String key : headers.keySet())
             httpURLConnection.setRequestProperty(key, headers.get(key));
@@ -159,6 +161,7 @@ public class APIRequest {
      * **/
     private void setPostAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
         setRequestConnection(requestUrl, POST_METHOD);
+        httpURLConnection.setDoOutput(true);
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
         bufferedWriter.write(assembleBodyParams(bodyParams));
         bufferedWriter.flush();
