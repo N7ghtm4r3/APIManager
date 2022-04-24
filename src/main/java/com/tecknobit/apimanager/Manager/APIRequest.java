@@ -9,6 +9,8 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 
@@ -276,6 +278,41 @@ public class APIRequest {
      * **/
     public String assembleBodyParams(HashMap<String, Object> bodyParams){
         return assembleAdditionalParams(null, bodyParams).replace("?","");
+    }
+
+    /** Method to concatenate a series of same key param
+     * @param #initialChar: start char of concatenation, can be "" or &
+     * @param #key: key of param to concatenate es. param
+     * @param #params: values of param to concatenate es. value1, value2 as {@link ArrayList}
+     * @return series of params concatenated as {@link String} es. param=value1&param=value2
+     * **/
+    public String concatenateParamsList(String initialChar, String key, ArrayList<Object> params){
+        if(!initialChar.equals("") && !initialChar.equals("&"))
+            throw new IllegalArgumentException("Initial char must be \"\" or &");
+        if(key == null || key.equals(""))
+            throw new IllegalArgumentException("Key cannot be empty or null");
+        StringBuilder paramsConcatenation = new StringBuilder();
+        if(params.size() > 0){
+            for (Object param : params){
+                if(param == null || param.equals(""))
+                    throw new IllegalArgumentException("Param value cannot be null or empty");
+                else
+                    paramsConcatenation.append(initialChar).append(key).append("=").append(param);
+                initialChar = "&";
+            }
+            return paramsConcatenation.toString();
+        }
+        throw new IllegalArgumentException("Params list must contains some values");
+    }
+
+    /** Method to concatenate a series of same key param
+     * @param #initialChar: start char of concatenation, can be "" or &
+     * @param #key: key of param to concatenate es. param
+     * @param #params: values of param to concatenate es. value1, value2 as {@link Object} arrays
+     * @return series of params concatenated as {@link String} es. param=value1&param=value2
+     * **/
+    public String concatenateParamsList(String initialChar, String key, Object[] params){
+        return concatenateParamsList(initialChar, key, new ArrayList<>(Arrays.asList(params)));
     }
 
     /** Method to get response of request, already red, without read again {@link HttpURLConnection}'s stream
