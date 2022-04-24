@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Tools.JsonHelpers;
+package com.tecknobit.apimanager.Tools.Readers;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
