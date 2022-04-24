@@ -36,7 +36,7 @@ public class APIRequest {
 
     /** Constructor to init APIRequest manager
      * @param #defaultErrorResponse error message to return if is not request error
-     * @param #requestTimeout timeout for the requests
+     * @param #requestTimeout timeout for the requests 
      * **/
     public APIRequest(String defaultErrorResponse, int requestTimeout) {
         this.defaultErrorResponse = defaultErrorResponse;
