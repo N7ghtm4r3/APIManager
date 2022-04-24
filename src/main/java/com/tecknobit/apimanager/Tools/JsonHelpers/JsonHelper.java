@@ -21,7 +21,6 @@ public class JsonHelper{
      * **/
     public JsonHelper(JSONObject jsonDetails) {
         this.jsonDetails = jsonDetails;
-        
     }
 
     /** Method to get from jsonObject a string value
