@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27sEyV3aAYrD7xoLG1wklgpbIVl" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.DirectoryMappings" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="" />
+      <created>1650100650185</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1650100650185</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Load first file">
+      <created>1650101272556</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1650101272556</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Load first file">
+      <created>1650102769746</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1650102769746</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Load first file">
+      <created>1650103790442</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1650103790442</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Load first file">
+      <created>1650110657174</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1650110657174</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Load first file">
+      <created>1650113411874</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1650113411874</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Load first test version APIManager">
+      <created>1650115315180</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1650115315180</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Load first test version APIManager">
+      <created>1650115326295</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1650115326295</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Load first test version APIManager">
+      <created>1650116183966</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1650116183966</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Load first test version APIManager">
+      <created>1650116883209</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1650116883209</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Load first test version APIManager">
+      <created>1650117475767</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1650117475767</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Load first test version APIManager">
+      <created>1650117690223</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1650117690223</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Load first test version APIManager">
+      <created>1650118298159</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1650118298159</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Load first test version APIManager">
+      <created>1650122387721</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1650122387721</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Load first test version APIManager">
+      <created>1650123553230</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1650123553230</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Load first test version APIManager">
+      <created>1650124749158</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1650124749158</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Load first release version of Tecknobit APIManager">
+      <created>1650125605040</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1650125605040</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Load first release version of Tecknobit APIManager">
+      <created>1650460827007</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1650460827007</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Fix some issues and add some methods like send a post request and signature a message in base64 form">
+      <created>1650462532995</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1650462532995</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fix some issues and add some methods like send a post request and signature a message in base64 form">
+      <created>1650462956320</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1650462956320</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Fix some issues and add some methods like send a post request and signature a message in base64 form">
+      <created>1650465613856</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1650465613856</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Fix some issues and add some methods like send a post request and signature a message in base64 form">
+      <created>1650465621006</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1650465621006</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Fix some issues and add some methods like send a post request and signature a message in base64 form">
+      <created>1650804487065</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1650804487065</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Add JsonHelper tool class&#10;Add concatenate same param in a single string method">
+      <created>1650804658188</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1650804658188</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Add JsonHelper tool class&#10;Add concatenate same param in a single string method">
+      <created>1650804669001</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1650804669001</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Add JsonHelper tool class&#10;Add concatenate same param in a single string method">
+      <created>1650804921541</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1650804921541</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Add JsonHelper tool class&#10;Add concatenate same param in a single string method">
+      <created>1650811392343</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1650811392343</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Add JsonHelper tool class&#10;Add concatenate same param in a single string method">
+      <created>1651256726728</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1651256726728</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/APIManager" />
+    </ignored-roots>
+    <MESSAGE value="Load first file" />
+    <MESSAGE value="Load first test version APIManager" />
+    <MESSAGE value="Load first release version of Tecknobit APIManager" />
+    <MESSAGE value="Fix some issues and add some methods like send a post request and signature a message in base64 form" />
+    <MESSAGE value="Add JsonHelper tool class&#10;Add concatenate same param in a single string method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add JsonHelper tool class&#10;Add concatenate same param in a single string method" />
+  </component>
+</project>
