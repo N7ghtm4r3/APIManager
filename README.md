@@ -161,4 +161,6 @@ If you want support project and developer: **0x5f63cc6d13b16dcf39cd8083f21d50151
 ![](https://img.shields.io/badge/Bitcoin-000000?style=for-the-badge&logo=bitcoin&logoColor=white) 
 ![](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)
 
+If you want support project and developer with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">PayPal</a>
+
 Copyright © 2022 Tecknobit
