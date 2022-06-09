@@ -13,8 +13,8 @@ import static java.lang.String.format;
 public class TradingTools {
 
     /** Method to get percent between two values
-     * @param #startValue: first value to make compare
-     * @param #lastValue: last value to compare and get percent by first value
+     * @param startValue: first value to make compare
+     * @param lastValue: last value to compare and get percent by first value
      * @return percent value as double es. 8 or -8
      * @throws IllegalArgumentException if startValue or lastValue are negative
      * **/
@@ -25,9 +25,9 @@ public class TradingTools {
     }
 
     /** Method to get percent between two values and round it
-     * @param #startValue: first value to make compare
-     * @param #lastValue: last value to compare and get percent by first value
-     * @param #decimalDigits: number of digits to round final percent value
+     * @param startValue: first value to make compare
+     * @param lastValue: last value to compare and get percent by first value
+     * @param decimalDigits: number of digits to round final percent value
      * @return percent value as double es. 8 or -8
      * @throws IllegalArgumentException if startValue or lastValue are negative
      * **/
@@ -40,8 +40,8 @@ public class TradingTools {
     }
 
     /** Method to get percent between two values and textualize it
-     * @param #startValue: first value to make compare
-     * @param #lastValue: last value to compare and get percent by first value
+     * @param startValue: first value to make compare
+     * @param lastValue: last value to compare and get percent by first value
      * @return percent value es. +8% or -8% as {@link String}
      * **/
     public String textualizeAssetPercent(double startValue, double lastValue){
@@ -49,9 +49,9 @@ public class TradingTools {
     }
 
     /** Method to get percent between two values and textualize it
-     * @param #startValue: first value to make compare
-     * @param #lastValue: last value to compare and get percent by first value
-     * @param #decimalDigits: number of digits to round final percent value
+     * @param startValue: first value to make compare
+     * @param lastValue: last value to compare and get percent by first value
+     * @param decimalDigits: number of digits to round final percent value
      * @return percent value es. +8% or -8% as {@link String}
      * **/
     public String textualizeAssetPercent(double startValue, double lastValue, int decimalDigits){
@@ -59,7 +59,7 @@ public class TradingTools {
     }
 
     /** Method to format percent between two values and textualize it
-     * @param #percent: value to format
+     * @param percent: value to format
      * @return percent value formatted es. +8% or -8% as {@link String}
      * **/
     public String textualizeAssetPercent(double percent){
@@ -71,9 +71,18 @@ public class TradingTools {
             return "=" + percent + "%";
     }
 
+    /** Method to format percent between two values and textualize it
+     * @param percent: value to format
+     * @param decimalDigits: number of digits to round final value
+     * @return percent value formatted es. +8% or -8% as {@link String}
+     * **/
+    public String textualizeAssetPercent(double percent, int decimalDigits){
+        return textualizeAssetPercent(roundValue(percent, decimalDigits));
+    }
+
     /** Method to round a value
-     * @param #value: value to round
-     * @param #decimalDigits: number of digits to round final value
+     * @param value: value to round
+     * @param decimalDigits: number of digits to round final value
      * @return value rounded with decimalDigits inserted
      * @throws IllegalArgumentException if decimalDigits is negative
      * **/
@@ -84,10 +93,10 @@ public class TradingTools {
     }
 
     /** Method to get forecast of an asset in base of days's gap inserted
-     * @param #historicalValues: previous values of asset used to compute forecast
-     * @param #lastValue: last value of the asset to compare and fetch forecast
-     * @param #intervalDays: days gap for the forecast range
-     * @param #offsetRange: tolerance for select similar value compared to lastValue inserted
+     * @param historicalValues: previous values of asset used to compute forecast
+     * @param lastValue: last value of the asset to compare and fetch forecast
+     * @param intervalDays: days gap for the forecast range
+     * @param offsetRange: tolerance for select similar value compared to lastValue inserted
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
      * **/
@@ -100,11 +109,11 @@ public class TradingTools {
     }
 
     /** Method to get forecast of an asset in base of days's gap inserted and round it
-     * @param #historicalValues: previous values of asset used to compute forecast
-     * @param #lastValue: last value of the asset to compare and fetch forecast
-     * @param #intervalDays: days gap for the forecast range
-     * @param #offsetRange: tolerance for select similar value compared to lastValue inserted
-     * @param #decimalDigits: number of digits to round final forecast value
+     * @param historicalValues: previous values of asset used to compute forecast
+     * @param lastValue: last value of the asset to compare and fetch forecast
+     * @param intervalDays: days gap for the forecast range
+     * @param offsetRange: tolerance for select similar value compared to lastValue inserted
+     * @param decimalDigits: number of digits to round final forecast value
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
      * **/
@@ -114,10 +123,10 @@ public class TradingTools {
     }
 
     /** Method to get forecast of an asset in base of days's gap inserted
-     * @param #historicalValues: previous values of asset used to compute forecast
-     * @param #lastValue: last value of the asset to compare and fetch forecast
-     * @param #intervalDays: days gap for the forecast range
-     * @param #offsetRange: tolerance for select similar value compared to lastValue inserted
+     * @param historicalValues: previous values of asset used to compute forecast
+     * @param lastValue: last value of the asset to compare and fetch forecast
+     * @param intervalDays: days gap for the forecast range
+     * @param offsetRange: tolerance for select similar value compared to lastValue inserted
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
      * **/
@@ -144,11 +153,11 @@ public class TradingTools {
     }
 
     /** Method to get forecast of an asset in base of days's gap inserted and round it
-     * @param #historicalValues: previous values of asset used to compute forecast
-     * @param #lastValue: last value of the asset to compare and fetch forecast
-     * @param #intervalDays: days gap for the forecast range
-     * @param #offsetRange: tolerance for select similar value compared to lastValue inserted
-     * @param #decimalDigits: number of digits to round final forecast value
+     * @param historicalValues: previous values of asset used to compute forecast
+     * @param lastValue: last value of the asset to compare and fetch forecast
+     * @param intervalDays: days gap for the forecast range
+     * @param offsetRange: tolerance for select similar value compared to lastValue inserted
+     * @param decimalDigits: number of digits to round final forecast value
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
      * **/
