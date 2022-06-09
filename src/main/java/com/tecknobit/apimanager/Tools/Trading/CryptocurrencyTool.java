@@ -125,5 +125,5 @@ public class CryptocurrencyTool {
         }
         return null;
     }
-    
+
 }
