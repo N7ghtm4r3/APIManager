@@ -17,14 +17,14 @@ public class JsonHelper{
     private final JSONObject jsonDetails;
 
     /** Constructor to init JsonHelper tool class
-     * @param #jsonDetails: jsonObject used to fetch data
+     * @param jsonDetails: jsonObject used to fetch data
      * **/
     public JsonHelper(JSONObject jsonDetails) {
         this.jsonDetails = jsonDetails;
     }
 
     /** Method to get from jsonObject a string value
-     * @param #key: key of string value to get from json
+     * @param key: key of string value to get from json
      * @return value as {@link String}, if it is not exist will return null value
      * **/
     public String getString(String key){
@@ -36,7 +36,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject a double value
-     * @param #key: key of double value to get from json
+     * @param key: key of double value to get from json
      * @return value as double, if it is not exist will return -1 value
      * **/
     public double getDouble(String key){
@@ -48,7 +48,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject an int value
-     * @param #key: key of int value to get from json
+     * @param key: key of int value to get from json
      * @return value as int, if it is not exist will return -1 value
      * **/
     public int getInt(String key){
@@ -60,7 +60,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject a float value
-     * @param #key: key of float value to get from json
+     * @param key: key of float value to get from json
      * @return value as float, if it is not exist will return -1 value
      * **/
     public float getFloat(String key){
@@ -72,7 +72,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject a long value
-     * @param #key: key of long value to get from json
+     * @param key: key of long value to get from json
      * @return value as long, if it is not exist will return -1 value
      * **/
     public long getLong(String key){
@@ -84,7 +84,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject a BigDecimal value
-     * @param #key: key of BigDecimal value to get from json
+     * @param key: key of BigDecimal value to get from json
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
     public BigDecimal getBigDecimal(String key){
@@ -96,7 +96,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject a BigInteger value
-     * @param #key: key of BigInteger value to get from json
+     * @param key: key of BigInteger value to get from json
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
     public BigInteger getBigInteger(String key){
@@ -108,7 +108,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject a Number value
-     * @param #key: key of Number value to get from json
+     * @param key: key of Number value to get from json
      * @return value as {@link Number}, if it is not exist will return null value
      * **/
     public Number getNumber(String key){
@@ -120,7 +120,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject a Object value
-     * @param #key: key of Object value to get from json
+     * @param key: key of Object value to get from json
      * @return value as {@link Object}, if it is not exist will return null value
      * **/
     public Object get(String key){
@@ -132,7 +132,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject a boolean value
-     * @param #key: key of boolean value to get from json
+     * @param key: key of boolean value to get from json
      * @return value as boolean, if it is not exist will return false value
      * **/
     public boolean getBoolean(String key){
@@ -144,7 +144,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject  a list of values
-     * @param #key: key of JSONArray to get from json
+     * @param key: key of JSONArray to get from json
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * **/
     public JSONArray getJSONArray(String key){
@@ -156,7 +156,7 @@ public class JsonHelper{
     }
 
     /** Method to get from jsonObject a jsonObject
-     * @param #key: key of JSONObject to get from json
+     * @param key: key of JSONObject to get from json
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
     public JSONObject getJSONObject(String key){

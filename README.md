@@ -1,5 +1,5 @@
 # APIManager
-**v1.0.2**
+**v1.0.4**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -23,7 +23,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	implementation 'com.github.N7ghtm4r3:APIManager:1.0.2'
+    implementation 'com.github.N7ghtm4r3:APIManager:1.0.4'
 }
 ```
 
@@ -45,7 +45,7 @@ dependencies {
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
     <artifactId>APIManager</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 
@@ -136,6 +136,26 @@ try {
   and you will have to work on your code to manage error, you can customize that message*/
 
 ```
+
+### Android's implementation
+
+To use this library on Android you must follow two simple steps:
+
+- Add permission to AndroidManifest file
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+
+```
+
+- Create a single one strict detector
+
+```java
+StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+StrictMode.setThreadPolicy(policy);
+
+```
+
 ## 🛠 Skills
 - Java
 
@@ -160,5 +180,7 @@ If you want support project and developer: **0x5f63cc6d13b16dcf39cd8083f21d50151
 
 ![](https://img.shields.io/badge/Bitcoin-000000?style=for-the-badge&logo=bitcoin&logoColor=white) 
 ![](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)
+
+If you want support project and developer with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">PayPal</a>
 
 Copyright © 2022 Tecknobit
