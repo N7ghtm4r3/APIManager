@@ -148,7 +148,7 @@ To use this library on Android you must follow two simple steps:
 
 ```
 
-- Create a single one strict detector:
+- Create a single one strict detector
 
 ```java
 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
