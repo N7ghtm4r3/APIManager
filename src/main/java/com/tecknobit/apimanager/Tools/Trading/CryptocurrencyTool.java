@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * The {@code CryptocurrencyTool} class is a useful class tool that help work with cryptocurrencies details. <br>
@@ -22,6 +21,11 @@ public class CryptocurrencyTool {
      * {@code coins} is the instance that contains cryptocurrencies details
      * **/
     private final JSONArray coins;
+
+    /**
+     * {@code COINS_PATH} is the instance that contains path of file for load {@link #coins} map
+     * **/
+    private static final String COINS_PATH = "src/main/java/com/tecknobit/apimanager/resources/coins.json";
 
     /**
      * {@code SYMBOL_KEY} is the instance that contains symbol key for {@link #coins} map
@@ -55,8 +59,7 @@ public class CryptocurrencyTool {
      * @return map loaded as {@link String}
      * **/
     private String loadCoinsMap() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
-                getClass().getResourceAsStream("coins.json")));
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(COINS_PATH));
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         while ((line = bufferedReader.readLine()) != null)
