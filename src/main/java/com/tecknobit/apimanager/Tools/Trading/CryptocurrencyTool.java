@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * The {@code CryptocurrencyTool} class is a useful class tool that help work with cryptocurrencies details. <br>
@@ -54,7 +55,8 @@ public class CryptocurrencyTool {
      * @return map loaded as {@link String}
      * **/
     private String loadCoinsMap() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader("coins.json"));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.getClass()
+                .getResourceAsStream("coins.json")));
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         while ((line = bufferedReader.readLine()) != null)
