@@ -52,6 +52,7 @@ dependencies {
 ## Tools available
 
 - **Trading tools** allow you to calculate things like percent, forecast of an asset, etc
+- **Cryptocurrency tool** allow you to fetch details about one coin like name, index, logo image and other
 
 The other tools will be gradually released
 
