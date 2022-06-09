@@ -123,7 +123,7 @@ public class CryptocurrencyTool {
             JSONObject coin = coins.getJSONObject(j);
             if(coin.getString(researchKey).equals(researchValue))
                 return coin.getString(keyToFetch);
-        }
+        } /**a*/
         return null;
     }
 
