@@ -54,7 +54,7 @@ public class CryptocurrencyTool {
      * @return map loaded as {@link String}
      * **/
     private String loadCoinsMap() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/coins.json"));
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("coins.json"));
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         while ((line = bufferedReader.readLine()) != null)
