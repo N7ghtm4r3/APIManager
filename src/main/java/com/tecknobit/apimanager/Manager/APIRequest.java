@@ -24,19 +24,54 @@ import static org.apache.commons.codec.binary.Hex.encodeHexString;
 
 public class APIRequest {
 
+    /**
+     * {@code GET_METHOD} is the instance that contains GET method for HTTP requests
+     * **/
     public static final String GET_METHOD = "GET";
+
+    /**
+     * {@code POST_METHOD} is the instance that contains POST method for HTTP requests
+     * **/
     public static final String POST_METHOD = "POST";
+
+    /**
+     * {@code DELETE_METHOD} is the instance that contains DELETE method for HTTP requests
+     * **/
     public static final String DELETE_METHOD = "DELETE";
+
+    /**
+     * {@code PUT_METHOD} is the instance that contains PUT method for HTTP requests
+     * **/
     public static final String PUT_METHOD = "PUT";
+
+    /**
+     * {@code httpURLConnection} is the instance for all requests
+     * **/
     private HttpURLConnection httpURLConnection;
+
+    /**
+     * {@code defaultErrorResponse} is the instance that contains default error message
+     * **/
     private String defaultErrorResponse;
+
+    /**
+     * {@code errorResponse} is the instance that contains error message from request
+     * **/
     private String errorResponse;
+
+    /**
+     * {@code response} is the instance that contains response message from request
+     * **/
     private String response;
+
+    /**
+     * {@code requestTimeout} is the instance that contains time to keep alive request
+     * **/
     private int requestTimeout;
 
     /** Constructor to init APIRequest manager
-     * @param #defaultErrorResponse error message to return if is not request error
-     * @param #requestTimeout timeout for the requests 
+     * @param defaultErrorResponse error message to return if is not request error
+     * @param requestTimeout timeout for the requests 
      * **/
     public APIRequest(String defaultErrorResponse, int requestTimeout) {
         this.defaultErrorResponse = defaultErrorResponse;
@@ -44,14 +79,14 @@ public class APIRequest {
     }
 
     /** Constructor to init APIRequest manager
-     * @param #defaultErrorResponse error message to return if is not request error
+     * @param defaultErrorResponse error message to return if is not request error
      * **/
     public APIRequest(String defaultErrorResponse) {
         this.defaultErrorResponse = defaultErrorResponse;
     }
 
     /** Constructor to init APIRequest manager
-     * @param #requestTimeout timeout for the requests
+     * @param requestTimeout timeout for the requests
      * **/
     public APIRequest(int requestTimeout) {
         this.requestTimeout = requestTimeout;
@@ -67,7 +102,7 @@ public class APIRequest {
     }
 
     /** Method to set programmatically timeout for the request
-     * @param #requestTimeout: timeout for the requests
+     * @param requestTimeout: timeout for the requests
      * any return
      * **/
     public void setRequestTimeout(int requestTimeout) {
@@ -75,7 +110,7 @@ public class APIRequest {
     }
 
     /** Method to set programmatically default error message to return if is not request error
-     * @param #defaultErrorResponse: error message to return if is not request error
+     * @param defaultErrorResponse: error message to return if is not request error
      * any return
      * **/
     public void setDefaultErrorResponse(String defaultErrorResponse) {
@@ -83,8 +118,8 @@ public class APIRequest {
     }
 
     /** Method to make api request
-     * @param #requestUrl: url used to make api request
-     * @param #method: method used to make api request
+     * @param requestUrl: url used to make api request
+     * @param method: method used to make api request
      * any return
      * **/
     public void sendAPIRequest(String requestUrl, String method) throws IOException {
@@ -93,10 +128,10 @@ public class APIRequest {
     }
 
     /** Method to make api request with one mandatory header es. api key and its key header value
-     * @param #requestUrl: url used to make api request
-     * @param #method: method used to make api request
-     * @param #headerKey: mandatory header key for the request
-     * @param #headerValue: mandatory header value for the request
+     * @param requestUrl: url used to make api request
+     * @param method: method used to make api request
+     * @param headerKey: mandatory header key for the request
+     * @param headerValue: mandatory header value for the request
      * any return
      * **/
     public void sendAPIRequest(String requestUrl, String method, String headerKey, String headerValue) throws IOException {
@@ -106,9 +141,9 @@ public class APIRequest {
     }
 
     /** Method to make api request with many mandatory headers es. api key and its key header value
-     * @param #requestUrl: url used to make api request
-     * @param #method: method used to make api request
-     * @param #headers: mandatory headers key and headers value for the request
+     * @param requestUrl: url used to make api request
+     * @param method: method used to make api request
+     * @param headers: mandatory headers key and headers value for the request
      * any return
      * **/
     public void sendAPIRequest(String requestUrl, String method, HashMap<String, String> headers) throws IOException {
@@ -119,8 +154,8 @@ public class APIRequest {
     }
 
     /** Method to make api request with body params (POST requests)
-     * @param #requestUrl: url used to make api request
-     * @param #bodyParams: params to insert in the http body post request
+     * @param requestUrl: url used to make api request
+     * @param bodyParams: params to insert in the http body post request
      * any return
      * **/
     public void sendPostAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
@@ -129,10 +164,10 @@ public class APIRequest {
     }
 
     /** Method to make api request with body params (POST requests) and with one mandatory header es. api key and its key header value
-     * @param #requestUrl: url used to make api request
-     * @param #headerKey: mandatory header key for the request
-     * @param #headerValue: mandatory header value for the request
-     * @param #bodyParams: params to insert in the http body post request
+     * @param requestUrl: url used to make api request
+     * @param headerKey: mandatory header key for the request
+     * @param headerValue: mandatory header value for the request
+     * @param bodyParams: params to insert in the http body post request
      * any return
      * **/
     public void sendPostAPIRequest(String requestUrl, String headerKey, String headerValue, HashMap<String,
@@ -143,9 +178,9 @@ public class APIRequest {
     }
 
     /** Method to make api request with body params (POST requests) and with many mandatory headers es. api key and its key header value
-     * @param #requestUrl: url used to make api request
-     * @param #headers: mandatory headers key and headers value for the request
-     * @param #bodyParams: params to insert in the http body post request
+     * @param requestUrl: url used to make api request
+     * @param headers: mandatory headers key and headers value for the request
+     * @param bodyParams: params to insert in the http body post request
      * any return
      * **/
     public void sendPostAPIRequest(String requestUrl, HashMap<String,String> headers,
@@ -157,8 +192,8 @@ public class APIRequest {
     }
 
     /** Method to set up a post HTTP reques
-     * @param #requestUrl: url used to make api request
-     * @param #bodyParams: params to insert in the http body post request
+     * @param requestUrl: url used to make api request
+     * @param bodyParams: params to insert in the http body post request
      * any return
      * **/
     private void setPostAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
@@ -171,8 +206,8 @@ public class APIRequest {
     }
 
     /** Method to set up connection by an endpoint
-     * @param #requestUrl: url used to make HTTP request
-     * @param #method: method used to make HTTP request
+     * @param requestUrl: url used to make HTTP request
+     * @param method: method used to make HTTP request
      * any return
      * **/
     private void setRequestConnection(String requestUrl, String method) throws IOException {
@@ -218,8 +253,8 @@ public class APIRequest {
     }
 
     /** Method to get params signature of an HTTP request
-     * @param #signatureKey: key used to signature request
-     * @param #data: data to sign
+     * @param signatureKey: key used to signature request
+     * @param data: data to sign
      * @return signature es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4"
      * **/
     public String getSignature(String signatureKey, String data) throws Exception {
@@ -229,8 +264,8 @@ public class APIRequest {
     }
 
     /** Method to get params signature of an HTTP request
-     * @param #signatureKey: key bytes used to signature request
-     * @param #data: data to sign
+     * @param signatureKey: key bytes used to signature request
+     * @param data: data to sign
      * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
      * **/
     public String getBase64Signature(byte[] signatureKey, String data) throws Exception {
@@ -240,8 +275,8 @@ public class APIRequest {
     }
 
     /** Method to get params signature of an HTTP request
-     * @param #signatureKey: key used to signature request
-     * @param #data: data to sign
+     * @param signatureKey: key used to signature request
+     * @param data: data to sign
      * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
      * **/
     public String getBase64Signature(String signatureKey, String data) throws Exception {
@@ -249,8 +284,8 @@ public class APIRequest {
     }
 
     /** Method to assemble a query string params of an HTTP request
-     * @param #mandatoryParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
-     * @param #extraParams: not mandatory params of request that have to be concatenated (&param2=valueParam2&param3=valueParam3)
+     * @param mandatoryParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
+     * @param extraParams: not mandatory params of request that have to be concatenated (&param2=valueParam2&param3=valueParam3)
      * @return params as {@link String} assembled es. ?param=mandatory1&param2=mandatory2&param2=valueParam2&param3=valueParam3
      * **/
     public String assembleAdditionalParams(String mandatoryParams, HashMap<String, Object> extraParams){
@@ -273,7 +308,7 @@ public class APIRequest {
     }
 
     /** Method to assemble a body params of an HTTP Post request
-     * @param #bodyParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
+     * @param bodyParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
      * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
      * **/
     public String assembleBodyParams(HashMap<String, Object> bodyParams){
@@ -281,9 +316,9 @@ public class APIRequest {
     }
 
     /** Method to concatenate a series of same key param
-     * @param #initialChar: start char of concatenation, can be "" or &
-     * @param #key: key of param to concatenate es. param
-     * @param #params: values of param to concatenate es. value1, value2 as {@link ArrayList}
+     * @param initialChar: start char of concatenation, can be "" or &
+     * @param key: key of param to concatenate es. param
+     * @param params: values of param to concatenate es. value1, value2 as {@link ArrayList}
      * @return series of params concatenated as {@link String} es. param=value1&param=value2
      * **/
     public String concatenateParamsList(String initialChar, String key, ArrayList<Object> params){
@@ -306,9 +341,9 @@ public class APIRequest {
     }
 
     /** Method to concatenate a series of same key param
-     * @param #initialChar: start char of concatenation, can be "" or &
-     * @param #key: key of param to concatenate es. param
-     * @param #params: values of param to concatenate es. value1, value2 as {@link Object} arrays
+     * @param initialChar: start char of concatenation, can be "" or &
+     * @param key: key of param to concatenate es. param
+     * @param params: values of param to concatenate es. value1, value2 as {@link Object} arrays
      * @return series of params concatenated as {@link String} es. param=value1&param=value2
      * **/
     public String concatenateParamsList(String initialChar, String key, Object[] params){
@@ -327,7 +362,7 @@ public class APIRequest {
      * any params required
      * @return response of request formatted as {@link JSONObject} or {@link JSONArray} object
      * **/
-    public Object getJSONResponse() {
+    public <T> T getJSONResponse() {
         return getJSONResponseObject(response);
     }
 
@@ -347,24 +382,24 @@ public class APIRequest {
      * @return error response of request formatted as {@link JSONObject} or {@link JSONArray} object or defaultErrorResponse
      * as {@link String} if is not a request error
      * **/
-    public Object getJSONErrorResponse() {
+    public <T> T getJSONErrorResponse() {
         if(errorResponse == null)
-            return defaultErrorResponse;
+            return (T) defaultErrorResponse;
         return getJSONResponseObject(errorResponse);
     }
 
     /** Method to get JSON object of response of request, already red, without read again {@link HttpURLConnection}'s stream
-     * @param #response: success response or errorResponse
+     * @param response: success response or errorResponse
      * @return response of request formatted as {@link JSONObject} or {@link JSONArray} object
      * @throws JSONException if is not a JSON format response and return response as {@link String}
      * **/
-    private Object getJSONResponseObject(String response){
+    private <T> T getJSONResponseObject(String response){
         try {
             if(response.startsWith("["))
-                return new JSONArray(response);
-            return new JSONObject(response);
+                return (T) new JSONArray(response);
+            return (T) new JSONObject(response);
         }catch (JSONException e){
-            return response;
+            return (T) response;
         }
     }
 
