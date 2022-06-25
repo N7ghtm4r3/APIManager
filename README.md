@@ -1,5 +1,5 @@
 # APIManager
-**v1.0.4**
+**v1.0.5**
 
 This is a Java Based library useful to work with all json api services.
 
