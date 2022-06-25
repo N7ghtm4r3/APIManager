@@ -10,8 +10,6 @@ import java.io.InputStreamReader;
 /**
  * The {@code CryptocurrencyTool} class is a useful class tool that help work with cryptocurrencies details. <br>
  * This tool help to get image logo of a crypto, get full name of a crypto or get symbol of a crypto. <br>
- * @implNote this tool is based on the official Github library <a href="https://github.com/ErikThiart/cryptocurrency-icons">https://github.com/ErikThiart/cryptocurrency-icons</a>
- * from where cryptocurrencies details have been taken.
  * @author Tecknobit N7ghtm4r3
  * **/
 
@@ -21,11 +19,6 @@ public class CryptocurrencyTool {
      * {@code coins} is the instance that contains cryptocurrencies details
      * **/
     private final JSONArray coins;
-
-    /**
-     * {@code COINS_PATH} is the instance that contains path of file for load {@link #coins} map
-     * **/
-    private static final String COINS_PATH = "src/main/resources/coins.json";
 
     /**
      * {@code SYMBOL_KEY} is the instance that contains symbol key for {@link #coins} map
@@ -41,11 +34,6 @@ public class CryptocurrencyTool {
      * {@code IMAGE_URL_KEY} is the instance that contains image url key for {@link #coins} map
      * **/
     private static final String IMAGE_URL_KEY = "img_url";
-
-    /**
-     * {@code SLUG_KEY} is the instance that contains slug key for {@link #coins} map
-     * **/
-    private static final String SLUG_KEY = "slug";
 
     /** Constructor to init APIRequest manager <br>
      * Any params required
@@ -100,22 +88,6 @@ public class CryptocurrencyTool {
         return getValue(NAME_KEY, name, IMAGE_URL_KEY);
     }
 
-    /** Method to fetch cryptocurrency slug by cryptocurrency symbol
-     * @param symbol: name of the cryptocurrency to fetch slug es. BTC
-     * @return slug of the cryptocurrency
-     * **/
-    public String getSlugBySymbol(String symbol){
-        return getValue(SYMBOL_KEY, symbol, SLUG_KEY);
-    }
-
-    /** Method to fetch cryptocurrency slug by cryptocurrency name
-     * @param name: name of the cryptocurrency to fetch slug es. Bitcoin
-     * @return slug of the cryptocurrency
-     * **/
-    public String getSlugByName(String name){
-        return getValue(NAME_KEY, name, SLUG_KEY);
-    }
-
     /** Method to fetch detail from coins map
      * @param researchKey: key used to research the compare key
      * @param researchValue: value of researchKey
@@ -123,9 +95,10 @@ public class CryptocurrencyTool {
      * @return value of keyToFetch if exists as {@link String} and null if not exists
      * **/
     private String getValue(String researchKey, String researchValue, String keyToFetch){
+        researchValue = researchValue.toLowerCase();
         for (int j=0; j < coins.length(); j++){
             JSONObject coin = coins.getJSONObject(j);
-            if(coin.getString(researchKey).equals(researchValue))
+            if(coin.getString(researchKey).toLowerCase().equals(researchValue))
                 return coin.getString(keyToFetch);
         }
         return null;
