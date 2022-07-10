@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'tecknobit.com'
-version '1.0.5'
+version '1.0.6'
 
 repositories {
     mavenCentral()
@@ -16,6 +16,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     implementation(group: 'commons-codec', name: 'commons-codec', version: '1.9')
     implementation 'org.json:json:20220320'
+    implementation 'org.jsoup:jsoup:1.14.3'
 }
 
 publishing {
@@ -23,7 +24,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.tecknobit.apimanager'
             artifactId = 'APIManager'
-            version = '1.0.5'
+            version = '1.0.6'
             from components.java
         }
     }
