@@ -391,7 +391,7 @@ public class APIRequest {
     /** Method to get JSON object of response of request, already red, without read again {@link HttpURLConnection}'s stream
      * @param response: success response or errorResponse
      * @return response of request formatted as {@link JSONObject} or {@link JSONArray} object
-     * @throws JSONException if is not a JSON format response and return response as {@link String}
+     * @throws JSONException if is not a JSON sNotationParse response and return response as {@link String}
      * **/
     private <T> T getJSONResponseObject(String response){
         try {

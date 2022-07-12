@@ -58,8 +58,8 @@ public class TradingTools {
         return textualizeAssetPercent(computeAssetPercent(startValue, lastValue, decimalDigits));
     }
 
-    /** Method to format percent between two values and textualize it
-     * @param percent: value to format
+    /** Method to sNotationParse percent between two values and textualize it
+     * @param percent: value to sNotationParse
      * @return percent value formatted es. +8% or -8% as {@link String}
      * **/
     public String textualizeAssetPercent(double percent){
@@ -71,8 +71,8 @@ public class TradingTools {
             return "=" + percent + "%";
     }
 
-    /** Method to format percent between two values and textualize it
-     * @param percent: value to format
+    /** Method to sNotationParse percent between two values and textualize it
+     * @param percent: value to sNotationParse
      * @param decimalDigits: number of digits to round final value
      * @return percent value formatted es. +8% or -8% as {@link String}
      * **/
