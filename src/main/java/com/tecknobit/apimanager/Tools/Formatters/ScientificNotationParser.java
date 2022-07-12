@@ -21,7 +21,10 @@ public abstract class ScientificNotationParser {
             String number = valueOf(value);
             if(number.contains("E")) {
                 int zeroCounter = parseInt(number.split("-")[1]);
-                return "0." + "0".repeat(zeroCounter - 1) + "" + valueOf((double)value * Math.pow(10, zeroCounter))
+                StringBuilder zeroBuffer = new StringBuilder();
+                for (int j=0; j < zeroCounter - 1; j++)
+                    zeroBuffer.append("0");
+                return "0." + zeroBuffer + valueOf((double)value * Math.pow(10, zeroCounter))
                         .replace(".", "");
             }else {
                 int integers = number.split("\\.")[0].length();
