@@ -377,6 +377,13 @@ public class APIRequest {
         return errorResponse;
     }
 
+    /** Method to print error response of request, already red, without read again {@link HttpURLConnection}'s stream <br>
+     * Any params required
+     * **/
+    public void printErrorResponse(){
+        System.out.println(getErrorResponse());
+    }
+
      /** Method to get error response of request, already red, without read again {@link HttpURLConnection}'s stream
      * any params required
      * @return error response of request formatted as {@link JSONObject} or {@link JSONArray} object or defaultErrorResponse
@@ -401,6 +408,20 @@ public class APIRequest {
         }catch (JSONException e){
             return (T) response;
         }
+    }
+
+    /** Method to print error response of request, already red, without read again {@link HttpURLConnection}'s stream <br>
+     * @implNote response will be printed in JSON format or in a simple {@link String} format
+     * Any params required
+     * **/
+    public <T> void printJSONErrorResponse(){
+        T jsonResponse = getJSONResponse();
+        if(jsonResponse instanceof JSONObject)
+            System.out.println(((JSONObject) jsonResponse).toString(4));
+        else if (jsonResponse instanceof JSONArray)
+            System.out.println(((JSONArray) jsonResponse).toString(4));
+        else
+            System.out.println(jsonResponse);
     }
 
     /** Method to get status response code of request
