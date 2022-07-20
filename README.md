@@ -65,7 +65,7 @@ The other tools will be gradually released
 APIRequest apiRequest = new APIRequest();
 
 try {
-    apiRequest.sendAPIRequest("urlOfRequest",APIRequest.GET_METHOD);
+    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD);
 } catch (IOException e) {
     e.printStackTrace();
 }
@@ -79,18 +79,18 @@ APIRequest apiRequest = new APIRequest();
 
 // single header requests
 try {
-    apiRequest.sendAPIRequest("urlOfRequest",APIRequest.GET_METHOD,"keyHeader","valueHeader");
+    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD, "keyHeader", "valueHeader");
 } catch (IOException e) {
     e.printStackTrace();
 }
 
 // multiple headers requests
 HashMap<String, String> headers = new HashMap<>();
-headers.put("header1","value1");
-headers.put("header2","value2");
+headers.put("header1", "value1");
+headers.put("header2", "value2");
 APIRequest apiRequest = new APIRequest();
 try {
-    apiRequest.sendAPIRequest("urlOfRequest",APIRequest.GET_METHOD,headers);
+    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD, headers);
 } catch (IOException e) {
     e.printStackTrace();
 }
@@ -130,7 +130,7 @@ try {
 
 ```java
 try {
-    System.out.println(apiRequest.sendAPIRequest("urlOfRequest",APIRequest.GET_METHOD););
+    System.out.println(apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD););
 } catch (Exception e) {
     System.out.println(apiRequest.getErrorResponse());
 }
