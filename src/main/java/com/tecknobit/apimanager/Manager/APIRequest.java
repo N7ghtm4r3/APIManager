@@ -103,7 +103,6 @@ public class APIRequest {
 
     /** Method to set programmatically timeout for the request
      * @param requestTimeout: timeout for the requests
-     * any return
      * **/
     public void setRequestTimeout(int requestTimeout) {
         this.requestTimeout = requestTimeout;
@@ -111,7 +110,6 @@ public class APIRequest {
 
     /** Method to set programmatically default error message to return if is not request error
      * @param defaultErrorResponse: error message to return if is not request error
-     * any return
      * **/
     public void setDefaultErrorResponse(String defaultErrorResponse) {
         this.defaultErrorResponse = defaultErrorResponse;
@@ -120,7 +118,6 @@ public class APIRequest {
     /** Method to make api request
      * @param requestUrl: url used to make api request
      * @param method: method used to make api request
-     * any return
      * **/
     public void sendAPIRequest(String requestUrl, String method) throws IOException {
         setRequestConnection(requestUrl, method);
@@ -132,7 +129,6 @@ public class APIRequest {
      * @param method: method used to make api request
      * @param headerKey: mandatory header key for the request
      * @param headerValue: mandatory header value for the request
-     * any return
      * **/
     public void sendAPIRequest(String requestUrl, String method, String headerKey, String headerValue) throws IOException {
         setRequestConnection(requestUrl, method);
@@ -144,7 +140,7 @@ public class APIRequest {
      * @param requestUrl: url used to make api request
      * @param method: method used to make api request
      * @param headers: mandatory headers key and headers value for the request
-     * any return
+     * @deprecated in next update {@link HashMap} will be {@link Headers} custom object
      * **/
     public void sendAPIRequest(String requestUrl, String method, HashMap<String, String> headers) throws IOException {
         setRequestConnection(requestUrl, method);
@@ -153,51 +149,96 @@ public class APIRequest {
         sendRequest();
     }
 
-    /** Method to make api request with body params (POST requests)
+    /** Method to make api request
      * @param requestUrl: url used to make api request
-     * @param bodyParams: params to insert in the http body post request
-     * any return
+     * @param params: query params of the request
+     * @param method: method used to make api request
      * **/
-    public void sendPostAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
-        setPostAPIRequest(requestUrl, bodyParams);
+    public void sendAPIRequest(String requestUrl, Params params, String method) throws IOException {
+        setRequestConnection(requestUrl + assembleQueryParams(params), method);
         sendRequest();
     }
 
-    /** Method to make api request with body params (POST requests) and with one mandatory header es. api key and its key header value
+    /** Method to make api request with one mandatory header es. api key and its key header value
      * @param requestUrl: url used to make api request
+     * @param method: method used to make api request
+     * @param params: query params of the request
      * @param headerKey: mandatory header key for the request
      * @param headerValue: mandatory header value for the request
-     * @param bodyParams: params to insert in the http body post request
-     * any return
      * **/
-    public void sendPostAPIRequest(String requestUrl, String headerKey, String headerValue, HashMap<String,
-                                    Object> bodyParams) throws IOException {
-        setPostAPIRequest(requestUrl, bodyParams);
+    public void sendAPIRequest(String requestUrl, String method, Params params, String headerKey,
+                               String headerValue) throws IOException {
+        setRequestConnection(requestUrl, method);
         httpURLConnection.setRequestProperty(headerKey, headerValue);
         sendRequest();
     }
 
-    /** Method to make api request with body params (POST requests) and with many mandatory headers es. api key and its key header value
+    /** Method to make api request with many mandatory headers es. api key and its key header value
      * @param requestUrl: url used to make api request
+     * @param method: method used to make api request
+     * @param params: query params of the request
      * @param headers: mandatory headers key and headers value for the request
-     * @param bodyParams: params to insert in the http body post request
-     * any return
+     * @deprecated in next update {@link HashMap} will be {@link Headers} custom object
      * **/
-    public void sendPostAPIRequest(String requestUrl, HashMap<String,String> headers,
-                                   HashMap<String, Object> bodyParams) throws IOException {
-        setPostAPIRequest(requestUrl, bodyParams);
+    public void sendAPIRequest(String requestUrl, String method, Params params, HashMap<String, String> headers) throws IOException {
+        setRequestConnection(requestUrl, method);
         for (String key : headers.keySet())
             httpURLConnection.setRequestProperty(key, headers.get(key));
         sendRequest();
     }
 
-    /** Method to set up a post HTTP reques
+    /** Method to make api request with body params
      * @param requestUrl: url used to make api request
-     * @param bodyParams: params to insert in the http body post request
+     * @param method: method used to make api request
+     * @param bodyParams: params to insert in the http body request
+     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
+     * **/
+    public void sendBodyAPIRequest(String requestUrl, String method, HashMap<String, Object> bodyParams) throws IOException {
+        setRequestConnection(requestUrl, method);
+        setBody(requestUrl, method, bodyParams);
+        sendRequest();
+    }
+
+    /** Method to make api request with body params and with one mandatory header es. api key and its key header value
+     * @param requestUrl: url used to make api request
+     * @param method: method used to make api request
+     * @param headerKey: mandatory header key for the request
+     * @param headerValue: mandatory header value for the request
+     * @param bodyParams: params to insert in the http body request
+     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
      * any return
      * **/
-    private void setPostAPIRequest(String requestUrl, HashMap<String, Object> bodyParams) throws IOException {
-        setRequestConnection(requestUrl, POST_METHOD);
+    public void sendBodyAPIRequest(String requestUrl, String method, String headerKey, String headerValue,
+                                   HashMap<String, Object> bodyParams) throws IOException {
+        setRequestConnection(requestUrl, method);
+        httpURLConnection.setRequestProperty(headerKey, headerValue);
+        setBody(requestUrl, method, bodyParams);
+        sendRequest();
+    }
+
+    /** Method to make api request with body params and with many mandatory headers es. api key and its key header value
+     * @param requestUrl: url used to make api request
+     * @param method: method used to make api request
+     * @param headers: mandatory headers key and headers value for the request
+     * @param bodyParams: params to insert in the http body request
+     * @deprecated in next update {@link HashMap} will be {@link Headers} and {@link Params} custom objects
+     * **/
+    public void sendBodyAPIRequest(String requestUrl, String method, HashMap<String,String> headers,
+                                   HashMap<String, Object> bodyParams) throws IOException {
+        setRequestConnection(requestUrl, method);
+        for (String key : headers.keySet())
+            httpURLConnection.setRequestProperty(key, headers.get(key));
+        setBody(requestUrl, method, bodyParams);
+        sendRequest();
+    }
+
+    /** Method to set up an HTTP requests with body
+     * @param requestUrl: url used to make api request
+     * @param method: method used to make api request
+     * @param bodyParams: params to insert in the http body request
+     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
+     * **/
+    private void setBody(String requestUrl, String method, HashMap<String, Object> bodyParams) throws IOException {
         httpURLConnection.setDoOutput(true);
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
         bufferedWriter.write(assembleBodyParams(bodyParams));
@@ -208,7 +249,6 @@ public class APIRequest {
     /** Method to set up connection by an endpoint
      * @param requestUrl: url used to make HTTP request
      * @param method: method used to make HTTP request
-     * any return
      * **/
     private void setRequestConnection(String requestUrl, String method) throws IOException {
         httpURLConnection = (HttpURLConnection) new URL(requestUrl).openConnection();
@@ -216,18 +256,16 @@ public class APIRequest {
         httpURLConnection.setConnectTimeout(requestTimeout);
     }
 
-    /** Method to send an HTTP request and get it response
-     * any params required
-     * any return
+    /** Method to send an HTTP request and get it response <br>
+     * Any params required
      * **/
     private void sendRequest() throws IOException {
         httpURLConnection.connect();
         getRequestResponse();
     }
 
-    /** Method to get response of an HTTP request
-     * any params required
-     * any return
+    /** Method to get response of an HTTP request <br>
+     * Any params required
      * **/
     private void getRequestResponse() throws IOException {
         if(response == null){
@@ -283,14 +321,36 @@ public class APIRequest {
         return getBase64Signature(Base64.getDecoder().decode(signatureKey),data);
     }
 
+    /** Method to assemble a query params of an HTTP request
+     * @param queryParams: queryParams of request (?param=mandatory1&param2=mandatory2)
+     * @return query params as {@link String} assembled es. ?param=query1&param2=query2
+     * @throws IllegalArgumentException when extra params in list is empty or is null
+     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
+     * **/
+    public String assembleQueryParams(HashMap<String, Object> queryParams){
+        return assembleAdditionalParams(null, queryParams);
+    }
+
+    /** Method to assemble a body params of an HTTP request
+     * @param bodyParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
+     * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
+     * @throws IllegalArgumentException when extra params in list is empty or is null
+     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
+     * **/
+    public String assembleBodyParams(HashMap<String, Object> bodyParams){
+        return assembleAdditionalParams(null, bodyParams).replace("?","");
+    }
+
     /** Method to assemble a query string params of an HTTP request
      * @param mandatoryParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
      * @param extraParams: not mandatory params of request that have to be concatenated (&param2=valueParam2&param3=valueParam3)
      * @return params as {@link String} assembled es. ?param=mandatory1&param2=mandatory2&param2=valueParam2&param3=valueParam3
+     * @throws IllegalArgumentException when extra params in list is empty or is null
+     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
      * **/
     public String assembleAdditionalParams(String mandatoryParams, HashMap<String, Object> extraParams){
         String queryEncoderChar = "&";
-        if(mandatoryParams == null || mandatoryParams.equals("") || mandatoryParams.equals("?")) {
+        if(mandatoryParams == null || mandatoryParams.isEmpty() || mandatoryParams.equals("?")) {
             mandatoryParams = "";
             queryEncoderChar = "?";
         }
@@ -302,17 +362,20 @@ public class APIRequest {
                 if(queryEncoderChar.equals("?"))
                     queryEncoderChar = "&";
             }else
-                throw new NullPointerException("Extraparams key or value cannot be empty or null");
+                throw new NullPointerException("Extra params key or value cannot be empty or null");
         }
         return params.toString();
     }
 
-    /** Method to assemble a body params of an HTTP Post request
-     * @param bodyParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
-     * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
+    /** Method to concatenate a series of same key param
+     * @param initialChar: start char of concatenation, can be "" or &
+     * @param key: key of param to concatenate es. param
+     * @param params: values of param to concatenate es. value1, value2 as {@link Object} arrays
+     * @return series of params concatenated as {@link String} es. param=value1&param=value2
+     * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      * **/
-    public String assembleBodyParams(HashMap<String, Object> bodyParams){
-        return assembleAdditionalParams(null, bodyParams).replace("?","");
+    public String concatenateParamsList(String initialChar, String key, Object[] params){
+        return concatenateParamsList(initialChar, key, new ArrayList<>(Arrays.asList(params)));
     }
 
     /** Method to concatenate a series of same key param
@@ -320,11 +383,12 @@ public class APIRequest {
      * @param key: key of param to concatenate es. param
      * @param params: values of param to concatenate es. value1, value2 as {@link ArrayList}
      * @return series of params concatenated as {@link String} es. param=value1&param=value2
+     * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      * **/
     public String concatenateParamsList(String initialChar, String key, ArrayList<Object> params){
-        if(!initialChar.equals("") && !initialChar.equals("&"))
+        if(!initialChar.isEmpty() && !initialChar.equals("&"))
             throw new IllegalArgumentException("Initial char must be \"\" or &");
-        if(key == null || key.equals(""))
+        if(key == null || key.isEmpty())
             throw new IllegalArgumentException("Key cannot be empty or null");
         StringBuilder paramsConcatenation = new StringBuilder();
         if(params.size() > 0){
@@ -340,14 +404,68 @@ public class APIRequest {
         throw new IllegalArgumentException("Params list must contains some values");
     }
 
-    /** Method to concatenate a series of same key param
-     * @param initialChar: start char of concatenation, can be "" or &
-     * @param key: key of param to concatenate es. param
-     * @param params: values of param to concatenate es. value1, value2 as {@link Object} arrays
-     * @return series of params concatenated as {@link String} es. param=value1&param=value2
+    /** Method to concatenate a list of params
+     * @param separator: char to divide items of the list
+     * @param params: values of the list to concatenate
+     * @return list of params as {@link String} es. value,value2,value3
+     * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      * **/
-    public String concatenateParamsList(String initialChar, String key, Object[] params){
-        return concatenateParamsList(initialChar, key, new ArrayList<>(Arrays.asList(params)));
+    public String assembleParamsList(String separator, ArrayList<?> params){
+        return assembleParamsList(separator, params.toArray());
+    }
+
+    /** Method to concatenate a list of params
+     * @param separator: char to divide items of the list
+     * @param params: values of the list to concatenate
+     * @return list of params as {@link String} es. value,value2,value3
+     * @throws IllegalArgumentException when one of the params inserted does not respect correct range
+     * **/
+    public String assembleParamsList(String separator, Object... params){
+        if(separator == null || separator.isEmpty())
+            throw new IllegalArgumentException("Separator value cannot be null or blank");
+        if(params == null)
+            throw new IllegalArgumentException("Params instance must contains some value");
+        StringBuilder paramsList = new StringBuilder();
+        for (Object param : params) {
+            if(param == null || param.equals(""))
+                throw new IllegalArgumentException("Param value cannot be null or empty");
+            paramsList.append(param).append(separator);
+        }
+        paramsList.replace(paramsList.length() - 1, paramsList.length(), "");
+        return paramsList.toString();
+    }
+
+    /** Method to concatenate a list of params
+     * @param starterSeparator: initial char to divide items of the list
+     * @param enderSeparator: final char to divide items of the list
+     * @param params: values of the list to concatenate
+     * @return list of params as {@link String} es. ,value","value2",value3"
+     * @throws IllegalArgumentException when one of the params inserted does not respect correct range
+     * **/
+    public String assembleParamsList(String starterSeparator, String enderSeparator, ArrayList<?> params){
+        return assembleParamsList(starterSeparator, enderSeparator, params.toArray());
+    }
+
+    /** Method to concatenate a list of params
+     * @param starterSeparator: initial char to divide items of the list
+     * @param enderSeparator: final char to divide items of the list
+     * @param params: values of the list to concatenate
+     * @return list of params as {@link String} es. ,value","value2",value3"
+     * @throws IllegalArgumentException when one of the params inserted does not respect correct range
+     * **/
+    public String assembleParamsList(String starterSeparator, String enderSeparator, Object... params){
+        if(starterSeparator == null || starterSeparator.isEmpty())
+            throw new IllegalArgumentException("Separator value cannot be null or blank");
+        if(params == null)
+            throw new IllegalArgumentException("Params instance must contains some value");
+        StringBuilder paramsList = new StringBuilder();
+        for (Object param : params) {
+            if(param == null || param.equals(""))
+                throw new IllegalArgumentException("Param value cannot be null or empty");
+            paramsList.append(starterSeparator).append(param).append(enderSeparator);
+        }
+        paramsList.replace(paramsList.length() - 1, paramsList.length(), "");
+        return paramsList.toString();
     }
 
     /** Method to get response of request, already red, without read again {@link HttpURLConnection}'s stream
@@ -434,6 +552,63 @@ public class APIRequest {
         } catch (IOException e) {
             return -1;
         }
+    }
+
+    /**
+     * The {@code Headers} class is useful to assemble headers values for the request
+     * **/
+
+    public static class Headers extends HashMap<String, String>{
+
+        /** Method to add a new header value
+         * @param keyHeader: key of the header
+         * @param valueHeader: value of the header
+         * @throws IllegalArgumentException when params inserted do not respect validity range -> null or blank
+         * **/
+        public void addHeader(String keyHeader, String valueHeader){
+            if(keyHeader == null || keyHeader.isEmpty())
+                throw new IllegalArgumentException("Key of the header cannot be null or blank");
+            if(valueHeader == null || valueHeader.isEmpty())
+                throw new IllegalArgumentException("Value of the header cannot be null or blank");
+            put(keyHeader, valueHeader);
+        }
+
+        /** Method to remove a header
+         * @param keyHeader: key of the header to remove
+         * **/
+        public void removeHeader(String keyHeader){
+            remove(keyHeader);
+        }
+
+    }
+
+    /**
+     * The {@code Headers} class is useful to assemble params values for the request
+     * @implNote this class can be used to assemble body payload or query request params
+     * **/
+
+    public static class Params extends HashMap<String, Object>{
+
+        /** Method to add a new param value
+         * @param keyParam: key of the param
+         * @param valueParam: value of the param
+         * @throws IllegalArgumentException when params inserted do not respect validity range -> null or blank
+         * **/
+        public void addParam(String keyParam, Object valueParam){
+            if(keyParam == null || keyParam.isEmpty())
+                throw new IllegalArgumentException("Key of the param cannot be null or blank");
+            if(valueParam == null || valueParam.equals(""))
+                throw new IllegalArgumentException("Value of the param cannot be null or blank");
+            put(keyParam, valueParam);
+        }
+
+        /** Method to remove a param
+         * @param keyParam: key of the param to remove
+         * **/
+        public void removeParam(String keyParam){
+            remove(keyParam);
+        }
+
     }
 
 }
