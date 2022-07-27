@@ -1,5 +1,5 @@
 # APIManager
-**v1.0.7**
+**v1.0.8**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -23,7 +23,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.N7ghtm4r3:APIManager:1.0.7'
+    implementation 'com.github.N7ghtm4r3:APIManager:1.0.8'
 }
 ```
 
@@ -45,7 +45,7 @@ dependencies {
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
     <artifactId>APIManager</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
 </dependency>
 ```
 
@@ -85,10 +85,10 @@ try {
 }
 
 // multiple headers requests
-HashMap<String, String> headers = new HashMap<>();
-headers.put("header1", "value1");
-headers.put("header2", "value2");
-APIRequest apiRequest = new APIRequest();
+Headers headers = new Headers();
+headers.addHeader("header1", "value1");
+headers.addHeader("header2", "value2");
+
 try {
     apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD, headers);
 } catch (IOException e) {
@@ -104,7 +104,7 @@ In this example requests haven't headers, but is the same also for that requests
 
 ```java
 try {
-    apiRequest.sendAPIRequest("urlOfRequest",APIRequest.GET_METHOD);
+    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD);
     System.out.println(apiRequest.getResponse());
     // example output: Success request!
 } catch (IOException e) {
@@ -117,7 +117,7 @@ try {
 
 ```java
 try {
-    apiRequest.sendAPIRequest("urlOfRequest",APIRequest.GET_METHOD);
+    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD);
     System.out.println(apiRequest.getJSONResponse());
     // example output: {"msg":"Success request!"}
 } catch (IOException e) {
