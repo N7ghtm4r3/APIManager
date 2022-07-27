@@ -52,7 +52,7 @@ dependencies {
 ## Tools available
 
 - **Trading tool** allow you to calculate things like percent, forecast of an asset, etc
-- **JsonHelper tool** allow you to fetch data from {@link JSONObject} with default value if not exits
+- **JsonHelper tool** allow you to fetch data from JSONObject and JSONArray with default value if not exits
 - **Cryptocurrency tool** allow you to fetch details about one coin like name, index, logo image and other
 
 The other tools will be gradually released
