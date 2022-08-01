@@ -9,10 +9,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.HashMap;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.apache.commons.codec.binary.Hex.encodeHexString;
@@ -43,6 +42,41 @@ public class APIRequest {
      * {@code PUT_METHOD} is the instance that contains PUT method for HTTP requests
      * **/
     public static final String PUT_METHOD = "PUT";
+
+    /**
+     * {@code DEFAULT_ERROR_RESPONSE} is constant that contains default error message if user not custom it
+     * **/
+    public static final String DEFAULT_ERROR_RESPONSE  = "Error is not in api request, check out your code";
+
+    /**
+     * {@code DEFAULT_REQUEST_TIMEOUT} is constant that contains default request timeout if user not custom it
+     * **/
+    public static final int DEFAULT_REQUEST_TIMEOUT  = 10000;
+
+    /**
+     * {@code HMAC_SHA256_ALGORITHM} is constant that contains HMAC SHA 256 algorithm type
+     * **/
+    public static final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
+
+    /**
+     * {@code HMAC_SHA512_ALGORITHM} is constant that contains HMAC SHA 512 algorithm type
+     * **/
+    public static final String HMAC_SHA512_ALGORITHM = "HmacSHA512";
+
+    /**
+     * {@code MD5_ALGORITHM} is constant that contains MD5 algorithm type
+     * **/
+    public static final String MD5_ALGORITHM = "MD5";
+
+    /**
+     * {@code SHA1_ALGORITHM} is constant that contains SHA-1 algorithm type
+     * **/
+    public static final String SHA1_ALGORITHM = "SHA-1";
+
+    /**
+     * {@code SHA256_ALGORITHM} is constant that contains SHA-256 algorithm type
+     * **/
+    public static final String SHA256_ALGORITHM = "SHA-256";
 
     /**
      * {@code httpURLConnection} is the instance for all requests
@@ -82,6 +116,7 @@ public class APIRequest {
      * @param defaultErrorResponse error message to return if is not request error
      * **/
     public APIRequest(String defaultErrorResponse) {
+        requestTimeout = DEFAULT_REQUEST_TIMEOUT;
         this.defaultErrorResponse = defaultErrorResponse;
     }
 
@@ -90,15 +125,15 @@ public class APIRequest {
      * **/
     public APIRequest(int requestTimeout) {
         this.requestTimeout = requestTimeout;
-        defaultErrorResponse = "Error is not in api request, check out your code";
+        defaultErrorResponse = DEFAULT_ERROR_RESPONSE;
     }
 
     /** Constructor to init APIRequest manager
      * requestTimeout and defaultErrorResponse initialized with default values.
      * **/
     public APIRequest() {
-        requestTimeout = 10000;
-        defaultErrorResponse = "Error is not in api request, check out your code";
+        requestTimeout = DEFAULT_REQUEST_TIMEOUT;
+        defaultErrorResponse = DEFAULT_ERROR_RESPONSE;
     }
 
     /** Method to set programmatically timeout for the request
@@ -140,12 +175,11 @@ public class APIRequest {
      * @param requestUrl: url used to make api request
      * @param method: method used to make api request
      * @param headers: mandatory headers key and headers value for the request
-     * @deprecated in next update {@link HashMap} will be {@link Headers} custom object
      * **/
-    public void sendAPIRequest(String requestUrl, String method, HashMap<String, String> headers) throws IOException {
+    public void sendAPIRequest(String requestUrl, String method, Headers headers) throws IOException {
         setRequestConnection(requestUrl, method);
-        for (String key : headers.keySet())
-            httpURLConnection.setRequestProperty(key, headers.get(key));
+        for (String key : headers.getHeadersKeys())
+            httpURLConnection.setRequestProperty(key, headers.getHeader(key));
         sendRequest();
     }
 
@@ -155,7 +189,7 @@ public class APIRequest {
      * @param method: method used to make api request
      * **/
     public void sendAPIRequest(String requestUrl, Params params, String method) throws IOException {
-        setRequestConnection(requestUrl + assembleQueryParams(params), method);
+        setRequestConnection(requestUrl + encodeQueryParams(params), method);
         sendRequest();
     }
 
@@ -178,12 +212,11 @@ public class APIRequest {
      * @param method: method used to make api request
      * @param params: query params of the request
      * @param headers: mandatory headers key and headers value for the request
-     * @deprecated in next update {@link HashMap} will be {@link Headers} custom object
      * **/
-    public void sendAPIRequest(String requestUrl, String method, Params params, HashMap<String, String> headers) throws IOException {
+    public void sendAPIRequest(String requestUrl, String method, Params params, Headers headers) throws IOException {
         setRequestConnection(requestUrl, method);
-        for (String key : headers.keySet())
-            httpURLConnection.setRequestProperty(key, headers.get(key));
+        for (String key : headers.getHeadersKeys())
+            httpURLConnection.setRequestProperty(key, headers.getHeader(key));
         sendRequest();
     }
 
@@ -191,11 +224,10 @@ public class APIRequest {
      * @param requestUrl: url used to make api request
      * @param method: method used to make api request
      * @param bodyParams: params to insert in the http body request
-     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
      * **/
-    public void sendBodyAPIRequest(String requestUrl, String method, HashMap<String, Object> bodyParams) throws IOException {
+    public <T> void sendBodyAPIRequest(String requestUrl, String method, Params bodyParams) throws IOException {
         setRequestConnection(requestUrl, method);
-        setBody(requestUrl, method, bodyParams);
+        setBodyPayload(requestUrl, method, bodyParams);
         sendRequest();
     }
 
@@ -205,14 +237,12 @@ public class APIRequest {
      * @param headerKey: mandatory header key for the request
      * @param headerValue: mandatory header value for the request
      * @param bodyParams: params to insert in the http body request
-     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
-     * any return
      * **/
-    public void sendBodyAPIRequest(String requestUrl, String method, String headerKey, String headerValue,
-                                   HashMap<String, Object> bodyParams) throws IOException {
+    public <T> void sendBodyAPIRequest(String requestUrl, String method, String headerKey, String headerValue,
+                                       Params bodyParams) throws IOException {
         setRequestConnection(requestUrl, method);
         httpURLConnection.setRequestProperty(headerKey, headerValue);
-        setBody(requestUrl, method, bodyParams);
+        setBodyPayload(requestUrl, method, bodyParams);
         sendRequest();
     }
 
@@ -221,14 +251,12 @@ public class APIRequest {
      * @param method: method used to make api request
      * @param headers: mandatory headers key and headers value for the request
      * @param bodyParams: params to insert in the http body request
-     * @deprecated in next update {@link HashMap} will be {@link Headers} and {@link Params} custom objects
      * **/
-    public void sendBodyAPIRequest(String requestUrl, String method, HashMap<String,String> headers,
-                                   HashMap<String, Object> bodyParams) throws IOException {
+    public <T> void sendBodyAPIRequest(String requestUrl, String method, Headers headers, Params bodyParams) throws IOException {
         setRequestConnection(requestUrl, method);
-        for (String key : headers.keySet())
-            httpURLConnection.setRequestProperty(key, headers.get(key));
-        setBody(requestUrl, method, bodyParams);
+        for (String key : headers.getHeadersKeys())
+            httpURLConnection.setRequestProperty(key, headers.getHeader(key));
+        setBodyPayload(requestUrl, method, bodyParams);
         sendRequest();
     }
 
@@ -236,12 +264,11 @@ public class APIRequest {
      * @param requestUrl: url used to make api request
      * @param method: method used to make api request
      * @param bodyParams: params to insert in the http body request
-     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
      * **/
-    private void setBody(String requestUrl, String method, HashMap<String, Object> bodyParams) throws IOException {
+    private <T> void setBodyPayload(String requestUrl, String method, Params bodyParams) throws IOException {
         httpURLConnection.setDoOutput(true);
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(httpURLConnection.getOutputStream()));
-        bufferedWriter.write(assembleBodyParams(bodyParams));
+        bufferedWriter.write(encodeBodyParams(bodyParams));
         bufferedWriter.flush();
         bufferedWriter.close();
     }
@@ -290,55 +317,22 @@ public class APIRequest {
         }
     }
 
-    /** Method to get params signature of an HTTP request
-     * @param signatureKey: key used to signature request
-     * @param data: data to sign
-     * @return signature es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4"
-     * **/
-    public String getSignature(String signatureKey, String data) throws Exception {
-        Mac sha256 = Mac.getInstance("HmacSHA256");
-        sha256.init(new SecretKeySpec(signatureKey.getBytes(UTF_8), "HmacSHA256"));
-        return encodeHexString(sha256.doFinal(data.replace("?","").getBytes(UTF_8)));
-    }
-
-    /** Method to get params signature of an HTTP request
-     * @param signatureKey: key bytes used to signature request
-     * @param data: data to sign
-     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
-     * **/
-    public String getBase64Signature(byte[] signatureKey, String data) throws Exception {
-        Mac mac = Mac.getInstance("HmacSHA256");
-        mac.init(new SecretKeySpec(signatureKey, "HmacSHA256"));
-        return Base64.getEncoder().encodeToString(mac.doFinal(data.getBytes()));
-    }
-
-    /** Method to get params signature of an HTTP request
-     * @param signatureKey: key used to signature request
-     * @param data: data to sign
-     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
-     * **/
-    public String getBase64Signature(String signatureKey, String data) throws Exception {
-        return getBase64Signature(Base64.getDecoder().decode(signatureKey),data);
-    }
-
-    /** Method to assemble a query params of an HTTP request
+    /** Method to assemble a query params for an HTTP request
      * @param queryParams: queryParams of request (?param=mandatory1&param2=mandatory2)
      * @return query params as {@link String} assembled es. ?param=query1&param2=query2
      * @throws IllegalArgumentException when extra params in list is empty or is null
-     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
      * **/
-    public String assembleQueryParams(HashMap<String, Object> queryParams){
-        return assembleAdditionalParams(null, queryParams);
+    public <T> String encodeQueryParams(Params queryParams){
+        return encodeAdditionalParams(null, queryParams);
     }
 
     /** Method to assemble a body params of an HTTP request
      * @param bodyParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
      * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
      * @throws IllegalArgumentException when extra params in list is empty or is null
-     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
      * **/
-    public String assembleBodyParams(HashMap<String, Object> bodyParams){
-        return assembleAdditionalParams(null, bodyParams).replace("?","");
+    public <T> String encodeBodyParams(Params bodyParams){
+        return encodeAdditionalParams(null, bodyParams).replace("?", "");
     }
 
     /** Method to assemble a query string params of an HTTP request
@@ -346,17 +340,16 @@ public class APIRequest {
      * @param extraParams: not mandatory params of request that have to be concatenated (&param2=valueParam2&param3=valueParam3)
      * @return params as {@link String} assembled es. ?param=mandatory1&param2=mandatory2&param2=valueParam2&param3=valueParam3
      * @throws IllegalArgumentException when extra params in list is empty or is null
-     * @deprecated in next update {@link HashMap} will be {@link Params} custom object
      * **/
-    public String assembleAdditionalParams(String mandatoryParams, HashMap<String, Object> extraParams){
+    public <T> String encodeAdditionalParams(String mandatoryParams, Params extraParams){
         String queryEncoderChar = "&";
         if(mandatoryParams == null || mandatoryParams.isEmpty() || mandatoryParams.equals("?")) {
             mandatoryParams = "";
             queryEncoderChar = "?";
         }
         StringBuilder params = new StringBuilder(mandatoryParams);
-        for (String key : extraParams.keySet()) {
-            Object param = extraParams.get(key);
+        for (String key : extraParams.getParamsKeys()) {
+            Object param = extraParams.getParam(key);
             if((key != null && !key.equals("")) && (param != null && !param.equals(""))) {
                 params.append(queryEncoderChar).append(key).append("=").append(param);
                 if(queryEncoderChar.equals("?"))
@@ -374,7 +367,8 @@ public class APIRequest {
      * @return series of params concatenated as {@link String} es. param=value1&param=value2
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      * **/
-    public String concatenateParamsList(String initialChar, String key, Object[] params){
+    @SafeVarargs
+    public final <T> String concatenateParamsList(String initialChar, String key, T... params){
         return concatenateParamsList(initialChar, key, new ArrayList<>(Arrays.asList(params)));
     }
 
@@ -385,14 +379,14 @@ public class APIRequest {
      * @return series of params concatenated as {@link String} es. param=value1&param=value2
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      * **/
-    public String concatenateParamsList(String initialChar, String key, ArrayList<Object> params){
+    public <T> String concatenateParamsList(String initialChar, String key, ArrayList<T> params){
         if(!initialChar.isEmpty() && !initialChar.equals("&"))
             throw new IllegalArgumentException("Initial char must be \"\" or &");
         if(key == null || key.isEmpty())
             throw new IllegalArgumentException("Key cannot be empty or null");
         StringBuilder paramsConcatenation = new StringBuilder();
         if(params.size() > 0){
-            for (Object param : params){
+            for (T param : params){
                 if(param == null || param.equals(""))
                     throw new IllegalArgumentException("Param value cannot be null or empty");
                 else
@@ -410,7 +404,7 @@ public class APIRequest {
      * @return list of params as {@link String} es. value,value2,value3
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      * **/
-    public String assembleParamsList(String separator, ArrayList<?> params){
+    public <T> String assembleParamsList(String separator, ArrayList<T> params){
         return assembleParamsList(separator, params.toArray());
     }
 
@@ -420,13 +414,14 @@ public class APIRequest {
      * @return list of params as {@link String} es. value,value2,value3
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      * **/
-    public String assembleParamsList(String separator, Object... params){
+    @SafeVarargs
+    public final <T> String assembleParamsList(String separator, T... params){
         if(separator == null || separator.isEmpty())
             throw new IllegalArgumentException("Separator value cannot be null or blank");
         if(params == null)
             throw new IllegalArgumentException("Params instance must contains some value");
         StringBuilder paramsList = new StringBuilder();
-        for (Object param : params) {
+        for (T param : params) {
             if(param == null || param.equals(""))
                 throw new IllegalArgumentException("Param value cannot be null or empty");
             paramsList.append(param).append(separator);
@@ -442,7 +437,7 @@ public class APIRequest {
      * @return list of params as {@link String} es. ,value","value2",value3"
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      * **/
-    public String assembleParamsList(String starterSeparator, String enderSeparator, ArrayList<?> params){
+    public <T> String assembleParamsList(String starterSeparator, String enderSeparator, ArrayList<T> params){
         return assembleParamsList(starterSeparator, enderSeparator, params.toArray());
     }
 
@@ -453,13 +448,14 @@ public class APIRequest {
      * @return list of params as {@link String} es. ,value","value2",value3"
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      * **/
-    public String assembleParamsList(String starterSeparator, String enderSeparator, Object... params){
+    @SafeVarargs
+    public final <T> String assembleParamsList(String starterSeparator, String enderSeparator, T... params){
         if(starterSeparator == null || starterSeparator.isEmpty())
             throw new IllegalArgumentException("Separator value cannot be null or blank");
         if(params == null)
             throw new IllegalArgumentException("Params instance must contains some value");
         StringBuilder paramsList = new StringBuilder();
-        for (Object param : params) {
+        for (T param : params) {
             if(param == null || param.equals(""))
                 throw new IllegalArgumentException("Param value cannot be null or empty");
             paramsList.append(starterSeparator).append(param).append(enderSeparator);
@@ -468,24 +464,24 @@ public class APIRequest {
         return paramsList.toString();
     }
 
-    /** Method to get response of request, already red, without read again {@link HttpURLConnection}'s stream
-     * any params required
+    /** Method to get response of request, already red, without read again {@link HttpURLConnection}'s stream <br>
+     * Any params required
      * @return response of request as {@link String}
      * **/
     public String getResponse() {
         return response;
     }
 
-    /** Method to get response of request, already red, without read again {@link HttpURLConnection}'s stream
-     * any params required
+    /** Method to get response of request, already red, without read again {@link HttpURLConnection}'s stream <br>
+     * Any params required
      * @return response of request formatted as {@link JSONObject} or {@link JSONArray} object
      * **/
     public <T> T getJSONResponse() {
         return getJSONResponseObject(response);
     }
 
-    /** Method to get error response of request, already red, without read again {@link HttpURLConnection}'s stream
-     * any params required
+    /** Method to get error response of request, already red, without read again {@link HttpURLConnection}'s stream <br>
+     * Any params required
      * @return error response of request as {@link String} or defaultErrorResponse as {@link String} if is not a request
      * error
      * **/
@@ -502,8 +498,8 @@ public class APIRequest {
         System.out.println(getErrorResponse());
     }
 
-     /** Method to get error response of request, already red, without read again {@link HttpURLConnection}'s stream
-     * any params required
+     /** Method to get error response of request, already red, without read again {@link HttpURLConnection}'s stream <br>
+     * Any params required
      * @return error response of request formatted as {@link JSONObject} or {@link JSONArray} object or defaultErrorResponse
      * as {@link String} if is not a request error
      * **/
@@ -529,8 +525,8 @@ public class APIRequest {
     }
 
     /** Method to print error response of request, already red, without read again {@link HttpURLConnection}'s stream <br>
-     * @implNote response will be printed in JSON format or in a simple {@link String} format
      * Any params required
+     * @implNote response will be printed in JSON format or in a simple {@link String} format
      * **/
     public <T> void printJSONErrorResponse(){
         T jsonResponse = getJSONResponse();
@@ -542,8 +538,8 @@ public class APIRequest {
             System.out.println(jsonResponse);
     }
 
-    /** Method to get status response code of request
-     * any params required
+    /** Method to get status response code of request <br>
+     * Any params required
      * @return response of request as int, if is in error code will be: -1
      * **/
     public int getResponseStatusCode(){
@@ -554,59 +550,221 @@ public class APIRequest {
         }
     }
 
+    /** Method to get params signature for an HTTP request
+     * @param signatureKey: key used to signature request
+     * @param data: data to sign
+     * @param algorithm: algorithm used in signature -> HmacSHA256 or HmacSHA512
+     * @return signature es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4"
+     * **/
+    public static String getSignature(String signatureKey, String data, String algorithm) throws Exception {
+        if(algorithm == null || (!algorithm.equals(HMAC_SHA256_ALGORITHM) && !algorithm.equals(HMAC_SHA512_ALGORITHM)))
+            throw new IllegalArgumentException("Algorithm must be HmacSHA256 or HmacSHA512");
+        Mac sha = Mac.getInstance(algorithm);
+        sha.init(new SecretKeySpec(signatureKey.getBytes(UTF_8), algorithm));
+        return encodeHexString(sha.doFinal(data.replace("?", "").getBytes(UTF_8)));
+    }
+
+    /** Method to get params signature for an HTTP request
+     * @param signatureKey: key bytes used to signature request
+     * @param data: data to sign
+     * @param algorithm: algorithm used in signature -> HmacSHA256 or HmacSHA512
+     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
+     * **/
+    public static String getBase64Signature(byte[] signatureKey, String data, String algorithm) throws Exception {
+        if(algorithm == null || (!algorithm.equals(HMAC_SHA256_ALGORITHM) && !algorithm.equals(HMAC_SHA512_ALGORITHM)))
+            throw new IllegalArgumentException("Algorithm must be HmacSHA256 or HmacSHA512");
+        Mac mac = Mac.getInstance("HmacSHA256");
+        mac.init(new SecretKeySpec(signatureKey, "HmacSHA256"));
+        return Base64.getEncoder().encodeToString(mac.doFinal(data.getBytes()));
+    }
+
+    /** Method to get params signature for an HTTP request
+     * @param signatureKey: key used to signature request
+     * @param data: data to sign
+     * @param algorithm: algorithm used in signature -> HmacSHA256 or HmacSHA512
+     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
+     * **/
+    public static String getBase64Signature(String signatureKey, String data, String algorithm) throws Exception {
+        return getBase64Signature(Base64.getDecoder().decode(signatureKey), data, algorithm);
+    }
+
+    /** Method to get digest
+     * @param data: data to digest as {@link String}
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as byte array
+     * **/
+    public static byte[] digest(String data, String algorithm) throws NoSuchAlgorithmException {
+        return digest(data.getBytes(), algorithm);
+    }
+
+    /** Method to get digest
+     * @param data: data to digest as {@link String}
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as {@link String} in {@link Base64} encode
+     * **/
+    public static String base64Digest(String data, String algorithm) throws NoSuchAlgorithmException {
+        return base64Digest(data.getBytes(), algorithm);
+    }
+
+    /** Method to get digest
+     * @param data: data to digest as byte array
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as {@link String} in {@link Base64} encode
+     * **/
+    public static String base64Digest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
+        return new String(Base64.getEncoder().encode(digest(data, algorithm)));
+    }
+
+    /** Method to get digest
+     * @param data: data to digest as byte array
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as byte array
+     * **/
+    public static byte[] digest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
+        if(algorithm == null || (!algorithm.equals(MD5_ALGORITHM) && !algorithm.equals(SHA1_ALGORITHM)
+                && !algorithm.equals(SHA256_ALGORITHM))) {
+            throw new IllegalArgumentException("Algorithm must be MD5,SHA-1 or SHA-256");
+        }
+        MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
+        messageDigest.update(data);
+        return messageDigest.digest();
+    }
+
     /**
      * The {@code Headers} class is useful to assemble headers values for the request
      * **/
 
-    public static class Headers extends HashMap<String, String>{
+    public static class Headers {
+
+        /**
+         * {@code headers} is the instance that contains headers value
+         * **/
+        private final HashMap<String, String> headers;
+
+        /** Constructor to init {@link Headers} <br>
+         * Any params required
+         * **/
+        public Headers() {
+            headers = new HashMap<>();
+        }
 
         /** Method to add a new header value
-         * @param keyHeader: key of the header
+         * @param headerKey: key of the header
          * @param valueHeader: value of the header
          * @throws IllegalArgumentException when params inserted do not respect validity range -> null or blank
          * **/
-        public void addHeader(String keyHeader, String valueHeader){
-            if(keyHeader == null || keyHeader.isEmpty())
+        public void addHeader(String headerKey, String valueHeader) {
+            if(headerKey == null || headerKey.isEmpty())
                 throw new IllegalArgumentException("Key of the header cannot be null or blank");
             if(valueHeader == null || valueHeader.isEmpty())
                 throw new IllegalArgumentException("Value of the header cannot be null or blank");
-            put(keyHeader, valueHeader);
+            headers.put(headerKey, valueHeader);
         }
 
         /** Method to remove a header
-         * @param keyHeader: key of the header to remove
+         * @param headerKey: key of the header to remove
          * **/
-        public void removeHeader(String keyHeader){
-            remove(keyHeader);
+        public void removeHeader(String headerKey) {
+            headers.remove(headerKey);
+        }
+
+        /** Method to get a header value
+         * @param headerKey: key of the header to get
+         * @return header value as {@link String}
+         * **/
+        public String getHeader(String headerKey) {
+            return headers.get(headerKey);
+        }
+
+        /** Method to get all headers value<br>
+         * Any params required
+         * @return all headers value as {@link Collection} of {@link String}
+         * **/
+        public Collection<String> getAllHeaders() {
+            return headers.values();
+        }
+
+        /** Method to get all headers keys<br>
+         * Any params required
+         * @return all headers keys as {@link Set} of {@link String}
+         * **/
+        public Set<String> getHeadersKeys(){
+            return headers.keySet();
+        }
+
+        @Override
+        public String toString() {
+            return headers.toString();
         }
 
     }
 
     /**
-     * The {@code Headers} class is useful to assemble params values for the request
+     * The {@code Params} class is useful to assemble params values for the request
      * @implNote this class can be used to assemble body payload or query request params
      * **/
 
-    public static class Params extends HashMap<String, Object>{
+    public static class Params {
+
+        /**
+         * {@code params} is the instance that contains params value
+         * **/
+        private final HashMap<String, Object> params;
+
+        /** Constructor to init {@link Params} <br>
+         * Any params required
+         * **/
+        public Params() {
+            params = new HashMap<>();
+        }
 
         /** Method to add a new param value
          * @param keyParam: key of the param
          * @param valueParam: value of the param
          * @throws IllegalArgumentException when params inserted do not respect validity range -> null or blank
          * **/
-        public void addParam(String keyParam, Object valueParam){
+        public <T> void addParam(String keyParam, T valueParam){
             if(keyParam == null || keyParam.isEmpty())
                 throw new IllegalArgumentException("Key of the param cannot be null or blank");
             if(valueParam == null || valueParam.equals(""))
                 throw new IllegalArgumentException("Value of the param cannot be null or blank");
-            put(keyParam, valueParam);
+            params.put(keyParam, valueParam);
         }
 
         /** Method to remove a param
          * @param keyParam: key of the param to remove
          * **/
         public void removeParam(String keyParam){
-            remove(keyParam);
+            params.remove(keyParam);
+        }
+
+        /** Method to get a param value
+         * @param paramKey: key of the param to get
+         * @return params value as {@link String}
+         * **/
+        public <T> T getParam(String paramKey) {
+            return (T) params.get(paramKey);
+        }
+
+        /** Method to get all params value<br>
+         * Any params required
+         * @return all params value as {@link Collection} of {@link T}
+         * **/
+        public <T> Collection<T> getAllParams() {
+            return (Collection<T>) params.values();
+        }
+
+        /** Method to get all params keys<br>
+         * Any params required
+         * @return all params keys as {@link Set} of {@link String}
+         * **/
+        public Set<String> getParamsKeys(){
+            return params.keySet();
+        }
+
+        @Override
+        public String toString() {
+            return params.toString();
         }
 
     }
