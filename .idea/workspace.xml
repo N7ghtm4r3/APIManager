@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="Added methods for JSONArray class type">
+    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="Fix some issues&#10;Added some methods&#10;Upgrade performance">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/Manager/APIRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/Manager/APIRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/Tools/Trading/TradingTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/Tools/Trading/TradingTools.java" afterDir="false" />
@@ -96,13 +97,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650100650185</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Load first file">
-      <created>1650101272556</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1650101272556</updated>
     </task>
     <task id="LOCAL-00002" summary="Load first file">
       <created>1650102769746</created>
@@ -440,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658947635436</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Fix some issues&#10;Added some methods&#10;Upgrade performance">
+      <created>1659362029283</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1659362029284</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -470,6 +471,7 @@
     <MESSAGE value="Added print error method in APIRequest class&#10;Added static method to fetch detail in JsonHelper tool" />
     <MESSAGE value="Fix some issues&#10;Added new methods" />
     <MESSAGE value="Added methods for JSONArray class type" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added methods for JSONArray class type" />
+    <MESSAGE value="Fix some issues&#10;Added some methods&#10;Upgrade performance" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix some issues&#10;Added some methods&#10;Upgrade performance" />
   </component>
 </project>

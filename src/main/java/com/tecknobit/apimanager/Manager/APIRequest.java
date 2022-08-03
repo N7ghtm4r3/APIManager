@@ -573,8 +573,8 @@ public class APIRequest {
     public static String getBase64Signature(byte[] signatureKey, String data, String algorithm) throws Exception {
         if(algorithm == null || (!algorithm.equals(HMAC_SHA256_ALGORITHM) && !algorithm.equals(HMAC_SHA512_ALGORITHM)))
             throw new IllegalArgumentException("Algorithm must be HmacSHA256 or HmacSHA512");
-        Mac mac = Mac.getInstance("HmacSHA256");
-        mac.init(new SecretKeySpec(signatureKey, "HmacSHA256"));
+        Mac mac = Mac.getInstance(algorithm);
+        mac.init(new SecretKeySpec(signatureKey, algorithm));
         return Base64.getEncoder().encodeToString(mac.doFinal(data.getBytes()));
     }
 

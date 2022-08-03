@@ -10,7 +10,7 @@ import static java.lang.String.format;
  * @author Tecknobit N7ghtm4r3
  * **/
 
-public class TradingTools {
+public abstract class TradingTools {
 
     /** Method to get percent between two values
      * @param startValue: first value to make compare
