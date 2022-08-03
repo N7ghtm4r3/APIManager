@@ -49,6 +49,9 @@ dependencies {
 </dependency>
 ```
 
+## 🛠 Skills
+- Java
+
 ## Tools available
 
 - **Trading tool** allow you to calculate things like percent, forecast of an asset, etc
@@ -157,9 +160,6 @@ StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll
 StrictMode.setThreadPolicy(policy);
 
 ```
-
-## 🛠 Skills
-- Java
 
 ## Authors
 
