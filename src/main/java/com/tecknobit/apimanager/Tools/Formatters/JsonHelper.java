@@ -1272,7 +1272,7 @@ public class JsonHelper{
                     else
                         return null;
                 }else if(json.get(key) instanceof JSONArray) {
-                    ArrayList<T> search = autoSearch(json.getJSONArray(key), searchKey);
+                    T search = (T) autoSearch(json.getJSONArray(key), searchKey);
                     if(search != null)
                         return (T) autoSearch(json.getJSONArray(key), searchKey);
                     else
