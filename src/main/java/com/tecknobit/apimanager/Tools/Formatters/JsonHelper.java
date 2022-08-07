@@ -1,7 +1,6 @@
 package com.tecknobit.apimanager.Tools.Formatters;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
@@ -915,7 +914,7 @@ public class JsonHelper{
         }
     }
 
-    /** Method to get from {@link JSONObject} a Object value
+    /** Method to get from {@link JSONObject} an Object value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
@@ -931,7 +930,7 @@ public class JsonHelper{
         }
     }
 
-    /** Method to get from {@link JSONObject} a Object value
+    /** Method to get from {@link JSONObject} an Object value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
@@ -1443,36 +1442,40 @@ public class JsonHelper{
         }
     }
 
-    public <T> T autoSearch(JSONObject jsonObjectDetails, String keySearch){
-        String json = jsonObjectDetails.toString();
-        int length = json.length();
-        if(json.contains(keySearch)){
-            ArrayList<String> keys = new ArrayList<>();
-            for(int j = 0; j < length; j++){
-                StringBuilder newKey = new StringBuilder();
-                if(json.charAt(j) == '\"') {
-                    for (int i = j + 1; i < length && (i + 2) < length && (!json.substring(i, i + 2).equals("{\"")); i++, j++) {
-                        char letter = json.charAt(i);
-                        if(letter != '\"' && letter != ':')
-                            newKey.append(letter);
-                    }
-                    //System.out.println(newKey);
-                    if(newKey.toString().equals(keySearch)){
-                        for (String key : keys) {
-                            System.out.println(key);
-                            if(!key.contains("{") && !key.contains(",")) {
-                                try {
-                                    jsonObjectDetails = jsonObjectDetails.getJSONObject(key);
-                                }catch (JSONException ignored){}
-                            }
-                        }
-                        return (T) jsonObjectDetails.get(keySearch);
-                    }else
-                        keys.add(newKey.toString());
-                }
+    public <T> T autoSearch(JSONObject json, String searchKey){
+        String jsonString = json.toString();
+        for (String key : json.keySet()){
+            if(key.equals(searchKey))
+                return (T) json.get(searchKey);
+            else {
+                T genericJSON = (T) json.get(key);
+                if(genericJSON instanceof JSONObject) {
+                    T search = autoSearch(json.getJSONObject(key), searchKey);
+                    if(search != null)
+                        return autoSearch(json.getJSONObject(key), searchKey);
+                }else if(json.get(key) instanceof JSONArray) {
+                    ArrayList<T> search = autoSearch(json.getJSONArray(key), searchKey);
+                    if(search != null)
+                        return (T) autoSearch(json.getJSONArray(key), searchKey);
+                }else
+                    return null;
             }
         }
-        return (T) "";
+        return null;
+    }
+
+    public <T> ArrayList<T> autoSearch(JSONArray json, String searchKey){
+        ArrayList<T> values = new ArrayList<>();
+        for (int j = 0; j < json.length(); j++) {
+            T result = (T) json.get(j);
+            if(result instanceof JSONObject)
+                values.add((T) ((JSONObject) result).getString(searchKey));
+            else
+                values.add((T) json.get(j));
+        }
+        if(values.size() > 0)
+            return values;
+        return null;
     }
 
     @Override

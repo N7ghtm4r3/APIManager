@@ -458,7 +458,7 @@ public class APIRequest {
                 throw new IllegalArgumentException("Param value cannot be null or empty");
             paramsList.append(starterSeparator).append(param).append(enderSeparator);
         }
-        paramsList.replace(paramsList.length() - 1, paramsList.length(), "");
+        paramsList.replace(paramsList.length(), paramsList.length(), "");
         return paramsList.toString();
     }
 
