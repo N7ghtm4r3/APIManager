@@ -17,12 +17,17 @@ import java.util.ArrayList;
 public class JsonHelper{
 
     /**
-     * {@code jsonObjectDetails} is instance that memorize json object to work on
+     * {@code NUMERIC_DEF_VALUE_IF_MISSED} is constant that memorizes default numeric value if the main is missed
+     * **/
+    public static final int NUMERIC_DEF_VALUE_IF_MISSED = (int) -12345678900987654321D;
+
+    /**
+     * {@code jsonObjectDetails} is instance that memorizes {@link JSONObject} to work on
      * **/
     private final JSONObject jsonObjectDetails;
 
     /**
-     * {@code jsonObjectDetails} is instance that memorize json object to work on
+     * {@code jsonObjectDetails} is instance that memorizes {@link JSONArray} to work on
      * **/
     private final JSONArray jsonArrayDetails;
 
@@ -53,19 +58,29 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a string value
      * @param key: key of string value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link String}, if it is not exist will return null value
      * **/
     public String getString(String key){
-        return autoSearch(jsonObjectDetails, key);
+        try {
+            return autoSearch(jsonObjectDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a string value
      * @param key: key of string value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link String}, if it is not exist will return {@code defValue}
      * **/
     public String getString(String key, String defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONArray} a string value
@@ -95,30 +110,42 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a double value
      * @param key: key of double value to get from json
-     * @return value as double, if it is not exist will return -1 value
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
+     * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public double getDouble(String key){
-        return autoSearch(jsonObjectDetails, key, -1);
+        try {
+           return autoSearch(jsonObjectDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} a double value
      * @param key: key of double value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
      * @return value as double, if it is not exist will return {@code defValue}
      * **/
     public double getDouble(String key, double defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONArray} a double value
      * @param index: index of double value to get from json
-     * @return value as double, if it is not exist will return -1 value
+     * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public double getDouble(int index){
         try {
             return jsonArrayDetails.getDouble(index);
         }catch (Exception e){
-            return -1;
+            return NUMERIC_DEF_VALUE_IF_MISSED;
         }
     }
 
@@ -137,30 +164,42 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} an int value
      * @param key: key of int value to get from json
-     * @return value as int, if it is not exist will return -1 value
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
+     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public int getInt(String key){
-        return autoSearch(jsonObjectDetails, key, -1);
+        try {
+           return autoSearch(jsonObjectDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} an int value
      * @param key: key of int value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
      * @return value as int, if it is not exist will return {@code defValue}
      * **/
     public int getInt(String key, int defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONArray} an int value
      * @param index: index of int value to get from json
-     * @return value as int, if it is not exist will return -1 value
+     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public int getInt(int index){
         try {
             return jsonArrayDetails.getInt(index);
         }catch (Exception e){
-            return -1;
+            return NUMERIC_DEF_VALUE_IF_MISSED;
         }
     }
 
@@ -179,30 +218,42 @@ public class JsonHelper{
     
     /** Method to get from {@link JSONObject} a float value
      * @param key: key of float value to get from json
-     * @return value as float, if it is not exist will return -1 value
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
+     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public float getFloat(String key){
-        return autoSearch(jsonObjectDetails, key, -1);
+        try {
+           return autoSearch(jsonObjectDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} a float value
      * @param key: key of float value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
      * @return value as float, if it is not exist will return {@code defValue}
      * **/
     public float getFloat(String key, float defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONArray} a float value
      * @param index: index of float value to get from json
-     * @return value as float, if it is not exist will return -1 value
+     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public float getFloat(int index){
         try {
             return jsonArrayDetails.getFloat(index);
         }catch (Exception e){
-            return -1;
+            return NUMERIC_DEF_VALUE_IF_MISSED;
         }
     }
 
@@ -221,30 +272,42 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a long value
      * @param key: key of long value to get from json
-     * @return value as long, if it is not exist will return -1 value
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
+     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public long getLong(String key){
-        return autoSearch(jsonObjectDetails, key, -1);
+        try {
+           return autoSearch(jsonObjectDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} a long value
      * @param key: key of long value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
      * @return value as long, if it is not exist will return {@code defValue}
      * **/
     public long getLong(String key, long defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONArray} a long value
      * @param index: index of long value to get from json
-     * @return value as long, if it is not exist will return -1 value
+     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public long getLong(int index){
         try {
             return jsonArrayDetails.getLong(index);
         }catch (Exception e){
-            return -1;
+            return NUMERIC_DEF_VALUE_IF_MISSED;
         }
     }
 
@@ -263,19 +326,29 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a BigDecimal value
      * @param key: key of BigDecimal value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
     public BigDecimal getBigDecimal(String key){
-        return autoSearch(jsonObjectDetails, key);
+        try {
+            return autoSearch(jsonObjectDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a BigDecimal value
      * @param key: key of BigDecimal value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
      * **/
     public BigDecimal getBigDecimal(String key, BigDecimal defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONArray} a BigDecimal value
@@ -305,19 +378,29 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a BigInteger value
      * @param key: key of BigInteger value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
     public BigInteger getBigInteger(String key){
-        return autoSearch(jsonObjectDetails, key);
+        try {
+            return autoSearch(jsonObjectDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a BigInteger value
      * @param key: key of BigInteger value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
      * **/
     public BigInteger getBigInteger(String key, BigInteger defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONArray} a BigInteger value
@@ -347,19 +430,29 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a Number value
      * @param key: key of Number value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link Number}, if it is not exist will return null value
      * **/
     public Number getNumber(String key){
-        return autoSearch(jsonObjectDetails, key);
+        try {
+            return autoSearch(jsonObjectDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a Number value
      * @param key: key of Number value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link Number}, if it is not exist will return {@code defValue}
      * **/
     public Number getNumber(String key, Number defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONArray} a Number value
@@ -389,19 +482,29 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} an object value
      * @param key: key of Object value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link Object}, if it is not exist will return null value
      * **/
     public Object get(String key){
-        return autoSearch(jsonObjectDetails, key);
+        try {
+            return autoSearch(jsonObjectDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} an object value
      * @param key: key of Object value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link Object}, if it is not exist will return {@code defValue}
      * **/
     public Object get(String key, Object defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONArray} an object value
@@ -431,19 +534,29 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a boolean value
      * @param key: key of boolean value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned false as default value
      * @return value as boolean, if it is not exist will return false value
      * **/
     public boolean getBoolean(String key){
-        return autoSearch(jsonObjectDetails, key, false);
+        try {
+            return autoSearch(jsonObjectDetails, key, false);
+        }catch (ClassCastException e){
+            return false;
+        }
     }
 
     /** Method to get from {@link JSONObject} a boolean value
      * @param key: key of boolean value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned false as default value
      * @return value as boolean, if it is not exist will return {@code defValue}
      * **/
     public boolean getBoolean(String key, boolean defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return false;
+        }
     }
 
     /** Method to get from {@link JSONArray} a boolean value
@@ -473,19 +586,29 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject}  a list of values
      * @param key: key of JSONArray to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * **/
     public JSONArray getJSONArray(String key){
-        return autoSearch(jsonObjectDetails, key);
+        try {
+            return autoSearch(jsonObjectDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject}  a list of values
      * @param key: key of JSONArray to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
      * **/
     public JSONArray getJSONArray(String key, JSONArray defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONArray}  a list of values
@@ -515,19 +638,29 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a jsonObject
      * @param key: key of JSONObject to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
     public JSONObject getJSONObject(String key){
-        return autoSearch(jsonObjectDetails, key);
+        try {
+            return autoSearch(jsonObjectDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
      * @param key: key of JSONObject to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      * **/
     public JSONObject getJSONObject(String key, JSONObject defValue){
-        return autoSearch(jsonObjectDetails, key, defValue);
+        try {
+            return autoSearch(jsonObjectDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONArray} a jsonObject
@@ -561,10 +694,15 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of string value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link String}, if it is not exist will return null value
      * **/
     public static String getString(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key);
+        try {
+            return autoSearch(jsonDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a string value
@@ -574,10 +712,15 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of string value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link String}, if it is not exist will return {@code defValue}
      * **/
     public static String getString(JSONObject jsonDetails, String key, String defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a double value
@@ -586,10 +729,16 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of double value to get from json
-     * @return value as double, if it is not exist will return -1 value
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
+     * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static double getDouble(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key, -1);
+        try {
+           return autoSearch(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} a double value
@@ -599,10 +748,16 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of double value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
      * @return value as double, if it is not exist will return {@code defValue}
      * **/
     public static double getDouble(JSONObject jsonDetails, String key, double defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} an int value
@@ -611,10 +766,16 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of int value to get from json
-     * @return value as int, if it is not exist will return -1 value
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
+     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static int getInt(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key, -1);
+        try {
+           return autoSearch(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} an int value
@@ -624,10 +785,16 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of int value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
      * @return value as int, if it is not exist will return {@code defValue}
      * **/
     public static int getInt(JSONObject jsonDetails, String key, int defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} a float value
@@ -636,10 +803,16 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of float value to get from json
-     * @return value as float, if it is not exist will return -1 value
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
+     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static float getFloat(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key, -1);
+        try {
+           return autoSearch(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} a float value
@@ -649,10 +822,16 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of float value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
      * @return value as float, if it is not exist will return {@code defValue}
      * **/
     public static float getFloat(JSONObject jsonDetails, String key, float defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} a long value
@@ -661,10 +840,16 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of long value to get from json
-     * @return value as long, if it is not exist will return -1 value
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
+     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static long getLong(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key, -1);
+        try {
+           return autoSearch(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} a long value
@@ -674,10 +859,16 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of long value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * as default value
      * @return value as long, if it is not exist will return {@code defValue}
      * **/
     public static long getLong(JSONObject jsonDetails, String key, long defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return NUMERIC_DEF_VALUE_IF_MISSED;
+        }
     }
 
     /** Method to get from {@link JSONObject} a BigDecimal value
@@ -686,10 +877,15 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of BigDecimal value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
     public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key);
+        try {
+           return autoSearch(jsonDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a BigDecimal value
@@ -699,10 +895,15 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of BigDecimal value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
      * **/
     public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key, BigDecimal defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a BigInteger value
@@ -711,10 +912,15 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of BigInteger value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
     public static BigInteger getBigInteger(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key);
+        try {
+           return autoSearch(jsonDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a BigInteger value
@@ -724,10 +930,15 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of BigInteger value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
      * **/
     public static BigInteger getBigInteger(JSONObject jsonDetails, String key, BigInteger defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a Number value
@@ -736,10 +947,15 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of Number value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link Number}, if it is not exist will return null value
      * **/
     public static Number getNumber(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key);
+        try {
+           return autoSearch(jsonDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a Number value
@@ -749,10 +965,15 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of Number value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link Number}, if it is not exist will return {@code defValue}
      * **/
     public static Number getNumber(JSONObject jsonDetails, String key, Number defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} an Object value
@@ -761,10 +982,15 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of Object value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link Object}, if it is not exist will return null value
      * **/
     public static Object get(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key);
+        try {
+           return autoSearch(jsonDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} an Object value
@@ -774,10 +1000,15 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of Object value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link Object}, if it is not exist will return {@code defValue}
      * **/
     public static Object get(JSONObject jsonDetails, String key, Object defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a boolean value
@@ -786,10 +1017,15 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of boolean value to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned false as default value
      * @return value as boolean, if it is not exist will return false value
      * **/
     public static boolean getBoolean(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key, false);
+        try {
+            return autoSearch(jsonDetails, key, false);
+        }catch (ClassCastException e){
+            return false;
+        }
     }
 
     /** Method to get from {@link JSONObject} a boolean value
@@ -799,10 +1035,15 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of boolean value to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned false as default value
      * @return value as boolean, if it is not exist will return {@code defValue}
      * **/
     public static boolean getBoolean(JSONObject jsonDetails, String key, boolean defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return false;
+        }
     }
 
     /** Method to get from {@link JSONObject}  a list of values
@@ -811,10 +1052,15 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of JSONArray to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * **/
     public static JSONArray getJSONArray(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key);
+        try {
+           return autoSearch(jsonDetails, key);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject}  a list of values
@@ -824,10 +1070,15 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of JSONArray to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
      * **/
     public static JSONArray getJSONArray(JSONObject jsonDetails, String key, JSONArray defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
@@ -836,10 +1087,15 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param key: key of JSONObject to get from json
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
     public static JSONObject getJSONObject(JSONObject jsonDetails, String key){
-        return autoSearch(jsonDetails, key);
+        try {
+            return autoSearch(jsonDetails, key);
+        } catch (ClassCastException e) {
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
@@ -849,10 +1105,15 @@ public class JsonHelper{
      * @param jsonDetails: JSON from fetch data
      * @param key: key of JSONObject to get from json
      * @param defValue: default value to return if primary value not exists
+     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      * **/
     public static JSONObject getJSONObject(JSONObject jsonDetails, String key, JSONObject defValue){
-        return autoSearch(jsonDetails, key, defValue);
+        try {
+           return autoSearch(jsonDetails, key, defValue);
+        }catch (ClassCastException e){
+            return null;
+        }
     }
 
     /** Method to get from {@link JSONArray} a string value
@@ -894,13 +1155,13 @@ public class JsonHelper{
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param index: index of double value to get from json
-     * @return value as double, if it is not exist will return -1 value
+     * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static double getDouble(JSONArray jsonDetails, int index){
         try {
             return jsonDetails.getDouble(index);
         }catch (Exception e){
-            return -1;
+            return NUMERIC_DEF_VALUE_IF_MISSED;
         }
     }
 
@@ -927,13 +1188,13 @@ public class JsonHelper{
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param index: index of int value to get from json
-     * @return value as int, if it is not exist will return -1 value
+     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static int getInt(JSONArray jsonDetails, int index){
         try {
             return jsonDetails.getInt(index);
         }catch (Exception e){
-            return -1;
+            return NUMERIC_DEF_VALUE_IF_MISSED;
         }
     }
 
@@ -960,13 +1221,13 @@ public class JsonHelper{
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param index: index of float value to get from json
-     * @return value as float, if it is not exist will return -1 value
+     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static float getFloat(JSONArray jsonDetails, int index){
         try {
             return jsonDetails.getFloat(index);
         }catch (Exception e){
-            return -1;
+            return NUMERIC_DEF_VALUE_IF_MISSED;
         }
     }
 
@@ -993,13 +1254,13 @@ public class JsonHelper{
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
      * @param jsonDetails: JSON from fetch data
      * @param index: index of long value to get from json
-     * @return value as long, if it is not exist will return -1 value
+     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static long getLong(JSONArray jsonDetails, int index){
         try {
             return jsonDetails.getLong(index);
         }catch (Exception e){
-            return -1;
+            return NUMERIC_DEF_VALUE_IF_MISSED;
         }
     }
 
@@ -1259,24 +1520,25 @@ public class JsonHelper{
      * @return value as {@link T}, if it is not exist will return null
      * **/
     public static <T> T autoSearch(JSONObject json, String searchKey) {
-        String jsonString = json.toString();
-        for (String key : json.keySet()){
-            if(key.equals(searchKey))
-                return (T) json.get(searchKey);
-            else {
-                T genericJSON = (T) json.get(key);
-                if(genericJSON instanceof JSONObject) {
-                    T search = autoSearch(json.getJSONObject(key), searchKey);
-                    if(search != null)
-                        return autoSearch(json.getJSONObject(key), searchKey);
-                    else
-                        return null;
-                }else if(json.get(key) instanceof JSONArray) {
-                    T search = (T) autoSearch(json.getJSONArray(key), searchKey);
-                    if(search != null)
-                        return (T) autoSearch(json.getJSONArray(key), searchKey);
-                    else
-                        return null;
+        if(json.toString().contains("\"" + searchKey + "\":")) {
+            for (String key : json.keySet()){
+                if(key.equals(searchKey))
+                    return (T) json.get(searchKey);
+                else {
+                    T genericJSON = (T) json.get(key);
+                    if(genericJSON instanceof JSONObject) {
+                        T search = autoSearch(json.getJSONObject(key), searchKey);
+                        if(search != null)
+                            return autoSearch(json.getJSONObject(key), searchKey);
+                        else
+                            return null;
+                    }else if(json.get(key) instanceof JSONArray) {
+                        T search = autoSearch(json.getJSONArray(key), searchKey);
+                        if(search != null)
+                            return autoSearch(json.getJSONArray(key), searchKey);
+                        else
+                            return null;
+                    }
                 }
             }
         }
@@ -1305,21 +1567,23 @@ public class JsonHelper{
      * @param searchKey: key for value to fetch
      * @return value as {@link ArrayList} of {@link T}, if it is not exist will return null
      * **/
-    public static <T> ArrayList<T> autoSearch(JSONArray list, String searchKey) {
-        ArrayList<T> values = new ArrayList<>();
-        for (int j = 0; j < list.length(); j++) {
-            T result = (T) list.get(j);
-            if(result instanceof JSONObject) {
-                try {
-                    values.add((T) ((JSONObject) result).get(searchKey));
-                }catch (JSONException e) {
-                    return null;
-                }
-            }else
-                values.add((T) list.get(j));
+    public static <T> T autoSearch(JSONArray list, String searchKey) {
+        if(list.toString().contains("\"" + searchKey + "\":")){
+            ArrayList<T> values = new ArrayList<>();
+            for (int j = 0; j < list.length(); j++) {
+                T result = (T) list.get(j);
+                if(result instanceof JSONObject) {
+                    try {
+                        values.add((T) ((JSONObject) result).get(searchKey));
+                    }catch (JSONException e) {
+                        return null;
+                    }
+                }else
+                    values.add((T) list.get(j));
+            }
+            if(values.size() > 0)
+                return (T) values;
         }
-        if(values.size() > 0)
-            return values;
         return null;
     }
 
