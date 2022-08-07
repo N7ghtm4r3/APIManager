@@ -1,10 +1,12 @@
 package com.tecknobit.apimanager.Tools.Formatters;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 /**
  * The {@code JsonHelper} class is a useful class tool to fetch data from a JSONObject and get a default
@@ -1439,6 +1441,38 @@ public class JsonHelper{
         }catch (Exception e){
             return defValue;
         }
+    }
+
+    public <T> T autoSearch(JSONObject jsonObjectDetails, String keySearch){
+        String json = jsonObjectDetails.toString();
+        int length = json.length();
+        if(json.contains(keySearch)){
+            ArrayList<String> keys = new ArrayList<>();
+            for(int j = 0; j < length; j++){
+                StringBuilder newKey = new StringBuilder();
+                if(json.charAt(j) == '\"') {
+                    for (int i = j + 1; i < length && (i + 2) < length && (!json.substring(i, i + 2).equals("{\"")); i++, j++) {
+                        char letter = json.charAt(i);
+                        if(letter != '\"' && letter != ':')
+                            newKey.append(letter);
+                    }
+                    //System.out.println(newKey);
+                    if(newKey.toString().equals(keySearch)){
+                        for (String key : keys) {
+                            System.out.println(key);
+                            if(!key.contains("{") && !key.contains(",")) {
+                                try {
+                                    jsonObjectDetails = jsonObjectDetails.getJSONObject(key);
+                                }catch (JSONException ignored){}
+                            }
+                        }
+                        return (T) jsonObjectDetails.get(keySearch);
+                    }else
+                        keys.add(newKey.toString());
+                }
+            }
+        }
+        return (T) "";
     }
 
     @Override
