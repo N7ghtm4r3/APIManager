@@ -1,5 +1,5 @@
 # APIManager
-**v1.0.11**
+**v1.1.0**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -23,7 +23,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.N7ghtm4r3:APIManager:1.0.11'
+    implementation 'com.github.N7ghtm4r3:APIManager:1.1.0'
 }
 ```
 
@@ -45,7 +45,7 @@ dependencies {
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
     <artifactId>APIManager</artifactId>
-    <version>1.0.11</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
