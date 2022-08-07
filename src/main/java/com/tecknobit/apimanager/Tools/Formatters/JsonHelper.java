@@ -1,6 +1,7 @@
 package com.tecknobit.apimanager.Tools.Formatters;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
@@ -55,11 +56,7 @@ public class JsonHelper{
      * @return value as {@link String}, if it is not exist will return null value
      * **/
     public String getString(String key){
-        try {
-            return jsonObjectDetails.getString(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonObjectDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a string value
@@ -68,11 +65,7 @@ public class JsonHelper{
      * @return value as {@link String}, if it is not exist will return {@code defValue}
      * **/
     public String getString(String key, String defValue){
-        try {
-            return jsonObjectDetails.getString(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a string value
@@ -105,11 +98,7 @@ public class JsonHelper{
      * @return value as double, if it is not exist will return -1 value
      * **/
     public double getDouble(String key){
-        try {
-            return jsonObjectDetails.getDouble(key);
-        }catch (Exception e){
-            return -1;
-        }
+        return autoSearch(jsonObjectDetails, key, -1);
     }
 
     /** Method to get from {@link JSONObject} a double value
@@ -118,11 +107,7 @@ public class JsonHelper{
      * @return value as double, if it is not exist will return {@code defValue}
      * **/
     public double getDouble(String key, double defValue){
-        try {
-            return jsonObjectDetails.getDouble(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a double value
@@ -155,11 +140,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return -1 value
      * **/
     public int getInt(String key){
-        try {
-            return jsonObjectDetails.getInt(key);
-        }catch (Exception e){
-            return -1;
-        }
+        return autoSearch(jsonObjectDetails, key, -1);
     }
 
     /** Method to get from {@link JSONObject} an int value
@@ -168,11 +149,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return {@code defValue}
      * **/
     public int getInt(String key, int defValue){
-        try {
-            return jsonObjectDetails.getInt(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} an int value
@@ -205,11 +182,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return -1 value
      * **/
     public float getFloat(String key){
-        try {
-            return jsonObjectDetails.getFloat(key);
-        }catch (Exception e){
-            return -1;
-        }
+        return autoSearch(jsonObjectDetails, key, -1);
     }
 
     /** Method to get from {@link JSONObject} a float value
@@ -218,11 +191,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return {@code defValue}
      * **/
     public float getFloat(String key, float defValue){
-        try {
-            return jsonObjectDetails.getFloat(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a float value
@@ -255,11 +224,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return -1 value
      * **/
     public long getLong(String key){
-        try {
-            return jsonObjectDetails.getLong(key);
-        }catch (Exception e){
-            return -1;
-        }
+        return autoSearch(jsonObjectDetails, key, -1);
     }
 
     /** Method to get from {@link JSONObject} a long value
@@ -268,11 +233,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return {@code defValue}
      * **/
     public long getLong(String key, long defValue){
-        try {
-            return jsonObjectDetails.getLong(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a long value
@@ -305,11 +266,7 @@ public class JsonHelper{
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
     public BigDecimal getBigDecimal(String key){
-        try {
-            return jsonObjectDetails.getBigDecimal(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonObjectDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a BigDecimal value
@@ -318,11 +275,7 @@ public class JsonHelper{
      * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
      * **/
     public BigDecimal getBigDecimal(String key, BigDecimal defValue){
-        try {
-            return jsonObjectDetails.getBigDecimal(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a BigDecimal value
@@ -355,11 +308,7 @@ public class JsonHelper{
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
     public BigInteger getBigInteger(String key){
-        try {
-            return jsonObjectDetails.getBigInteger(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonObjectDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a BigInteger value
@@ -368,11 +317,7 @@ public class JsonHelper{
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
      * **/
     public BigInteger getBigInteger(String key, BigInteger defValue){
-        try {
-            return jsonObjectDetails.getBigInteger(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a BigInteger value
@@ -405,11 +350,7 @@ public class JsonHelper{
      * @return value as {@link Number}, if it is not exist will return null value
      * **/
     public Number getNumber(String key){
-        try {
-            return jsonObjectDetails.getNumber(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonObjectDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a Number value
@@ -418,11 +359,7 @@ public class JsonHelper{
      * @return value as {@link Number}, if it is not exist will return {@code defValue}
      * **/
     public Number getNumber(String key, Number defValue){
-        try {
-            return jsonObjectDetails.getNumber(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a Number value
@@ -455,11 +392,7 @@ public class JsonHelper{
      * @return value as {@link Object}, if it is not exist will return null value
      * **/
     public Object get(String key){
-        try {
-            return jsonObjectDetails.get(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonObjectDetails, key);
     }
 
     /** Method to get from {@link JSONObject} an object value
@@ -468,11 +401,7 @@ public class JsonHelper{
      * @return value as {@link Object}, if it is not exist will return {@code defValue}
      * **/
     public Object get(String key, Object defValue){
-        try {
-            return jsonObjectDetails.get(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} an object value
@@ -505,11 +434,7 @@ public class JsonHelper{
      * @return value as boolean, if it is not exist will return false value
      * **/
     public boolean getBoolean(String key){
-        try {
-            return jsonObjectDetails.getBoolean(key);
-        }catch (Exception e){
-            return false;
-        }
+        return autoSearch(jsonObjectDetails, key, false);
     }
 
     /** Method to get from {@link JSONObject} a boolean value
@@ -518,11 +443,7 @@ public class JsonHelper{
      * @return value as boolean, if it is not exist will return {@code defValue}
      * **/
     public boolean getBoolean(String key, boolean defValue){
-        try {
-            return jsonObjectDetails.getBoolean(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a boolean value
@@ -555,11 +476,7 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * **/
     public JSONArray getJSONArray(String key){
-        try {
-            return jsonObjectDetails.getJSONArray(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonObjectDetails, key);
     }
 
     /** Method to get from {@link JSONObject}  a list of values
@@ -568,11 +485,7 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
      * **/
     public JSONArray getJSONArray(String key, JSONArray defValue){
-        try {
-            return jsonObjectDetails.getJSONArray(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray}  a list of values
@@ -605,11 +518,7 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
     public JSONObject getJSONObject(String key){
-        try {
-            return jsonObjectDetails.getJSONObject(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonObjectDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
@@ -618,11 +527,7 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      * **/
     public JSONObject getJSONObject(String key, JSONObject defValue){
-        try {
-            return jsonObjectDetails.getJSONObject(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonObjectDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a jsonObject
@@ -659,11 +564,7 @@ public class JsonHelper{
      * @return value as {@link String}, if it is not exist will return null value
      * **/
     public static String getString(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getString(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a string value
@@ -676,11 +577,7 @@ public class JsonHelper{
      * @return value as {@link String}, if it is not exist will return {@code defValue}
      * **/
     public static String getString(JSONObject jsonDetails, String key, String defValue){
-        try {
-            return jsonDetails.getString(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} a double value
@@ -692,11 +589,7 @@ public class JsonHelper{
      * @return value as double, if it is not exist will return -1 value
      * **/
     public static double getDouble(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getDouble(key);
-        }catch (Exception e){
-            return -1;
-        }
+        return autoSearch(jsonDetails, key, -1);
     }
 
     /** Method to get from {@link JSONObject} a double value
@@ -709,11 +602,7 @@ public class JsonHelper{
      * @return value as double, if it is not exist will return {@code defValue}
      * **/
     public static double getDouble(JSONObject jsonDetails, String key, double defValue){
-        try {
-            return jsonDetails.getDouble(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} an int value
@@ -725,11 +614,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return -1 value
      * **/
     public static int getInt(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getInt(key);
-        }catch (Exception e){
-            return -1;
-        }
+        return autoSearch(jsonDetails, key, -1);
     }
 
     /** Method to get from {@link JSONObject} an int value
@@ -742,11 +627,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return {@code defValue}
      * **/
     public static int getInt(JSONObject jsonDetails, String key, int defValue){
-        try {
-            return jsonDetails.getInt(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} a float value
@@ -758,11 +639,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return -1 value
      * **/
     public static float getFloat(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getFloat(key);
-        }catch (Exception e){
-            return -1;
-        }
+        return autoSearch(jsonDetails, key, -1);
     }
 
     /** Method to get from {@link JSONObject} a float value
@@ -775,11 +652,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return {@code defValue}
      * **/
     public static float getFloat(JSONObject jsonDetails, String key, float defValue){
-        try {
-            return jsonDetails.getFloat(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} a long value
@@ -791,11 +664,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return -1 value
      * **/
     public static long getLong(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getLong(key);
-        }catch (Exception e){
-            return -1;
-        }
+        return autoSearch(jsonDetails, key, -1);
     }
 
     /** Method to get from {@link JSONObject} a long value
@@ -808,11 +677,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return {@code defValue}
      * **/
     public static long getLong(JSONObject jsonDetails, String key, long defValue){
-        try {
-            return jsonDetails.getLong(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} a BigDecimal value
@@ -824,11 +689,7 @@ public class JsonHelper{
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
     public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getBigDecimal(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a BigDecimal value
@@ -841,11 +702,7 @@ public class JsonHelper{
      * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
      * **/
     public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key, BigDecimal defValue){
-        try {
-            return jsonDetails.getBigDecimal(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} a BigInteger value
@@ -857,11 +714,7 @@ public class JsonHelper{
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
     public static BigInteger getBigInteger(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getBigInteger(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a BigInteger value
@@ -874,11 +727,7 @@ public class JsonHelper{
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
      * **/
     public static BigInteger getBigInteger(JSONObject jsonDetails, String key, BigInteger defValue){
-        try {
-            return jsonDetails.getBigInteger(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} a Number value
@@ -890,11 +739,7 @@ public class JsonHelper{
      * @return value as {@link Number}, if it is not exist will return null value
      * **/
     public static Number getNumber(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getNumber(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a Number value
@@ -907,11 +752,7 @@ public class JsonHelper{
      * @return value as {@link Number}, if it is not exist will return {@code defValue}
      * **/
     public static Number getNumber(JSONObject jsonDetails, String key, Number defValue){
-        try {
-            return jsonDetails.getNumber(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} an Object value
@@ -923,11 +764,7 @@ public class JsonHelper{
      * @return value as {@link Object}, if it is not exist will return null value
      * **/
     public static Object get(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.get(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonDetails, key);
     }
 
     /** Method to get from {@link JSONObject} an Object value
@@ -940,11 +777,7 @@ public class JsonHelper{
      * @return value as {@link Object}, if it is not exist will return {@code defValue}
      * **/
     public static Object get(JSONObject jsonDetails, String key, Object defValue){
-        try {
-            return jsonDetails.get(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} a boolean value
@@ -956,11 +789,7 @@ public class JsonHelper{
      * @return value as boolean, if it is not exist will return false value
      * **/
     public static boolean getBoolean(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getBoolean(key);
-        }catch (Exception e){
-            return false;
-        }
+        return autoSearch(jsonDetails, key, false);
     }
 
     /** Method to get from {@link JSONObject} a boolean value
@@ -973,11 +802,7 @@ public class JsonHelper{
      * @return value as boolean, if it is not exist will return {@code defValue}
      * **/
     public static boolean getBoolean(JSONObject jsonDetails, String key, boolean defValue){
-        try {
-            return jsonDetails.getBoolean(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject}  a list of values
@@ -989,11 +814,7 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * **/
     public static JSONArray getJSONArray(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getJSONArray(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonDetails, key);
     }
 
     /** Method to get from {@link JSONObject}  a list of values
@@ -1006,11 +827,7 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
      * **/
     public static JSONArray getJSONArray(JSONObject jsonDetails, String key, JSONArray defValue){
-        try {
-            return jsonDetails.getJSONArray(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
@@ -1022,11 +839,7 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
     public static JSONObject getJSONObject(JSONObject jsonDetails, String key){
-        try {
-            return jsonDetails.getJSONObject(key);
-        }catch (Exception e){
-            return null;
-        }
+        return autoSearch(jsonDetails, key);
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
@@ -1039,11 +852,7 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      * **/
     public static JSONObject getJSONObject(JSONObject jsonDetails, String key, JSONObject defValue){
-        try {
-            return jsonDetails.getJSONObject(key);
-        }catch (Exception e){
-            return defValue;
-        }
+        return autoSearch(jsonDetails, key, defValue);
     }
 
     /** Method to get from {@link JSONArray} a string value
@@ -1442,7 +1251,14 @@ public class JsonHelper{
         }
     }
 
-    public <T> T autoSearch(JSONObject json, String searchKey){
+    /** Method to get from {@link JSONObject} a generic value
+     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * @param json: {@link JSONObject} from fetch data
+     * @param searchKey: key for value to fetch
+     * @return value as {@link T}, if it is not exist will return null
+     * **/
+    public static <T> T autoSearch(JSONObject json, String searchKey) {
         String jsonString = json.toString();
         for (String key : json.keySet()){
             if(key.equals(searchKey))
@@ -1453,29 +1269,73 @@ public class JsonHelper{
                     T search = autoSearch(json.getJSONObject(key), searchKey);
                     if(search != null)
                         return autoSearch(json.getJSONObject(key), searchKey);
+                    else
+                        return null;
                 }else if(json.get(key) instanceof JSONArray) {
                     ArrayList<T> search = autoSearch(json.getJSONArray(key), searchKey);
                     if(search != null)
                         return (T) autoSearch(json.getJSONArray(key), searchKey);
-                }else
-                    return null;
+                    else
+                        return null;
+                }
             }
         }
         return null;
     }
 
-    public <T> ArrayList<T> autoSearch(JSONArray json, String searchKey){
+    /** Method to get from {@link JSONObject} a generic value
+     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * @param json: {@link JSONObject} from fetch data
+     * @param searchKey: key for value to fetch
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link T}, if it is not exist will return {@code defValue}
+     * **/
+    public static <T> T autoSearch(JSONObject json, String searchKey, T defValue) {
+        T search = autoSearch(json, searchKey);
+        if(search == null)
+            return defValue;
+        return search;
+    }
+
+    /** Method to get from {@link JSONArray} a generic value
+     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * @param list: {@link JSONArray} from fetch data
+     * @param searchKey: key for value to fetch
+     * @return value as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * **/
+    public static <T> ArrayList<T> autoSearch(JSONArray list, String searchKey) {
         ArrayList<T> values = new ArrayList<>();
-        for (int j = 0; j < json.length(); j++) {
-            T result = (T) json.get(j);
-            if(result instanceof JSONObject)
-                values.add((T) ((JSONObject) result).getString(searchKey));
-            else
-                values.add((T) json.get(j));
+        for (int j = 0; j < list.length(); j++) {
+            T result = (T) list.get(j);
+            if(result instanceof JSONObject) {
+                try {
+                    values.add((T) ((JSONObject) result).get(searchKey));
+                }catch (JSONException e) {
+                    return null;
+                }
+            }else
+                values.add((T) list.get(j));
         }
         if(values.size() > 0)
             return values;
         return null;
+    }
+
+    /** Method to get from {@link JSONArray} a generic value
+     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * @param list: {@link JSONArray} from fetch data
+     * @param searchKey: key for value to fetch
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link ArrayList} of {@link T}, if it is not exist will return {@code defValue}
+     * **/
+    public static <T> T autoSearch(JSONArray list, String searchKey, T defValue) {
+        ArrayList<T> search = autoSearch(list, searchKey);
+        if(search == null)
+            return defValue;
+        return (T) search;
     }
 
     @Override
