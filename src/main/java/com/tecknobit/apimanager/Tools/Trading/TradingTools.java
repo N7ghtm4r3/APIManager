@@ -20,7 +20,9 @@ public abstract class TradingTools {
      * **/
     public static double computeAssetPercent(double startValue, double lastValue){
         if(startValue < 0 || lastValue < 0)
-            throw new IllegalArgumentException("startValue and lastValue must be positive");
+            throw new IllegalArgumentException("Start value and last value must be positive");
+        if(startValue == 0 && lastValue == 0)
+            return 0;
         return (((lastValue * 100) / startValue) - 100);
     }
 
@@ -35,7 +37,9 @@ public abstract class TradingTools {
         if(decimalDigits < 0)
             throw new IllegalArgumentException("Decimal digits number cannot be less than 0");
         if(startValue < 0 || lastValue < 0)
-            throw new IllegalArgumentException("startValue and lastValue must be positive");
+            throw new IllegalArgumentException("Start value and last value must be positive");
+        if(startValue == 0 && lastValue == 0)
+            return 0;
         return roundValue((((lastValue * 100) / startValue) - 100), decimalDigits);
     }
 
@@ -83,13 +87,101 @@ public abstract class TradingTools {
     /** Method to round a value
      * @param value: value to round
      * @param decimalDigits: number of digits to round final value
-     * @return value rounded with decimalDigits inserted
+     * @return value rounded with decimal digits inserted
      * @throws IllegalArgumentException if decimalDigits is negative
      * **/
     public static double roundValue(double value, int decimalDigits){
         if(decimalDigits < 0)
             throw new IllegalArgumentException("Decimal digits number cannot be less than 0");
-        return parseDouble(format("%."+decimalDigits+"f", value).replace(",","."));
+        return parseDouble(format("%." + decimalDigits + "f", value).replace(",","."));
+    }
+
+    /** Method to percentualize a value
+     * @param startValue: value to percentualize
+     * @param percentualizer: percent slice to add or remove from start value
+     * @return percentualized value as double es. <br>
+     * <table>
+     *     <th>StartValue</th>
+     *     <th>Percentualizer</th>
+     *     <th>Result</th>
+     *     <tr>
+     *          <td>
+     *              100
+     *          </td>
+     *          <td>
+     *              +10
+     *          </td>
+     *          <td>
+     *              110
+     *          </td>
+     *     </tr>
+     *     <tr>
+     *          <td>
+     *              100
+     *          </td>
+     *          <td>
+     *              -10
+     *          </td>
+     *          <td>
+     *              90
+     *          </td>
+     *     </tr>
+     * </table>
+     * **/
+    public static double getPercentualizedValue(double startValue, double percentualizer){
+        if(startValue < 0)
+            throw new IllegalArgumentException("Start value must be positive");
+        if(percentualizer < -100)
+            throw new IllegalArgumentException("Percentualizer cannot be lesser than -100");
+        double slice = startValue * Math.abs(percentualizer) / 100;
+        if(percentualizer > 0)
+            return startValue + slice;
+        else
+            return startValue - slice;
+    }
+
+    /** Method to percentualize a value
+     * @param startValue: value to percentualize
+     * @param percentualizer: percent slice to add or remove from start value
+     * @param decimalDigits: number of digits to round final value
+     * @return percentualized value as double es. <br>
+     * <table>
+     *     <th>StartValue</th>
+     *     <th>Percentualizer</th>
+     *     <th>Result</th>
+     *     <th>Decimal digits</th>
+     *     <tr>
+     *          <td>
+     *              101
+     *          </td>
+     *          <td>
+     *              +2.5
+     *          </td>
+     *          <td>
+     *              103.52
+     *          </td>
+     *          <td>
+     *              2
+     *          </td>
+     *     </tr>
+     *     <tr>
+     *          <td>
+     *              100
+     *          </td>
+     *          <td>
+     *              -10
+     *          </td>
+     *          <td>
+     *              98.47
+     *          </td>
+     *          <td>
+     *              2
+     *          </td>
+     *     </tr>
+     * </table>
+     * **/
+    public static double getPercentualizedValue(double startValue, double percentualizer, int decimalDigits){
+        return roundValue(getPercentualizedValue(startValue, percentualizer), decimalDigits);
     }
 
     /** Method to get forecast of an asset in base of days's gap inserted
