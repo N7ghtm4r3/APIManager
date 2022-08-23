@@ -1522,14 +1522,32 @@ public class JsonHelper{
         }
     }
 
+    /** Method to get from {@link JSONObject} a list of values automatically
+     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * @param searchKey: key for value to fetch
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * **/
     public <T> ArrayList<T> fetchOList(String searchKey){
         return autoSearch(prepareList(jsonObjectDetails), searchKey);
     }
 
+    /** Method to get from {@link JSONObject} a list of values automatically
+     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * @param json: {@link JSONObject} from fetch list
+     * @param searchKey: key for value to fetch
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * **/
     public static <T> ArrayList<T> fetchOList(JSONObject json, String searchKey){
         return autoSearch(prepareList(json), searchKey);
     }
 
+    /** Method to prepare a {@link JSONObject} for auto list search
+     * @apiNote this method will remove all keys that are not {@link JSONArray}
+     * @param list: {@link JSONObject} to prepare
+     * @return list of values as {@link JSONObject}
+     * **/
     private static JSONObject prepareList(JSONObject list){
         Iterator<String> keys = list.keys();
         while (keys.hasNext()){
@@ -1540,10 +1558,23 @@ public class JsonHelper{
         return list;
     }
 
+    /** Method to get from {@link JSONArray} a list of values automatically
+     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * @param searchKey: key for value to fetch
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * **/
     public <T> ArrayList<T> fetchList(String searchKey){
         return autoSearch(jsonArrayDetails, searchKey);
     }
 
+    /** Method to get from {@link JSONArray} a list of values automatically
+     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * @param list: {@link JSONArray} from fetch list
+     * @param searchKey: key for value to fetch
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * **/
     public static <T> ArrayList<T> fetchList(JSONArray list, String searchKey){
         return autoSearch(list, searchKey);
     }

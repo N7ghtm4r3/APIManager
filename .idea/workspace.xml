@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="Fix some issues">
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/Tools/Formatters/JsonHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/Tools/Formatters/JsonHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/Tools/Trading/TradingTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/Tools/Trading/TradingTools.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,13 +93,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650100650185</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Load first test version APIManager">
-      <created>1650116883209</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1650116883209</updated>
     </task>
     <task id="LOCAL-00010" summary="Load first test version APIManager">
       <created>1650117475767</created>
@@ -440,7 +430,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659905521090</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Fix some issues">
+      <created>1661197245272</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1661197245272</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
