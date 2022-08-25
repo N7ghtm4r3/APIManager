@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * The {@code JsonHelper} class is a useful class tool to fetch data from a JSONObject and get a default
- * value if is not exist in that JSONObject
+ * The {@code JsonHelper} class is a useful class tool work with {@link JSONObject} and {@link JSONArray} classes
+ * @apiNote this class is helpful to avoid the {@link JSONException} because if searched value is not present in JSON, will be
+ * returned a default value or a custom value choose by you. For all the operations to get values you don't need to pass
+ * the correct JSON path ro reach the wanted value because it will be automatically reached autonomously
  * @author Tecknobit N7ghtm4r3
  * **/
 
@@ -31,12 +33,12 @@ public class JsonHelper{
     /**
      * {@code jsonObjectDetails} is instance that memorizes {@link JSONObject} to work on
      * **/
-    private final JSONObject jsonObjectDetails;
+    private JSONObject jsonObjectDetails;
 
     /**
      * {@code jsonObjectDetails} is instance that memorizes {@link JSONArray} to work on
      * **/
-    private final JSONArray jsonArrayDetails;
+    private JSONArray jsonArrayDetails;
 
     /** Constructor to init {@link JsonHelper} tool class
      * @param jsonObjectDetails: jsonObject used to fetch data
@@ -69,11 +71,7 @@ public class JsonHelper{
      * @return value as {@link String}, if it is not exist will return null value
      * **/
     public String getString(String key){
-        try {
-            return autoSearch(jsonObjectDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getString(key, null);
     }
 
     /** Method to get from {@link JSONObject} a string value
@@ -95,11 +93,7 @@ public class JsonHelper{
      * @return value as {@link String}, if it is not exist will return null value
      * **/
     public String getString(int index){
-        try {
-            return jsonArrayDetails.getString(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getString(index, null);
     }
 
     /** Method to get from {@link JSONArray} a string value
@@ -122,11 +116,7 @@ public class JsonHelper{
      * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public double getDouble(String key){
-        try {
-           return autoSearch(jsonObjectDetails, key, new BigDecimal(NUMERIC_DEF_VALUE_IF_MISSED)).doubleValue();
-        }catch (ClassCastException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
+        return getDouble(key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a double value
@@ -138,8 +128,12 @@ public class JsonHelper{
      * **/
     public double getDouble(String key, double defValue){
         try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
+            Object value = autoSearch(jsonObjectDetails, key, defValue);
+            if(value instanceof Number)
+                return ((Number)value).doubleValue();
+            else
+                return Double.parseDouble(value.toString());
+        }catch (ClassCastException | NumberFormatException e){
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
@@ -149,11 +143,7 @@ public class JsonHelper{
      * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public double getDouble(int index){
-        try {
-            return jsonArrayDetails.getDouble(index);
-        }catch (Exception e){
-            return NUMERIC_DEF_VALUE_IF_MISSED;
-        }
+        return getDouble(index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONArray} a double value
@@ -176,11 +166,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public int getInt(String key){
-        try {
-           return autoSearch(jsonObjectDetails, key,  NUMERIC_DEF_VALUE_IF_MISSED);
-        }catch (ClassCastException e){
-            return  NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
+        return getInt(key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} an int value
@@ -192,8 +178,12 @@ public class JsonHelper{
      * **/
     public int getInt(String key, int defValue){
         try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
+            Object value = autoSearch(jsonObjectDetails, key, defValue);
+            if(value instanceof Number)
+                return ((Number)value).intValue();
+            else
+                return Integer.parseInt(value.toString());
+        }catch (ClassCastException | NumberFormatException e){
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
@@ -203,11 +193,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public int getInt(int index){
-        try {
-            return jsonArrayDetails.getInt(index);
-        }catch (Exception e){
-            return NUMERIC_DEF_VALUE_IF_MISSED;
-        }
+        return getInt(index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONArray} an int value
@@ -230,11 +216,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public float getFloat(String key){
-        try {
-           return autoSearch(jsonObjectDetails, key, new BigDecimal(NUMERIC_DEF_VALUE_IF_MISSED)).floatValue();
-        }catch (ClassCastException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
+        return getFloat(key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a float value
@@ -246,8 +228,12 @@ public class JsonHelper{
      * **/
     public float getFloat(String key, float defValue){
         try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
+            Object value = autoSearch(jsonObjectDetails, key, defValue);
+            if(value instanceof Number)
+                return ((Number)value).floatValue();
+            else
+                return Float.parseFloat(value.toString());
+        }catch (ClassCastException | NumberFormatException e){
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
@@ -257,11 +243,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public float getFloat(int index){
-        try {
-            return jsonArrayDetails.getFloat(index);
-        }catch (Exception e){
-            return NUMERIC_DEF_VALUE_IF_MISSED;
-        }
+        return getFloat(index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONArray} a float value
@@ -284,12 +266,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public long getLong(String key){
-        try {
-           return autoSearch(jsonObjectDetails, key, (long) NUMERIC_DEF_VALUE_IF_MISSED);
-        }catch (ClassCastException e){
-            e.printStackTrace();
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
+        return getLong(key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a long value
@@ -301,8 +278,12 @@ public class JsonHelper{
      * **/
     public long getLong(String key, long defValue){
         try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
+            Object value = autoSearch(jsonObjectDetails, key, defValue);
+            if(value instanceof Number)
+                return ((Number)value).longValue();
+            else
+                return Long.parseLong(value.toString());
+        }catch (ClassCastException | NumberFormatException e){
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
@@ -312,11 +293,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public long getLong(int index){
-        try {
-            return jsonArrayDetails.getLong(index);
-        }catch (Exception e){
-            return NUMERIC_DEF_VALUE_IF_MISSED;
-        }
+        return getLong(index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONArray} a long value
@@ -338,11 +315,7 @@ public class JsonHelper{
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
     public BigDecimal getBigDecimal(String key){
-        try {
-            return autoSearch(jsonObjectDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getBigDecimal(key, null);
     }
 
     /** Method to get from {@link JSONObject} a BigDecimal value
@@ -353,9 +326,12 @@ public class JsonHelper{
      * **/
     public BigDecimal getBigDecimal(String key, BigDecimal defValue){
         try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
+            Object value = autoSearch(jsonObjectDetails, key, defValue);
+            if(value instanceof BigDecimal)
+                return (BigDecimal) value;
+            return BigDecimal.valueOf(Double.parseDouble(value.toString()));
+        }catch (NullPointerException | ClassCastException | NumberFormatException e){
+            return BigDecimal.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
         }
     }
 
@@ -364,11 +340,7 @@ public class JsonHelper{
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
     public BigDecimal getBigDecimal(int index){
-        try {
-            return jsonArrayDetails.getBigDecimal(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getBigDecimal(index, null);
     }
 
     /** Method to get from {@link JSONArray} a BigDecimal value
@@ -390,11 +362,7 @@ public class JsonHelper{
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
     public BigInteger getBigInteger(String key){
-        try {
-            return autoSearch(jsonObjectDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getBigInteger(key, null);
     }
 
     /** Method to get from {@link JSONObject} a BigInteger value
@@ -405,9 +373,12 @@ public class JsonHelper{
      * **/
     public BigInteger getBigInteger(String key, BigInteger defValue){
         try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
+            Object value = autoSearch(jsonObjectDetails, key, defValue);
+            if(value instanceof BigDecimal)
+                return (BigInteger) value;
+            return BigInteger.valueOf(Integer.parseInt(value.toString()));
+        }catch (NullPointerException | ClassCastException | NumberFormatException e){
+            return BigInteger.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
         }
     }
 
@@ -416,11 +387,7 @@ public class JsonHelper{
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
     public BigInteger getBigInteger(int index){
-        try {
-            return jsonArrayDetails.getBigInteger(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getBigInteger(index, null);
     }
 
     /** Method to get from {@link JSONArray} a BigInteger value
@@ -442,11 +409,7 @@ public class JsonHelper{
      * @return value as {@link Number}, if it is not exist will return null value
      * **/
     public Number getNumber(String key){
-        try {
-            return autoSearch(jsonObjectDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getNumber(key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a Number value
@@ -457,9 +420,10 @@ public class JsonHelper{
      * **/
     public Number getNumber(String key, Number defValue){
         try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
+            Object value = autoSearch(jsonObjectDetails, key, defValue);
+            return ((Number)value);
+        }catch (ClassCastException | NumberFormatException e){
+            return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
 
@@ -468,11 +432,7 @@ public class JsonHelper{
      * @return value as {@link Number}, if it is not exist will return null value
      * **/
     public Number getNumber(int index){
-        try {
-            return jsonArrayDetails.getNumber(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getNumber(index, null);
     }
 
     /** Method to get from {@link JSONArray} a Number value
@@ -494,11 +454,7 @@ public class JsonHelper{
      * @return value as {@link Object}, if it is not exist will return null value
      * **/
     public Object get(String key){
-        try {
-            return autoSearch(jsonObjectDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return get(key, null);
     }
 
     /** Method to get from {@link JSONObject} an object value
@@ -520,11 +476,7 @@ public class JsonHelper{
      * @return value as {@link Object}, if it is not exist will return null value
      * **/
     public Object get(int index){
-        try {
-            return jsonArrayDetails.get(index);
-        }catch (Exception e){
-            return null;
-        }
+        return get(index, null);
     }
 
     /** Method to get from {@link JSONArray} an object value
@@ -546,11 +498,7 @@ public class JsonHelper{
      * @return value as boolean, if it is not exist will return false value
      * **/
     public boolean getBoolean(String key){
-        try {
-            return autoSearch(jsonObjectDetails, key, false);
-        }catch (ClassCastException e){
-            return false;
-        }
+        return getBoolean(key, false);
     }
 
     /** Method to get from {@link JSONObject} a boolean value
@@ -561,9 +509,13 @@ public class JsonHelper{
      * **/
     public boolean getBoolean(String key, boolean defValue){
         try {
-            return autoSearch(jsonObjectDetails, key, defValue);
+            Object value = autoSearch(jsonObjectDetails, key, defValue);
+            if(value instanceof Boolean)
+                return (boolean) value;
+            else
+                return Boolean.parseBoolean(value.toString());
         }catch (ClassCastException e){
-            return false;
+            return defValue;
         }
     }
 
@@ -572,11 +524,7 @@ public class JsonHelper{
      * @return value as boolean, if it is not exist will return false value
      * **/
     public boolean getBoolean(int index){
-        try {
-            return jsonArrayDetails.getBoolean(index);
-        }catch (Exception e){
-            return false;
-        }
+        return getBoolean(index, false);
     }
 
     /** Method to get from {@link JSONArray} a boolean value
@@ -598,11 +546,7 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * **/
     public JSONArray getJSONArray(String key){
-        try {
-            return autoSearch(jsonObjectDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getJSONArray(key, null);
     }
 
     /** Method to get from {@link JSONObject}  a list of values
@@ -612,11 +556,10 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
      * **/
     public JSONArray getJSONArray(String key, JSONArray defValue){
-        try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
-        }
+        Object value = autoSearch(jsonObjectDetails, key, defValue);
+        if(value instanceof JSONArray)
+            return (JSONArray) value;
+        return defValue;
     }
 
     /** Method to get from {@link JSONArray}  a list of values
@@ -624,11 +567,7 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * **/
     public JSONArray getJSONArray(int index){
-        try {
-            return jsonArrayDetails.getJSONArray(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getJSONArray(index, null);
     }
 
     /** Method to get from {@link JSONArray}  a list of values
@@ -650,11 +589,7 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
     public JSONObject getJSONObject(String key){
-        try {
-            return autoSearch(jsonObjectDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getJSONObject(key, null);
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
@@ -664,11 +599,10 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      * **/
     public JSONObject getJSONObject(String key, JSONObject defValue){
-        try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
-        }
+        Object value = autoSearch(jsonObjectDetails, key, defValue);
+        if(value instanceof JSONObject)
+            return (JSONObject) value;
+        return defValue;
     }
 
     /** Method to get from {@link JSONArray} a jsonObject
@@ -676,11 +610,7 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
     public JSONObject getJSONObject(int index){
-        try {
-            return jsonArrayDetails.getJSONObject(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getJSONObject(index, null);
     }
 
     /** Method to get from {@link JSONArray} a jsonObject
@@ -706,11 +636,7 @@ public class JsonHelper{
      * @return value as {@link String}, if it is not exist will return null value
      * **/
     public static String getString(JSONObject jsonDetails, String key){
-        try {
-            return autoSearch(jsonDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getString(jsonDetails, key, null);
     }
 
     /** Method to get from {@link JSONObject} a string value
@@ -733,9 +659,8 @@ public class JsonHelper{
 
     /**
      * Method to get from {@link JSONObject} a double value
-     *
      * @param jsonDetails: JSON from fetch data
-     * @param key:         key of double value to get from json
+     * @param key: key of double value to get from json
      * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
@@ -744,11 +669,7 @@ public class JsonHelper{
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      **/
     public static double getDouble(JSONObject jsonDetails, String key){
-        try {
-           return autoSearch(jsonDetails, key, new BigDecimal(NUMERIC_DEF_VALUE_IF_MISSED)).doubleValue();
-        }catch (ClassCastException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
+        return getDouble(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a double value
@@ -764,8 +685,12 @@ public class JsonHelper{
      * **/
     public static double getDouble(JSONObject jsonDetails, String key, double defValue){
         try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
+            Object value = autoSearch(jsonDetails, key, defValue);
+            if(value instanceof Number)
+                return ((Number)value).doubleValue();
+            else
+                return Double.parseDouble(value.toString());
+        }catch (ClassCastException | NumberFormatException e){
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
@@ -781,11 +706,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static int getInt(JSONObject jsonDetails, String key){
-        try {
-           return autoSearch(jsonDetails, key,  NUMERIC_DEF_VALUE_IF_MISSED);
-        }catch (ClassCastException e){
-            return  NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
+        return getInt(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} an int value
@@ -801,9 +722,13 @@ public class JsonHelper{
      * **/
     public static int getInt(JSONObject jsonDetails, String key, int defValue){
         try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
-            return  NUMERIC_CLASS_CAST_ERROR_VALUE;
+            Object value = autoSearch(jsonDetails, key, defValue);
+            if(value instanceof Number)
+                return ((Number)value).intValue();
+            else
+                return Integer.parseInt(value.toString());
+        }catch (ClassCastException | NumberFormatException e){
+            return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
 
@@ -818,11 +743,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static float getFloat(JSONObject jsonDetails, String key){
-        try {
-           return autoSearch(jsonDetails, key, new BigDecimal(NUMERIC_DEF_VALUE_IF_MISSED)).floatValue();
-        }catch (ClassCastException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
+        return getFloat(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a float value
@@ -838,8 +759,12 @@ public class JsonHelper{
      * **/
     public static float getFloat(JSONObject jsonDetails, String key, float defValue){
         try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
+            Object value = autoSearch(jsonDetails, key, defValue);
+            if(value instanceof Number)
+                return ((Number)value).floatValue();
+            else
+                return Float.parseFloat(value.toString());
+        }catch (ClassCastException | NumberFormatException e){
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
@@ -855,11 +780,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static long getLong(JSONObject jsonDetails, String key){
-        try {
-           return autoSearch(jsonDetails, key, (long) NUMERIC_DEF_VALUE_IF_MISSED);
-        }catch (ClassCastException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
+        return getLong(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a long value
@@ -875,8 +796,12 @@ public class JsonHelper{
      * **/
     public static long getLong(JSONObject jsonDetails, String key, long defValue){
         try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
+            Object value = autoSearch(jsonDetails, key, defValue);
+            if(value instanceof Number)
+                return ((Number)value).longValue();
+            else
+                return Long.parseLong(value.toString());
+        }catch (ClassCastException | NumberFormatException e){
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
@@ -891,11 +816,7 @@ public class JsonHelper{
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
     public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key){
-        try {
-           return autoSearch(jsonDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getBigDecimal(jsonDetails, key, null);
     }
 
     /** Method to get from {@link JSONObject} a BigDecimal value
@@ -910,9 +831,12 @@ public class JsonHelper{
      * **/
     public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key, BigDecimal defValue){
         try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
+            Object value = autoSearch(jsonDetails, key, defValue);
+            if(value instanceof BigDecimal)
+                return (BigDecimal) value;
+            return BigDecimal.valueOf(Double.parseDouble(value.toString()));
+        }catch (NullPointerException | ClassCastException | NumberFormatException e){
+            return BigDecimal.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
         }
     }
 
@@ -926,11 +850,7 @@ public class JsonHelper{
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
     public static BigInteger getBigInteger(JSONObject jsonDetails, String key){
-        try {
-           return autoSearch(jsonDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getBigInteger(jsonDetails, key, null);
     }
 
     /** Method to get from {@link JSONObject} a BigInteger value
@@ -945,9 +865,12 @@ public class JsonHelper{
      * **/
     public static BigInteger getBigInteger(JSONObject jsonDetails, String key, BigInteger defValue){
         try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
+            Object value = autoSearch(jsonDetails, key, defValue);
+            if(value instanceof BigDecimal)
+                return (BigInteger) value;
+            return BigInteger.valueOf(Integer.parseInt(value.toString()));
+        }catch (NullPointerException | ClassCastException | NumberFormatException e){
+            return BigInteger.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
         }
     }
 
@@ -961,11 +884,7 @@ public class JsonHelper{
      * @return value as {@link Number}, if it is not exist will return null value
      * **/
     public static Number getNumber(JSONObject jsonDetails, String key){
-        try {
-           return autoSearch(jsonDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getNumber(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a Number value
@@ -980,9 +899,10 @@ public class JsonHelper{
      * **/
     public static Number getNumber(JSONObject jsonDetails, String key, Number defValue){
         try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
+            Object value = autoSearch(jsonDetails, key, defValue);
+            return ((Number)value);
+        }catch (ClassCastException | NumberFormatException e){
+            return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
 
@@ -996,11 +916,7 @@ public class JsonHelper{
      * @return value as {@link Object}, if it is not exist will return null value
      * **/
     public static Object get(JSONObject jsonDetails, String key){
-        try {
-           return autoSearch(jsonDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return get(jsonDetails, key, null);
     }
 
     /** Method to get from {@link JSONObject} an Object value
@@ -1031,11 +947,7 @@ public class JsonHelper{
      * @return value as boolean, if it is not exist will return false value
      * **/
     public static boolean getBoolean(JSONObject jsonDetails, String key){
-        try {
-            return autoSearch(jsonDetails, key, false);
-        }catch (ClassCastException e){
-            return false;
-        }
+        return getBoolean(jsonDetails, key, false);
     }
 
     /** Method to get from {@link JSONObject} a boolean value
@@ -1050,9 +962,13 @@ public class JsonHelper{
      * **/
     public static boolean getBoolean(JSONObject jsonDetails, String key, boolean defValue){
         try {
-           return autoSearch(jsonDetails, key, defValue);
+            Object value = autoSearch(jsonDetails, key, defValue);
+            if(value instanceof Boolean)
+                return (boolean) value;
+            else
+                return Boolean.parseBoolean(value.toString());
         }catch (ClassCastException e){
-            return false;
+            return defValue;
         }
     }
 
@@ -1066,11 +982,7 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * **/
     public static JSONArray getJSONArray(JSONObject jsonDetails, String key){
-        try {
-           return autoSearch(jsonDetails, key);
-        }catch (ClassCastException e){
-            return null;
-        }
+        return getJSONArray(jsonDetails, key, null);
     }
 
     /** Method to get from {@link JSONObject}  a list of values
@@ -1084,11 +996,10 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
      * **/
     public static JSONArray getJSONArray(JSONObject jsonDetails, String key, JSONArray defValue){
-        try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
-        }
+        Object value = autoSearch(jsonDetails, key, defValue);
+        if(value instanceof JSONArray)
+            return (JSONArray) value;
+        return defValue;
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
@@ -1101,11 +1012,7 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
     public static JSONObject getJSONObject(JSONObject jsonDetails, String key){
-        try {
-            return autoSearch(jsonDetails, key);
-        } catch (ClassCastException e) {
-            return null;
-        }
+        return getJSONObject(jsonDetails, key, null);
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
@@ -1119,11 +1026,10 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      * **/
     public static JSONObject getJSONObject(JSONObject jsonDetails, String key, JSONObject defValue){
-        try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
-        }
+        Object value = autoSearch(jsonDetails, key, defValue);
+        if(value instanceof JSONObject)
+            return (JSONObject) value;
+        return defValue;
     }
 
     /** Method to get from {@link JSONArray} a string value
@@ -1135,11 +1041,7 @@ public class JsonHelper{
      * @return value as {@link String}, if it is not exist will return null value
      * **/
     public static String getString(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getString(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getString(jsonDetails, index, null);
     }
 
     /** Method to get from {@link JSONObject} a string value
@@ -1168,11 +1070,7 @@ public class JsonHelper{
      * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static double getDouble(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getDouble(index);
-        }catch (Exception e){
-            return NUMERIC_DEF_VALUE_IF_MISSED;
-        }
+        return getDouble(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONArray} a double value
@@ -1201,11 +1099,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static int getInt(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getInt(index);
-        }catch (Exception e){
-            return  NUMERIC_DEF_VALUE_IF_MISSED;
-        }
+        return getInt(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONArray} an int value
@@ -1234,11 +1128,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static float getFloat(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getFloat(index);
-        }catch (Exception e){
-            return NUMERIC_DEF_VALUE_IF_MISSED;
-        }
+        return getFloat(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONArray} a float value
@@ -1267,11 +1157,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
     public static long getLong(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getLong(index);
-        }catch (Exception e){
-            return NUMERIC_DEF_VALUE_IF_MISSED;
-        }
+        return getLong(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONArray} a long value
@@ -1300,11 +1186,7 @@ public class JsonHelper{
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
     public static BigDecimal getBigDecimal(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getBigDecimal(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getBigDecimal(jsonDetails, index, null);
     }
 
     /** Method to get from {@link JSONArray} a BigDecimal value
@@ -1333,11 +1215,7 @@ public class JsonHelper{
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
     public static BigInteger getBigInteger(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getBigInteger(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getBigInteger(jsonDetails, index, null);
     }
 
     /** Method to get from {@link JSONArray} a BigInteger value
@@ -1366,11 +1244,7 @@ public class JsonHelper{
      * @return value as {@link Number}, if it is not exist will return null value
      * **/
     public static Number getNumber(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getNumber(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getNumber(jsonDetails, index, null);
     }
 
     /** Method to get from {@link JSONArray} a Number value
@@ -1399,11 +1273,7 @@ public class JsonHelper{
      * @return value as {@link Object}, if it is not exist will return null value
      * **/
     public static Object get(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.get(index);
-        }catch (Exception e){
-            return null;
-        }
+        return get(jsonDetails, index, null);
     }
 
     /** Method to get from {@link JSONArray} an object value
@@ -1432,11 +1302,7 @@ public class JsonHelper{
      * @return value as boolean, if it is not exist will return false value
      * **/
     public static boolean getBoolean(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getBoolean(index);
-        }catch (Exception e){
-            return false;
-        }
+        return getBoolean(jsonDetails, index, false);
     }
 
     /** Method to get from {@link JSONArray} a boolean value
@@ -1465,11 +1331,7 @@ public class JsonHelper{
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * **/
     public static JSONArray getJSONArray(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getJSONArray(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getJSONArray(jsonDetails, index, null);
     }
 
     /** Method to get from {@link JSONArray}  a list of values
@@ -1498,11 +1360,7 @@ public class JsonHelper{
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
     public static JSONObject getJSONObject(JSONArray jsonDetails, int index){
-        try {
-            return jsonDetails.getJSONObject(index);
-        }catch (Exception e){
-            return null;
-        }
+        return getJSONObject(jsonDetails, index, null);
     }
 
     /** Method to get from {@link JSONArray} a jsonObject
@@ -1529,7 +1387,7 @@ public class JsonHelper{
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
      * **/
     public <T> ArrayList<T> fetchOList(String searchKey){
-        return autoSearch(prepareList(jsonObjectDetails), searchKey);
+        return fetchOList(jsonObjectDetails, searchKey);
     }
 
     /** Method to get from {@link JSONObject} a list of values automatically
@@ -1565,7 +1423,7 @@ public class JsonHelper{
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
      * **/
     public <T> ArrayList<T> fetchList(String searchKey){
-        return autoSearch(jsonArrayDetails, searchKey);
+        return fetchList(jsonArrayDetails, searchKey);
     }
 
     /** Method to get from {@link JSONArray} a list of values automatically
@@ -1590,9 +1448,9 @@ public class JsonHelper{
         ArrayList<String> subKeys = new ArrayList<>();
         if(json.toString().contains("\"" + searchKey + "\":")) {
             for (String key : json.keySet()){
-                if(key.equals(searchKey)) {
+                if(key.equals(searchKey))
                     return (T) json.get(searchKey);
-                } else {
+                else{
                     T JSONType = (T) json.get(key);
                     if (JSONType instanceof JSONObject || JSONType instanceof JSONArray
                             && JSONType.toString().contains(searchKey)) {
@@ -1662,6 +1520,36 @@ public class JsonHelper{
         if(search == null)
             return defValue;
         return (T) search;
+    }
+
+    /**
+     * Method to set {@link #jsonObjectDetails} instance
+     * @param jsonObjectDetails: new {@link JSONObject}
+     * @throws IllegalArgumentException when jsonObjectDetails is null
+     * **/
+    public void setJSONObjectDetails(JSONObject jsonObjectDetails) {
+        if(jsonObjectDetails == null)
+            throw new IllegalArgumentException("JSON cannot be null");
+        this.jsonObjectDetails = jsonObjectDetails;
+    }
+
+    public JSONObject getJSONObjectDetails() {
+        return jsonObjectDetails;
+    }
+
+    /**
+     * Method to set {@link #jsonArrayDetails} instance
+     * @param jsonArrayDetails: new {@link JSONArray}
+     * @throws IllegalArgumentException when jsonArrayDetails is null
+     * **/
+    public void setJSONArrayDetails(JSONArray jsonArrayDetails) {
+        if(jsonArrayDetails == null)
+            throw new IllegalArgumentException("JSON cannot be null");
+        this.jsonArrayDetails = jsonArrayDetails;
+    }
+
+    public JSONArray getJSONArrayDetails() {
+        return jsonArrayDetails;
     }
 
     @Override
