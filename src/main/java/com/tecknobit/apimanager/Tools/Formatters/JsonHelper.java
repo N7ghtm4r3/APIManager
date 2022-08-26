@@ -1447,19 +1447,21 @@ public class JsonHelper{
     private static <T> T autoSearch(JSONObject json, String searchKey) {
         ArrayList<String> subKeys = new ArrayList<>();
         if(json.toString().contains("\"" + searchKey + "\":")) {
-            for (String key : json.keySet()){
-                if(key.equals(searchKey))
+            for (String key : json.keySet()) {
+                if (key.equals(searchKey))
                     return (T) json.get(searchKey);
-                else{
+                else {
                     T JSONType = (T) json.get(key);
-                    if (JSONType instanceof JSONObject || JSONType instanceof JSONArray
-                            && JSONType.toString().contains(searchKey)) {
-                        if(JSONType instanceof JSONObject)
-                            return autoSearch(json.getJSONObject(key), searchKey);
-                        else if(JSONType instanceof JSONArray)
-                            return autoSearch(json.getJSONArray(key), searchKey);
-                    }
+                    if (JSONType instanceof JSONObject || JSONType instanceof JSONArray && JSONType.toString().contains(searchKey))
+                        subKeys.add(key);
                 }
+            }
+            for (String subKey : subKeys) {
+                T JSONType = (T) json.get(subKey);
+                if (JSONType instanceof JSONObject)
+                    return autoSearch(json.getJSONObject(subKey), searchKey);
+                else if (JSONType instanceof JSONArray)
+                    return autoSearch(json.getJSONArray(subKey), searchKey);
             }
         }
         return null;
