@@ -1452,7 +1452,8 @@ public class JsonHelper{
                     return (T) json.get(searchKey);
                 else {
                     T JSONType = (T) json.get(key);
-                    if (JSONType instanceof JSONObject || JSONType instanceof JSONArray && JSONType.toString().contains(searchKey))
+                    if (((JSONType instanceof JSONObject || JSONType instanceof JSONArray)
+                            && JSONType.toString().contains(searchKey)))
                         subKeys.add(key);
                 }
             }
@@ -1494,17 +1495,21 @@ public class JsonHelper{
             ArrayList<T> values = new ArrayList<>();
             for (int j = 0; j < list.length(); j++) {
                 T result = (T) list.get(j);
-                if(result instanceof JSONObject) {
+                if (result instanceof JSONObject) {
                     try {
-                        values.add((T) ((JSONObject) result).get(searchKey));
-                    }catch (JSONException e) {
+                        values.add(autoSearch((JSONObject) result, searchKey));
+                    } catch (JSONException e) {
                         return null;
                     }
-                }else
+                } else
                     values.add((T) list.get(j));
             }
-            if(values.size() > 0)
+            int size = values.size();
+            if (size > 0) {
+                if (size == 1)
+                    return values.get(0);
                 return (T) values;
+            }
         }
         return null;
     }

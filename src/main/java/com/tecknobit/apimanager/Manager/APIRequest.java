@@ -343,9 +343,18 @@ public class APIRequest {
      * **/
     public <T> String encodeAdditionalParams(String mandatoryParams, Params extraParams){
         String queryEncoderChar = "&";
-        if(mandatoryParams == null || mandatoryParams.isEmpty() || mandatoryParams.equals("?")) {
+        if (mandatoryParams == null || mandatoryParams.isEmpty() || mandatoryParams.equals("?")) {
             mandatoryParams = "";
             queryEncoderChar = "?";
+        } else {
+            if (mandatoryParams.charAt(0) != '?')
+                throw new IllegalArgumentException("Mandatory params bust be in right HTTP encode form");
+            else {
+                String[] encodeChecker = mandatoryParams.replaceFirst("\\?", "").replaceAll("&",
+                        "=").split("=");
+                if (encodeChecker.length % 2 != 0)
+                    throw new IllegalArgumentException("Mandatory params bust be in right HTTP encode form");
+            }
         }
         StringBuilder params = new StringBuilder(mandatoryParams);
         for (String key : extraParams.getParamsKeys()) {
@@ -636,40 +645,60 @@ public class APIRequest {
 
         /**
          * {@code headers} is the instance that contains headers value
-         * **/
+         **/
         private final HashMap<String, String> headers;
 
-        /** Constructor to init {@link Headers} <br>
+        /**
+         * Constructor to init {@link Headers} <br>
          * Any params required
-         * **/
+         **/
         public Headers() {
             headers = new HashMap<>();
         }
 
-        /** Method to add a new header value
-         * @param headerKey: key of the header
-         * @param valueHeader: value of the header
+        /**
+         * Constructor to init {@link Headers} <br>
+         *
+         * @param mergeHeaders: other headers to merge with current {@link Headers}
+         **/
+        public Headers(Headers mergeHeaders) {
+            headers = new HashMap<>();
+            mergeHeaders(mergeHeaders);
+        }
+
+        /**
+         * Method to add a new header value
+         *
+         * @param headerKey:   key of the header
+         * @param headerValue: value of the header
          * @throws IllegalArgumentException when params inserted do not respect validity range -> null or blank
-         * **/
-        public void addHeader(String headerKey, String valueHeader) {
-            if(headerKey == null || headerKey.isEmpty())
+         **/
+        public <T> void addHeader(String headerKey, T headerValue) {
+            String header = headerValue.toString();
+            if (headerKey == null || headerKey.isEmpty())
                 throw new IllegalArgumentException("Key of the header cannot be null or blank");
-            if(valueHeader == null || valueHeader.isEmpty())
+            if (header == null || header.isEmpty())
                 throw new IllegalArgumentException("Value of the header cannot be null or blank");
-            headers.put(headerKey, valueHeader);
+            headers.put(headerKey, header);
         }
 
-        /** Method to merge another headers value in the same object
-         * @param headers: headers to merge
-         * **/
-        public void mergeHeaders(Headers headers){
-            for (String key : headers.getHeadersKeys())
-                addHeader(key, headers.getHeader(key));
+        /**
+         * Method to merge another headers value in the same object
+         *
+         * @param mergeHeaders: headers to merge
+         * @apiNote if {@code mergeHeaders} is null merge will not execute
+         **/
+        public void mergeHeaders(Headers mergeHeaders) {
+            if (mergeHeaders != null)
+                for (String key : mergeHeaders.getHeadersKeys())
+                    addHeader(key, mergeHeaders.getHeader(key));
         }
 
-        /** Method to remove a header
+        /**
+         * Method to remove a header
+         *
          * @param headerKey: key of the header to remove
-         * **/
+         **/
         public void removeHeader(String headerKey) {
             headers.remove(headerKey);
         }
@@ -721,47 +750,67 @@ public class APIRequest {
 
         /**
          * {@code apiRequest} is the instance for {@link APIRequest} object
-         * **/
+         **/
         private final APIRequest apiRequest;
 
         /**
          * {@code params} is the instance that contains params value
-         * **/
+         **/
         private final HashMap<String, Object> params;
 
-        /** Constructor to init {@link Params} <br>
+        /**
+         * Constructor to init {@link Params} <br>
          * Any params required
-         * **/
+         **/
         public Params() {
             apiRequest = new APIRequest();
             params = new HashMap<>();
         }
 
-        /** Method to add a new param value
-         * @param keyParam: key of the param
+        /**
+         * Constructor to init {@link Params} <br>
+         *
+         * @param mergeParams: other params to merge with current {@link Params}
+         **/
+        public Params(Params mergeParams) {
+            apiRequest = new APIRequest();
+            params = new HashMap<>();
+            mergeParams(mergeParams);
+        }
+
+        /**
+         * Method to add a new param value
+         *
+         * @param keyParam:   key of the param
          * @param valueParam: value of the param
          * @throws IllegalArgumentException when params inserted do not respect validity range -> null or blank
-         * **/
-        public <T> void addParam(String keyParam, T valueParam){
-            if(keyParam == null || keyParam.isEmpty())
+         **/
+        public <T> void addParam(String keyParam, T valueParam) {
+            if (keyParam == null || keyParam.isEmpty())
                 throw new IllegalArgumentException("Key of the param cannot be null or blank");
-            if(valueParam == null || valueParam.equals(""))
+            if (valueParam == null || valueParam.equals(""))
                 throw new IllegalArgumentException("Value of the param cannot be null or blank");
             params.put(keyParam, valueParam);
         }
 
-        /** Method to merge another params value in the same object
-         * @param params: params to merge
-         * **/
-        public void mergeParams(Params params){
-            for (String key : params.getParamsKeys())
-                addParam(key, params.getParam(key));
+        /**
+         * Method to merge another params value in the same object
+         *
+         * @param mergeParams: params to merge
+         * @apiNote if {@code mergeParams} is null merge will not execute
+         **/
+        public void mergeParams(Params mergeParams) {
+            if (mergeParams != null)
+                for (String key : mergeParams.getParamsKeys())
+                    addParam(key, mergeParams.getParam(key));
         }
 
-        /** Method to remove a param
+        /**
+         * Method to remove a param
+         *
          * @param keyParam: key of the param to remove
-         * **/
-        public void removeParam(String keyParam){
+         **/
+        public void removeParam(String keyParam) {
             params.remove(keyParam);
         }
 
@@ -788,42 +837,96 @@ public class APIRequest {
             return (Collection<T>) params.values();
         }
 
-        /** Method to get all params keys<br>
+        /**
+         * Method to get all params keys<br>
          * Any params required
+         *
          * @return all params keys as {@link Set} of {@link String}
-         * **/
-        public Set<String> getParamsKeys(){
+         **/
+        public Set<String> getParamsKeys() {
             return params.keySet();
         }
 
-        /** Method to assemble a query params string <br>
+        /**
+         * Method to assemble a query params string <br>
          * Any params required
+         *
          * @return query params as {@link String} assembled es. ?param=query1&param2=query2
          * @throws IllegalArgumentException when extra params in list is empty or is null
-         * **/
-        public String createQueryString(){
+         **/
+        public String createQueryString() {
             return apiRequest.encodeQueryParams(this);
         }
 
-        /** Method to assemble a body params of an HTTP request <br>
+        /**
+         * Method to assemble a query params string
+         *
+         * @param mandatoryParams: mandatory params of the request as {@link Params}
+         * @return query params as {@link String} assembled es. ?param=query1&param2=query2
+         * @throws IllegalArgumentException when extra params in list is empty or is null
+         **/
+        public String createQueryString(String mandatoryParams) {
+            return apiRequest.encodeAdditionalParams(mandatoryParams, this);
+        }
+
+        /**
+         * Method to assemble a query params string
+         *
+         * @param mandatoryParams: mandatory params of the request as {@link Params}
+         * @return query params as {@link Params} assembled es. ?param=query1&param2=query2
+         * @throws IllegalArgumentException when extra params in list is empty or is null
+         **/
+        public String createQueryString(Params mandatoryParams) {
+            return apiRequest.encodeAdditionalParams(mandatoryParams.createQueryString(), this);
+        }
+
+        /**
+         * Method to assemble a body params of an HTTP request <br>
          * Any params required
+         *
          * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
          * @throws IllegalArgumentException when extra params in list is empty or is null
-         * **/
-        public String createPayload(){
+         **/
+        public String createPayload() {
             return apiRequest.encodeBodyParams(this);
         }
 
-        /** Method to assemble a body params of an HTTP request <br>
+        /**
+         * Method to assemble a body params of an HTTP request
+         *
+         * @param extraPayload: extra payload data to add
+         * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
+         * @throws IllegalArgumentException when extra params in list is empty or is null
+         **/
+        public String createPayload(Params extraPayload) {
+            mergeParams(extraPayload);
+            return apiRequest.encodeBodyParams(this);
+        }
+
+        /**
+         * Method to assemble a body params of an HTTP request <br>
          * Any params required
+         *
          * @return body params as {@link JSONObject}
          * @throws IllegalArgumentException when extra params in list is empty or is null
-         * **/
-        public JSONObject createJSONPayload(){
+         **/
+        public JSONObject createJSONPayload() {
             JSONObject payload = new JSONObject();
             for (String key : getParamsKeys())
                 payload.put(key, (Object) getParam(key));
             return payload;
+        }
+
+        /**
+         * Method to assemble a body params of an HTTP request
+         *
+         * @param extraPayload: extra payload data to add
+         * @return body params as {@link JSONObject}
+         * @throws IllegalArgumentException when extra params in list is empty or is null
+         **/
+        public JSONObject createJSONPayload(Params extraPayload) {
+            mergeParams(extraPayload);
+            return createJSONPayload();
         }
 
         @Override
