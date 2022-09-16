@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Tools.Trading;
+package com.tecknobit.apimanager.tools.trading;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * The {@code CryptocurrencyTool} class is a useful class tool that help work with cryptocurrencies details. <br>
- * This tool help to get image logo of a crypto, get full name of a crypto or get symbol of a crypto. <br>
+ * The {@code CryptocurrencyTool} class is a useful class tool that helps to work with cryptocurrencies details. <br>
+ * This tool helps to get image logo of a crypto, get full name of a crypto or get symbol of a crypto. <br>
  *
  * @author Tecknobit N7ghtm4r3
  **/

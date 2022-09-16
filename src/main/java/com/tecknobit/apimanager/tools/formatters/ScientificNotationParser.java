@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Tools.Formatters;
+package com.tecknobit.apimanager.tools.formatters;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;

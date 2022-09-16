@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Tools.Formatters;
+package com.tecknobit.apimanager.tools.formatters;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * The {@code JsonHelper} class is a useful class tool work with {@link JSONObject} and {@link JSONArray} classes
+ * The {@code JsonHelper} class is a useful class tool to works with {@link JSONObject} and {@link JSONArray} classes
+ *
+ * @author Tecknobit N7ghtm4r3
  * @apiNote this class is helpful to avoid the {@link JSONException} because if searched value is not present in JSON, will be
  * returned a default value or a custom value choose by you. For all the operations to get values you don't need to pass
  * the correct JSON path ro reach the wanted value because it will be automatically reached autonomously
- * @author Tecknobit N7ghtm4r3
- * **/
+ **/
 
 public class JsonHelper{
 

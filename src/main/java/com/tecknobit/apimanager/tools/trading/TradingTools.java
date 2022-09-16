@@ -1,14 +1,15 @@
-package com.tecknobit.apimanager.Tools.Trading;
+package com.tecknobit.apimanager.tools.trading;
 
 import java.util.ArrayList;
 
-import static java.lang.Double.*;
+import static java.lang.Double.parseDouble;
 import static java.lang.String.format;
 
 /**
- * The {@code TradingTools} class is a useful class tool that allow you to manage trading data
+ * The {@code TradingTools} class is a useful class tool that allows you to manage trading data
+ *
  * @author Tecknobit N7ghtm4r3
- * **/
+ **/
 
 public abstract class TradingTools {
 
@@ -34,13 +35,7 @@ public abstract class TradingTools {
      * @throws IllegalArgumentException if startValue or lastValue are negative
      * **/
     public static double computeAssetPercent(double startValue, double lastValue, int decimalDigits){
-        if(decimalDigits < 0)
-            throw new IllegalArgumentException("Decimal digits number cannot be less than 0");
-        if(startValue < 0 || lastValue < 0)
-            throw new IllegalArgumentException("Start value and last value must be positive");
-        if(startValue == 0 && lastValue == 0)
-            return 0;
-        return roundValue((((lastValue * 100) / startValue) - 100), decimalDigits);
+        return roundValue(computeAssetPercent(startValue, lastValue), decimalDigits);
     }
 
     /** Method to get percent between two values and textualize it
@@ -52,36 +47,67 @@ public abstract class TradingTools {
         return textualizeAssetPercent(computeAssetPercent(startValue, lastValue));
     }
 
-    /** Method to get percent between two values and textualize it
-     * @param startValue: first value to make compare
-     * @param lastValue: last value to compare and get percent by first value
+    /**
+     * Method to get percent between two values and textualize it
+     *
+     * @param startValue:    first value to make compare
+     * @param lastValue:     last value to compare and get percent by first value
      * @param decimalDigits: number of digits to round final percent value
      * @return percent value es. +8% or -8% as {@link String}
-     * **/
-    public static String textualizeAssetPercent(double startValue, double lastValue, int decimalDigits){
+     **/
+    public static String textualizeAssetPercent(double startValue, double lastValue, int decimalDigits) {
         return textualizeAssetPercent(computeAssetPercent(startValue, lastValue, decimalDigits));
     }
 
-    /** Method to sNotationParse percent between two values and textualize it
-     * @param percent: value to sNotationParse
+    /**
+     * Method get percent between two values and textualize it
+     *
+     * @param percent:       value to compute
+     * @param decimalDigits: number of digits to round final value
      * @return percent value formatted es. +8% or -8% as {@link String}
-     * **/
-    public static String textualizeAssetPercent(double percent){
-        if(percent > 0)
+     **/
+    public static String textualizeAssetPercent(double percent, int decimalDigits) {
+        return textualizeAssetPercent(roundValue(percent, decimalDigits));
+    }
+
+    /**
+     * Method to get proportion between two values
+     *
+     * @param startValue: first value to make compare
+     * @param lastValue:  last value to compare and calculate proportion with start value
+     * @return proportion value as double
+     * @throws IllegalArgumentException if startValue or lastValue are negative
+     **/
+    public static double computeProportion(double startValue, double lastValue) {
+        return computeAssetPercent(startValue, lastValue) + 100;
+    }
+
+    /**
+     * Method to get proportion between two values and round it
+     *
+     * @param startValue:    first value to make compare
+     * @param lastValue:     last value to compare and calculate proportion with start value
+     * @param decimalDigits: number of digits to round final percent value
+     * @return proportion value as double
+     * @throws IllegalArgumentException if startValue or lastValue are negative
+     **/
+    public static double computeProportion(double startValue, double lastValue, int decimalDigits) {
+        return computeAssetPercent(startValue, lastValue, decimalDigits) + 100;
+    }
+
+    /**
+     * Method get percent between two values and textualize it
+     *
+     * @param percent: value to compute
+     * @return percent value formatted es. +8% or -8% as {@link String}
+     **/
+    public static String textualizeAssetPercent(double percent) {
+        if (percent > 0)
             return "+" + percent + "%";
-        else if(percent < 0)
+        else if (percent < 0)
             return percent + "%";
         else
             return "=" + percent + "%";
-    }
-
-    /** Method to sNotationParse percent between two values and textualize it
-     * @param percent: value to sNotationParse
-     * @param decimalDigits: number of digits to round final value
-     * @return percent value formatted es. +8% or -8% as {@link String}
-     * **/
-    public static String textualizeAssetPercent(double percent, int decimalDigits){
-        return textualizeAssetPercent(roundValue(percent, decimalDigits));
     }
 
     /** Method to round a value
@@ -184,53 +210,62 @@ public abstract class TradingTools {
         return roundValue(getPercentualizedValue(startValue, percentualizer), decimalDigits);
     }
 
-    /** Method to get forecast of an asset in base of days's gap inserted
+    /**
+     * Method to get forecast of an asset in base of days's gap inserted
+     *
      * @param historicalValues: previous values of asset used to compute forecast
-     * @param lastValue: last value of the asset to compare and fetch forecast
-     * @param intervalDays: days gap for the forecast range
-     * @param offsetRange: tolerance for select similar value compared to lastValue inserted
+     * @param lastValue:        last value of the asset to compare and fetch forecast
+     * @param intervalDays:     days gap for the forecast range
+     * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     * **/
-    public static double computeTPTOPAsset(ArrayList<Double> historicalValues, double lastValue, int intervalDays, double offsetRange){
-        if(lastValue < 0)
+     **/
+    public static double computeTPTOPIndex(ArrayList<Double> historicalValues, double lastValue, int intervalDays,
+                                           double offsetRange) {
+        if (lastValue < 0)
             throw new IllegalArgumentException("Last asset value must be positive");
-        if(intervalDays <= 0)
+        if (intervalDays <= 0)
             throw new IllegalArgumentException("Interval days value gap must be more than 0");
-        return computeTPTOPAsset(historicalValues.toArray(new Double[historicalValues.size()]),lastValue,intervalDays,offsetRange);
+        return computeTPTOPIndex(historicalValues.toArray(new Double[historicalValues.size()]), lastValue, intervalDays,
+                offsetRange);
     }
 
-    /** Method to get forecast of an asset in base of days's gap inserted and round it
+    /**
+     * Method to get forecast of an asset in base of days's gap inserted and round it
+     *
      * @param historicalValues: previous values of asset used to compute forecast
-     * @param lastValue: last value of the asset to compare and fetch forecast
-     * @param intervalDays: days gap for the forecast range
-     * @param offsetRange: tolerance for select similar value compared to lastValue inserted
-     * @param decimalDigits: number of digits to round final forecast value
+     * @param lastValue:        last value of the asset to compare and fetch forecast
+     * @param intervalDays:     days gap for the forecast range
+     * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
+     * @param decimalDigits:    number of digits to round final forecast value
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     * **/
-    public static double computeTPTOPAsset(ArrayList<Double> historicalValues, double lastValue, int intervalDays, double offsetRange,
-                                    int decimalDigits){
-        return roundValue(computeTPTOPAsset(historicalValues,lastValue, intervalDays,offsetRange), decimalDigits);
+     **/
+    public static double computeTPTOPIndex(ArrayList<Double> historicalValues, double lastValue, int intervalDays,
+                                           double offsetRange, int decimalDigits) {
+        return roundValue(computeTPTOPIndex(historicalValues, lastValue, intervalDays, offsetRange), decimalDigits);
     }
 
-    /** Method to get forecast of an asset in base of days's gap inserted
+    /**
+     * Method to get forecast of an asset in base of days's gap inserted
+     *
      * @param historicalValues: previous values of asset used to compute forecast
-     * @param lastValue: last value of the asset to compare and fetch forecast
-     * @param intervalDays: days gap for the forecast range
-     * @param offsetRange: tolerance for select similar value compared to lastValue inserted
+     * @param lastValue:        last value of the asset to compare and fetch forecast
+     * @param intervalDays:     days gap for the forecast range
+     * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     * **/
-    public static double computeTPTOPAsset(Double[] historicalValues, double lastValue, int intervalDays, double offsetRange){
-        if(lastValue < 0)
+     **/
+    public static double computeTPTOPIndex(Double[] historicalValues, double lastValue, int intervalDays,
+                                           double offsetRange) {
+        if (lastValue < 0)
             throw new IllegalArgumentException("Last asset value must be positive");
-        if(intervalDays <= 0)
+        if (intervalDays <= 0)
             throw new IllegalArgumentException("Interval days value gap must be more than 0");
         double[] trends = new double[historicalValues.length];
         double sumTrends;
         double offset = (((lastValue * offsetRange) / 100) + lastValue);
-        for (int j=0, i = 0; j < historicalValues.length; j++){
+        for (int j = 0, i = 0; j < historicalValues.length; j++){
             double value = historicalValues[j];
             if(value <= offset && (j + intervalDays) < historicalValues.length){
                 trends[i] = computeAssetPercent(value, historicalValues[j+intervalDays]);
@@ -241,21 +276,23 @@ public abstract class TradingTools {
         sumTrends = 0;
         for (double trend : trends)
             sumTrends += trend;
-        return sumTrends/trends.length;
+        return sumTrends / trends.length;
     }
 
-    /** Method to get forecast of an asset in base of days's gap inserted and round it
+    /**
+     * Method to get forecast of an asset in base of days's gap inserted and round it
+     *
      * @param historicalValues: previous values of asset used to compute forecast
-     * @param lastValue: last value of the asset to compare and fetch forecast
-     * @param intervalDays: days gap for the forecast range
-     * @param offsetRange: tolerance for select similar value compared to lastValue inserted
-     * @param decimalDigits: number of digits to round final forecast value
+     * @param lastValue:        last value of the asset to compare and fetch forecast
+     * @param intervalDays:     days gap for the forecast range
+     * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
+     * @param decimalDigits:    number of digits to round final forecast value
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     * **/
-    public static double computeTPTOPAsset(Double[] historicalValues, double lastValue, int intervalDays, double offsetRange,
-                                    int decimalDigits){
-        return roundValue(computeTPTOPAsset(historicalValues, lastValue, intervalDays,offsetRange), decimalDigits);
+     **/
+    public static double computeTPTOPIndex(Double[] historicalValues, double lastValue, int intervalDays, double offsetRange,
+                                           int decimalDigits){
+        return roundValue(computeTPTOPIndex(historicalValues, lastValue, intervalDays,offsetRange), decimalDigits);
     }
 
 }

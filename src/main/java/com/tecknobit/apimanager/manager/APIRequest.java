@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Manager;
+package com.tecknobit.apimanager.manager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
