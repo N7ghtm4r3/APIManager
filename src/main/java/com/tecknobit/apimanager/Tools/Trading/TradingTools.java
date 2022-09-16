@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.tools.trading;
+package com.tecknobit.apimanager.Tools.Trading;
 
 import java.util.ArrayList;
 

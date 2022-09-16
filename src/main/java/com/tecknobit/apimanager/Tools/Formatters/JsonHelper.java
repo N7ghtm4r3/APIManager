@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.tools.formatters;
+package com.tecknobit.apimanager.Tools.Formatters;
 
 import org.json.JSONArray;
 import org.json.JSONException;
