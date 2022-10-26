@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Tools.Formatters;
+package com.tecknobit.apimanager.formatters;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +17,6 @@ import java.util.Iterator;
  * returned a default value or a custom value choose by you. For all the operations to get values you don't need to pass
  * the correct JSON path ro reach the wanted value because it will be automatically reached autonomously
  **/
-
 public class JsonHelper{
 
     /**
@@ -1536,36 +1535,52 @@ public class JsonHelper{
      * @throws IllegalArgumentException when jsonObjectDetails is null
      * **/
     public void setJSONObjectDetails(JSONObject jsonObjectDetails) {
-        if(jsonObjectDetails == null)
+        if (jsonObjectDetails == null)
             throw new IllegalArgumentException("JSON cannot be null");
         this.jsonObjectDetails = jsonObjectDetails;
     }
 
+    /**
+     * Method to get {@link #jsonObjectDetails} instance <br>
+     * Any params required
+     *
+     * @return {@link #jsonObjectDetails} instance as {@link JSONObject}
+     **/
     public JSONObject getJSONObjectDetails() {
         return jsonObjectDetails;
     }
 
     /**
      * Method to set {@link #jsonArrayDetails} instance
+     *
      * @param jsonArrayDetails: new {@link JSONArray}
      * @throws IllegalArgumentException when jsonArrayDetails is null
-     * **/
+     **/
     public void setJSONArrayDetails(JSONArray jsonArrayDetails) {
-        if(jsonArrayDetails == null)
+        if (jsonArrayDetails == null)
             throw new IllegalArgumentException("JSON cannot be null");
         this.jsonArrayDetails = jsonArrayDetails;
     }
 
+    /**
+     * Method to get {@link #jsonArrayDetails} instance <br>
+     * Any params required
+     *
+     * @return {@link #jsonArrayDetails} instance as {@link JSONArray}
+     **/
     public JSONArray getJSONArrayDetails() {
         return jsonArrayDetails;
     }
 
+    /**
+     * Returns a string representation of the object <br>
+     * Any params required
+     *
+     * @return a string representation of the object as {@link String}
+     */
     @Override
     public String toString() {
-        return "JsonHelper{" +
-                "jsonObjectDetails=" + jsonObjectDetails +
-                ", jsonArrayDetails=" + jsonArrayDetails +
-                '}';
+        return new JSONObject(this).toString();
     }
-    
+
 }

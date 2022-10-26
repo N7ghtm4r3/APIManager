@@ -72,7 +72,6 @@ try {
 } catch (IOException e) {
     e.printStackTrace();
 }
-
 ```
 
 ### Headers requests
@@ -97,7 +96,6 @@ try {
 } catch (IOException e) {
     e.printStackTrace();
 }
-
 ```
 ### Responses
 
@@ -113,7 +111,6 @@ try {
 } catch (IOException e) {
    System.out.println(apiRequest.getErrorResponse());
 }
-
 ```
 
 - JSON: will return response formatted as JSON (JSONObject or JSONArray)
@@ -122,11 +119,10 @@ try {
 try {
     apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD);
     System.out.println(apiRequest.getJSONResponse());
-    // example output: {"msg":"Success request!"}
+    // example output: {"msg": "Success request!"}
 } catch (IOException e) {
    System.out.println(apiRequest.getJSONErrorResponse());
 }
-
 ```
 
 ### Errors handling
@@ -139,7 +135,6 @@ try {
 }
 /* NOTE: if is not a request error will appear: "Error is not in api request, check out your code"
   and you will have to work on your code to manage error, you can customize that message*/
-
 ```
 
 ### Android's implementation
@@ -150,7 +145,6 @@ To use this library on Android you must follow two simple steps:
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
-
 ```
 
 - Create a single one strict detector
@@ -158,7 +152,6 @@ To use this library on Android you must follow two simple steps:
 ```java
 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 StrictMode.setThreadPolicy(policy);
-
 ```
 
 ## Authors

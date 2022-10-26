@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Tools.Trading;
+package com.tecknobit.apimanager.trading;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,6 @@ import static java.lang.String.format;
  *
  * @author Tecknobit N7ghtm4r3
  **/
-
 public abstract class TradingTools {
 
     /** Method to get percent between two values
@@ -211,7 +210,7 @@ public abstract class TradingTools {
     }
 
     /**
-     * Method to get forecast of an asset in base of days's gap inserted
+     * Method to get forecast of an asset in base of days gap inserted
      *
      * @param historicalValues: previous values of asset used to compute forecast
      * @param lastValue:        last value of the asset to compare and fetch forecast
@@ -231,7 +230,7 @@ public abstract class TradingTools {
     }
 
     /**
-     * Method to get forecast of an asset in base of days's gap inserted and round it
+     * Method to get forecast of an asset in base of days gap inserted and round it
      *
      * @param historicalValues: previous values of asset used to compute forecast
      * @param lastValue:        last value of the asset to compare and fetch forecast
@@ -247,7 +246,7 @@ public abstract class TradingTools {
     }
 
     /**
-     * Method to get forecast of an asset in base of days's gap inserted
+     * Method to get forecast of an asset in base of days gap inserted
      *
      * @param historicalValues: previous values of asset used to compute forecast
      * @param lastValue:        last value of the asset to compare and fetch forecast
@@ -280,7 +279,7 @@ public abstract class TradingTools {
     }
 
     /**
-     * Method to get forecast of an asset in base of days's gap inserted and round it
+     * Method to get forecast of an asset in base of days gap inserted and round it
      *
      * @param historicalValues: previous values of asset used to compute forecast
      * @param lastValue:        last value of the asset to compare and fetch forecast
@@ -291,100 +290,6 @@ public abstract class TradingTools {
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
      **/
     public static double computeTPTOPIndex(Double[] historicalValues, double lastValue, int intervalDays, double offsetRange,
-                                           int decimalDigits) {
-        return roundValue(computeTPTOPIndex(historicalValues, lastValue, intervalDays, offsetRange), decimalDigits);
-    }
-
-    /**
-     * Method to get forecast of an asset in base of days's gap inserted
-     *
-     * @param historicalValues: previous values of asset used to compute forecast
-     * @param lastValue:        last value of the asset to compare and fetch forecast
-     * @param intervalDays:     days gap for the forecast range
-     * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
-     * @return forecast value as a double es. 8 or -8
-     * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     * @see #computeTPTOPIndex(ArrayList, double, int, double)
-     **/
-    @Deprecated
-    public static double computeTPTOPAsset(ArrayList<Double> historicalValues, double lastValue, int intervalDays,
-                                           double offsetRange) {
-        if (lastValue < 0)
-            throw new IllegalArgumentException("Last asset value must be positive");
-        if (intervalDays <= 0)
-            throw new IllegalArgumentException("Interval days value gap must be more than 0");
-        return computeTPTOPIndex(historicalValues.toArray(new Double[historicalValues.size()]), lastValue, intervalDays,
-                offsetRange);
-    }
-
-    /**
-     * Method to get forecast of an asset in base of days's gap inserted and round it
-     *
-     * @param historicalValues: previous values of asset used to compute forecast
-     * @param lastValue:        last value of the asset to compare and fetch forecast
-     * @param intervalDays:     days gap for the forecast range
-     * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
-     * @param decimalDigits:    number of digits to round final forecast value
-     * @return forecast value as a double es. 8 or -8
-     * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     * @see #computeTPTOPIndex(ArrayList, double, int, double, int)
-     **/
-    @Deprecated
-    public static double computeTPTOPAsset(ArrayList<Double> historicalValues, double lastValue, int intervalDays,
-                                           double offsetRange, int decimalDigits) {
-        return roundValue(computeTPTOPIndex(historicalValues, lastValue, intervalDays, offsetRange), decimalDigits);
-    }
-
-    /**
-     * Method to get forecast of an asset in base of days's gap inserted
-     *
-     * @param historicalValues: previous values of asset used to compute forecast
-     * @param lastValue:        last value of the asset to compare and fetch forecast
-     * @param intervalDays:     days gap for the forecast range
-     * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
-     * @return forecast value as a double es. 8 or -8
-     * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     * @see #computeTPTOPIndex(Double[], double, int, double)
-     **/
-    @Deprecated
-    public static double computeTPTOPAsset(Double[] historicalValues, double lastValue, int intervalDays,
-                                           double offsetRange) {
-        if (lastValue < 0)
-            throw new IllegalArgumentException("Last asset value must be positive");
-        if (intervalDays <= 0)
-            throw new IllegalArgumentException("Interval days value gap must be more than 0");
-        double[] trends = new double[historicalValues.length];
-        double sumTrends;
-        double offset = (((lastValue * offsetRange) / 100) + lastValue);
-        for (int j = 0, i = 0; j < historicalValues.length; j++) {
-            double value = historicalValues[j];
-            if(value <= offset && (j + intervalDays) < historicalValues.length){
-                trends[i] = computeAssetPercent(value, historicalValues[j+intervalDays]);
-                i++;
-                j += j + intervalDays - 1;
-            }
-        }
-        sumTrends = 0;
-        for (double trend : trends)
-            sumTrends += trend;
-        return sumTrends / trends.length;
-    }
-
-    /**
-     * Method to get forecast of an asset in base of days's gap inserted and round it
-     *
-     * @param historicalValues: previous values of asset used to compute forecast
-     * @param lastValue:        last value of the asset to compare and fetch forecast
-     * @param intervalDays:     days gap for the forecast range
-     * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
-     * @param decimalDigits:    number of digits to round final forecast value
-     * @return forecast value as a double es. 8 or -8
-     * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     * @see #computeTPTOPIndex(Double[], double, int, double, int)
-     * @deprecated will be deleted in the next version update
-     **/
-    @Deprecated
-    public static double computeTPTOPAsset(Double[] historicalValues, double lastValue, int intervalDays, double offsetRange,
                                            int decimalDigits) {
         return roundValue(computeTPTOPIndex(historicalValues, lastValue, intervalDays, offsetRange), decimalDigits);
     }

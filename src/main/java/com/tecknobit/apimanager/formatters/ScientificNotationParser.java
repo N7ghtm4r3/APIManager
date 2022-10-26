@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Tools.Formatters;
+package com.tecknobit.apimanager.formatters;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
@@ -7,7 +7,6 @@ import static java.lang.String.valueOf;
  * The {@code ScientificNotationParser} class is a useful class tool to get a numeric value without scientific notation
  * @author Tecknobit N7ghtm4r3
  * **/
-
 public abstract class ScientificNotationParser {
 
     /** Method to parse a numeric value and format without scientific notation

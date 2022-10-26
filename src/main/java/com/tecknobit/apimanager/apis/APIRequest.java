@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Manager;
+package com.tecknobit.apimanager.apis;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,61 +20,65 @@ import static org.apache.commons.codec.binary.Hex.encodeHexString;
  * The {@code APIRequest} class is useful to send and manage all json API requests
  * @author Tecknobit N7ghtm4r3
  * **/
-
 public class APIRequest {
 
     /**
-     * {@code GET_METHOD} is the instance that contains GET method for HTTP requests
-     * **/
+     * {@code GET_METHOD} is the instance that contains {@code "GET"} method for {@code "HTTP"} requests
+     **/
     public static final String GET_METHOD = "GET";
 
     /**
-     * {@code POST_METHOD} is the instance that contains POST method for HTTP requests
+     * {@code POST_METHOD} is the instance that contains {@code "POST"} method for {@code "HTTP"} requests
      * **/
     public static final String POST_METHOD = "POST";
 
     /**
-     * {@code DELETE_METHOD} is the instance that contains DELETE method for HTTP requests
-     * **/
+     * {@code DELETE_METHOD} is the instance that contains {@code "DELETE"} method for {@code "HTTP"} requests
+     **/
     public static final String DELETE_METHOD = "DELETE";
 
     /**
-     * {@code PUT_METHOD} is the instance that contains PUT method for HTTP requests
-     * **/
+     * {@code PUT_METHOD} is the instance that contains {@code "PUT"} method for {@code "HTTP"} requests
+     **/
     public static final String PUT_METHOD = "PUT";
 
     /**
+     * {@code PATCH_METHOD} is the instance that contains {@code "PATCH"} method for {@code "HTTP"} requests
+     **/
+    public static final String PATCH_METHOD = "PATCH";
+
+    /**
      * {@code DEFAULT_ERROR_RESPONSE} is constant that contains default error message if user not custom it
-     * **/
-    public static final String DEFAULT_ERROR_RESPONSE  = "Error is not in api request, check out your code";
+     **/
+    public static final String DEFAULT_ERROR_RESPONSE = "Error is not in api request, check out your code";
 
     /**
      * {@code DEFAULT_REQUEST_TIMEOUT} is constant that contains default request timeout if user not custom it
-     * **/
-    public static final int DEFAULT_REQUEST_TIMEOUT  = 10000;
+     **/
+    public static final int DEFAULT_REQUEST_TIMEOUT = 10000;
 
     /**
-     * {@code HMAC_SHA256_ALGORITHM} is constant that contains HMAC SHA 256 algorithm type
+     * {@code HMAC_SHA256_ALGORITHM} is constant that contains {@code "HMAC SHA 256"} algorithm type
      * **/
     public static final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
 
     /**
-     * {@code HMAC_SHA512_ALGORITHM} is constant that contains HMAC SHA 512 algorithm type
+     * {@code HMAC_SHA512_ALGORITHM} is constant that contains {@code "HMAC SHA 512"} algorithm type
      * **/
     public static final String HMAC_SHA512_ALGORITHM = "HmacSHA512";
 
     /**
-     * {@code MD5_ALGORITHM} is constant that contains MD5 algorithm type
+     * {@code MD5_ALGORITHM} is constant that contains {@code "MD5"} algorithm type
      * **/
     public static final String MD5_ALGORITHM = "MD5";
 
     /**
-     * {@code SHA1_ALGORITHM} is constant that contains SHA-1 algorithm type
+     * {@code SHA1_ALGORITHM} is constant that contains {@code "SHA-1"} algorithm type
      * **/
     public static final String SHA1_ALGORITHM = "SHA-1";
 
     /**
-     * {@code SHA256_ALGORITHM} is constant that contains SHA-256 algorithm type
+     * {@code SHA256_ALGORITHM} is constant that contains {@code "SHA-256"} algorithm type
      * **/
     public static final String SHA256_ALGORITHM = "SHA-256";
 
@@ -628,7 +632,7 @@ public class APIRequest {
      * @return digest result as byte array
      * **/
     public static byte[] digest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
-        if(algorithm == null || (!algorithm.equals(MD5_ALGORITHM) && !algorithm.equals(SHA1_ALGORITHM)
+        if (algorithm == null || (!algorithm.equals(MD5_ALGORITHM) && !algorithm.equals(SHA1_ALGORITHM)
                 && !algorithm.equals(SHA256_ALGORITHM))) {
             throw new IllegalArgumentException("Algorithm must be MD5,SHA-1 or SHA-256");
         }
@@ -638,9 +642,19 @@ public class APIRequest {
     }
 
     /**
-     * The {@code Headers} class is useful to assemble headers values for the request
-     * **/
+     * Returns a string representation of the object <br>
+     * Any params required
+     *
+     * @return a string representation of the object as {@link String}
+     */
+    @Override
+    public String toString() {
+        return new JSONObject(this).toString();
+    }
 
+    /**
+     * The {@code Headers} class is useful to assemble headers values for the request
+     **/
     public static class Headers {
 
         /**
@@ -726,14 +740,22 @@ public class APIRequest {
             return headers.values();
         }
 
-        /** Method to get all headers keys<br>
+        /**
+         * Method to get all headers keys<br>
          * Any params required
+         *
          * @return all headers keys as {@link Set} of {@link String}
-         * **/
-        public Set<String> getHeadersKeys(){
+         **/
+        public Set<String> getHeadersKeys() {
             return headers.keySet();
         }
 
+        /**
+         * Returns a string representation of the object <br>
+         * Any params required
+         *
+         * @return a string representation of the object as {@link String}
+         */
         @Override
         public String toString() {
             return headers.toString();
@@ -745,7 +767,6 @@ public class APIRequest {
      * The {@code Params} class is useful to assemble params values for the request
      * @implNote this class can be used to assemble body payload or query request params
      * **/
-
     public static class Params {
 
         /**
@@ -929,6 +950,12 @@ public class APIRequest {
             return createJSONPayload();
         }
 
+        /**
+         * Returns a string representation of the object <br>
+         * Any params required
+         *
+         * @return a string representation of the object as {@link String}
+         */
         @Override
         public String toString() {
             return params.toString();

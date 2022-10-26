@@ -1,4 +1,4 @@
-package com.tecknobit.apimanager.Tools.Trading;
+package com.tecknobit.apimanager.trading;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,7 +13,6 @@ import java.io.InputStreamReader;
  *
  * @author Tecknobit N7ghtm4r3
  **/
-
 public abstract class CryptocurrencyTool {
 
     /**
