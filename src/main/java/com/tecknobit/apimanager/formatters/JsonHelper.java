@@ -10,12 +10,24 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * The {@code JsonHelper} class is a useful class tool to works with {@link JSONObject} and {@link JSONArray} classes
+ * The {@code JsonHelper} class is a useful tool class to works with {@code "JSON"} data format
  *
  * @author Tecknobit N7ghtm4r3
  * @apiNote this class is helpful to avoid the {@link JSONException} because if searched value is not present in JSON, will be
  * returned a default value or a custom value choose by you. For all the operations to get values you don't need to pass
- * the correct JSON path ro reach the wanted value because it will be automatically reached autonomously
+ * the correct {@code "JSON"} path ro reach the wanted value because it will be automatically reached autonomously
+ * @implSpec this class uses as default {@link org.json} library to work with {@code "JSON"}, the classes are:
+ * <ul>
+ *     <li>
+ *         {@link JSONObject}
+ *     </li>
+ *     <li>
+ *         {@link JSONArray}
+ *     </li>
+ * </ul>
+ * This means that all methods where a {@code "JSON"}'s structure is requested will be returned one of that classes. <br>
+ * In other methods, if this class has been instantiated using the constructor with {@link String} parameter, will be
+ * possible work on {@code "JSON"} and return the result requested
  **/
 public class JsonHelper{
 
@@ -49,28 +61,52 @@ public class JsonHelper{
         this.jsonArrayDetails = jsonArrayDetails;
     }
 
-    /** Constructor to init {@link JsonHelper} tool class
+    /**
+     * Constructor to init {@link JsonHelper} tool class
+     *
      * @param jsonObjectDetails: jsonObject used to fetch data
-     * **/
+     **/
     public JsonHelper(JSONObject jsonObjectDetails) {
         this.jsonObjectDetails = jsonObjectDetails;
         jsonArrayDetails = new JSONArray();
     }
 
-    /** Constructor to init {@link JsonHelper} tool class
+    /**
+     * Constructor to init {@link JsonHelper} tool class
+     *
      * @param jsonArrayDetails: jsonArray used to fetch data
-     * **/
+     **/
     public JsonHelper(JSONArray jsonArrayDetails) {
         this.jsonArrayDetails = jsonArrayDetails;
         jsonObjectDetails = new JSONObject();
     }
 
-    /** Method to get from {@link JSONObject} a string value
+    /**
+     * Constructor to init {@link JsonHelper} tool class
+     *
+     * @param jsonSource: the source of {@code "JSON"} to work on, it can be formatted as object or array JSON structures
+     * @throws IllegalArgumentException when {@code "jsonSource"} inserted is not a valid JSON source
+     **/
+    public JsonHelper(String jsonSource) throws IllegalArgumentException {
+        try {
+            jsonObjectDetails = new JSONObject(jsonSource);
+        } catch (JSONException exception) {
+            try {
+                jsonArrayDetails = new JSONArray(jsonSource);
+            } catch (JSONException e) {
+                throw new IllegalArgumentException("The JSON string source inserted is not a valid JSON source");
+            }
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a string value
+     *
      * @param key: key of string value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link String}, if it is not exist will return null value
-     * **/
-    public String getString(String key){
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public String getString(String key) {
         return getString(key, null);
     }
 
