@@ -44,21 +44,25 @@ public class JsonHelper{
 
     /**
      * {@code jsonObjectDetails} is instance that memorizes {@link JSONObject} to work on
-     * **/
+     **/
     private JSONObject jsonObjectDetails;
 
     /**
      * {@code jsonObjectDetails} is instance that memorizes {@link JSONArray} to work on
-     * **/
+     **/
     private JSONArray jsonArrayDetails;
 
-    /** Constructor to init {@link JsonHelper} tool class
-     * @param jsonObjectDetails: jsonObject used to fetch data
-     * @param jsonArrayDetails: jsonArray used to fetch data
-     * **/
-    public JsonHelper(JSONObject jsonObjectDetails, JSONArray jsonArrayDetails) {
-        this.jsonObjectDetails = jsonObjectDetails;
-        this.jsonArrayDetails = jsonArrayDetails;
+    /**
+     * Constructor to init {@link JsonHelper} tool class
+     *
+     * @param jsonSource: the source of {@code "JSON"} to work on, it can be formatted as object or array {@code "JSON"} structures
+     * @throws IllegalArgumentException when {@code "jsonSource"} inserted is not a valid JSON source
+     * @apiNote will be called the {@code "toString()"} method, if it will be thrown an {@link IllegalArgumentException}
+     * use directly the {@code "JsonHelper(String jsonSource)"} constructor or check validity of the {@code "JSON"} source
+     * inserted
+     **/
+    public <T> JsonHelper(T jsonSource) {
+        this(jsonSource.toString());
     }
 
     /**
@@ -84,7 +88,7 @@ public class JsonHelper{
     /**
      * Constructor to init {@link JsonHelper} tool class
      *
-     * @param jsonSource: the source of {@code "JSON"} to work on, it can be formatted as object or array JSON structures
+     * @param jsonSource: the source of {@code "JSON"} to work on, it can be formatted as object or array {@code "JSON"} structures
      * @throws IllegalArgumentException when {@code "jsonSource"} inserted is not a valid JSON source
      **/
     public JsonHelper(String jsonSource) throws IllegalArgumentException {
@@ -97,6 +101,17 @@ public class JsonHelper{
                 throw new IllegalArgumentException("The JSON string source inserted is not a valid JSON source");
             }
         }
+    }
+
+    /**
+     * Constructor to init {@link JsonHelper} tool class
+     *
+     * @param jsonObjectDetails: jsonObject used to fetch data
+     * @param jsonArrayDetails:  jsonArray used to fetch data
+     **/
+    public JsonHelper(JSONObject jsonObjectDetails, JSONArray jsonArrayDetails) {
+        this.jsonObjectDetails = jsonObjectDetails;
+        this.jsonArrayDetails = jsonArrayDetails;
     }
 
     /**
