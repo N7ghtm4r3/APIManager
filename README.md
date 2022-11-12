@@ -1,5 +1,5 @@
 # APIManager
-**v2.0.0**
+**v2.0.1**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -23,7 +23,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.N7ghtm4r3:APIManager:2.0.0'
+    implementation 'com.github.N7ghtm4r3:APIManager:2.0.1'
 }
 ```
 
@@ -44,8 +44,8 @@ dependencies {
 ```xml
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
-    <artifactId>APIManager</artifactId>
-    <version>2.0.0</version>
+  <artifactId>APIManager</artifactId>
+  <version>2.0.1</version>
 </dependency>
 ```
 
@@ -55,10 +55,12 @@ dependencies {
 ## Tools available
 
 - **TradingTools** allows you to calculate things like percent, forecast of an asset, etc
-- **JsonHelper** allows you to fetch data from JSONObject and JSONArray with default value if not exits and create list
+- **JsonHelper** allows you to fetch data from JSON with default value if not exits and create list
   of values in automatically and this with auto search path to get value requested, so you don't have to passing correct
   path by hand
 - **CryptocurrencyTool** allows you to fetch details about one coin like name, index, logo image and other
+- **ScientificNotationParser** allows you format a numeric value without scientific notation
+- **TimeFormatter** allows you to format in different ways the time value
 
 The other tools will be gradually released
 

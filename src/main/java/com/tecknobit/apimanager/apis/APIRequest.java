@@ -419,7 +419,7 @@ public class APIRequest {
      * @param method:     method used in the api request
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      **/
-    public void sendJsonPayloadedAPIRequest(String requestUrl, String method, Params payload) throws IOException {
+    public void sendJSONPayloadedAPIRequest(String requestUrl, String method, Params payload) throws IOException {
         setRequest(requestUrl, method, payload, true);
         performRequest();
     }
@@ -433,7 +433,7 @@ public class APIRequest {
      * @param headerValue: header value for the request
      * @param payload:     params to insert in the payload for the {@code "HTTP"} request
      **/
-    public <T> void sendJsonPayloadedAPIRequest(String requestUrl, String method, String headerKey, T headerValue,
+    public <T> void sendJSONPayloadedAPIRequest(String requestUrl, String method, String headerKey, T headerValue,
                                                 Params payload) throws IOException {
         setRequest(requestUrl, method, payload, true);
         request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
@@ -448,7 +448,7 @@ public class APIRequest {
      * @param headers:    headers for the request
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      **/
-    public void sendJsonPayloadedAPIRequest(String requestUrl, String method, Headers headers,
+    public void sendJSONPayloadedAPIRequest(String requestUrl, String method, Headers headers,
                                             Params payload) throws IOException {
         setRequest(requestUrl, method, payload, true);
         setHeaders(headers);

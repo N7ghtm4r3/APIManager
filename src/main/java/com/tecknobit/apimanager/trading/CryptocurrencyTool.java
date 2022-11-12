@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * The {@code CryptocurrencyTool} class is a useful class tool that helps to work with cryptocurrencies details. <br>
+ * The {@code CryptocurrencyTool} class is a useful tool class that helps to work with cryptocurrencies details. <br>
  * This tool helps to get image logo of a crypto, get full name of a crypto or get symbol of a crypto. <br>
  *
  * @author Tecknobit N7ghtm4r3
@@ -115,6 +115,74 @@ public abstract class CryptocurrencyTool {
                 return coin.getString(keyToFetch);
         }
         return null;
+    }
+
+    /**
+     * Method to fetch the quote symbol from a symbol
+     *
+     * @param symbol: symbol from fetch the quote
+     * @return quote symbol -> {@code "BTCETH"} -> {@code "ETH"}
+     **/
+    public static String getQuoteFromSymbol(String symbol) {
+        return getValueFromSymbol(symbol, true);
+    }
+
+    /**
+     * Method to fetch the base symbol from a symbol
+     *
+     * @param symbol: symbol from fetch the base
+     * @return base symbol -> {@code "BTCETH"} -> {@code "BTC"}
+     **/
+    public static String getBaseFromSymbol(String symbol) {
+        return getValueFromSymbol(symbol, false);
+    }
+
+    /**
+     * Method to fetch the base or the quote symbol from a symbol
+     *
+     * @param symbol:  symbol from fetch the value
+     * @param isQuote: whether the researched value is a quote or is a base
+     * @return value as follows:
+     * <ul>
+     *      <li>
+     *          {@code "isQuote"} = {@code "true"}
+     *          quote symbol -> {@code "BTCETH"} -> {@code "ETH"}
+     *      </li>
+     *      <li>
+     *          {@code "isQuote"} = {@code "false"}
+     *          base symbol -> {@code "BTCETH"} -> {@code "BTC"}
+     *      </li>
+     * </ul>
+     **/
+    private static String getValueFromSymbol(String symbol, boolean isQuote) {
+        if (symbol == null)
+            throw new IllegalArgumentException("Symbol inserted is not a valid symbol");
+        String value;
+        int length = symbol.length();
+        int middle = length / 2;
+        int start, end;
+        if (isQuote) {
+            start = middle;
+            end = length;
+        } else {
+            start = 0;
+            end = middle;
+        }
+        if (length % 2 == 0)
+            value = symbol.substring(start, end);
+        else {
+            if (isQuote)
+                value = symbol.substring(start + 1, end);
+            else
+                value = symbol.substring(start, end + 1);
+        }
+        for (int j = start; j < length && getCryptocurrencyName(value) == null; j++) {
+            if (isQuote)
+                value = symbol.substring(j - 1, end);
+            else
+                value = symbol.substring(start, end - j);
+        }
+        return value;
     }
 
 }

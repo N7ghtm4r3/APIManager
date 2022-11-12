@@ -13,7 +13,7 @@ import java.util.Iterator;
  * The {@code JsonHelper} class is a useful tool class to works with {@code "JSON"} data format
  *
  * @author Tecknobit N7ghtm4r3
- * @apiNote this class is helpful to avoid the {@link JSONException} because if searched value is not present in JSON, will be
+ * @apiNote this class is helpful to avoid the {@link JSONException} because if searched value is not present in {@code "JSON"}, will be
  * returned a default value or a custom value choose by you. For all the operations to get values you don't need to pass
  * the correct {@code "JSON"} path ro reach the wanted value because it will be automatically reached autonomously
  * @implSpec this class uses as default {@link org.json} library to work with {@code "JSON"}, the classes are:
@@ -43,20 +43,20 @@ public class JsonHelper{
     public static final int NUMERIC_CLASS_CAST_ERROR_VALUE = -987654321;
 
     /**
-     * {@code jsonObjectDetails} is instance that memorizes {@link JSONObject} to work on
+     * {@code jsonObjectSource} is instance that memorizes {@link JSONObject} to work on
      **/
-    private JSONObject jsonObjectDetails;
+    private JSONObject jsonObjectSource;
 
     /**
-     * {@code jsonObjectDetails} is instance that memorizes {@link JSONArray} to work on
+     * {@code jsonArraySource} is instance that memorizes {@link JSONArray} to work on
      **/
-    private JSONArray jsonArrayDetails;
+    private JSONArray jsonArraySource;
 
     /**
      * Constructor to init {@link JsonHelper} tool class
      *
      * @param jsonSource: the source of {@code "JSON"} to work on, it can be formatted as object or array {@code "JSON"} structures
-     * @throws IllegalArgumentException when {@code "jsonSource"} inserted is not a valid JSON source
+     * @throws IllegalArgumentException when {@code "jsonSource"} inserted is not a valid {@code "JSON"} source
      * @apiNote will be called the {@code "toString()"} method, if it will be thrown an {@link IllegalArgumentException}
      * use directly the {@code "JsonHelper(String jsonSource)"} constructor or check validity of the {@code "JSON"} source
      * inserted
@@ -68,35 +68,35 @@ public class JsonHelper{
     /**
      * Constructor to init {@link JsonHelper} tool class
      *
-     * @param jsonObjectDetails: jsonObject used to fetch data
+     * @param jsonObjectSource: jsonObject used to fetch data
      **/
-    public JsonHelper(JSONObject jsonObjectDetails) {
-        this.jsonObjectDetails = jsonObjectDetails;
-        jsonArrayDetails = new JSONArray();
+    public JsonHelper(JSONObject jsonObjectSource) {
+        this.jsonObjectSource = jsonObjectSource;
+        jsonArraySource = new JSONArray();
     }
 
     /**
      * Constructor to init {@link JsonHelper} tool class
      *
-     * @param jsonArrayDetails: jsonArray used to fetch data
+     * @param jsonArraySource: jsonArray used to fetch data
      **/
-    public JsonHelper(JSONArray jsonArrayDetails) {
-        this.jsonArrayDetails = jsonArrayDetails;
-        jsonObjectDetails = new JSONObject();
+    public JsonHelper(JSONArray jsonArraySource) {
+        this.jsonArraySource = jsonArraySource;
+        jsonObjectSource = new JSONObject();
     }
 
     /**
      * Constructor to init {@link JsonHelper} tool class
      *
      * @param jsonSource: the source of {@code "JSON"} to work on, it can be formatted as object or array {@code "JSON"} structures
-     * @throws IllegalArgumentException when {@code "jsonSource"} inserted is not a valid JSON source
+     * @throws IllegalArgumentException when {@code "jsonSource"} inserted is not a valid {@code "JSON"} source
      **/
     public JsonHelper(String jsonSource) throws IllegalArgumentException {
         try {
-            jsonObjectDetails = new JSONObject(jsonSource);
+            jsonObjectSource = new JSONObject(jsonSource);
         } catch (JSONException exception) {
             try {
-                jsonArrayDetails = new JSONArray(jsonSource);
+                jsonArraySource = new JSONArray(jsonSource);
             } catch (JSONException e) {
                 throw new IllegalArgumentException("The JSON string source inserted is not a valid JSON source");
             }
@@ -106,12 +106,12 @@ public class JsonHelper{
     /**
      * Constructor to init {@link JsonHelper} tool class
      *
-     * @param jsonObjectDetails: jsonObject used to fetch data
-     * @param jsonArrayDetails:  jsonArray used to fetch data
+     * @param jsonObjectSource: jsonObject used to fetch data
+     * @param jsonArraySource:  jsonArray used to fetch data
      **/
-    public JsonHelper(JSONObject jsonObjectDetails, JSONArray jsonArrayDetails) {
-        this.jsonObjectDetails = jsonObjectDetails;
-        this.jsonArrayDetails = jsonArrayDetails;
+    public JsonHelper(JSONObject jsonObjectSource, JSONArray jsonArraySource) {
+        this.jsonObjectSource = jsonObjectSource;
+        this.jsonArraySource = jsonArraySource;
     }
 
     /**
@@ -125,18 +125,19 @@ public class JsonHelper{
         return getString(key, null);
     }
 
-    /** Method to get from {@link JSONObject} a string value
-     * @param key: key of string value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link String}, if it is not exist will return {@code defValue}
-     * **/
-    public String getString(String key, String defValue){
-        try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
-        }
+    /**
+     * Method to get from {@link JSONObject} a string value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of string value to get from json
+     * @return value as {@link String}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
+     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
+     * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
+     **/
+    public static String getString(JSONObject jsonDetails, String key) {
+        return getString(jsonDetails, key, null);
     }
 
     /** Method to get from {@link JSONArray} a string value
@@ -147,571 +148,43 @@ public class JsonHelper{
         return getString(index, null);
     }
 
-    /** Method to get from {@link JSONArray} a string value
-     * @param index: index of string value to get from json
-     * @param defValue: default value to return if primary value not exists
+    /**
+     * Method to get from {@link JSONObject} a string value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of string value to get from json
+     * @param defValue:    default value to return if primary value not exists
      * @return value as {@link String}, if it is not exist will return {@code defValue}
-     * **/
-    public String getString(int index, String defValue){
-        try {
-            return jsonArrayDetails.getString(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} a double value
-     * @param key: key of double value to get from json
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public double getDouble(String key){
-        return getDouble(key, NUMERIC_DEF_VALUE_IF_MISSED);
-    }
-
-    /** Method to get from {@link JSONObject} a double value
-     * @param key: key of double value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as double, if it is not exist will return {@code defValue}
-     * **/
-    public double getDouble(String key, double defValue){
-        try {
-            Object value = autoSearch(jsonObjectDetails, key, defValue);
-            if(value instanceof Number)
-                return ((Number)value).doubleValue();
-            else
-                return Double.parseDouble(value.toString());
-        }catch (ClassCastException | NumberFormatException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
-    }
-
-    /** Method to get from {@link JSONArray} a double value
-     * @param index: index of double value to get from json
-     * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public double getDouble(int index){
-        return getDouble(index, NUMERIC_DEF_VALUE_IF_MISSED);
-    }
-
-    /** Method to get from {@link JSONArray} a double value
-     * @param index: index of double value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as double, if it is not exist will return {@code defValue}
-     * **/
-    public double getDouble(int index, double defValue){
-        try {
-            return jsonArrayDetails.getDouble(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} an int value
-     * @param key: key of int value to get from json
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public int getInt(String key){
-        return getInt(key, NUMERIC_DEF_VALUE_IF_MISSED);
-    }
-
-    /** Method to get from {@link JSONObject} an int value
-     * @param key: key of int value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as int, if it is not exist will return {@code defValue}
-     * **/
-    public int getInt(String key, int defValue){
-        try {
-            Object value = autoSearch(jsonObjectDetails, key, defValue);
-            if(value instanceof Number)
-                return ((Number)value).intValue();
-            else
-                return Integer.parseInt(value.toString());
-        }catch (ClassCastException | NumberFormatException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
-    }
-
-    /** Method to get from {@link JSONArray} an int value
-     * @param index: index of int value to get from json
-     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public int getInt(int index){
-        return getInt(index, NUMERIC_DEF_VALUE_IF_MISSED);
-    }
-
-    /** Method to get from {@link JSONArray} an int value
-     * @param index: index of int value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as int, if it is not exist will return {@code defValue}
-     * **/
-    public int getInt(int index, int defValue){
-        try {
-            return jsonArrayDetails.getInt(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-    
-    /** Method to get from {@link JSONObject} a float value
-     * @param key: key of float value to get from json
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public float getFloat(String key){
-        return getFloat(key, NUMERIC_DEF_VALUE_IF_MISSED);
-    }
-
-    /** Method to get from {@link JSONObject} a float value
-     * @param key: key of float value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as float, if it is not exist will return {@code defValue}
-     * **/
-    public float getFloat(String key, float defValue){
-        try {
-            Object value = autoSearch(jsonObjectDetails, key, defValue);
-            if(value instanceof Number)
-                return ((Number)value).floatValue();
-            else
-                return Float.parseFloat(value.toString());
-        }catch (ClassCastException | NumberFormatException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
-    }
-
-    /** Method to get from {@link JSONArray} a float value
-     * @param index: index of float value to get from json
-     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public float getFloat(int index){
-        return getFloat(index, NUMERIC_DEF_VALUE_IF_MISSED);
-    }
-
-    /** Method to get from {@link JSONArray} a float value
-     * @param index: index of float value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as float, if it is not exist will return {@code defValue}
-     * **/
-    public float getFloat(int index, float defValue){
-        try {
-            return jsonArrayDetails.getFloat(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} a long value
-     * @param key: key of long value to get from json
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public long getLong(String key){
-        return getLong(key, NUMERIC_DEF_VALUE_IF_MISSED);
-    }
-
-    /** Method to get from {@link JSONObject} a long value
-     * @param key: key of long value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as long, if it is not exist will return {@code defValue}
-     * **/
-    public long getLong(String key, long defValue){
-        try {
-            Object value = autoSearch(jsonObjectDetails, key, defValue);
-            if(value instanceof Number)
-                return ((Number)value).longValue();
-            else
-                return Long.parseLong(value.toString());
-        }catch (ClassCastException | NumberFormatException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
-    }
-
-    /** Method to get from {@link JSONArray} a long value
-     * @param index: index of long value to get from json
-     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public long getLong(int index){
-        return getLong(index, NUMERIC_DEF_VALUE_IF_MISSED);
-    }
-
-    /** Method to get from {@link JSONArray} a long value
-     * @param index: index of long value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as long, if it is not exist will return {@code defValue}
-     * **/
-    public long getLong(int index, long defValue){
-        try {
-            return jsonArrayDetails.getLong(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} a BigDecimal value
-     * @param key: key of BigDecimal value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link BigDecimal}, if it is not exist will return null value
-     * **/
-    public BigDecimal getBigDecimal(String key){
-        return getBigDecimal(key, null);
-    }
-
-    /** Method to get from {@link JSONObject} a BigDecimal value
-     * @param key: key of BigDecimal value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
-     * **/
-    public BigDecimal getBigDecimal(String key, BigDecimal defValue){
-        try {
-            Object value = autoSearch(jsonObjectDetails, key, defValue);
-            if(value instanceof BigDecimal)
-                return (BigDecimal) value;
-            return BigDecimal.valueOf(Double.parseDouble(value.toString()));
-        }catch (NullPointerException | ClassCastException | NumberFormatException e){
-            return BigDecimal.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
-        }
-    }
-
-    /** Method to get from {@link JSONArray} a BigDecimal value
-     * @param index: index of BigDecimal value to get from json
-     * @return value as {@link BigDecimal}, if it is not exist will return null value
-     * **/
-    public BigDecimal getBigDecimal(int index){
-        return getBigDecimal(index, null);
-    }
-
-    /** Method to get from {@link JSONArray} a BigDecimal value
-     * @param index: index of BigDecimal value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
-     * **/
-    public BigDecimal getBigDecimal(int index, BigDecimal defValue){
-        try {
-            return jsonArrayDetails.getBigDecimal(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} a BigInteger value
-     * @param key: key of BigInteger value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link BigInteger}, if it is not exist will return null value
-     * **/
-    public BigInteger getBigInteger(String key){
-        return getBigInteger(key, null);
-    }
-
-    /** Method to get from {@link JSONObject} a BigInteger value
-     * @param key: key of BigInteger value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
-     * **/
-    public BigInteger getBigInteger(String key, BigInteger defValue){
-        try {
-            Object value = autoSearch(jsonObjectDetails, key, defValue);
-            if(value instanceof BigDecimal)
-                return (BigInteger) value;
-            return BigInteger.valueOf(Integer.parseInt(value.toString()));
-        }catch (NullPointerException | ClassCastException | NumberFormatException e){
-            return BigInteger.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
-        }
-    }
-
-    /** Method to get from {@link JSONArray} a BigInteger value
-     * @param index: index of BigInteger value to get from json
-     * @return value as {@link BigInteger}, if it is not exist will return null value
-     * **/
-    public BigInteger getBigInteger(int index){
-        return getBigInteger(index, null);
-    }
-
-    /** Method to get from {@link JSONArray} a BigInteger value
-     * @param index: index of BigInteger value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
-     * **/
-    public BigInteger getBigInteger(int index, BigInteger defValue){
-        try {
-            return jsonArrayDetails.getBigInteger(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} a Number value
-     * @param key: key of Number value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link Number}, if it is not exist will return null value
-     * **/
-    public Number getNumber(String key){
-        return getNumber(key, NUMERIC_DEF_VALUE_IF_MISSED);
-    }
-
-    /** Method to get from {@link JSONObject} a Number value
-     * @param key: key of Number value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link Number}, if it is not exist will return {@code defValue}
-     * **/
-    public Number getNumber(String key, Number defValue){
-        try {
-            Object value = autoSearch(jsonObjectDetails, key, defValue);
-            return ((Number)value);
-        }catch (ClassCastException | NumberFormatException e){
-            return NUMERIC_CLASS_CAST_ERROR_VALUE;
-        }
-    }
-
-    /** Method to get from {@link JSONArray} a Number value
-     * @param index: index of Number value to get from json
-     * @return value as {@link Number}, if it is not exist will return null value
-     * **/
-    public Number getNumber(int index){
-        return getNumber(index, null);
-    }
-
-    /** Method to get from {@link JSONArray} a Number value
-     * @param index: index of Number value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as {@link Number}, if it is not exist will return {@code defValue}
-     * **/
-    public Number getNumber(int index, Number defValue){
-        try {
-            return jsonArrayDetails.getNumber(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} an object value
-     * @param key: key of Object value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link Object}, if it is not exist will return null value
-     * **/
-    public Object get(String key){
-        return get(key, null);
-    }
-
-    /** Method to get from {@link JSONObject} an object value
-     * @param key: key of Object value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link Object}, if it is not exist will return {@code defValue}
-     * **/
-    public Object get(String key, Object defValue){
-        try {
-            return autoSearch(jsonObjectDetails, key, defValue);
-        }catch (ClassCastException e){
-            return null;
-        }
-    }
-
-    /** Method to get from {@link JSONArray} an object value
-     * @param index: index of Object value to get from json
-     * @return value as {@link Object}, if it is not exist will return null value
-     * **/
-    public Object get(int index){
-        return get(index, null);
-    }
-
-    /** Method to get from {@link JSONArray} an object value
-     * @param index: index of Object value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as {@link Object}, if it is not exist will return {@code defValue}
-     * **/
-    public Object get(int index, Object defValue){
-        try {
-            return jsonArrayDetails.get(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} a boolean value
-     * @param key: key of boolean value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned false as default value
-     * @return value as boolean, if it is not exist will return false value
-     * **/
-    public boolean getBoolean(String key){
-        return getBoolean(key, false);
-    }
-
-    /** Method to get from {@link JSONObject} a boolean value
-     * @param key: key of boolean value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned false as default value
-     * @return value as boolean, if it is not exist will return {@code defValue}
-     * **/
-    public boolean getBoolean(String key, boolean defValue){
-        try {
-            Object value = autoSearch(jsonObjectDetails, key, defValue);
-            if(value instanceof Boolean)
-                return (boolean) value;
-            else
-                return Boolean.parseBoolean(value.toString());
-        }catch (ClassCastException e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONArray} a boolean value
-     * @param index: index of boolean value to get from json
-     * @return value as boolean, if it is not exist will return false value
-     * **/
-    public boolean getBoolean(int index){
-        return getBoolean(index, false);
-    }
-
-    /** Method to get from {@link JSONArray} a boolean value
-     * @param index: index of boolean value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as boolean, if it is not exist will return {@code defValue}
-     * **/
-    public boolean getBoolean(int index, boolean defValue){
-        try {
-            return jsonArrayDetails.getBoolean(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject}  a list of values
-     * @param key: key of JSONArray to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link JSONArray}, if it is not exist will return null value
-     * **/
-    public JSONArray getJSONArray(String key){
-        return getJSONArray(key, null);
-    }
-
-    /** Method to get from {@link JSONObject}  a list of values
-     * @param key: key of JSONArray to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
-     * **/
-    public JSONArray getJSONArray(String key, JSONArray defValue){
-        Object value = autoSearch(jsonObjectDetails, key, defValue);
-        if(value instanceof JSONArray)
-            return (JSONArray) value;
-        return defValue;
-    }
-
-    /** Method to get from {@link JSONArray}  a list of values
-     * @param index: index of JSONArray to get from json
-     * @return value as {@link JSONArray}, if it is not exist will return null value
-     * **/
-    public JSONArray getJSONArray(int index){
-        return getJSONArray(index, null);
-    }
-
-    /** Method to get from {@link JSONArray}  a list of values
-     * @param index: index of JSONArray to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
-     * **/
-    public JSONArray getJSONArray(int index, JSONArray defValue){
-        try {
-            return jsonArrayDetails.getJSONArray(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} a jsonObject
-     * @param key: key of JSONObject to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link JSONObject}, if it is not exist will return null value
-     * **/
-    public JSONObject getJSONObject(String key){
-        return getJSONObject(key, null);
-    }
-
-    /** Method to get from {@link JSONObject} a jsonObject
-     * @param key: key of JSONObject to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
-     * **/
-    public JSONObject getJSONObject(String key, JSONObject defValue){
-        Object value = autoSearch(jsonObjectDetails, key, defValue);
-        if(value instanceof JSONObject)
-            return (JSONObject) value;
-        return defValue;
-    }
-
-    /** Method to get from {@link JSONArray} a jsonObject
-     * @param index: index of JSONObject to get from json
-     * @return value as {@link JSONObject}, if it is not exist will return null value
-     * **/
-    public JSONObject getJSONObject(int index){
-        return getJSONObject(index, null);
-    }
-
-    /** Method to get from {@link JSONArray} a jsonObject
-     * @param index: index of JSONObject to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
-     * **/
-    public JSONObject getJSONObject(int index, JSONObject defValue){
-        try {
-            return jsonArrayDetails.getJSONObject(index);
-        }catch (Exception e){
-            return defValue;
-        }
-    }
-
-    /** Method to get from {@link JSONObject} a string value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of string value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link String}, if it is not exist will return null value
-     * **/
-    public static String getString(JSONObject jsonDetails, String key){
-        return getString(jsonDetails, key, null);
-    }
-
-    /** Method to get from {@link JSONObject} a string value
-     * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
-     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
-     * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of string value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link String}, if it is not exist will return {@code defValue}
-     * **/
-    public static String getString(JSONObject jsonDetails, String key, String defValue){
+     **/
+    public static String getString(JSONObject jsonDetails, String key, String defValue) {
         try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
+            return autoSearch(jsonDetails, key, defValue);
+        } catch (ClassCastException e) {
             return null;
         }
     }
 
     /**
      * Method to get from {@link JSONObject} a double value
-     * @param jsonDetails: JSON from fetch data
+     *
      * @param key: key of double value to get from json
+     * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
+     **/
+    public double getDouble(String key) {
+        return getDouble(key, NUMERIC_DEF_VALUE_IF_MISSED);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a double value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of double value to get from json
      * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
@@ -719,379 +192,630 @@ public class JsonHelper{
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
      **/
-    public static double getDouble(JSONObject jsonDetails, String key){
+    public static double getDouble(JSONObject jsonDetails, String key) {
         return getDouble(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a double value
+     *
+     * @param index: index of double value to get from json
+     * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     **/
+    public double getDouble(int index) {
+        return getDouble(index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a double value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param key: key of double value to get from json
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      * as default value
      * @return value as double, if it is not exist will return {@code defValue}
      * **/
-    public static double getDouble(JSONObject jsonDetails, String key, double defValue){
+    public static double getDouble(JSONObject jsonDetails, String key, double defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
-            if(value instanceof Number)
-                return ((Number)value).doubleValue();
+            if (value instanceof Number)
+                return ((Number) value).doubleValue();
             else
                 return Double.parseDouble(value.toString());
-        }catch (ClassCastException | NumberFormatException e){
+        } catch (ClassCastException | NumberFormatException e) {
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
 
-    /** Method to get from {@link JSONObject} an int value
+    /**
+     * Method to get from {@link JSONObject} an int value
+     *
+     * @param key: key of int value to get from json
+     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
+     **/
+    public int getInt(String key) {
+        return getInt(key, NUMERIC_DEF_VALUE_IF_MISSED);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} an int value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of int value to get from json
+     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of int value to get from json
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public static int getInt(JSONObject jsonDetails, String key){
+     **/
+    public static int getInt(JSONObject jsonDetails, String key) {
         return getInt(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} an int value
+     *
+     * @param index: index of int value to get from json
+     * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     **/
+    public int getInt(int index) {
+        return getInt(index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} an int value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param key: key of int value to get from json
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      * as default value
      * @return value as int, if it is not exist will return {@code defValue}
      * **/
-    public static int getInt(JSONObject jsonDetails, String key, int defValue){
+    public static int getInt(JSONObject jsonDetails, String key, int defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
-            if(value instanceof Number)
-                return ((Number)value).intValue();
+            if (value instanceof Number)
+                return ((Number) value).intValue();
             else
                 return Integer.parseInt(value.toString());
-        }catch (ClassCastException | NumberFormatException e){
+        } catch (ClassCastException | NumberFormatException e) {
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
 
-    /** Method to get from {@link JSONObject} a float value
+    /**
+     * Method to get from {@link JSONObject} a float value
+     *
+     * @param key: key of float value to get from json
+     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
+     **/
+    public float getFloat(String key) {
+        return getFloat(key, NUMERIC_DEF_VALUE_IF_MISSED);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a float value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of float value to get from json
+     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of float value to get from json
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public static float getFloat(JSONObject jsonDetails, String key){
+     **/
+    public static float getFloat(JSONObject jsonDetails, String key) {
         return getFloat(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a float value
+     *
+     * @param index: index of float value to get from json
+     * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     **/
+    public float getFloat(int index) {
+        return getFloat(index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a float value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param key: key of float value to get from json
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      * as default value
      * @return value as float, if it is not exist will return {@code defValue}
      * **/
-    public static float getFloat(JSONObject jsonDetails, String key, float defValue){
+    public static float getFloat(JSONObject jsonDetails, String key, float defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
-            if(value instanceof Number)
-                return ((Number)value).floatValue();
+            if (value instanceof Number)
+                return ((Number) value).floatValue();
             else
                 return Float.parseFloat(value.toString());
-        }catch (ClassCastException | NumberFormatException e){
+        } catch (ClassCastException | NumberFormatException e) {
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
 
-    /** Method to get from {@link JSONObject} a long value
+    /**
+     * Method to get from {@link JSONObject} a long value
+     *
+     * @param key: key of long value to get from json
+     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
+     **/
+    public long getLong(String key) {
+        return getLong(key, NUMERIC_DEF_VALUE_IF_MISSED);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a long value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of long value to get from json
+     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of long value to get from json
-     * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
-     * as default value
-     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     * **/
-    public static long getLong(JSONObject jsonDetails, String key){
+     **/
+    public static long getLong(JSONObject jsonDetails, String key) {
         return getLong(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a long value
+     *
+     * @param index: index of long value to get from json
+     * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
+     **/
+    public long getLong(int index) {
+        return getLong(index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
     /** Method to get from {@link JSONObject} a long value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param key: key of long value to get from json
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      * as default value
      * @return value as long, if it is not exist will return {@code defValue}
      * **/
-    public static long getLong(JSONObject jsonDetails, String key, long defValue){
+    public static long getLong(JSONObject jsonDetails, String key, long defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
-            if(value instanceof Number)
-                return ((Number)value).longValue();
+            if (value instanceof Number)
+                return ((Number) value).longValue();
             else
                 return Long.parseLong(value.toString());
-        }catch (ClassCastException | NumberFormatException e){
+        } catch (ClassCastException | NumberFormatException e) {
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
 
-    /** Method to get from {@link JSONObject} a BigDecimal value
+    /**
+     * Method to get from {@link JSONObject} a BigDecimal value
+     *
+     * @param key: key of BigDecimal value to get from json
+     * @return value as {@link BigDecimal}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public BigDecimal getBigDecimal(String key) {
+        return getBigDecimal(key, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a BigDecimal value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of BigDecimal value to get from json
+     * @return value as {@link BigDecimal}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of BigDecimal value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link BigDecimal}, if it is not exist will return null value
-     * **/
-    public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key){
+     **/
+    public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key) {
         return getBigDecimal(jsonDetails, key, null);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a BigDecimal value
+     *
+     * @param index: index of BigDecimal value to get from json
+     * @return value as {@link BigDecimal}, if it is not exist will return null value
+     **/
+    public BigDecimal getBigDecimal(int index) {
+        return getBigDecimal(index, null);
     }
 
     /** Method to get from {@link JSONObject} a BigDecimal value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param key: key of BigDecimal value to get from json
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
      * **/
-    public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key, BigDecimal defValue){
+    public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key, BigDecimal defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
-            if(value instanceof BigDecimal)
+            if (value instanceof BigDecimal)
                 return (BigDecimal) value;
             return BigDecimal.valueOf(Double.parseDouble(value.toString()));
-        }catch (NullPointerException | ClassCastException | NumberFormatException e){
+        } catch (NullPointerException | ClassCastException | NumberFormatException e) {
             return BigDecimal.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
         }
     }
 
-    /** Method to get from {@link JSONObject} a BigInteger value
+    /**
+     * Method to get from {@link JSONObject} a BigInteger value
+     *
+     * @param key: key of BigInteger value to get from json
+     * @return value as {@link BigInteger}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public BigInteger getBigInteger(String key) {
+        return getBigInteger(key, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a BigInteger value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of BigInteger value to get from json
+     * @return value as {@link BigInteger}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of BigInteger value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link BigInteger}, if it is not exist will return null value
-     * **/
-    public static BigInteger getBigInteger(JSONObject jsonDetails, String key){
+     **/
+    public static BigInteger getBigInteger(JSONObject jsonDetails, String key) {
         return getBigInteger(jsonDetails, key, null);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a BigInteger value
+     *
+     * @param index: index of BigInteger value to get from json
+     * @return value as {@link BigInteger}, if it is not exist will return null value
+     **/
+    public BigInteger getBigInteger(int index) {
+        return getBigInteger(index, null);
     }
 
     /** Method to get from {@link JSONObject} a BigInteger value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param key: key of BigInteger value to get from json
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
      * **/
-    public static BigInteger getBigInteger(JSONObject jsonDetails, String key, BigInteger defValue){
+    public static BigInteger getBigInteger(JSONObject jsonDetails, String key, BigInteger defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
-            if(value instanceof BigDecimal)
+            if (value instanceof BigDecimal)
                 return (BigInteger) value;
             return BigInteger.valueOf(Integer.parseInt(value.toString()));
-        }catch (NullPointerException | ClassCastException | NumberFormatException e){
+        } catch (NullPointerException | ClassCastException | NumberFormatException e) {
             return BigInteger.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
         }
     }
 
-    /** Method to get from {@link JSONObject} a Number value
+    /**
+     * Method to get from {@link JSONObject} a Number value
+     *
+     * @param key: key of Number value to get from json
+     * @return value as {@link Number}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public Number getNumber(String key) {
+        return getNumber(key, NUMERIC_DEF_VALUE_IF_MISSED);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a Number value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of Number value to get from json
+     * @return value as {@link Number}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of Number value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link Number}, if it is not exist will return null value
-     * **/
-    public static Number getNumber(JSONObject jsonDetails, String key){
+     **/
+    public static Number getNumber(JSONObject jsonDetails, String key) {
         return getNumber(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
-    /** Method to get from {@link JSONObject} a Number value
+    /**
+     * Method to get from {@link JSONArray} a Number value
+     *
+     * @param index: index of Number value to get from json
+     * @return value as {@link Number}, if it is not exist will return null value
+     **/
+    public Number getNumber(int index) {
+        return getNumber(index, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a Number value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of Number value to get from json
+     * @param defValue:    default value to return if primary value not exists
+     * @return value as {@link Number}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of Number value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link Number}, if it is not exist will return {@code defValue}
-     * **/
-    public static Number getNumber(JSONObject jsonDetails, String key, Number defValue){
+     **/
+    public static Number getNumber(JSONObject jsonDetails, String key, Number defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
-            return ((Number)value);
-        }catch (ClassCastException | NumberFormatException e){
+            return ((Number) value);
+        } catch (ClassCastException | NumberFormatException e) {
             return NUMERIC_CLASS_CAST_ERROR_VALUE;
         }
     }
 
-    /** Method to get from {@link JSONObject} an Object value
+    /**
+     * Method to get from {@link JSONObject} an object value
+     *
+     * @param key: key of Object value to get from json
+     * @return value as {@link Object}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public Object get(String key) {
+        return get(key, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} an Object value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of Object value to get from json
+     * @return value as {@link Object}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of Object value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link Object}, if it is not exist will return null value
-     * **/
-    public static Object get(JSONObject jsonDetails, String key){
+     **/
+    public static Object get(JSONObject jsonDetails, String key) {
         return get(jsonDetails, key, null);
     }
 
-    /** Method to get from {@link JSONObject} an Object value
+    /**
+     * Method to get from {@link JSONArray} an object value
+     *
+     * @param index: index of Object value to get from json
+     * @return value as {@link Object}, if it is not exist will return null value
+     **/
+    public Object get(int index) {
+        return get(index, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} an Object value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of Object value to get from json
+     * @param defValue:    default value to return if primary value not exists
+     * @return value as {@link Object}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of Object value to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link Object}, if it is not exist will return {@code defValue}
-     * **/
-    public static Object get(JSONObject jsonDetails, String key, Object defValue){
+     **/
+    public static Object get(JSONObject jsonDetails, String key, Object defValue) {
         try {
-           return autoSearch(jsonDetails, key, defValue);
-        }catch (ClassCastException e){
+            return autoSearch(jsonDetails, key, defValue);
+        } catch (ClassCastException e) {
             return null;
         }
     }
 
-    /** Method to get from {@link JSONObject} a boolean value
+    /**
+     * Method to get from {@link JSONObject} a boolean value
+     *
+     * @param key: key of boolean value to get from json
+     * @return value as boolean, if it is not exist will return false value
+     * @throws ClassCastException: when this exception has been trowed will be returned false as default value
+     **/
+    public boolean getBoolean(String key) {
+        return getBoolean(key, false);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a boolean value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of boolean value to get from json
+     * @return value as boolean, if it is not exist will return false value
+     * @throws ClassCastException: when this exception has been trowed will be returned false as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of boolean value to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned false as default value
-     * @return value as boolean, if it is not exist will return false value
-     * **/
-    public static boolean getBoolean(JSONObject jsonDetails, String key){
+     **/
+    public static boolean getBoolean(JSONObject jsonDetails, String key) {
         return getBoolean(jsonDetails, key, false);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a boolean value
+     *
+     * @param index: index of boolean value to get from json
+     * @return value as boolean, if it is not exist will return false value
+     **/
+    public boolean getBoolean(int index) {
+        return getBoolean(index, false);
     }
 
     /** Method to get from {@link JSONObject} a boolean value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param key: key of boolean value to get from json
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been trowed will be returned false as default value
      * @return value as boolean, if it is not exist will return {@code defValue}
      * **/
-    public static boolean getBoolean(JSONObject jsonDetails, String key, boolean defValue){
+    public static boolean getBoolean(JSONObject jsonDetails, String key, boolean defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
-            if(value instanceof Boolean)
+            if (value instanceof Boolean)
                 return (boolean) value;
             else
                 return Boolean.parseBoolean(value.toString());
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             return defValue;
         }
     }
 
-    /** Method to get from {@link JSONObject}  a list of values
+    /**
+     * Method to get from {@link JSONObject}  a list of values
+     *
+     * @param key: key of JSONArray to get from json
+     * @return value as {@link JSONArray}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public JSONArray getJSONArray(String key) {
+        return getJSONArray(key, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject}  a list of values
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of JSONArray to get from json
+     * @return value as {@link JSONArray}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of JSONArray to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link JSONArray}, if it is not exist will return null value
-     * **/
-    public static JSONArray getJSONArray(JSONObject jsonDetails, String key){
+     **/
+    public static JSONArray getJSONArray(JSONObject jsonDetails, String key) {
         return getJSONArray(jsonDetails, key, null);
     }
 
-    /** Method to get from {@link JSONObject}  a list of values
+    /**
+     * Method to get from {@link JSONArray}  a list of values
+     *
+     * @param index: index of JSONArray to get from json
+     * @return value as {@link JSONArray}, if it is not exist will return null value
+     **/
+    public JSONArray getJSONArray(int index) {
+        return getJSONArray(index, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject}  a list of values
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of JSONArray to get from json
+     * @param defValue:    default value to return if primary value not exists
+     * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of JSONArray to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
-     * **/
-    public static JSONArray getJSONArray(JSONObject jsonDetails, String key, JSONArray defValue){
+     **/
+    public static JSONArray getJSONArray(JSONObject jsonDetails, String key, JSONArray defValue) {
         Object value = autoSearch(jsonDetails, key, defValue);
-        if(value instanceof JSONArray)
+        if (value instanceof JSONArray)
             return (JSONArray) value;
         return defValue;
     }
 
-    /** Method to get from {@link JSONObject} a jsonObject
+    /**
+     * Method to get from {@link JSONObject} a jsonObject
+     *
+     * @param key: key of JSONObject to get from json
+     * @return value as {@link JSONObject}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public JSONObject getJSONObject(String key) {
+        return getJSONObject(key, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a jsonObject
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of JSONObject to get from json
+     * @return value as {@link JSONObject}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param key: key of JSONObject to get from json
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link JSONObject}, if it is not exist will return null value
-     * **/
-    public static JSONObject getJSONObject(JSONObject jsonDetails, String key){
+     **/
+    public static JSONObject getJSONObject(JSONObject jsonDetails, String key) {
         return getJSONObject(jsonDetails, key, null);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a jsonObject
+     *
+     * @param index: index of JSONObject to get from json
+     * @return value as {@link JSONObject}, if it is not exist will return null value
+     **/
+    public JSONObject getJSONObject(int index) {
+        return getJSONObject(index, null);
     }
 
     /** Method to get from {@link JSONObject} a jsonObject
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param key: key of JSONObject to get from json
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      * **/
-    public static JSONObject getJSONObject(JSONObject jsonDetails, String key, JSONObject defValue){
+    public static JSONObject getJSONObject(JSONObject jsonDetails, String key, JSONObject defValue) {
         Object value = autoSearch(jsonDetails, key, defValue);
         if(value instanceof JSONObject)
             return (JSONObject) value;
         return defValue;
     }
 
-    /** Method to get from {@link JSONArray} a string value
+    /**
+     * Method to get from {@link JSONArray} a string value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param index:       index of string value to get from json
+     * @return value as {@link String}, if it is not exist will return null value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param index: index of string value to get from json
-     * @return value as {@link String}, if it is not exist will return null value
-     * **/
-    public static String getString(JSONArray jsonDetails, int index){
+     **/
+    public static String getString(JSONArray jsonDetails, int index) {
         return getString(jsonDetails, index, null);
     }
 
@@ -1099,12 +823,12 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: key of string value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link String}, if it is not exist will return {@code defValue}
      * **/
-    public static String getString(JSONArray jsonDetails, int index, String defValue){
+    public static String getString(JSONArray jsonDetails, int index, String defValue) {
         try {
             return jsonDetails.getString(index);
         }catch (Exception e){
@@ -1116,11 +840,11 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of double value to get from json
      * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
-    public static double getDouble(JSONArray jsonDetails, int index){
+    public static double getDouble(JSONArray jsonDetails, int index) {
         return getDouble(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
@@ -1128,7 +852,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of double value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as double, if it is not exist will return {@code defValue}
@@ -1145,7 +869,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of int value to get from json
      * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
@@ -1157,7 +881,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of int value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as int, if it is not exist will return {@code defValue}
@@ -1174,11 +898,11 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of float value to get from json
      * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
-    public static float getFloat(JSONArray jsonDetails, int index){
+    public static float getFloat(JSONArray jsonDetails, int index) {
         return getFloat(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
 
@@ -1186,7 +910,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of float value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as float, if it is not exist will return {@code defValue}
@@ -1203,7 +927,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of long value to get from json
      * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * **/
@@ -1215,7 +939,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of long value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as long, if it is not exist will return {@code defValue}
@@ -1232,11 +956,11 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of BigDecimal value to get from json
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * **/
-    public static BigDecimal getBigDecimal(JSONArray jsonDetails, int index){
+    public static BigDecimal getBigDecimal(JSONArray jsonDetails, int index) {
         return getBigDecimal(jsonDetails, index, null);
     }
 
@@ -1244,12 +968,12 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of BigDecimal value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
      * **/
-    public static BigDecimal getBigDecimal(JSONArray jsonDetails, int index, BigDecimal defValue){
+    public static BigDecimal getBigDecimal(JSONArray jsonDetails, int index, BigDecimal defValue) {
         try {
             return jsonDetails.getBigDecimal(index);
         }catch (Exception e){
@@ -1261,11 +985,11 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of BigInteger value to get from json
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * **/
-    public static BigInteger getBigInteger(JSONArray jsonDetails, int index){
+    public static BigInteger getBigInteger(JSONArray jsonDetails, int index) {
         return getBigInteger(jsonDetails, index, null);
     }
 
@@ -1273,7 +997,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of BigInteger value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
@@ -1286,14 +1010,16 @@ public class JsonHelper{
         }
     }
 
-    /** Method to get from {@link JSONArray} a Number value
+    /**
+     * Method to get from {@link JSONArray} a Number value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param index:       index of Number value to get from json
+     * @return value as {@link Number}, if it is not exist will return null value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param index: index of Number value to get from json
-     * @return value as {@link Number}, if it is not exist will return null value
-     * **/
+     **/
     public static Number getNumber(JSONArray jsonDetails, int index){
         return getNumber(jsonDetails, index, null);
     }
@@ -1302,7 +1028,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of Number value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link Number}, if it is not exist will return {@code defValue}
@@ -1310,19 +1036,21 @@ public class JsonHelper{
     public static Number getNumber(JSONArray jsonDetails, int index, Number defValue){
         try {
             return jsonDetails.getNumber(index);
-        }catch (Exception e){
+        }catch (Exception e) {
             return defValue;
         }
     }
 
-    /** Method to get from {@link JSONArray} an object value
+    /**
+     * Method to get from {@link JSONArray} an object value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param index:       index of Object value to get from json
+     * @return value as {@link Object}, if it is not exist will return null value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param index: index of Object value to get from json
-     * @return value as {@link Object}, if it is not exist will return null value
-     * **/
+     **/
     public static Object get(JSONArray jsonDetails, int index){
         return get(jsonDetails, index, null);
     }
@@ -1331,7 +1059,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of Object value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link Object}, if it is not exist will return {@code defValue}
@@ -1339,19 +1067,21 @@ public class JsonHelper{
     public static Object get(JSONArray jsonDetails, int index, Object defValue){
         try {
             return jsonDetails.get(index);
-        }catch (Exception e){
+        }catch (Exception e) {
             return defValue;
         }
     }
 
-    /** Method to get from {@link JSONArray} a boolean value
+    /**
+     * Method to get from {@link JSONArray} a boolean value
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param index:       index of boolean value to get from json
+     * @return value as boolean, if it is not exist will return false value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param index: index of boolean value to get from json
-     * @return value as boolean, if it is not exist will return false value
-     * **/
+     **/
     public static boolean getBoolean(JSONArray jsonDetails, int index){
         return getBoolean(jsonDetails, index, false);
     }
@@ -1360,7 +1090,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of boolean value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as boolean, if it is not exist will return {@code defValue}
@@ -1368,19 +1098,21 @@ public class JsonHelper{
     public static boolean getBoolean(JSONArray jsonDetails, int index, boolean defValue){
         try {
             return jsonDetails.getBoolean(index);
-        }catch (Exception e){
+        }catch (Exception e) {
             return defValue;
         }
     }
 
-    /** Method to get from {@link JSONArray}  a list of values
+    /**
+     * Method to get from {@link JSONArray}  a list of values
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param index:       index of JSONArray to get from json
+     * @return value as {@link JSONArray}, if it is not exist will return null value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
-     * @param index: index of JSONArray to get from json
-     * @return value as {@link JSONArray}, if it is not exist will return null value
-     * **/
+     **/
     public static JSONArray getJSONArray(JSONArray jsonDetails, int index){
         return getJSONArray(jsonDetails, index, null);
     }
@@ -1389,7 +1121,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of JSONArray to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
@@ -1397,7 +1129,7 @@ public class JsonHelper{
     public static JSONArray getJSONArray(JSONArray jsonDetails, int index, JSONArray defValue){
         try {
             return jsonDetails.getJSONArray(index);
-        }catch (Exception e){
+        } catch (Exception e) {
             return defValue;
         }
     }
@@ -1406,7 +1138,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of JSONObject to get from json
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * **/
@@ -1418,7 +1150,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: JSON from fetch data
+     * @param jsonDetails: {@code "JSON"} from fetch data
      * @param index: index of JSONObject to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
@@ -1433,53 +1165,18 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a list of values automatically
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
-     * reach the value requested directly from the entire JSON file without path inserted by hand
-     * @param searchKey: key for value to fetch
-     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
-     * **/
-    public <T> ArrayList<T> fetchOList(String searchKey){
-        return fetchOList(jsonObjectDetails, searchKey);
-    }
-
-    /** Method to get from {@link JSONObject} a list of values automatically
-     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
-     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @param json: {@link JSONObject} from fetch list
      * @param searchKey: key for value to fetch
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
      * **/
-    public static <T> ArrayList<T> fetchOList(JSONObject json, String searchKey){
+    public static <T> ArrayList<T> fetchOList(JSONObject json, String searchKey) {
         return autoSearch(prepareList(json), searchKey);
     }
 
-    /** Method to prepare a {@link JSONObject} for auto list search
-     * @apiNote this method will remove all keys that are not {@link JSONArray}
-     * @param list: {@link JSONObject} to prepare
-     * @return list of values as {@link JSONObject}
-     * **/
-    private static JSONObject prepareList(JSONObject list){
-        Iterator<String> keys = list.keys();
-        while (keys.hasNext()){
-            String key = keys.next();
-            if(!(list.get(key) instanceof JSONArray))
-                keys.remove();
-        }
-        return list;
-    }
-
     /** Method to get from {@link JSONArray} a list of values automatically
      * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
-     * reach the value requested directly from the entire JSON file without path inserted by hand
-     * @param searchKey: key for value to fetch
-     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
-     * **/
-    public <T> ArrayList<T> fetchList(String searchKey){
-        return fetchList(jsonArrayDetails, searchKey);
-    }
-
-    /** Method to get from {@link JSONArray} a list of values automatically
-     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
-     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @param list: {@link JSONArray} from fetch list
      * @param searchKey: key for value to fetch
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
@@ -1490,7 +1187,7 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a generic value
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
-     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @param json: {@link JSONObject} from fetch data
      * @param searchKey: key for value to fetch
      * @return value as {@link T}, if it is not exist will return null
@@ -1521,7 +1218,7 @@ public class JsonHelper{
 
     /** Method to get from {@link JSONObject} a generic value
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
-     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @param json: {@link JSONObject} from fetch data
      * @param searchKey: key for value to fetch
      * @param defValue: default value to return if primary value not exists
@@ -1529,20 +1226,20 @@ public class JsonHelper{
      * **/
     private static <T> T autoSearch(JSONObject json, String searchKey, T defValue) {
         T search = autoSearch(json, searchKey);
-        if(search == null)
+        if (search == null)
             return defValue;
         return search;
     }
 
     /** Method to get from {@link JSONArray} a generic value
      * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
-     * reach the value requested directly from the entire JSON file without path inserted by hand
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @param list: {@link JSONArray} from fetch data
      * @param searchKey: key for value to fetch
      * @return value as {@link ArrayList} of {@link T}, if it is not exist will return null
      * **/
     private static <T> T autoSearch(JSONArray list, String searchKey) {
-        if(list.toString().contains("\"" + searchKey + "\":")){
+        if(list != null && list.toString().contains("\"" + searchKey + "\":")) {
             ArrayList<T> values = new ArrayList<>();
             for (int j = 0; j < list.length(); j++) {
                 T result = (T) list.get(j);
@@ -1565,62 +1262,610 @@ public class JsonHelper{
         return null;
     }
 
-    /** Method to get from {@link JSONArray} a generic value
-     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
-     * reach the value requested directly from the entire JSON file without path inserted by hand
-     * @param list: {@link JSONArray} from fetch data
+    /**
+     * Method to get from {@link JSONArray} a generic value
+     *
+     * @param list:      {@link JSONArray} from fetch data
      * @param searchKey: key for value to fetch
-     * @param defValue: default value to return if primary value not exists
+     * @param defValue:  default value to return if primary value not exists
      * @return value as {@link ArrayList} of {@link T}, if it is not exist will return {@code defValue}
-     * **/
+     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
+     **/
     private static <T> T autoSearch(JSONArray list, String searchKey, T defValue) {
         ArrayList<T> search = autoSearch(list, searchKey);
-        if(search == null)
+        if (search == null)
             return defValue;
         return (T) search;
     }
 
     /**
-     * Method to set {@link #jsonObjectDetails} instance
-     * @param jsonObjectDetails: new {@link JSONObject}
-     * @throws IllegalArgumentException when jsonObjectDetails is null
-     * **/
-    public void setJSONObjectDetails(JSONObject jsonObjectDetails) {
-        if (jsonObjectDetails == null)
-            throw new IllegalArgumentException("JSON cannot be null");
-        this.jsonObjectDetails = jsonObjectDetails;
+     * Method to get from {@link JSONObject} a string value
+     *
+     * @param key:      key of string value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link String}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public String getString(String key, String defValue) {
+        try {
+            return autoSearch(jsonObjectSource, key, defValue);
+        } catch (ClassCastException e) {
+            return null;
+        }
     }
 
     /**
-     * Method to get {@link #jsonObjectDetails} instance <br>
+     * Method to get from {@link JSONArray} a string value
+     *
+     * @param index:    index of string value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link String}, if it is not exist will return {@code defValue}
+     **/
+    public String getString(int index, String defValue) {
+        try {
+            return jsonArraySource.getString(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a double value
+     *
+     * @param key:      key of double value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as double, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
+     **/
+    public double getDouble(String key, double defValue) {
+        try {
+            Object value = autoSearch(jsonObjectSource, key, defValue);
+            if (value instanceof Number)
+                return ((Number) value).doubleValue();
+            else
+                return Double.parseDouble(value.toString());
+        } catch (ClassCastException | NumberFormatException e) {
+            return NUMERIC_CLASS_CAST_ERROR_VALUE;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a double value
+     *
+     * @param index:    index of double value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as double, if it is not exist will return {@code defValue}
+     **/
+    public double getDouble(int index, double defValue) {
+        try {
+            return jsonArraySource.getDouble(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} an int value
+     *
+     * @param key:      key of int value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as int, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
+     **/
+    public int getInt(String key, int defValue) {
+        try {
+            Object value = autoSearch(jsonObjectSource, key, defValue);
+            if (value instanceof Number)
+                return ((Number) value).intValue();
+            else
+                return Integer.parseInt(value.toString());
+        } catch (ClassCastException | NumberFormatException e) {
+            return NUMERIC_CLASS_CAST_ERROR_VALUE;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONArray} an int value
+     *
+     * @param index:    index of int value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as int, if it is not exist will return {@code defValue}
+     **/
+    public int getInt(int index, int defValue) {
+        try {
+            return jsonArraySource.getInt(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a float value
+     *
+     * @param key:      key of float value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as float, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
+     **/
+    public float getFloat(String key, float defValue) {
+        try {
+            Object value = autoSearch(jsonObjectSource, key, defValue);
+            if (value instanceof Number)
+                return ((Number) value).floatValue();
+            else
+                return Float.parseFloat(value.toString());
+        } catch (ClassCastException | NumberFormatException e) {
+            return NUMERIC_CLASS_CAST_ERROR_VALUE;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a float value
+     *
+     * @param index:    index of float value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as float, if it is not exist will return {@code defValue}
+     **/
+    public float getFloat(int index, float defValue) {
+        try {
+            return jsonArraySource.getFloat(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a long value
+     *
+     * @param key:      key of long value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as long, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
+     *                             as default value
+     **/
+    public long getLong(String key, long defValue) {
+        try {
+            Object value = autoSearch(jsonObjectSource, key, defValue);
+            if (value instanceof Number)
+                return ((Number) value).longValue();
+            else
+                return Long.parseLong(value.toString());
+        } catch (ClassCastException | NumberFormatException e) {
+            return NUMERIC_CLASS_CAST_ERROR_VALUE;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a long value
+     *
+     * @param index:    index of long value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as long, if it is not exist will return {@code defValue}
+     **/
+    public long getLong(int index, long defValue) {
+        try {
+            return jsonArraySource.getLong(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a BigDecimal value
+     *
+     * @param key:      key of BigDecimal value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public BigDecimal getBigDecimal(String key, BigDecimal defValue) {
+        try {
+            Object value = autoSearch(jsonObjectSource, key, defValue);
+            if (value instanceof BigDecimal)
+                return (BigDecimal) value;
+            return BigDecimal.valueOf(Double.parseDouble(value.toString()));
+        } catch (NullPointerException | ClassCastException | NumberFormatException e) {
+            return BigDecimal.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a BigDecimal value
+     *
+     * @param index:    index of BigDecimal value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
+     **/
+    public BigDecimal getBigDecimal(int index, BigDecimal defValue) {
+        try {
+            return jsonArraySource.getBigDecimal(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a BigInteger value
+     *
+     * @param key:      key of BigInteger value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public BigInteger getBigInteger(String key, BigInteger defValue) {
+        try {
+            Object value = autoSearch(jsonObjectSource, key, defValue);
+            if (value instanceof BigDecimal)
+                return (BigInteger) value;
+            return BigInteger.valueOf(Integer.parseInt(value.toString()));
+        } catch (NullPointerException | ClassCastException | NumberFormatException e) {
+            return BigInteger.valueOf(NUMERIC_CLASS_CAST_ERROR_VALUE);
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a BigInteger value
+     *
+     * @param index:    index of BigInteger value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
+     **/
+    public BigInteger getBigInteger(int index, BigInteger defValue) {
+        try {
+            return jsonArraySource.getBigInteger(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a Number value
+     *
+     * @param key:      key of Number value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link Number}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public Number getNumber(String key, Number defValue) {
+        try {
+            Object value = autoSearch(jsonObjectSource, key, defValue);
+            return ((Number) value);
+        } catch (ClassCastException | NumberFormatException e) {
+            return NUMERIC_CLASS_CAST_ERROR_VALUE;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a Number value
+     *
+     * @param index:    index of Number value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link Number}, if it is not exist will return {@code defValue}
+     **/
+    public Number getNumber(int index, Number defValue) {
+        try {
+            return jsonArraySource.getNumber(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} an object value
+     *
+     * @param key:      key of Object value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link Object}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public Object get(String key, Object defValue) {
+        try {
+            return autoSearch(jsonObjectSource, key, defValue);
+        } catch (ClassCastException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONArray} an object value
+     *
+     * @param index:    index of Object value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link Object}, if it is not exist will return {@code defValue}
+     **/
+    public Object get(int index, Object defValue) {
+        try {
+            return jsonArraySource.get(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a boolean value
+     *
+     * @param key:      key of boolean value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as boolean, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned false as default value
+     **/
+    public boolean getBoolean(String key, boolean defValue) {
+        try {
+            Object value = autoSearch(jsonObjectSource, key, defValue);
+            if (value instanceof Boolean)
+                return (boolean) value;
+            else
+                return Boolean.parseBoolean(value.toString());
+        } catch (ClassCastException e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a boolean value
+     *
+     * @param index:    index of boolean value to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as boolean, if it is not exist will return {@code defValue}
+     **/
+    public boolean getBoolean(int index, boolean defValue) {
+        try {
+            return jsonArraySource.getBoolean(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to prepare a {@link JSONObject} for auto list search
+     *
+     * @param list: {@link JSONObject} to prepare
+     * @return list of values as {@link JSONObject}
+     * @apiNote this method will remove all keys that are not {@link JSONArray}
+     **/
+    private static JSONObject prepareList(JSONObject list) {
+        Iterator<String> keys = list.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            if (!(list.get(key) instanceof JSONArray))
+                keys.remove();
+        }
+        return list;
+    }
+
+    /**
+     * Method to get from {@link JSONObject}  a list of values
+     *
+     * @param key:      key of JSONArray to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public JSONArray getJSONArray(String key, JSONArray defValue) {
+        Object value = autoSearch(jsonObjectSource, key, defValue);
+        if (value instanceof JSONArray)
+            return (JSONArray) value;
+        return defValue;
+    }
+
+    /**
+     * Method to get from {@link JSONArray}  a list of values
+     *
+     * @param index:    index of JSONArray to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
+     **/
+    public JSONArray getJSONArray(int index, JSONArray defValue) {
+        try {
+            return jsonArraySource.getJSONArray(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a jsonObject
+     *
+     * @param key:      key of JSONObject to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public JSONObject getJSONObject(String key, JSONObject defValue) {
+        Object value = autoSearch(jsonObjectSource, key, defValue);
+        if (value instanceof JSONObject)
+            return (JSONObject) value;
+        return defValue;
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a jsonObject
+     *
+     * @param index:    index of JSONObject to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
+     **/
+    public JSONObject getJSONObject(int index, JSONObject defValue) {
+        try {
+            return jsonArraySource.getJSONObject(index);
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a list of values automatically
+     *
+     * @param searchKey: key for value to fetch
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
+     **/
+    public <T> ArrayList<T> fetchOList(String searchKey) {
+        return fetchOList(jsonObjectSource, searchKey);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a list of values automatically
+     *
+     * @param searchKey: key for value to fetch
+     * @param listKey:   key of the list to search the value to fetch
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
+     * @implNote this method is useful when the {@code "JSON"} source has multiple lists with the same {@code "searchKey"},
+     * so the {@code "listKey"} parameter is a filter to make this method returns the correct list that user was searching
+     **/
+    public <T> ArrayList<T> fetchList(String searchKey, String listKey) {
+        if (jsonArraySource == null)
+            return autoSearch(getJSONArray(listKey), searchKey);
+        return autoSearch(jsonArraySource, searchKey);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a list of values automatically
+     *
+     * @param searchKey: key for value to fetch
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
+     **/
+    public <T> ArrayList<T> fetchList(String searchKey) {
+        if (jsonArraySource == null)
+            return fetchList(jsonObjectSource, searchKey);
+        return autoSearch(jsonArraySource, searchKey);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a list of values automatically
+     *
+     * @param source:    {@link JSONObject} source to search the {@link JSONArray} from fetch the list
+     * @param searchKey: key for value to fetch
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     **/
+    private <T> ArrayList<T> fetchList(JSONObject source, String searchKey) {
+        for (String key : source.keySet()) {
+            Object value = source.get(key);
+            if (value instanceof JSONArray) {
+                ArrayList<T> resultList = autoSearch((JSONArray) value, searchKey);
+                if (resultList != null)
+                    return resultList;
+            } else if (value instanceof JSONObject)
+                return fetchList((JSONObject) value, searchKey);
+        }
+        return null;
+    }
+
+    /**
+     * Method to get {@link #jsonObjectSource} instance <br>
      * Any params required
      *
-     * @return {@link #jsonObjectDetails} instance as {@link JSONObject}
+     * @return {@link #jsonObjectSource} instance as {@link JSONObject}
      **/
-    public JSONObject getJSONObjectDetails() {
-        return jsonObjectDetails;
+    public JSONObject getJSONObjectSource() {
+        return jsonObjectSource;
     }
 
     /**
-     * Method to set {@link #jsonArrayDetails} instance
+     * Method to set {@link #jsonObjectSource} instance
      *
-     * @param jsonArrayDetails: new {@link JSONArray}
-     * @throws IllegalArgumentException when jsonArrayDetails is null
+     * @param jsonObjectSource : new {@code "JSON"} source for {@link #jsonObjectSource}
+     * @throws IllegalArgumentException when {@code "jsonObjectSource"} inserted is not a valid {@code "JSON"} source
+     * @apiNote if it will be thrown an {@link IllegalArgumentException} use directly the {@link #setJSONArraySource(String)}
+     * method or check validity of the {@code "JSON"} source inserted
      **/
-    public void setJSONArrayDetails(JSONArray jsonArrayDetails) {
-        if (jsonArrayDetails == null)
-            throw new IllegalArgumentException("JSON cannot be null");
-        this.jsonArrayDetails = jsonArrayDetails;
+    public <T> void setJSONObjectSource(T jsonObjectSource) {
+        try {
+            this.jsonObjectSource = new JSONObject(jsonObjectSource);
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("The JSON source inserted is not a valid source");
+        }
     }
 
     /**
-     * Method to get {@link #jsonArrayDetails} instance <br>
+     * Method to set {@link #jsonObjectSource} instance
+     *
+     * @param jsonObjectSource : new {@code "JSON"} source for {@link #jsonObjectSource}
+     * @throws IllegalArgumentException when {@code "jsonObjectSource"} inserted is not a valid {@code "JSON"} source
+     **/
+    public void setJSONObjectSource(String jsonObjectSource) {
+        try {
+            this.jsonObjectSource = new JSONObject(jsonObjectSource);
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("The JSON source inserted is not a valid source");
+        }
+    }
+
+    /**
+     * Method to set {@link #jsonObjectSource} instance
+     *
+     * @param jsonObjectSource : new {@code "JSON"} source for {@link #jsonObjectSource}
+     * @throws IllegalArgumentException when {@code "jsonObjectSource"} inserted is not a valid {@code "JSON"} source
+     **/
+    public void setJSONObjectSource(JSONObject jsonObjectSource) {
+        try {
+            this.jsonObjectSource = jsonObjectSource;
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("The JSON source inserted is not a valid source");
+        }
+    }
+
+    /**
+     * Method to get {@link #jsonArraySource} instance <br>
      * Any params required
      *
-     * @return {@link #jsonArrayDetails} instance as {@link JSONArray}
+     * @return {@link #jsonArraySource} instance as {@link JSONArray}
      **/
-    public JSONArray getJSONArrayDetails() {
-        return jsonArrayDetails;
+    public JSONArray getJSONArraySource() {
+        return jsonArraySource;
+    }
+
+    /**
+     * Method to set {@link #jsonArraySource} instance
+     *
+     * @param jsonArraySource: new {@code "JSON"} source for {@link #jsonArraySource}
+     * @throws IllegalArgumentException when {@code "jsonArraySource"} inserted is not a valid {@code "JSON"} source
+     * @apiNote if it will be thrown an {@link IllegalArgumentException} use directly the {@link #setJSONArraySource(String)}
+     * method or check validity of the {@code "JSON"} source inserted
+     **/
+    public <T> void setJSONArraySource(T jsonArraySource) {
+        try {
+            this.jsonArraySource = new JSONArray(jsonArraySource.toString());
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("The JSON source inserted is not a valid source");
+        }
+    }
+
+    /**
+     * Method to set {@link #jsonArraySource} instance
+     *
+     * @param jsonArraySource: new {@code "JSON"} source for {@link #jsonArraySource}
+     * @throws IllegalArgumentException when {@code "jsonArraySource"} inserted is not a valid {@code "JSON"} source
+     **/
+    public void setJSONArraySource(String jsonArraySource) {
+        try {
+            this.jsonArraySource = new JSONArray(jsonArraySource);
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("The JSON source inserted is not a valid source");
+        }
+    }
+
+    /**
+     * Method to set {@link #jsonArraySource} instance
+     *
+     * @param jsonArraySource: new {@code "JSON"} source for {@link #jsonArraySource}
+     * @throws IllegalArgumentException when {@code "jsonArraySource"} inserted is not a valid {@code "JSON"} source
+     **/
+    public void setJSONArraySource(JSONArray jsonArraySource) {
+        try {
+            this.jsonArraySource = jsonArraySource;
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("The JSON source inserted is not a valid source");
+        }
     }
 
     /**

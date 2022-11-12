@@ -4,9 +4,10 @@ import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
 /**
- * The {@code ScientificNotationParser} class is a useful class tool to get a numeric value without scientific notation
+ * The {@code ScientificNotationParser} class is a useful tool class to get a numeric value without scientific notation
+ *
  * @author Tecknobit N7ghtm4r3
- * **/
+ **/
 public abstract class ScientificNotationParser {
 
     /** Method to parse a numeric value and format without scientific notation
