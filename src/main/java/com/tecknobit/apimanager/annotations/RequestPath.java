@@ -1,5 +1,7 @@
 package com.tecknobit.apimanager.annotations;
 
+import com.tecknobit.apimanager.apis.APIRequest.RequestMethod;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,17 +14,17 @@ import java.lang.annotation.Target;
  *     {@code
  *
  *         //with no parameters
- *         @RequestPath(path = "https://play.google.com/store/apps/developer")
+ *         @RequestPath(method = GET, path = "https://play.google.com/store/apps/developer")
  *         public void sendRequest() {
  *              APIRequest apiRequest = new APIRequest();
- *              apiRequest.sendAPIRequest("https://play.google.com/store/apps/developer", GET_METHOD);
+ *              apiRequest.sendAPIRequest("https://play.google.com/store/apps/developer", GET);
  *         }
  *
  *         //with path parameters
- *         @RequestPath(path = "https://play.google.com/store/apps/developer?{id}")
+ *         @RequestPath(method = GET, path = "https://play.google.com/store/apps/developer?{id}", path_parameters = "id")
  *         public void sendRequest() {
  *              APIRequest apiRequest = new APIRequest();
- *              apiRequest.sendAPIRequest("https://play.google.com/store/apps/developer?id=Tecknobit", GET_METHOD);
+ *              apiRequest.sendAPIRequest("https://play.google.com/store/apps/developer?id=Tecknobit", GET);
  *         }
  *     }
  * </pre>
@@ -33,6 +35,37 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface RequestPath {
 
+    /**
+     * {@code method} of the request
+     **/
+    RequestMethod method();
+
+    /**
+     * {@code path} of the request
+     **/
     String path() default "";
+
+    /**
+     * {@code path_parameters} path parameters of the request -> endpoint/{parameter}
+     **/
+    String path_parameters() default "";
+
+    /**
+     * {@code query_parameters} query parameters of the request -> endpoint?{parameter}&{parameter1}
+     **/
+    String query_parameters() default "";
+
+    /**
+     * {@code body_parameters} body parameters of the request ->
+     * <pre>
+     *     {@code
+     *          {
+     *              parameter : parameter value,
+     *              parameter1 : parameter1 value
+     *          }
+     *     }
+     * </pre>
+     **/
+    String body_parameters() default "";
 
 }

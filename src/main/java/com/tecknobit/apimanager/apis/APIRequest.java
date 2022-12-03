@@ -31,28 +31,50 @@ public class APIRequest {
 
     /**
      * {@code GET_METHOD} is the instance that contains {@code "GET"} method for {@code "HTTP"} requests
+     *
+     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
      **/
+    @Deprecated
     public static final String GET_METHOD = "GET";
-
     /**
      * {@code POST_METHOD} is the instance that contains {@code "POST"} method for {@code "HTTP"} requests
-     * **/
+     *
+     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
+     **/
+    @Deprecated
     public static final String POST_METHOD = "POST";
-
     /**
      * {@code DELETE_METHOD} is the instance that contains {@code "DELETE"} method for {@code "HTTP"} requests
+     *
+     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
      **/
+    @Deprecated
     public static final String DELETE_METHOD = "DELETE";
-
     /**
      * {@code PUT_METHOD} is the instance that contains {@code "PUT"} method for {@code "HTTP"} requests
+     *
+     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
      **/
+    @Deprecated
     public static final String PUT_METHOD = "PUT";
-
     /**
      * {@code PATCH_METHOD} is the instance that contains {@code "PATCH"} method for {@code "HTTP"} requests
+     *
+     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
      **/
+    @Deprecated
     public static final String PATCH_METHOD = "PATCH";
+
+    /**
+     * Method to send an api request
+     *
+     * @param requestUrl: {@code "URL"} used in the api request
+     * @param method:     method used in the api request
+     **/
+    public void sendAPIRequest(String requestUrl, RequestMethod method) throws IOException {
+        setRequest(requestUrl, method);
+        performRequest();
+    }
 
     /**
      * {@code DEFAULT_ERROR_RESPONSE} is constant that contains default error message if user not custom it
@@ -290,17 +312,6 @@ public class APIRequest {
     }
 
     /**
-     * Method to send an api request
-     *
-     * @param requestUrl: {@code "URL"} used in the api request
-     * @param method:     method used in the api request
-     **/
-    public void sendAPIRequest(String requestUrl, String method) throws IOException {
-        setRequest(requestUrl, method);
-        performRequest();
-    }
-
-    /**
      * Method to send an api request with a single header
      *
      * @param requestUrl:  {@code "URL"} used in the api request
@@ -308,7 +319,7 @@ public class APIRequest {
      * @param headerKey:   header key for the request
      * @param headerValue: header value for the request
      **/
-    public <T> void sendAPIRequest(String requestUrl, String method, String headerKey, T headerValue) throws IOException {
+    public <T> void sendAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue) throws IOException {
         setRequest(requestUrl, method);
         request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
         performRequest();
@@ -321,7 +332,7 @@ public class APIRequest {
      * @param method:     method used in the api request
      * @param headers:    headers for the request
      **/
-    public void sendAPIRequest(String requestUrl, String method, Headers headers) throws IOException {
+    public void sendAPIRequest(String requestUrl, RequestMethod method, Headers headers) throws IOException {
         setRequest(requestUrl, method);
         setHeaders(headers);
         performRequest();
@@ -334,7 +345,7 @@ public class APIRequest {
      * @param method:      method used in the api request
      * @param queryParams: query queryParams of the request
      **/
-    public void sendAPIRequest(String requestUrl, String method, Params queryParams) throws IOException {
+    public void sendAPIRequest(String requestUrl, RequestMethod method, Params queryParams) throws IOException {
         setRequest(requestUrl + queryParams.createQueryString(), method);
         performRequest();
     }
@@ -348,7 +359,7 @@ public class APIRequest {
      * @param headerValue: header value for the request
      * @param queryParams: query params of the request
      **/
-    public <T> void sendAPIRequest(String requestUrl, String method, String headerKey, T headerValue,
+    public <T> void sendAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue,
                                    Params queryParams) throws IOException {
         setRequest(requestUrl + queryParams.createQueryString(), method);
         request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
@@ -363,7 +374,8 @@ public class APIRequest {
      * @param headers:     headers for the request
      * @param queryParams: query params of the request
      **/
-    public void sendAPIRequest(String requestUrl, String method, Headers headers, Params queryParams) throws IOException {
+    public void sendAPIRequest(String requestUrl, RequestMethod method, Headers headers,
+                               Params queryParams) throws IOException {
         setRequest(requestUrl + queryParams.createQueryString(), method);
         setHeaders(headers);
         performRequest();
@@ -376,7 +388,7 @@ public class APIRequest {
      * @param method:     method used in the api request
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      **/
-    public void sendPayloadedAPIRequest(String requestUrl, String method, Params payload) throws IOException {
+    public void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, Params payload) throws IOException {
         setRequest(requestUrl, method, payload, false);
         performRequest();
     }
@@ -390,7 +402,7 @@ public class APIRequest {
      * @param headerValue: header value for the request
      * @param payload:     params to insert in the payload for the {@code "HTTP"} request
      **/
-    public <T> void sendPayloadedAPIRequest(String requestUrl, String method, String headerKey, T headerValue,
+    public <T> void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue,
                                             Params payload) throws IOException {
         setRequest(requestUrl, method, payload, false);
         request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
@@ -405,7 +417,7 @@ public class APIRequest {
      * @param headers:    headers for the request
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      **/
-    public void sendPayloadedAPIRequest(String requestUrl, String method, Headers headers,
+    public void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, Headers headers,
                                         Params payload) throws IOException {
         setRequest(requestUrl, method, payload, false);
         setHeaders(headers);
@@ -419,7 +431,7 @@ public class APIRequest {
      * @param method:     method used in the api request
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      **/
-    public void sendJSONPayloadedAPIRequest(String requestUrl, String method, Params payload) throws IOException {
+    public void sendJSONPayloadedAPIRequest(String requestUrl, RequestMethod method, Params payload) throws IOException {
         setRequest(requestUrl, method, payload, true);
         performRequest();
     }
@@ -433,7 +445,7 @@ public class APIRequest {
      * @param headerValue: header value for the request
      * @param payload:     params to insert in the payload for the {@code "HTTP"} request
      **/
-    public <T> void sendJSONPayloadedAPIRequest(String requestUrl, String method, String headerKey, T headerValue,
+    public <T> void sendJSONPayloadedAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue,
                                                 Params payload) throws IOException {
         setRequest(requestUrl, method, payload, true);
         request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
@@ -448,7 +460,7 @@ public class APIRequest {
      * @param headers:    headers for the request
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      **/
-    public void sendJSONPayloadedAPIRequest(String requestUrl, String method, Headers headers,
+    public void sendJSONPayloadedAPIRequest(String requestUrl, RequestMethod method, Headers headers,
                                             Params payload) throws IOException {
         setRequest(requestUrl, method, payload, true);
         setHeaders(headers);
@@ -461,8 +473,8 @@ public class APIRequest {
      * @param requestUrl: {@code "URL"} used to make {@code "HTTP"} request
      * @param method:     method used to make {@code "HTTP"} request
      **/
-    private void setRequest(String requestUrl, String method) throws IOException {
-        request = transport.createRequestFactory().buildRequest(method, new GenericUrl(requestUrl), null);
+    private void setRequest(String requestUrl, RequestMethod method) throws IOException {
+        request = transport.createRequestFactory().buildRequest(method.name(), new GenericUrl(requestUrl), null);
         request.setConnectTimeout(requestTimeout);
     }
 
@@ -474,7 +486,7 @@ public class APIRequest {
      * @param payload:       params to insert in the payload for the {@code "HTTP"} request
      * @param isJsonPayload: flag whether payload is to send formatted in {@code "JSON"} or not
      **/
-    private void setRequest(String requestUrl, String method, Params payload, boolean isJsonPayload) throws IOException {
+    private void setRequest(String requestUrl, RequestMethod method, Params payload, boolean isJsonPayload) throws IOException {
         ByteArrayContent content = null;
         if (payload != null) {
             String cPayload;
@@ -484,8 +496,34 @@ public class APIRequest {
                 cPayload = payload.createPayload();
             content = ByteArrayContent.fromString(null, cPayload);
         }
-        request = transport.createRequestFactory().buildRequest(method, new GenericUrl(requestUrl), content);
+        request = transport.createRequestFactory().buildRequest(method.name(), new GenericUrl(requestUrl), content);
         request.setConnectTimeout(requestTimeout);
+    }
+
+    /**
+     * Method to get the response of an {@code "HTTP"} request <br>
+     * <p>
+     * Any params required
+     **/
+    private void performRequest() throws IOException {
+        errorResponse = null;
+        request.setThrowExceptionOnExecuteError(false);
+        gResponse = request.execute();
+        InputStream content = gResponse.getContent();
+        if (content != null) {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(content));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null)
+                stringBuilder.append(line);
+            response = stringBuilder.toString();
+            if (!gResponse.isSuccessStatusCode()) {
+                errorResponse = response;
+                response = null;
+                throw new IOException();
+            }
+        } else
+            response = String.valueOf(gResponse.getStatusCode());
     }
 
     /**
@@ -501,24 +539,18 @@ public class APIRequest {
     }
 
     /**
-     * Method to get the response of an {@code "HTTP"} request <br>
-     * <p>
-     * Any params required
+     * Method to parse the response of the request and format it as {@code "JSON"}
+     *
+     * @param response: response to parse
+     * @return the response formatted as {@code "JSON"} or a simple {@link String} if is not possible format as {@code "JSON"}
      **/
-    private void performRequest() throws IOException {
-        errorResponse = null;
-        request.setThrowExceptionOnExecuteError(false);
-        gResponse = request.execute();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(gResponse.getContent()));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        while ((line = bufferedReader.readLine()) != null)
-            stringBuilder.append(line);
-        response = stringBuilder.toString();
-        if (!gResponse.isSuccessStatusCode()) {
-            errorResponse = response;
-            response = null;
-            throw new IOException();
+    private <T> T parseResponseAsJson(String response) {
+        try {
+            if (response.startsWith("["))
+                return (T) new JSONArray(response);
+            return (T) new JSONObject(response);
+        } catch (JSONException e) {
+            return (T) response;
         }
     }
 
@@ -577,19 +609,35 @@ public class APIRequest {
     }
 
     /**
-     * Method to parse the response of the request and format it as {@code "JSON"}
-     *
-     * @param response: response to parse
-     * @return the response formatted as {@code "JSON"} or a simple {@link String} if is not possible format as {@code "JSON"}
+     * {@code RequestMethod} list of available request methods
      **/
-    private <T> T parseResponseAsJson(String response) {
-        try {
-            if (response.startsWith("["))
-                return (T) new JSONArray(response).toString();
-            return (T) new JSONObject(response).toString();
-        } catch (JSONException e) {
-            return (T) response;
-        }
+    public enum RequestMethod {
+
+        /**
+         * {@code "GET"} method for {@code "HTTP"} requests
+         **/
+        GET,
+
+        /**
+         * {@code "POST"} method for {@code "HTTP"} requests
+         **/
+        POST,
+
+        /**
+         * {@code "DELETE"} method for {@code "HTTP"} requests
+         **/
+        DELETE,
+
+        /**
+         * {@code "PUT"} method for {@code "HTTP"} requests
+         **/
+        PUT,
+
+        /**
+         * {@code "PATCH"} method for {@code "HTTP"} requests
+         **/
+        PATCH
+
     }
 
     /**

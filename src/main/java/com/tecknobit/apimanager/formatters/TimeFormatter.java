@@ -71,6 +71,17 @@ public abstract class TimeFormatter {
     }
 
     /**
+     * This method is used to get a date from a date timestamp
+     *
+     * @param date:    date timestamp as long
+     * @param pattern: pattern to format return date es. dd/MM/yyyy hh:mm:ss
+     * @return date value as {@link Date}
+     **/
+    public static Date getDate(long date, String pattern) {
+        return new Date(getDateTimestamp(getStringDate(date, pattern), pattern));
+    }
+
+    /**
      * This method is used to get from a date its timestamp value
      *
      * @param date: date to get timestamp
