@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation {@code "@WrappedRequest"} is applied to those methods offered by libraries where the original request of the
+ * The {@code "@WrappedRequest"} annotation is applied to those methods offered by libraries where the original request of the
  * API service involved are {@code "wrapped"} by the methods of the library, that is, the possible combinations with any parameters
  * of the original request are easily added to this request with the {@code "wrapped"} method marked with this annotation
  * <pre>

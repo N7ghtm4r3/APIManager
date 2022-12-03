@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation {@code "@Returner"} it is applied to those methods offered by libraries in which the response of an API request
+ * The {@code "@Returner"} annotation is applied to those methods offered by libraries in which the response of an API request
  * is processed and formatted according to a specific type of format
  * <pre>
  *     {@code

@@ -11,58 +11,83 @@ import java.util.concurrent.Executors;
 
 public class SocketManager {
 
+    private final boolean serverUse;
+    private final boolean allowMultipleListeners;
     private ServerSocket serverSocket;
     private int currentServerPort;
+    private ExecutorService executor;
     private Runnable currentRoutine;
     private Socket socket;
-
-    //SERVER
-    public SocketManager(int serverPort) {
-        currentServerPort = serverPort;
-    }
+    private String currentHost;
+    private PrintWriter printWriter;
 
     //CLIENT
-    public SocketManager(String host, int serverPort) throws IOException {
-        socket = new Socket(host, serverPort);
+    public SocketManager(String host, int serverPort) {
+        serverUse = false;
+        currentHost = host;
+        currentServerPort = serverPort;
+        allowMultipleListeners = false;
     }
 
-    public SocketManager() {
-        currentServerPort = -1;
+    //SERVER
+    public SocketManager(boolean allowMultipleListeners) {
+        serverUse = true;
+        this.allowMultipleListeners = allowMultipleListeners;
+        if (allowMultipleListeners)
+            executor = Executors.newCachedThreadPool();
     }
 
-    public void startListener(Runnable routine) throws IOException {
-        currentRoutine = routine;
-        restartListener(currentServerPort, routine);
+    public void restartListener(Runnable routine) throws IOException {
+        startListener(currentServerPort, routine);
     }
 
     public void restartListener(int port) throws IOException {
-        currentServerPort = port;
-        restartListener(port, currentRoutine);
+        startListener(port, currentRoutine);
     }
 
-    public void restartListener(int port, Runnable routine) throws IOException {
-        if (serverSocket == null || currentServerPort != port) {
-            serverSocket = new ServerSocket(port);
-            currentServerPort = port;
-            ExecutorService executor = Executors.newSingleThreadExecutor();
+    public void startListener(int port, Runnable routine) throws IOException {
+        if (serverUse) {
+            if (serverSocket == null || currentServerPort != port) {
+                serverSocket = new ServerSocket(port);
+                currentServerPort = port;
+            }
+            if (!allowMultipleListeners) {
+                executor = Executors.newSingleThreadExecutor();
+            }
+            currentRoutine = routine;
             executor.execute(routine);
         }
     }
 
-    public void acceptRequest() throws IOException {
-        if (((serverSocket != null) && (socket == null || socket.isClosed())))
-            socket = serverSocket.accept();
+    public Socket acceptRequest() throws IOException {
+        if (serverUse)
+            return socket = serverSocket.accept();
+        return null;
     }
 
-    public void writeContent(String message) throws IOException {
-        PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-        printWriter.println(message);
-        if (serverSocket != null && serverSocket.isBound())
-            socket.close();
+    public synchronized <T> void writeContent(T content) throws IOException {
+        if (!serverUse)
+            socket = new Socket(currentHost, currentServerPort);
+        printWriter = new PrintWriter(socket.getOutputStream(), true);
+        printWriter.println(content.toString());
     }
 
-    public String readContent() throws IOException {
-        return new BufferedReader(new InputStreamReader(socket.getInputStream())).readLine();
+    public synchronized <T> void writeContent(Socket targetSocket, T content) throws IOException {
+        if (serverUse) {
+            printWriter = new PrintWriter(targetSocket.getOutputStream(), true);
+            printWriter.println(content.toString());
+        }
+    }
+
+    public synchronized String readContent() throws IOException {
+        return readContent(socket);
+    }
+
+    public synchronized String readContent(Socket targetSocket) throws IOException {
+        String content = new BufferedReader(new InputStreamReader(targetSocket.getInputStream())).readLine();
+        if (!serverUse)
+            targetSocket.close();
+        return content;
     }
 
 }

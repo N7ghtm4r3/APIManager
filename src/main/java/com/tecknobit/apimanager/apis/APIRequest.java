@@ -609,38 +609,6 @@ public class APIRequest {
     }
 
     /**
-     * {@code RequestMethod} list of available request methods
-     **/
-    public enum RequestMethod {
-
-        /**
-         * {@code "GET"} method for {@code "HTTP"} requests
-         **/
-        GET,
-
-        /**
-         * {@code "POST"} method for {@code "HTTP"} requests
-         **/
-        POST,
-
-        /**
-         * {@code "DELETE"} method for {@code "HTTP"} requests
-         **/
-        DELETE,
-
-        /**
-         * {@code "PUT"} method for {@code "HTTP"} requests
-         **/
-        PUT,
-
-        /**
-         * {@code "PATCH"} method for {@code "HTTP"} requests
-         **/
-        PATCH
-
-    }
-
-    /**
      * Method to print the error response of the request <br>
      * <p>
      * Any params required
@@ -1192,6 +1160,38 @@ public class APIRequest {
         public String toString() {
             return params.toString();
         }
+
+    }
+
+    /**
+     * {@code RequestMethod} list of available request methods
+     **/
+    public enum RequestMethod {
+
+        /**
+         * {@code "GET"} method for {@code "HTTP"} requests
+         **/
+        GET,
+
+        /**
+         * {@code "POST"} method for {@code "HTTP"} requests
+         **/
+        POST,
+
+        /**
+         * {@code "DELETE"} method for {@code "HTTP"} requests
+         **/
+        DELETE,
+
+        /**
+         * {@code "PUT"} method for {@code "HTTP"} requests
+         **/
+        PUT,
+
+        /**
+         * {@code "PATCH"} method for {@code "HTTP"} requests
+         **/
+        PATCH
 
     }
 
