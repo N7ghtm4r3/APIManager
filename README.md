@@ -1,5 +1,5 @@
 # APIManager
-**v2.0.1**
+**v2.0.2**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -23,7 +23,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.N7ghtm4r3:APIManager:2.0.1'
+    implementation 'com.github.N7ghtm4r3:APIManager:2.0.2'
 }
 ```
 
@@ -45,7 +45,7 @@ dependencies {
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
   <artifactId>APIManager</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.2</version>
 </dependency>
 ```
 
@@ -54,109 +54,23 @@ dependencies {
 
 ## Tools available
 
-- **TradingTools** allows you to calculate things like percent, forecast of an asset, etc
-- **JsonHelper** allows you to fetch data from JSON with default value if not exits and create list
-  of values in automatically and this with auto search path to get value requested, so you don't have to passing correct
-  path by hand
-- **CryptocurrencyTool** allows you to fetch details about one coin like name, index, logo image and other
-- **ScientificNotationParser** allows you format a numeric value without scientific notation
-- **TimeFormatter** allows you to format in different ways the time value
+- <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/src/main/java/com/tecknobit/apimanager/trading/TradingTools.java">**TradingTools**</a> allows you to calculate things like percent, forecast of an asset, etc
+- <a href="https://github.com/N7ghtm4r3/APIManager/tree/main/src/main/java/com/tecknobit/apimanager/formatters/JsonHelper.java">**JsonHelper**</a> allows you to fetch data from JSON with default value if not exits and create list
+of values in automatically and this with auto search path to get value requested, so you don't have to passing correct
+path by hand
+- <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/src/main/java/com/tecknobit/apimanager/trading/CryptocurrencyTool.java">**CryptocurrencyTool**</a> allows you to fetch details about one coin like name, index, logo image and other
+- <a href="https://github.com/N7ghtm4r3/APIManager/tree/main/src/main/java/com/tecknobit/apimanager/formatters/ScientificNotationParser.java">**ScientificNotationParser**</a> allows you format a numeric value without scientific notation
+- <a href="https://github.com/N7ghtm4r3/APIManager/tree/main/src/main/java/com/tecknobit/apimanager/formatters/TimeFormatter.java">**TimeFormatter**</a> allows you to format in different ways the time value
 
 The other tools will be gradually released
 
-## Usage/Examples
+## APIs available
 
-### No headers requests
+- <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/APIRequest.md">**APIRequest**</a> allows you to manage the API request of the APIs services
+- <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">**SocketManager**</a> allows you to manage the socket communication easily
+- <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">**AES encryption package**</a>  allows you to use the AES encryption type easily
 
-```java
-APIRequest apiRequest = new APIRequest();
-
-try {
-    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD);
-} catch (IOException e) {
-    e.printStackTrace();
-}
-```
-
-### Headers requests
-
-```java
-APIRequest apiRequest = new APIRequest();
-
-// single header requests
-try {
-    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD, "keyHeader", "valueHeader");
-} catch (IOException e) {
-    e.printStackTrace();
-}
-
-// multiple headers requests
-Headers headers = new Headers();
-headers.addHeader("header1", "value1");
-headers.addHeader("header2", "value2");
-
-try {
-    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD, headers);
-} catch (IOException e) {
-    e.printStackTrace();
-}
-```
-### Responses
-
-In this example requests haven't headers, but is the same also for that requests
-
-- String: will return response formatted as String object
-
-```java
-try {
-    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD);
-    System.out.println(apiRequest.getResponse());
-    // example output: Success request!
-} catch (IOException e) {
-   System.out.println(apiRequest.getErrorResponse());
-}
-```
-
-- JSON: will return response formatted as JSON (JSONObject or JSONArray)
-
-```java
-try {
-    apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD);
-    System.out.println(apiRequest.getJSONResponse());
-    // example output: {"msg": "Success request!"}
-} catch (IOException e) {
-   System.out.println(apiRequest.getJSONErrorResponse());
-}
-```
-
-### Errors handling
-
-```java
-try {
-    System.out.println(apiRequest.sendAPIRequest("urlOfRequest", APIRequest.GET_METHOD););
-} catch (Exception e) {
-    System.out.println(apiRequest.getErrorResponse());
-}
-/* NOTE: if is not a request error will appear: "Error is not in api request, check out your code"
-  and you will have to work on your code to manage error, you can customize that message*/
-```
-
-### Android's implementation
-
-To use this library on Android you must follow two simple steps:
-
-- Add permission to AndroidManifest file
-
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-```
-
-- Create a single one strict detector
-
-```java
-StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-StrictMode.setThreadPolicy(policy);
-```
+The other apis will be gradually released
 
 ## Authors
 

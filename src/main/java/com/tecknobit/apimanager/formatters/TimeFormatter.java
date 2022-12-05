@@ -9,6 +9,35 @@ import static java.util.Locale.getDefault;
 /**
  * The {@code TimeFormatter} class is a useful tool class to format in different ways the {@code "time"}
  *
+ * <pre>
+ *     {@code
+ *
+ *         // Change the default pattern (dd/MM/yyyy HH:mm:ss) programmatically
+ *         // will overwrite the default and used in all formatting
+ *         TimeFormatter.changeDefaultPattern("yyyy/MM/dd HH:mm:ss");
+ *
+ *         // or pass pattern as argument in all methods to change only in that formatting
+ *         String stringDate = TimeFormatter.getStringDate(System.currentTimeMillis(),
+ *         "yyyy/MM/dd HH:mm:ss"); // --> 2022/12/05 18:34:37
+ *
+ *         // string format
+ *         String stringDate = TimeFormatter.getStringDate(System.currentTimeMillis());
+ *         // --> 2022/12/05 18:34:37
+ *
+ *         // long format
+ *         System.out.println(TimeFormatter.getDateTimestamp(stringDate)); // --> 1670261677000
+ *
+ *         // date format
+ *         // with string as argument
+ *         System.out.println(TimeFormatter.getDate(stringDate));
+ *         // --> Mon Dec 05 18:34:37 CET 2022
+ *
+ *         // with long as argument
+ *         System.out.println(TimeFormatter.getDate(TimeFormatter.getDateTimestamp(stringDate)));
+ *         // --> Mon Dec 05 18:34:37 CET 2022
+ *     }
+ * </pre>
+ *
  * @author N7ghtm4r3 - Tecknobit
  **/
 public abstract class TimeFormatter {

@@ -1,7 +1,6 @@
 package com.tecknobit.apimanager.apis.encryption.aes.serverside;
 
 import com.tecknobit.apimanager.apis.encryption.aes.ClientCipher;
-import com.tecknobit.apimanager.apis.encryption.exceptions.*;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -18,21 +17,9 @@ import java.security.SecureRandom;
 public class GenericServerCipher extends ClientCipher {
 
     /**
-     * {@code MINIMUM_KEY_SIZE} is constant that memorizes minimum key size to create a {@link SecretKey}
-     **/
-    public static final int MINIMUM_KEY_SIZE = 128;
-    /**
-     * {@code MEDIUM_KEY_SIZE} is constant that memorizes medium key size to create a {@link SecretKey}
-     **/
-    public static final int MEDIUM_KEY_SIZE = 192;
-    /**
-     * {@code MAXIMUM_KEY_SIZE} is constant that memorizes maximum key size to create a {@link SecretKey}
-     **/
-    public static final int MAXIMUM_KEY_SIZE = 256;
-    /**
      * {@code keySize} is instance that memorizes key size used in this communication session
      **/
-    protected final int keySize;
+    protected final KeySize keySize;
 
     /**
      * Constructor to init {@link GenericServerCipher}
@@ -42,13 +29,10 @@ public class GenericServerCipher extends ClientCipher {
      * @param algorithm:       algorithm used for AES cipher
      * @param keySize:         size in bits for {@link #secretKey}
      **/
-    public GenericServerCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey, Algorithm algorithm, int keySize) throws
-            NoSuchPaddingException, NoSuchAlgorithmException, KeySizeException {
+    public GenericServerCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey, Algorithm algorithm,
+                               KeySize keySize) throws NoSuchPaddingException, NoSuchAlgorithmException {
         super(ivParameterSpec, secretKey, algorithm);
-        if (keySize != MINIMUM_KEY_SIZE && keySize != MEDIUM_KEY_SIZE && keySize != MAXIMUM_KEY_SIZE)
-            throw new KeySizeException();
-        else
-            this.keySize = keySize;
+        this.keySize = keySize;
     }
 
     /**
@@ -59,13 +43,10 @@ public class GenericServerCipher extends ClientCipher {
      * @param algorithm:       algorithm used for AES cipher
      * @param keySize:         size in bits for {@link #secretKey}
      **/
-    public GenericServerCipher(String ivParameterSpec, String secretKey, Algorithm algorithm, int keySize) throws
-            NoSuchPaddingException, NoSuchAlgorithmException, KeySizeException {
+    public GenericServerCipher(String ivParameterSpec, String secretKey, Algorithm algorithm,
+                               KeySize keySize) throws NoSuchPaddingException, NoSuchAlgorithmException {
         super(ivParameterSpec, secretKey, algorithm);
-        if (keySize != MINIMUM_KEY_SIZE && keySize != MEDIUM_KEY_SIZE && keySize != MAXIMUM_KEY_SIZE)
-            throw new KeySizeException();
-        else
-            this.keySize = keySize;
+        this.keySize = keySize;
     }
 
     /**
@@ -95,15 +76,11 @@ public class GenericServerCipher extends ClientCipher {
      *
      * @param keySize: size for secret key
      * @return secret key as {@link SecretKey}
-     * @implNote sizes admitted are {@link #MINIMUM_KEY_SIZE}, {@link #MEDIUM_KEY_SIZE} or {@link #MAXIMUM_KEY_SIZE}
      **/
-    public static SecretKey createSecretKey(int keySize) throws NoSuchAlgorithmException, KeySizeException {
+    public static SecretKey createSecretKey(KeySize keySize) throws NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(AES_ALGORITHM_TYPE);
-        if (keySize == MINIMUM_KEY_SIZE || keySize == MEDIUM_KEY_SIZE || keySize == MAXIMUM_KEY_SIZE) {
-            keyGenerator.init(keySize);
-            return keyGenerator.generateKey();
-        } else
-            throw new KeySizeException();
+        keyGenerator.init(keySize.getSize());
+        return keyGenerator.generateKey();
     }
 
     /**
@@ -111,9 +88,8 @@ public class GenericServerCipher extends ClientCipher {
      *
      * @param keySize: size for secret key
      * @return secret key as {@link String}
-     * @implNote sizes admitted are {@link #MINIMUM_KEY_SIZE}, {@link #MEDIUM_KEY_SIZE} or {@link #MAXIMUM_KEY_SIZE}
      **/
-    public static String createSecretKeyString(int keySize) throws NoSuchAlgorithmException, KeySizeException {
+    public static String createSecretKeyString(KeySize keySize) throws NoSuchAlgorithmException {
         return byteToString(createSecretKey(keySize).getEncoded());
     }
 
@@ -143,15 +119,67 @@ public class GenericServerCipher extends ClientCipher {
      * This method is used to get {@link #keySize} instance <br>
      * Any params required
      *
-     * @return {@link #keySize} instance as int
+     * @return {@link #keySize} instance as {@link KeySize}
      **/
-    public int getKeySize() {
+    public KeySize getKeySize() {
         return keySize;
     }
 
+    /**
+     * {@code KeySize} list of available key sizes
+     **/
     public enum KeySize {
 
-        
+        /**
+         * {@code k128} key of 128 bits length
+         **/
+        k128(128),
+
+        /**
+         * {@code k192} key of 192 bits length
+         **/
+        k192(192),
+
+        /**
+         * {@code k256} key of 256 bits length
+         **/
+        k256(256);
+
+        /**
+         * {@code size} of the key
+         **/
+        private final int size;
+
+        /**
+         * Constructor to init {@link KeySize}
+         *
+         * @param size: size of the key
+         **/
+        KeySize(int size) {
+            this.size = size;
+        }
+
+        /**
+         * This method is used to get {@link #size} instance <br>
+         * Any params required
+         *
+         * @return {@link #size} instance as int
+         **/
+        public int getSize() {
+            return size;
+        }
+
+        /**
+         * This method is used to get {@link #size} instance <br>
+         * Any params required
+         *
+         * @return {@link #size} instance as {@link String}
+         **/
+        @Override
+        public String toString() {
+            return String.valueOf(size);
+        }
+
     }
 
 }

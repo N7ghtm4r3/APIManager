@@ -1,7 +1,5 @@
 package com.tecknobit.apimanager.apis.encryption.aes.serverside;
 
-import com.tecknobit.apimanager.apis.encryption.exceptions.*;
-
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
@@ -12,8 +10,6 @@ import java.security.NoSuchAlgorithmException;
 import static com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.Algorithm.CFB_ALGORITHM;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.toHexString;
-
-;
 
 /**
  * The {@code CFBServerCipher} class is useful for server side applications to cipher with AES-CFB mode
@@ -38,9 +34,9 @@ public class CFBServerCipher extends GenericServerCipher {
      * @param ivParameterSpec: initialization vector as {@link IvParameterSpec}
      * @param secretKey:       secret key used in the {@link Cipher} as {@link SecretKey}
      **/
-    public CFBServerCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey) throws
-            NoSuchPaddingException, NoSuchAlgorithmException, KeySizeException {
-        super(ivParameterSpec, secretKey, CFB_ALGORITHM, MAXIMUM_KEY_SIZE);
+    public CFBServerCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey) throws NoSuchPaddingException,
+            NoSuchAlgorithmException {
+        super(ivParameterSpec, secretKey, CFB_ALGORITHM, KeySize.k256);
     }
 
     /**
@@ -49,9 +45,8 @@ public class CFBServerCipher extends GenericServerCipher {
      * @param ivParameterSpec: initialization vector as {@link String}
      * @param secretKey:       secret key used in the {@link Cipher} as {@link String}
      **/
-    public CFBServerCipher(String ivParameterSpec, String secretKey) throws
-            NoSuchPaddingException, NoSuchAlgorithmException, KeySizeException {
-        super(ivParameterSpec, secretKey, CFB_ALGORITHM, MAXIMUM_KEY_SIZE);
+    public CFBServerCipher(String ivParameterSpec, String secretKey) throws NoSuchPaddingException, NoSuchAlgorithmException {
+        super(ivParameterSpec, secretKey, CFB_ALGORITHM, KeySize.k256);
     }
 
     /**
@@ -121,9 +116,8 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param keySize: size for secret key
      * @return secret key as {@link SecretKey}
-     * @implNote sizes admitted are {@link #MINIMUM_KEY_SIZE}, {@link #MEDIUM_KEY_SIZE} or {@link #MAXIMUM_KEY_SIZE}
      **/
-    public static SecretKey createCFBSecretKey(int keySize) throws NoSuchAlgorithmException, KeySizeException {
+    public static SecretKey createCFBSecretKey(KeySize keySize) throws NoSuchAlgorithmException {
         return createSecretKey(keySize);
     }
 
@@ -132,9 +126,8 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param keySize: size for secret key
      * @return secret key as {@link String}
-     * @implNote sizes admitted are {@link #MINIMUM_KEY_SIZE}, {@link #MEDIUM_KEY_SIZE} or {@link #MAXIMUM_KEY_SIZE}
      **/
-    public static String createCFBSecretKeyString(int keySize) throws NoSuchAlgorithmException, KeySizeException {
+    public static String createCFBSecretKeyString(KeySize keySize) throws NoSuchAlgorithmException {
         return createSecretKeyString(keySize);
     }
 
@@ -201,13 +194,24 @@ public class CFBServerCipher extends GenericServerCipher {
     }
 
     /**
+     * This method is used to get key size <br>
+     * Any params required
+     *
+     * @return standard size of key for CFB mode is 512 bits, so will be returned <b>null</b>
+     **/
+    public KeySize getKeySize() {
+        return null;
+    }
+
+    /**
      * This method is used to get key size<br>
+     * <p>
      * Any params required
      *
      * @return key size instance as int
      * @implNote standard size of key for CFB mode is 512 bits
      **/
-    public int getKeySize() {
+    public int getCFBKeySize() {
         return 512;
     }
 

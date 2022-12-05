@@ -1,7 +1,5 @@
 package com.tecknobit.apimanager.apis.encryption.aes.serverside;
 
-import com.tecknobit.apimanager.apis.encryption.exceptions.*;
-
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
@@ -24,8 +22,8 @@ public class CTRServerCipher extends GenericServerCipher {
      * @param secretKey:       secret key used in the {@link Cipher} as {@link SecretKey}
      * @param keySize:         size in bits for {@link #secretKey}
      **/
-    public CTRServerCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey, int keySize) throws
-            NoSuchPaddingException, NoSuchAlgorithmException, KeySizeException {
+    public CTRServerCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey,
+                           KeySize keySize) throws NoSuchPaddingException, NoSuchAlgorithmException {
         super(ivParameterSpec, secretKey, CTR_ALGORITHM, keySize);
     }
 
@@ -36,8 +34,8 @@ public class CTRServerCipher extends GenericServerCipher {
      * @param secretKey:       secret key used in the {@link Cipher} as {@link String}
      * @param keySize:         size in bits for {@link #secretKey}
      **/
-    public CTRServerCipher(String ivParameterSpec, String secretKey, int keySize) throws
-            NoSuchPaddingException, NoSuchAlgorithmException, KeySizeException {
+    public CTRServerCipher(String ivParameterSpec, String secretKey,
+                           KeySize keySize) throws NoSuchPaddingException, NoSuchAlgorithmException {
         super(ivParameterSpec, secretKey, CTR_ALGORITHM, keySize);
     }
 
@@ -66,9 +64,8 @@ public class CTRServerCipher extends GenericServerCipher {
      *
      * @param keySize: size for secret key
      * @return secret key as {@link SecretKey}
-     * @implNote sizes admitted are {@link #MINIMUM_KEY_SIZE}, {@link #MEDIUM_KEY_SIZE} or {@link #MAXIMUM_KEY_SIZE}
      **/
-    public static SecretKey createCTRSecretKey(int keySize) throws KeySizeException, NoSuchAlgorithmException {
+    public static SecretKey createCTRSecretKey(KeySize keySize) throws NoSuchAlgorithmException {
         return createSecretKey(keySize);
     }
 
@@ -77,9 +74,8 @@ public class CTRServerCipher extends GenericServerCipher {
      *
      * @param keySize: size for secret key
      * @return secret key as {@link String}
-     * @implNote sizes admitted are {@link #MINIMUM_KEY_SIZE}, {@link #MEDIUM_KEY_SIZE} or {@link #MAXIMUM_KEY_SIZE}
      **/
-    public static String createCTRSecretKeyString(int keySize) throws KeySizeException, NoSuchAlgorithmException {
+    public static String createCTRSecretKeyString(KeySize keySize) throws NoSuchAlgorithmException {
         return createSecretKeyString(keySize);
     }
 

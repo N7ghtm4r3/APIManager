@@ -5,6 +5,19 @@ import static java.lang.String.valueOf;
 
 /**
  * The {@code ScientificNotationParser} class is a useful tool class to get a numeric value without scientific notation
+ * <pre>
+ *     {@code
+ *
+ *           // without use ScientificNotationParser
+ *              double number = 0.0000092221111228;
+ *              System.out.println(number); // --> 9.2221111228E-6
+ *
+ *           // using ScientificNotationParser
+ *              double number = 0.0000092221111228;
+ *              System.out.println(ScientificNotationParser.sNotationParse(number));
+ *              // --> 0.0000092221111228
+ *     }
+ * </pre>
  *
  * @author N7ghtm4r3 - Tecknobit
  **/
