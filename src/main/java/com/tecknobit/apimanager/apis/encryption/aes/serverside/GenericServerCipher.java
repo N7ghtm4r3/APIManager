@@ -13,6 +13,8 @@ import java.security.SecureRandom;
  * The {@code GenericServerCipher} class is useful for server side applications for general {@code "AES"}'s use
  *
  * @author Tecknobit N7ghtm4r3
+ * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">AES.md</a>
+ * @see ClientCipher
  **/
 public class GenericServerCipher extends ClientCipher {
 

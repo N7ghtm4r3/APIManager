@@ -17,6 +17,7 @@ import java.util.concurrent.Executors;
  * The {@code SocketManager} class is useful to dynamically manage communication by socket
  *
  * @author N7ghtm4r3 - Tecknobit
+ * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">SocketManager.md</a>
  **/
 public class SocketManager {
 

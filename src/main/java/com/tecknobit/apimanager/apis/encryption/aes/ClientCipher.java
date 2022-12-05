@@ -19,6 +19,7 @@ import static javax.crypto.Cipher.ENCRYPT_MODE;
  * The {@code ClientCipher} class is useful for general {@code "AES"}'s use
  *
  * @author Tecknobit N7ghtm4r3
+ * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">AES.md</a>
  **/
 public class ClientCipher {
 

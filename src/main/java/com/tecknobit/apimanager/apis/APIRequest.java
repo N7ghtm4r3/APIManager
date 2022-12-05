@@ -26,6 +26,7 @@ import static org.apache.commons.codec.binary.Hex.encodeHexString;
  * The {@code APIRequest} class is useful to send and manage any {@code "API"} requests and their responses
  *
  * @author N7ghtm4r3 - Tecknobit
+ * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/APIRequest.md">APIRequest.md</a>
  **/
 public class APIRequest {
 

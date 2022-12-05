@@ -1,5 +1,7 @@
 package com.tecknobit.apimanager.apis.encryption.aes.serverside;
 
+import com.tecknobit.apimanager.apis.encryption.aes.ClientCipher;
+
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
@@ -12,6 +14,9 @@ import static com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.Algorith
  * The {@code CTRServerCipher} class is useful for server side applications to cipher with AES-CTR mode
  *
  * @author Tecknobit N7ghtm4r3
+ * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">AES.md</a>
+ * @see ClientCipher
+ * @see GenericServerCipher
  **/
 public class CTRServerCipher extends GenericServerCipher {
 
