@@ -34,7 +34,7 @@ import java.lang.annotation.Target;
  *     }
  * </pre>
  *
- * @author Tecknobit N7ghtm4r3
+ * @author N7ghtm4r3 - Tecknobit 
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.METHOD)

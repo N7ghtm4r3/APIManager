@@ -8,7 +8,7 @@ import static java.lang.String.format;
 /**
  * The {@code TradingTools} class is a useful tool class that allows you to manage trading data
  *
- * @author Tecknobit N7ghtm4r3
+ * @author N7ghtm4r3 - Tecknobit
  **/
 public abstract class TradingTools {
 

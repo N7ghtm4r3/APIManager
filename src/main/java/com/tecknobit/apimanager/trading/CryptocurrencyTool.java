@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
  * The {@code CryptocurrencyTool} class is a useful tool class that helps to work with cryptocurrencies details. <br>
  * This tool helps to get image logo of a crypto, get full name of a crypto or get symbol of a crypto. <br>
  *
- * @author Tecknobit N7ghtm4r3
+ * @author N7ghtm4r3 - Tecknobit
  **/
 public abstract class CryptocurrencyTool {
 

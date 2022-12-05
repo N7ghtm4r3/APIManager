@@ -6,7 +6,7 @@ import static java.lang.String.valueOf;
 /**
  * The {@code ScientificNotationParser} class is a useful tool class to get a numeric value without scientific notation
  *
- * @author Tecknobit N7ghtm4r3
+ * @author N7ghtm4r3 - Tecknobit
  **/
 public abstract class ScientificNotationParser {
 

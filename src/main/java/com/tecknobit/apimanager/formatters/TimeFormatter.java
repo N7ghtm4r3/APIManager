@@ -9,7 +9,7 @@ import static java.util.Locale.getDefault;
 /**
  * The {@code TimeFormatter} class is a useful tool class to format in different ways the {@code "time"}
  *
- * @author Tecknobit N7ghtm4r3
+ * @author N7ghtm4r3 - Tecknobit
  **/
 public abstract class TimeFormatter {
 

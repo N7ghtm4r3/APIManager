@@ -12,7 +12,7 @@ import java.util.Iterator;
 /**
  * The {@code JsonHelper} class is a useful tool class to works with {@code "JSON"} data format
  *
- * @author Tecknobit N7ghtm4r3
+ * @author N7ghtm4r3 - Tecknobit 
  * @apiNote this class is helpful to avoid the {@link JSONException} because if searched value is not present in {@code "JSON"}, will be
  * returned a default value or a custom value choose by you. For all the operations to get values you don't need to pass
  * the correct {@code "JSON"} path ro reach the wanted value because it will be automatically reached autonomously

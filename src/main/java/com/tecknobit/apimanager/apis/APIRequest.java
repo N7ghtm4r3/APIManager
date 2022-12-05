@@ -25,7 +25,7 @@ import static org.apache.commons.codec.binary.Hex.encodeHexString;
 /**
  * The {@code APIRequest} class is useful to send and manage any {@code "API"} requests and their responses
  *
- * @author Tecknobit N7ghtm4r3
+ * @author N7ghtm4r3 - Tecknobit
  **/
 public class APIRequest {
 
@@ -64,17 +64,6 @@ public class APIRequest {
      **/
     @Deprecated
     public static final String PATCH_METHOD = "PATCH";
-
-    /**
-     * Method to send an api request
-     *
-     * @param requestUrl: {@code "URL"} used in the api request
-     * @param method:     method used in the api request
-     **/
-    public void sendAPIRequest(String requestUrl, RequestMethod method) throws IOException {
-        setRequest(requestUrl, method);
-        performRequest();
-    }
 
     /**
      * {@code DEFAULT_ERROR_RESPONSE} is constant that contains default error message if user not custom it
@@ -198,117 +187,14 @@ public class APIRequest {
     }
 
     /**
-     * Method to set programmatically timeout for the request
-     *
-     * @param requestTimeout: timeout for the requests
-     **/
-    public void setRequestTimeout(int requestTimeout) {
-        this.requestTimeout = requestTimeout;
-    }
-
-    /**
      * Method to get digest
      *
-     * @param data:      data to digest as byte array
+     * @param data:      data to digest as {@link String}
      * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
      * @return digest result as byte array
      **/
-    public static byte[] digest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
-        if (algorithm == null || (!algorithm.equals(MD5_ALGORITHM) && !algorithm.equals(SHA1_ALGORITHM)
-                && !algorithm.equals(SHA256_ALGORITHM))) {
-            throw new IllegalArgumentException("Algorithm must be MD5,SHA-1 or SHA-256");
-        }
-        MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
-        messageDigest.update(data);
-        return messageDigest.digest();
-    }
-
-    /**
-     * Method to get params signature for an {@code "HTTP"} request
-     *
-     * @param signatureKey: key used to signature request
-     * @param data:         data to sign
-     * @param algorithm:    algorithm used in signature -> HmacSHA256 or HmacSHA512
-     * @return signature es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4"
-     **/
-    public static String getSignature(String signatureKey, String data, String algorithm) throws Exception {
-        if (algorithm == null || (!algorithm.equals(HMAC_SHA256_ALGORITHM) && !algorithm.equals(HMAC_SHA512_ALGORITHM)))
-            throw new IllegalArgumentException("Algorithm must be HmacSHA256 or HmacSHA512");
-        Mac sha = Mac.getInstance(algorithm);
-        sha.init(new SecretKeySpec(signatureKey.getBytes(UTF_8), algorithm));
-        return encodeHexString(sha.doFinal(data.replace("?", "").getBytes(UTF_8)));
-    }
-
-    /**
-     * Method to get params signature for an {@code "HTTP"} request
-     *
-     * @param signatureKey: key bytes used to signature request
-     * @param data:         data to sign
-     * @param algorithm:    algorithm used in signature -> HmacSHA256 or HmacSHA512
-     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
-     **/
-    public static String getBase64Signature(byte[] signatureKey, String data, String algorithm) throws Exception {
-        if (algorithm == null || (!algorithm.equals(HMAC_SHA256_ALGORITHM) && !algorithm.equals(HMAC_SHA512_ALGORITHM)))
-            throw new IllegalArgumentException("Algorithm must be HmacSHA256 or HmacSHA512");
-        Mac mac = Mac.getInstance(algorithm);
-        mac.init(new SecretKeySpec(signatureKey, algorithm));
-        return Base64.getEncoder().encodeToString(mac.doFinal(data.getBytes()));
-    }
-
-    /**
-     * Method to get params signature for an {@code "HTTP"} request
-     *
-     * @param signatureKey: key used to signature request
-     * @param data:         data to sign
-     * @param algorithm:    algorithm used in signature -> HmacSHA256 or HmacSHA512
-     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
-     **/
-    public static String getBase64Signature(String signatureKey, String data, String algorithm) throws Exception {
-        return getBase64Signature(Base64.getDecoder().decode(signatureKey), data, algorithm);
-    }
-
-    /**
-     * Method to download a file from an {@code "URL"} source
-     *
-     * @param url:      source URL from download the file
-     * @param pathName: path name for the file, this must include also the suffix es. -> download.{suffix}
-     * @param save:     flag whether save the file, if is set to {@code "false"} will be created a temporary file
-     *                  that will be deleted on exit
-     * @return file downloaded as {@link File}
-     * @throws IOException when path name is invalid or an error occurred during the download of the file
-     **/
-    public static File downloadFile(String url, String pathName, boolean save) throws IOException {
-        if (url == null)
-            throw new IOException("The URL source cannot be null");
-        if (pathName == null || pathName.replace(" ", "").isEmpty())
-            throw new IOException("The path name for the file cannot be null or blank");
-        try {
-            ReadableByteChannel byteChannel = Channels.newChannel(new URL(url).openStream());
-            if (!pathName.contains("."))
-                throw new IOException("Path name must also contains the suffix for the file");
-            try (FileOutputStream fileOutputStream = new FileOutputStream(pathName)) {
-                FileChannel fileChannel = fileOutputStream.getChannel();
-                fileChannel.transferFrom(byteChannel, 0, MAX_VALUE);
-                if (!save) {
-                    String suffix = "." + pathName.split("\\.")[1];
-                    File runtimeFile = File.createTempFile(pathName.replace(suffix, ""), suffix);
-                    runtimeFile.deleteOnExit();
-                    return runtimeFile;
-                } else
-                    return new File(pathName);
-            }
-        } catch (MalformedURLException e) {
-            throw new IOException("The URL source is not a valid source: " + e.getLocalizedMessage());
-        }
-    }
-
-    /**
-     * Method to set programmatically default error message to return if is not request error
-     *
-     * @param defaultErrorResponse: error message to return if is not request error
-     **/
-    public void setDefaultErrorResponse(String defaultErrorResponse) {
-        this.defaultErrorResponse = defaultErrorResponse;
+    public static byte[] digest(String data, String algorithm) throws NoSuchAlgorithmException {
+        return digest(data.getBytes(), algorithm);
     }
 
     /**
@@ -714,39 +600,6 @@ public class APIRequest {
     }
 
     /**
-     * Method to get digest
-     *
-     * @param data:      data to digest as {@link String}
-     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
-     * @return digest result as byte array
-     **/
-    public static byte[] digest(String data, String algorithm) throws NoSuchAlgorithmException {
-        return digest(data.getBytes(), algorithm);
-    }
-
-    /**
-     * Method to get digest
-     *
-     * @param data:      data to digest as {@link String}
-     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
-     * @return digest result as {@link String} in {@link Base64} encode
-     **/
-    public static String base64Digest(String data, String algorithm) throws NoSuchAlgorithmException {
-        return base64Digest(data.getBytes(), algorithm);
-    }
-
-    /**
-     * Method to get digest
-     *
-     * @param data:      data to digest as byte array
-     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
-     * @return digest result as {@link String} in {@link Base64} encode
-     **/
-    public static String base64Digest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
-        return new String(Base64.getEncoder().encode(digest(data, algorithm)));
-    }
-
-    /**
      * Method to concatenate a list of params
      *
      * @param starterSeparator: initial char to divide items of the list
@@ -839,6 +692,153 @@ public class APIRequest {
                 throw new NullPointerException("Extra params key or value cannot be empty or null");
         }
         return params.toString();
+    }
+
+    /**
+     * Method to get digest
+     *
+     * @param data:      data to digest as {@link String}
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as {@link String} in {@link Base64} encode
+     **/
+    public static String base64Digest(String data, String algorithm) throws NoSuchAlgorithmException {
+        return base64Digest(data.getBytes(), algorithm);
+    }
+
+    /**
+     * Method to get digest
+     *
+     * @param data:      data to digest as byte array
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as {@link String} in {@link Base64} encode
+     **/
+    public static String base64Digest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
+        return new String(Base64.getEncoder().encode(digest(data, algorithm)));
+    }
+
+    /**
+     * Method to get digest
+     *
+     * @param data:      data to digest as byte array
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as byte array
+     **/
+    public static byte[] digest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
+        if (algorithm == null || (!algorithm.equals(MD5_ALGORITHM) && !algorithm.equals(SHA1_ALGORITHM)
+                && !algorithm.equals(SHA256_ALGORITHM))) {
+            throw new IllegalArgumentException("Algorithm must be MD5,SHA-1 or SHA-256");
+        }
+        MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
+        messageDigest.update(data);
+        return messageDigest.digest();
+    }
+
+    /**
+     * Method to get params signature for an {@code "HTTP"} request
+     *
+     * @param signatureKey: key used to signature request
+     * @param data:         data to sign
+     * @param algorithm:    algorithm used in signature -> HmacSHA256 or HmacSHA512
+     * @return signature es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4"
+     **/
+    public static String getSignature(String signatureKey, String data, String algorithm) throws Exception {
+        if (algorithm == null || (!algorithm.equals(HMAC_SHA256_ALGORITHM) && !algorithm.equals(HMAC_SHA512_ALGORITHM)))
+            throw new IllegalArgumentException("Algorithm must be HmacSHA256 or HmacSHA512");
+        Mac sha = Mac.getInstance(algorithm);
+        sha.init(new SecretKeySpec(signatureKey.getBytes(UTF_8), algorithm));
+        return encodeHexString(sha.doFinal(data.replace("?", "").getBytes(UTF_8)));
+    }
+
+    /**
+     * Method to get params signature for an {@code "HTTP"} request
+     *
+     * @param signatureKey: key bytes used to signature request
+     * @param data:         data to sign
+     * @param algorithm:    algorithm used in signature -> HmacSHA256 or HmacSHA512
+     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
+     **/
+    public static String getBase64Signature(byte[] signatureKey, String data, String algorithm) throws Exception {
+        if (algorithm == null || (!algorithm.equals(HMAC_SHA256_ALGORITHM) && !algorithm.equals(HMAC_SHA512_ALGORITHM)))
+            throw new IllegalArgumentException("Algorithm must be HmacSHA256 or HmacSHA512");
+        Mac mac = Mac.getInstance(algorithm);
+        mac.init(new SecretKeySpec(signatureKey, algorithm));
+        return Base64.getEncoder().encodeToString(mac.doFinal(data.getBytes()));
+    }
+
+    /**
+     * Method to get params signature for an {@code "HTTP"} request
+     *
+     * @param signatureKey: key used to signature request
+     * @param data:         data to sign
+     * @param algorithm:    algorithm used in signature -> HmacSHA256 or HmacSHA512
+     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
+     **/
+    public static String getBase64Signature(String signatureKey, String data, String algorithm) throws Exception {
+        return getBase64Signature(Base64.getDecoder().decode(signatureKey), data, algorithm);
+    }
+
+    /**
+     * Method to download a file from an {@code "URL"} source
+     *
+     * @param url:      source URL from download the file
+     * @param pathName: path name for the file, this must include also the suffix es. -> download.{suffix}
+     * @param save:     flag whether save the file, if is set to {@code "false"} will be created a temporary file
+     *                  that will be deleted on exit
+     * @return file downloaded as {@link File}
+     * @throws IOException when path name is invalid or an error occurred during the download of the file
+     **/
+    public static File downloadFile(String url, String pathName, boolean save) throws IOException {
+        if (url == null)
+            throw new IOException("The URL source cannot be null");
+        if (pathName == null || pathName.replace(" ", "").isEmpty())
+            throw new IOException("The path name for the file cannot be null or blank");
+        try {
+            ReadableByteChannel byteChannel = Channels.newChannel(new URL(url).openStream());
+            if (!pathName.contains("."))
+                throw new IOException("Path name must also contains the suffix for the file");
+            try (FileOutputStream fileOutputStream = new FileOutputStream(pathName)) {
+                FileChannel fileChannel = fileOutputStream.getChannel();
+                fileChannel.transferFrom(byteChannel, 0, MAX_VALUE);
+                if (!save) {
+                    String suffix = "." + pathName.split("\\.")[1];
+                    File runtimeFile = File.createTempFile(pathName.replace(suffix, ""), suffix);
+                    runtimeFile.deleteOnExit();
+                    return runtimeFile;
+                } else
+                    return new File(pathName);
+            }
+        } catch (MalformedURLException e) {
+            throw new IOException("The URL source is not a valid source: " + e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Method to send an api request
+     *
+     * @param requestUrl: {@code "URL"} used in the api request
+     * @param method:     method used in the api request
+     **/
+    public void sendAPIRequest(String requestUrl, RequestMethod method) throws IOException {
+        setRequest(requestUrl, method);
+        performRequest();
+    }
+
+    /**
+     * Method to set programmatically default error message to return if is not request error
+     *
+     * @param defaultErrorResponse: error message to return if is not request error
+     **/
+    public void setDefaultErrorResponse(String defaultErrorResponse) {
+        this.defaultErrorResponse = defaultErrorResponse;
+    }
+
+    /**
+     * Method to set programmatically timeout for the request
+     *
+     * @param requestTimeout: timeout for the requests
+     **/
+    public void setRequestTimeout(int requestTimeout) {
+        this.requestTimeout = requestTimeout;
     }
 
     /**
