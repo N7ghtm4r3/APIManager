@@ -20,6 +20,7 @@ import static javax.crypto.Cipher.ENCRYPT_MODE;
  *
  * @author Tecknobit N7ghtm4r3
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">AES.md</a>
+ * @since 2.0.2
  **/
 public class ClientCipher {
 
@@ -27,18 +28,22 @@ public class ClientCipher {
      * {@code AES_ALGORITHM_TYPE} is constant that memorizes algorithm type used for the {@link #cipher}
      **/
     public static final String AES_ALGORITHM_TYPE = "AES";
+
     /**
      * {@code ivParameterSpec} is instance that memorizes initialization vector used for the {@link #cipher}
      **/
     protected final IvParameterSpec ivParameterSpec;
+
     /**
      * {@code secretKey} is instance that memorizes secret key used for the {@link #cipher}
      **/
     protected final SecretKey secretKey;
+
     /**
      * {@code cipher} is instance that memorizes {@link Cipher} object
      **/
     protected final Cipher cipher;
+
     /**
      * {@code algorithm} is instance that memorizes algorithm for {@link #cipher}
      **/

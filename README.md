@@ -1,5 +1,5 @@
 # APIManager
-**v2.0.2**
+**v2.0.3**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -23,7 +23,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.N7ghtm4r3:APIManager:2.0.2'
+    implementation 'com.github.N7ghtm4r3:APIManager:2.0.3'
 }
 ```
 
@@ -45,7 +45,7 @@ dependencies {
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
   <artifactId>APIManager</artifactId>
-  <version>2.0.2</version>
+  <version>2.0.3</version>
 </dependency>
 ```
 
@@ -103,4 +103,4 @@ If you want support project and developer: **0x5f63cc6d13b16dcf39cd8083f21d50151
 
 If you want support project and developer with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">PayPal</a>
 
-Copyright © 2022 Tecknobit
+Copyright © 2023 Tecknobit

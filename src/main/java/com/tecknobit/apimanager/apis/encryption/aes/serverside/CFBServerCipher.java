@@ -20,6 +20,7 @@ import static java.lang.Integer.toHexString;
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">AES.md</a>
  * @see ClientCipher
  * @see GenericServerCipher
+ * @since 2.0.2
  **/
 public class CFBServerCipher extends GenericServerCipher {
 

@@ -755,19 +755,8 @@ public class JsonHelper{
     /**
      * Method to get from {@link JSONObject} a jsonObject
      *
-     * @param key: key of JSONObject to get from json
-     * @return value as {@link JSONObject}, if it is not exist will return null value
-     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
-    public JSONObject getJSONObject(String key) {
-        return getJSONObject(key, null);
-    }
-
-    /**
-     * Method to get from {@link JSONObject} a jsonObject
-     *
      * @param jsonDetails: {@code "JSON"} from fetch data
-     * @param key:         key of JSONObject to get from json
+     * @param key:         key of {@link JSONObject} to get from json
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
@@ -779,30 +768,51 @@ public class JsonHelper{
     }
 
     /**
-     * Method to get from {@link JSONArray} a jsonObject
+     * Method to get from {@link JSONObject} a jsonObject
      *
-     * @param index: index of JSONObject to get from json
-     * @return value as {@link JSONObject}, if it is not exist will return null value
-     **/
-    public JSONObject getJSONObject(int index) {
-        return getJSONObject(index, null);
-    }
-
-    /** Method to get from {@link JSONObject} a jsonObject
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param key:         key of {@link JSONObject} to get from json
+     * @param defValue:    default value to return if primary value not exists
+     * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     * @param jsonDetails: {@code "JSON"} from fetch data
-     * @param key: key of JSONObject to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @exception ClassCastException: when this exception has been trowed will be returned null as default value
-     * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
-     * **/
+     **/
     public static JSONObject getJSONObject(JSONObject jsonDetails, String key, JSONObject defValue) {
         Object value = autoSearch(jsonDetails, key, defValue);
         if(value instanceof JSONObject)
             return (JSONObject) value;
         return defValue;
+    }
+
+    /** Method to get from {@link JSONArray} a jsonObject
+     * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
+     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
+     * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param index: index of {@link JSONObject} to get from json
+     * @return value as {@link JSONObject}, if it is not exist will return null value
+     * **/
+    public static JSONObject getJSONObject(JSONArray jsonDetails, int index){
+        return getJSONObject(jsonDetails, index, null);
+    }
+
+    /** Method to get from {@link JSONArray} a jsonObject
+     * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
+     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
+     * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param index: index of {@link JSONObject} to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
+     * **/
+    public static JSONObject getJSONObject(JSONArray jsonDetails, int index, JSONObject defValue){
+        try {
+            return jsonDetails.getJSONObject(index);
+        }catch (Exception e){
+            return defValue;
+        }
     }
 
     /**
@@ -1134,33 +1144,37 @@ public class JsonHelper{
         }
     }
 
-    /** Method to get from {@link JSONArray} a jsonObject
-     * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
-     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
-     * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
+    /**
+     * Method to get from JSON a jsonHelper
+     *
      * @param jsonDetails: {@code "JSON"} from fetch data
-     * @param index: index of JSONObject to get from json
-     * @return value as {@link JSONObject}, if it is not exist will return null value
-     * **/
-    public static JSONObject getJSONObject(JSONArray jsonDetails, int index){
-        return getJSONObject(jsonDetails, index, null);
+     * @param key:         key of {@link JsonHelper} to get from json
+     * @return value as {@link JsonHelper}, if it is not exist will return null
+     * @implNote this static method is useful when you have to fetch a single value from JSON avoiding
+     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
+     * JSON source is recommended instantiate {@link JsonHelper} class first.
+     **/
+    public static JsonHelper getJsonHelper(JSONObject jsonDetails, String key) {
+        return getJsonHelper(jsonDetails, key, null);
     }
 
-    /** Method to get from {@link JSONArray} a jsonObject
-     * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
-     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
-     * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
+    /**
+     * Method to get from JSON a jsonHelper
+     *
      * @param jsonDetails: {@code "JSON"} from fetch data
-     * @param index: index of JSONObject to get from json
-     * @param defValue: default value to return if primary value not exists
-     * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
-     * **/
-    public static JSONObject getJSONObject(JSONArray jsonDetails, int index, JSONObject defValue){
-        try {
-            return jsonDetails.getJSONObject(index);
-        }catch (Exception e){
+     * @param key:         key of {@link JsonHelper} to get from json
+     * @param defValue:    default value to return if primary value not exists
+     * @return value as {@link JsonHelper}, if it is not exist will return {@code defValue}
+     * @implNote this static method is useful when you have to fetch a single value from JSON avoiding
+     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
+     * JSON source is recommended instantiate {@link JsonHelper} class first.
+     **/
+    public static JsonHelper getJsonHelper(JSONObject jsonDetails, String key, JsonHelper defValue) {
+        Object value = get(jsonDetails, key);
+        if (value != null)
+            return new JsonHelper(value);
+        else
             return defValue;
-        }
     }
 
     /** Method to get from {@link JSONObject} a list of values automatically
@@ -1668,9 +1682,63 @@ public class JsonHelper{
     }
 
     /**
+     * Method to get from JSON a jsonHelper
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param index:       index of {@link JsonHelper} to get from json
+     * @return value as {@link JsonHelper}, if it is not exist will return null
+     * @implNote this static method is useful when you have to fetch a single value from JSON avoiding
+     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
+     * JSON source is recommended instantiate {@link JsonHelper} class first.
+     **/
+    public static JsonHelper getJsonHelper(JSONArray jsonDetails, int index) {
+        return getJsonHelper(jsonDetails, index, null);
+    }
+
+    /**
+     * Method to get from JSON a jsonHelper
+     *
+     * @param jsonDetails: {@code "JSON"} from fetch data
+     * @param index:       index of {@link JsonHelper} to get from json
+     * @param defValue:    default value to return if primary value not exists
+     * @return value as {@link JsonHelper}, if it is not exist will return {@code defValue}
+     * @implNote this static method is useful when you have to fetch a single value from JSON avoiding
+     * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
+     * JSON source is recommended instantiate {@link JsonHelper} class first.
+     **/
+    public static JsonHelper getJsonHelper(JSONArray jsonDetails, int index, JsonHelper defValue) {
+        Object value = get(jsonDetails, index);
+        if (value != null)
+            return new JsonHelper(value);
+        else
+            return defValue;
+    }
+
+    /**
      * Method to get from {@link JSONObject} a jsonObject
      *
-     * @param key:      key of JSONObject to get from json
+     * @param key: key of {@link JSONObject} to get from json
+     * @return value as {@link JSONObject}, if it is not exist will return null value
+     * @throws ClassCastException: when this exception has been trowed will be returned null as default value
+     **/
+    public JSONObject getJSONObject(String key) {
+        return getJSONObject(key, null);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a jsonObject
+     *
+     * @param index: index of {@link JSONObject} to get from json
+     * @return value as {@link JSONObject}, if it is not exist will return null value
+     **/
+    public JSONObject getJSONObject(int index) {
+        return getJSONObject(index, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a jsonObject
+     *
+     * @param key:      key of {@link JSONObject} to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
@@ -1685,7 +1753,7 @@ public class JsonHelper{
     /**
      * Method to get from {@link JSONArray} a jsonObject
      *
-     * @param index:    index of JSONObject to get from json
+     * @param index:    index of {@link JSONObject} to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      **/
@@ -1695,6 +1763,56 @@ public class JsonHelper{
         } catch (Exception e) {
             return defValue;
         }
+    }
+
+    /**
+     * Method to get from JSON a jsonHelper
+     *
+     * @param key: key of {@link JsonHelper} to get from json
+     * @return value as {@link JsonHelper}, if it is not exist will return null
+     **/
+    public JsonHelper getJsonHelper(String key) {
+        return getJsonHelper(key, null);
+    }
+
+    /**
+     * Method to get from JSON a jsonHelper
+     *
+     * @param key:      key of {@link JsonHelper} to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link JsonHelper}, if it is not exist will return {@code defValue}
+     **/
+    public JsonHelper getJsonHelper(String key, JsonHelper defValue) {
+        Object value = get(key);
+        if (value != null)
+            return new JsonHelper(value);
+        else
+            return defValue;
+    }
+
+    /**
+     * Method to get from JSON a jsonHelper
+     *
+     * @param index: index of {@link JsonHelper} to get from json
+     * @return value as {@link JsonHelper}, if it is not exist will return null
+     **/
+    public JsonHelper getJsonHelper(int index) {
+        return getJsonHelper(index, null);
+    }
+
+    /**
+     * Method to get from JSON a jsonHelper
+     *
+     * @param index:    index of {@link JsonHelper} to get from json
+     * @param defValue: default value to return if primary value not exists
+     * @return value as {@link JsonHelper}, if it is not exist will return {@code defValue}
+     **/
+    public JsonHelper getJsonHelper(int index, JsonHelper defValue) {
+        Object value = get(index);
+        if (value != null)
+            return new JsonHelper(value);
+        else
+            return defValue;
     }
 
     /**

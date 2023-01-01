@@ -27,44 +27,9 @@ import static org.apache.commons.codec.binary.Hex.encodeHexString;
  *
  * @author N7ghtm4r3 - Tecknobit
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/APIRequest.md">APIRequest.md</a>
+ * @since 1.0.0
  **/
 public class APIRequest {
-
-    /**
-     * {@code GET_METHOD} is the instance that contains {@code "GET"} method for {@code "HTTP"} requests
-     *
-     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
-     **/
-    @Deprecated
-    public static final String GET_METHOD = "GET";
-    /**
-     * {@code POST_METHOD} is the instance that contains {@code "POST"} method for {@code "HTTP"} requests
-     *
-     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
-     **/
-    @Deprecated
-    public static final String POST_METHOD = "POST";
-    /**
-     * {@code DELETE_METHOD} is the instance that contains {@code "DELETE"} method for {@code "HTTP"} requests
-     *
-     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
-     **/
-    @Deprecated
-    public static final String DELETE_METHOD = "DELETE";
-    /**
-     * {@code PUT_METHOD} is the instance that contains {@code "PUT"} method for {@code "HTTP"} requests
-     *
-     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
-     **/
-    @Deprecated
-    public static final String PUT_METHOD = "PUT";
-    /**
-     * {@code PATCH_METHOD} is the instance that contains {@code "PATCH"} method for {@code "HTTP"} requests
-     *
-     * @deprecated this constant will be removed in the next update, use {@link RequestMethod}'s instances instead
-     **/
-    @Deprecated
-    public static final String PATCH_METHOD = "PATCH";
 
     /**
      * {@code DEFAULT_ERROR_RESPONSE} is constant that contains default error message if user not custom it
@@ -185,17 +150,6 @@ public class APIRequest {
     public APIRequest() {
         requestTimeout = DEFAULT_REQUEST_TIMEOUT;
         defaultErrorResponse = DEFAULT_ERROR_RESPONSE;
-    }
-
-    /**
-     * Method to get digest
-     *
-     * @param data:      data to digest as {@link String}
-     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
-     * @return digest result as byte array
-     **/
-    public static byte[] digest(String data, String algorithm) throws NoSuchAlgorithmException {
-        return digest(data.getBytes(), algorithm);
     }
 
     /**
@@ -715,6 +669,39 @@ public class APIRequest {
      **/
     public static String base64Digest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
         return new String(Base64.getEncoder().encode(digest(data, algorithm)));
+    }
+
+    /**
+     * Method to get digest
+     *
+     * @param data:      data to digest as {@link String}
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as {@link String}
+     **/
+    public static String stringDigest(String data, String algorithm) throws NoSuchAlgorithmException {
+        return encodeHexString(digest(data, algorithm));
+    }
+
+    /**
+     * Method to get digest
+     *
+     * @param data:      data to digest as byte array
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as {@link String}
+     **/
+    public static String stringDigest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
+        return encodeHexString(digest(data, algorithm));
+    }
+
+    /**
+     * Method to get digest
+     *
+     * @param data:      data to digest as {@link String}
+     * @param algorithm: algorithm used in signature -> MD5,SHA-1 or SHA-256
+     * @return digest result as byte array
+     **/
+    public static byte[] digest(String data, String algorithm) throws NoSuchAlgorithmException {
+        return digest(data.getBytes(), algorithm);
     }
 
     /**

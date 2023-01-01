@@ -15,6 +15,7 @@ import java.security.SecureRandom;
  * @author Tecknobit N7ghtm4r3
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">AES.md</a>
  * @see ClientCipher
+ * @since 2.0.2
  **/
 public class GenericServerCipher extends ClientCipher {
 

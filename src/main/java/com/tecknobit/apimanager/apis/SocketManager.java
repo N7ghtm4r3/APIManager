@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
  *
  * @author N7ghtm4r3 - Tecknobit
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">SocketManager.md</a>
+ * @since 2.0.2
  **/
 public class SocketManager {
 
