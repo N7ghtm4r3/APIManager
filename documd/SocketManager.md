@@ -10,13 +10,21 @@
 public class Client {
 
     public static void main(String[] args) throws Exception {
+        
+        //NOT CIPHERED the communication will not be automatically ciphered
+        
         SocketManager client = new SocketManager("localhost", 1000);
+        
+        //CIPHERED -- the communication will be automatically ciphered with the keys inserted
+                
+        SocketManager client = new SocketManager("localhost", 1000, new ClientCipher("ivSpec", "secretKey", algorithm));
         
         // will start the communication sending the content message
         client.writeContent("makeSomething"); 
         
         // will end the communication reading the response content message
         System.out.println(client.readContent()); // --> executed
+        
     }
     
 }
@@ -30,13 +38,27 @@ public class Client {
 public class Server {
     
     public static void main(String[] args) throws Exception {
+        
+        //NOT CIPHERED the communication will not be automatically ciphered
+        
         // set to false to allow only a single listener
         SocketManager server = new SocketManager(false); 
+        
+        //CIPHERED -- the communication will be automatically ciphered with the keys inserted
+                
+        SocketManager server = new SocketManager(false, new ClientCipher("ivSpec", "secretKey", algorithm));
+        
+        // set the default error response
+        socketManager.setDefaultErrorResponse(SocketManager.StandardResponseCode.FAILED);  
+        
+        // set the default success response
+        socketManager.setDefaultSuccessResponse(SocketManager.StandardResponseCode.SUCCESSFUL);
+        
         server.startListener(1000, new Runnable() {
             @Override
             public void run() {
                 // example of routine
-                while (true) {
+                while (socketManager.continueListening()) {
                     try {
                         // mandatory to accept the request and work on
                         server.acceptRequest(); 
@@ -48,7 +70,11 @@ public class Server {
                                 case "makeSomething":
                                      // will end the communication sending the response content message
                                     socketManager.writeContent("executed");
+                                    //or
+                                    socketManager.sendSuccessResponse();
                                     break;
+                                default:
+                                    socketManager.sendDefaultErrorResponse();
                             }
                         }
                     } catch (IOException e) {
@@ -72,7 +98,14 @@ public class Server {
 public class Client {
 
     public static void main(String[] args) throws Exception {
+        
+        //NOT CIPHERED the communication will not be automatically ciphered
+                
         SocketManager client = new SocketManager("localhost", 1000);
+        
+        //CIPHERED -- the communication will be automatically ciphered with the keys inserted
+                        
+        SocketManager client = new SocketManager("localhost", 1000, new ClientCipher("ivSpec", "secretKey", algorithm));
         
         // will start the communication with the listener with 1000 as port, 
         // sending the content message
@@ -100,16 +133,30 @@ public class Client {
 public class Server {
     
     public static void main(String[] args) throws Exception {
+        
+        //NOT CIPHERED the communication will not be automatically ciphered
+        
         // set to true to allow a multiple listeners
-        SocketManager server = new SocketManager(false);
+        SocketManager server = new SocketManager(true);
+        
+        //CIPHERED -- the communication will be automatically ciphered with the keys inserted
+                
+        SocketManager server = new SocketManager(true, new ClientCipher("ivSpec", "secretKey", algorithm));
+        
+        // set the default error response
+        socketManager.setDefaultErrorResponse(SocketManager.StandardResponseCode.FAILED);  
+        
+        // set the default success response
+        socketManager.setDefaultSuccessResponse(SocketManager.StandardResponseCode.SUCCESSFUL);
+        
         server.startListener(1000, new Runnable() {
             @Override
             public void run() {
                 // example of routine
-                while (true) {
+                while (socketManager.continueListeningOn(1000)) {
                     try {
                         // mandatory to accept the request and work on
-                        server.acceptRequest(1000); // port where accept the requests 
+                        server.acceptRequestOn(1000); // port where accept the requests 
                         
                         // will start the communication reading the content message
                         String request = server.readContent();
@@ -118,7 +165,11 @@ public class Server {
                                 case "makeSomething":
                                      // will end the communication sending the response content message
                                     socketManager.writeContent("executedFrom1000");
+                                    //or
+                                    socketManager.sendSuccessResponse();
                                     break;
+                                default:
+                                    socketManager.sendDefaultErrorResponse();
                             }
                         }
                     } catch (IOException e) {
@@ -133,10 +184,10 @@ public class Server {
             @Override
             public void run() {
                 // example of routine
-                while (true) {
+                while (socketManager.continueListeningOn(1001)) {
                     try {
                         // mandatory to accept the request and work on
-                        server.acceptRequest(1001); // port where accept the requests 
+                        server.acceptRequestOn(1001); // port where accept the requests 
                         
                         // will start the communication reading the content message
                         String request = server.readContent();
@@ -145,7 +196,11 @@ public class Server {
                                 case "makeSomething":
                                      // will end the communication sending the response content message
                                     socketManager.writeContent("executedFrom1001");
+                                    //or
+                                    socketManager.sendSuccessResponse();
                                     break;
+                                default:
+                                    socketManager.sendDefaultErrorResponse();
                             }
                         }
                     } catch (IOException e) {
