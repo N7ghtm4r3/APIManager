@@ -7,11 +7,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static com.tecknobit.apimanager.apis.APIRequest.RequestMethod.GET;
 
 /**
  * The {@code SocketManager} class is useful to dynamically manage communication by socket
@@ -31,7 +35,7 @@ public class SocketManager {
     /**
      * {@code listeners} list of listeners to use if the {@link #allowMultipleListeners} flag is set to {@code "true"}
      **/
-    private final ConcurrentHashMap<Integer, ServerSocket> listeners;
+    private final ConcurrentHashMap<Integer, Listener> listeners;
 
     /**
      * {@code allowMultipleListeners} whether accept multiple listeners at the same time
@@ -61,12 +65,23 @@ public class SocketManager {
     /**
      * {@code currentHost} current server host used in the communication
      **/
-    private String currentHost;
+    private final String currentHost;
 
     /**
      * {@code socket} socket used in the communication
      **/
     private Socket socket;
+
+    /**
+     * {@code publicHostAddress} public host address
+     **/
+    private String publicHostAddress;
+
+    /**
+     * {@code continueSingleRoutine} whether continue the routine for the single listener if {@link #allowMultipleListeners}
+     * is set to {@code "false"}
+     **/
+    private volatile boolean continueSingleRoutine;
 
     /**
      * Constructor to init {@link SocketManager}
@@ -88,14 +103,17 @@ public class SocketManager {
      * Constructor to init {@link SocketManager}
      *
      * @param allowMultipleListeners: whether accept multiple listeners at the same time
+     * @throws UnknownHostException when an error occurred
      * @apiNote this will set {@link #serverUse} to {@code "true"} and will be use as server side
      **/
-    public SocketManager(boolean allowMultipleListeners) {
+    public SocketManager(boolean allowMultipleListeners) throws UnknownHostException {
         serverUse = true;
         this.allowMultipleListeners = allowMultipleListeners;
+        currentHost = InetAddress.getLocalHost().getHostAddress();
         if (allowMultipleListeners) {
             executor = Executors.newCachedThreadPool();
             listeners = new ConcurrentHashMap<>();
+            continueSingleRoutine = false;
         } else {
             executor = Executors.newFixedThreadPool(1);
             listeners = null;
@@ -115,13 +133,14 @@ public class SocketManager {
             if (serverSocket == null || currentServerPort != port) {
                 if (allowMultipleListeners) {
                     if (!listeners.containsKey(port))
-                        listeners.put(port, new ServerSocket(port));
+                        listeners.put(port, new Listener(new ServerSocket(port), true));
                     else
                         exit("You cannot have more listeners on the same port: [" + port + "]");
                 } else {
                     if (serverSocket == null) {
                         serverSocket = new ServerSocket(port);
                         currentServerPort = port;
+                        continueSingleRoutine = true;
                     } else {
                         exit("If the \"allowMultipleListeners\" flag is set to false you cannot use multiple " +
                                 "listeners at the same time");
@@ -138,10 +157,11 @@ public class SocketManager {
      *
      * @return socket accepted as {@link Socket}
      * @apiNote this method will be executed only if the {@link #serverUse} is set to {@code "true"}
+     * @implSpec this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "false"}
      **/
-    @Wrapper(wrapper_of = "acceptRequest(int port)")
+    @Wrapper
     public Socket acceptRequest() throws IOException {
-        return acceptRequest(currentServerPort);
+        return acceptRequestOn(currentServerPort);
     }
 
     /**
@@ -149,18 +169,21 @@ public class SocketManager {
      *
      * @param port: port of the server socket where this request must be accepted and routed
      * @return socket accepted as {@link Socket}
-     * @implNote this method is useful when {@link #allowMultipleListeners} is set to {@code "true"} to use the correct
-     * server-socket instance
+     *
      * @apiNote this method will be executed only if the {@link #serverUse} is set to {@code "true"}
+     * @implSpec this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "true"}
      **/
-    public Socket acceptRequest(int port) throws IOException {
+    public Socket acceptRequestOn(int port) throws IOException {
         if (serverUse) {
             if (allowMultipleListeners) {
                 if (listeners.size() == 1)
                     port = listeners.keys().nextElement();
-                serverSocket = listeners.get(port);
+                serverSocket = listeners.get(port).getServerSocket();
             }
-            return socket = serverSocket.accept();
+            if (!serverSocket.isClosed())
+                return socket = serverSocket.accept();
+            else
+                executor.shutdown();
         }
         return null;
     }
@@ -171,7 +194,7 @@ public class SocketManager {
      * @param content: content message to send
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
      **/
-    @Wrapper(wrapper_of = "writeContentTo(String host, int port, T content)")
+    @Wrapper
     public <T> void writeContent(T content) throws IOException {
         writeContentTo(currentHost, currentServerPort, content);
     }
@@ -183,7 +206,7 @@ public class SocketManager {
      * @param port:    port of the server socket where this request must be accepted and routed
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
      **/
-    @Wrapper(wrapper_of = "writeContentTo(String host, int port, T content)")
+    @Wrapper
     public <T> void writeContentTo(int port, T content) throws IOException {
         writeContentTo(currentHost, port, content);
     }
@@ -195,7 +218,7 @@ public class SocketManager {
      * @param content: content message to send
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
      **/
-    @Wrapper(wrapper_of = "writeContentTo(String host, int port, T content)")
+    @Wrapper
     public <T> void writeContentTo(String host, T content) throws IOException {
         writeContentTo(host, currentServerPort, content);
     }
@@ -208,7 +231,7 @@ public class SocketManager {
      * @param port:    port of the server socket where this request must be accepted and routed
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
      **/
-    @Wrapper(wrapper_of = "writeContentTo(Socket targetSocket, T content)")
+    @Wrapper
     public <T> void writeContentTo(String host, int port, T content) throws IOException {
         if (!serverUse)
             socket = new Socket(host, port);
@@ -222,7 +245,7 @@ public class SocketManager {
      * @param content:      content message to send
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
      **/
-    @Wrapper(wrapper_of = "writeContentTo(Socket targetSocket, T content)")
+    @Wrapper
     public <T> void writeContentTo(Socket targetSocket, T content) throws IOException {
         PrintWriter printWriter = new PrintWriter(targetSocket.getOutputStream(), true);
         String message = content.toString();
@@ -239,7 +262,7 @@ public class SocketManager {
      *
      * @return content message received as {@link String}
      **/
-    @Wrapper(wrapper_of = "readContent(Socket targetSocket)")
+    @Wrapper
     public String readContent() throws IOException {
         return readContent(socket);
     }
@@ -260,6 +283,195 @@ public class SocketManager {
     }
 
     /**
+     * Method to get if the listener's workflow needs to continue or not <br>
+     * Any param required
+     *
+     * @implNote example of use case:
+     * <pre>
+     *     {@code
+     *          SocketManager socketManager = new SocketManager(false);
+     *          socketManager.startListener(3218, new Runnable() {
+     *             @Override
+     *             public void run() {
+     *                 while (socketManager.continueListening()) {
+     *                     // do listener's workflow
+     *                 }
+     *                 // listener's workflow when has been stopped
+     *             }
+     *         });
+     *     }
+     * </pre>
+     * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "false"}
+     **/
+    @Wrapper
+    public boolean continueListening() {
+        return continueListeningOn(currentServerPort);
+    }
+
+    /**
+     * Method to get if the listener's workflow needs to continue or not
+     *
+     * @param port: port of the listener from fetch the information about continuation of its workflow
+     * @implNote example of use case:
+     * <pre>
+     *     {@code
+     *          SocketManager socketManager = new SocketManager(true);
+     *          socketManager.startListener(3218, new Runnable() {
+     *             @Override
+     *             public void run() {
+     *                 while (socketManager.continueListeningOn(3218)) {
+     *                     // do listener's workflow
+     *                 }
+     *                 // listener's workflow when has been stopped
+     *             }
+     *         });
+     *
+     *         socketManager.startListener(8123, new Runnable() {
+     *            @Override
+     *            public void run() {
+     *                while (socketManager.continueListeningOn(8123)) {
+     *                    // do listener's workflow
+     *                }
+     *                // listener's workflow when has been stopped
+     *            }
+     *        });
+     *     }
+     * </pre>
+     * <b>Note</b>: if listener has been stopped will be removed from the {@link #listeners} list
+     * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "true"}
+     **/
+    public boolean continueListeningOn(int port) {
+        if (allowMultipleListeners) {
+            boolean continueListening = listeners.get(port).continueRoutine();
+            if (!continueListening)
+                listeners.remove(port);
+            return continueListening;
+        } else
+            return continueSingleRoutine;
+    }
+
+    /**
+     * Method to stop the listener's workflow
+     * Any param required
+     *
+     * <pre>
+     *     {@code
+     *          SocketManager socketManager = new SocketManager(false);
+     *          socketManager.startListener(3218, new Runnable() {
+     *             @Override
+     *             public void run() {
+     *                 while (socketManager.continueListening()) {
+     *                     // do listener's workflow
+     *                 }
+     *                 // listener's workflow when has been stopped
+     *             }
+     *         });
+     *
+     *         // your code's workflow
+     *
+     *         socketManager.stopListener(); // --> the single listener will be stopped
+     *     }
+     * </pre>
+     *
+     * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "false"}
+     **/
+    @Wrapper
+    public void stopListener() {
+        stopListenerOn(currentServerPort);
+    }
+
+    /**
+     * Method to stop the listener's workflow
+     *
+     * @param port: port of the listener to stop its workflow
+     * @implNote example of use case:
+     * <pre>
+     *     {@code
+     *          SocketManager socketManager = new SocketManager(true);
+     *          socketManager.startListener(3218, new Runnable() {
+     *             @Override
+     *             public void run() {
+     *                 while (socketManager.continueListeningOn(3218)) {
+     *                     // do listener's workflow
+     *                 }
+     *                 // listener's workflow when has been stopped
+     *             }
+     *         });
+     *
+     *         socketManager.startListener(8123, new Runnable() {
+     *            @Override
+     *            public void run() {
+     *                while (socketManager.continueListeningOn(8123)) {
+     *                    // do listener's workflow
+     *                }
+     *                // listener's workflow when has been stopped
+     *            }
+     *        });
+     *
+     *         // your code's workflow
+     *
+     *         socketManager.stopListenerOn(3218);
+     *        // the listener on the port '3218' will be stopped,
+     *        // while the others listener will continue with
+     *        //  their workflow
+     *     }
+     * </pre>
+     * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "true"}
+     **/
+    public void stopListenerOn(int port) {
+        if (allowMultipleListeners)
+            listeners.get(port).stopRoutine();
+        else {
+            continueSingleRoutine = false;
+            executor.shutdownNow();
+        }
+    }
+
+    /**
+     * Method to stop the listener's workflow <br>
+     * Any params required
+     *
+     * @implNote example of use case:
+     * <pre>
+     *     {@code
+     *          SocketManager socketManager = new SocketManager(true);
+     *          socketManager.startListener(3218, new Runnable() {
+     *             @Override
+     *             public void run() {
+     *                 while (socketManager.continueListeningOn(3218)) {
+     *                     // do listener's workflow
+     *                 }
+     *                 // listener's workflow when has been stopped
+     *             }
+     *         });
+     *
+     *         socketManager.startListener(8123, new Runnable() {
+     *            @Override
+     *            public void run() {
+     *                while (socketManager.continueListeningOn(8123)) {
+     *                    // do listener's workflow
+     *                }
+     *                // listener's workflow when has been stopped
+     *            }
+     *        });
+     *
+     *         // your code's workflow
+     *
+     *         socketManager.stopAllListeners();
+     *         // all the listeners will be stopped at the same time
+     *     }
+     * </pre>
+     * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "true"}
+     **/
+    public void stopAllListeners() {
+        if (allowMultipleListeners) {
+            for (Listener listener : listeners.values())
+                listener.stopRoutine();
+            executor.shutdownNow();
+        }
+    }
+
+    /**
      * Method to print an error occurred and exit with status code <b>1</b>
      *
      * @param errorMessage: error message to print
@@ -273,9 +485,9 @@ public class SocketManager {
      * Method to get {@link #listeners} instance <br>
      * Any params required
      *
-     * @return {@link #listeners} instance as {@link ConcurrentHashMap} of {@link ServerSocket}
+     * @return {@link #listeners} instance as {@link ConcurrentHashMap} of {@link Listener}
      **/
-    public ConcurrentHashMap<Integer, ServerSocket> getListeners() {
+    public ConcurrentHashMap<Integer, Listener> getListeners() {
         return listeners;
     }
 
@@ -330,13 +542,24 @@ public class SocketManager {
     }
 
     /**
-     * Method to get {@link #currentHost} instance <br>
-     * Any params required
+     * Method to get host where the server is running
      *
-     * @return {@link #currentHost} instance as {@link String}
+     * @param publicAddress: whether to get the public address or just the local address
+     * @return host as {@link String}
+     * @implNote if {@code "publicAddress"} is set to {@code "true"} will be called the <a href="https://www.ipify.org/">
+     * ipify API service</a> to fetch the public ip at the first invocation of this method, then will be use an
+     * instance instantiated at the first invocation.
      **/
-    public String getHost() {
-        return currentHost;
+    public String getHost(boolean publicAddress) throws IOException {
+        if (publicAddress) {
+            if (publicHostAddress == null) {
+                APIRequest apiRequest = new APIRequest();
+                apiRequest.sendAPIRequest("https://api.ipify.org", GET);
+                publicHostAddress = apiRequest.getResponse();
+            }
+            return publicHostAddress;
+        } else
+            return currentHost;
     }
 
     /**
@@ -372,6 +595,71 @@ public class SocketManager {
                     .put("serverPort", currentServerPort);
         }
         return msg.toString();
+    }
+
+    /**
+     * The {@code Listener} class is useful to manage dynamically the listeners when the {@link SocketManager#allowMultipleListeners}
+     * is set to {@code "true"}, allowing the communication and, eventually, the interruption of the routine of the
+     * listener
+     *
+     * @author N7ghtm4r3 - Tecknobit
+     * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">SocketManager.md</a>
+     * @since 2.0.4
+     **/
+    public static class Listener {
+
+        /**
+         * {@code serverSocket} for the listener
+         **/
+        private final ServerSocket serverSocket;
+
+        /**
+         * {@code continueRoutine} whether continue the routine
+         **/
+        private volatile boolean continueRoutine;
+
+        /**
+         * Constructor to init {@link Listener}
+         *
+         * @param serverSocket:    server socket for the listener
+         * @param continueRoutine: whether continue the routine
+         **/
+        public Listener(ServerSocket serverSocket, boolean continueRoutine) {
+            this.serverSocket = serverSocket;
+            this.continueRoutine = continueRoutine;
+        }
+
+        /**
+         * Method to get {@link #serverSocket} instance <br>
+         * Any params required
+         *
+         * @return {@link #serverSocket} instance as {@link ServerSocket}
+         **/
+        public ServerSocket getServerSocket() {
+            return serverSocket;
+        }
+
+        /**
+         * Method to get {@link #continueRoutine} instance <br>
+         * Any params required
+         *
+         * @return {@link #continueRoutine} instance as boolean
+         **/
+        public boolean continueRoutine() {
+            return continueRoutine;
+        }
+
+        /**
+         * Method to stop the routine of the listener setting {@link #continueRoutine}
+         * to {@code "false"} <br>
+         * Any params required
+         *
+         * @apiNote the listener will be stopped and will refuse all the requests to this {@link #serverSocket}
+         **/
+        public void stopRoutine() {
+            continueRoutine = false;
+        }
+
     }
 
 }
