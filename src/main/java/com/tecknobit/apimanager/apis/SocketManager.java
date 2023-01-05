@@ -32,11 +32,6 @@ import static com.tecknobit.apimanager.apis.APIRequest.RequestMethod.GET;
 public class SocketManager {
 
     /**
-     * {@code cipher} instance to cipher the communication if enabled
-     **/
-    private final ClientCipher cipher;
-
-    /**
      * {@code NEW_LINE_REPLACER} is the constants which indicates the replacer to use when the content message contains
      * multiple lines
      **/
@@ -68,6 +63,11 @@ public class SocketManager {
     private ServerSocket serverSocket;
 
     /**
+     * {@code cipher} instance to cipher the communication if enabled
+     **/
+    private final ClientCipher cipher;
+
+    /**
      * {@code currentServerPort} current server port used in the communication
      **/
     private int currentServerPort;
@@ -92,10 +92,12 @@ public class SocketManager {
      * is set to {@code "false"}
      **/
     private volatile boolean continueSingleRoutine;
+
     /**
      * {@code defaultErrorResponse} default error response
      **/
     private String defaultErrorResponse;
+
     /**
      * {@code defaultSuccessResponse} default successful response
      **/
@@ -701,6 +703,16 @@ public class SocketManager {
                 listener.stopRoutine();
             executor.shutdownNow();
         }
+    }
+
+    /**
+     * Method to stop the communication <br>
+     * Any params required
+     *
+     * @throws IOException when an error occurred during the closing of the communication
+     **/
+    public void closeCommunication() throws IOException {
+        socket.close();
     }
 
     /**

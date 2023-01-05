@@ -14,12 +14,16 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import static java.lang.Long.MAX_VALUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Base64.getDecoder;
+import static java.util.Base64.getEncoder;
 import static org.apache.commons.codec.binary.Hex.encodeHexString;
 
 /**
@@ -668,7 +672,7 @@ public class APIRequest {
      * @return digest result as {@link String} in {@link Base64} encode
      **/
     public static String base64Digest(byte[] data, String algorithm) throws NoSuchAlgorithmException {
-        return new String(Base64.getEncoder().encode(digest(data, algorithm)));
+        return new String(getEncoder().encode(digest(data, algorithm)));
     }
 
     /**
@@ -750,7 +754,7 @@ public class APIRequest {
             throw new IllegalArgumentException("Algorithm must be HmacSHA256 or HmacSHA512");
         Mac mac = Mac.getInstance(algorithm);
         mac.init(new SecretKeySpec(signatureKey, algorithm));
-        return Base64.getEncoder().encodeToString(mac.doFinal(data.getBytes()));
+        return getEncoder().encodeToString(mac.doFinal(data.getBytes()));
     }
 
     /**
@@ -762,7 +766,7 @@ public class APIRequest {
      * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
      **/
     public static String getBase64Signature(String signatureKey, String data, String algorithm) throws Exception {
-        return getBase64Signature(Base64.getDecoder().decode(signatureKey), data, algorithm);
+        return getBase64Signature(getDecoder().decode(signatureKey), data, algorithm);
     }
 
     /**
@@ -798,6 +802,18 @@ public class APIRequest {
         } catch (MalformedURLException e) {
             throw new IOException("The URL source is not a valid source: " + e.getLocalizedMessage());
         }
+    }
+
+    /**
+     * Method to create a data URI scheme
+     *
+     * @param file: file from create the data URI scheme
+     * @return <b>{@code [<media type>][;base64],data}</b> as {@link String}
+     * @throws IOException when an error occurred
+     **/
+    public static String createDataURIScheme(File file) throws IOException {
+        Path path = file.toPath();
+        return "data:" + Files.probeContentType(path) + ";base64," + getEncoder().encodeToString(Files.readAllBytes(path));
     }
 
     /**
