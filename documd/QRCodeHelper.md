@@ -17,6 +17,12 @@ public class QRCode {
             // This will create a file at "yourPath/file.itsSuffix" with a custom dimensions QRCode
             qrCodeHelper.createQRCode("YOUR DATA", "yourPath/file.itsSuffix", 250, 200);
             
+            // This will read a QRCode and shows its content
+            qrCodeHelper.readQRCode("yourPath/file.itsSuffix");
+            
+            // This will read a QRCode and shows its content
+            qrCodeHelper.readQRCode(new File("yourPath/file.itsSuffix"));
+            
             // DEFAULT HTML PAGE
             
             // This will create and host a temporary file at "yourPath/file.itsSuffix" with a squared QRCode
@@ -42,6 +48,15 @@ public class QRCode {
             // This will create and host a temporary file at "yourPath/file.itsSuffix" with a custom dimensions QRCode
             qrCodeHelper.hostQRCode(/*your_port*/,"YOUR DATA", "yourPath/file.itsSuffix", 250, 200, false, 
                     new File("yourPath/customPage.html"));
+            
+            // This will stop the single running host 
+            qrCodeHelper.stopHosting();
+            
+            // This will stop the running host on "your_port"
+            qrCodeHelper.stopHostingOn(/*your_port*/);
+            
+            // This will stop all the running hosts
+            qrCodeHelper.stopAllHosting();
             
         }
         

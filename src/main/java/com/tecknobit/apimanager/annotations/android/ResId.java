@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
  * @apiNote This annotation is useful in an Android's environment
  */
 @Retention(RetentionPolicy.CLASS)
-@Target(ElementType.PARAMETER)
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 public @interface ResId {
 
     /**
@@ -32,6 +32,13 @@ public @interface ResId {
      *
      * @apiNote (id, string, drawable, etc.)
      **/
-    int id();
+    int id() default 0;
+
+    /**
+     * {@code ids} of the resources to use
+     *
+     * @apiNote (id, string, drawable, etc.)
+     **/
+    int[] ids() default {};
 
 }

@@ -1,12 +1,19 @@
 package com.tecknobit.apimanager.apis;
 
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.tecknobit.apimanager.annotations.Wrapper;
 
+import javax.imageio.ImageIO;
 import java.io.*;
 import java.nio.file.Path;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.google.zxing.BarcodeFormat.QR_CODE;
 
@@ -32,6 +39,11 @@ public class QRCodeHelper {
      * </ul>
      **/
     public static final String HTML_REPLACER = "<qrcode>";
+
+    /**
+     * {@code hosts} list of current active hosts
+     **/
+    private static final ConcurrentHashMap<Integer, SocketManager> hosts = new ConcurrentHashMap<>();
 
     /**
      * Method to create a squared QRCode file
@@ -63,6 +75,34 @@ public class QRCodeHelper {
                     path.split("\\.")[1], Path.of(path));
         } else
             throw new IllegalArgumentException("Path must specific its suffix");
+    }
+
+    /**
+     * Method to read QRCode
+     *
+     * @param QRCodePath: path where find the QRCode
+     * @return content of the QRCode as {@link String}
+     * @throws IOException when an error is occurred during reading of the QRCODE
+     **/
+    @Wrapper
+    public String readQRCode(String QRCodePath) throws IOException {
+        return readQRCode(new File(QRCodePath));
+    }
+
+    /**
+     * Method to read QRCode
+     *
+     * @param QRCode: QRCode file to read
+     * @return content of the QRCode as {@link String}
+     * @throws IOException when an error is occurred during reading of the QRCODE
+     **/
+    public String readQRCode(File QRCode) throws IOException {
+        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(ImageIO.read(QRCode))));
+        try {
+            return new MultiFormatReader().decode(bitmap).getText();
+        } catch (NotFoundException e) {
+            throw new IOException("Invalid QR-Code");
+        }
     }
 
     /**
@@ -205,6 +245,7 @@ public class QRCodeHelper {
         SocketManager socketManager = new SocketManager(false);
         socketManager.startListener(port, () -> {
             if (perpetual) {
+                hosts.put(port, socketManager);
                 while (socketManager.continueListening()) {
                     try {
                         hostQRCode(data, path, width, height, socketManager, html);
@@ -240,7 +281,7 @@ public class QRCodeHelper {
      **/
     private <T> void hostQRCode(T data, String path, int width, int height, SocketManager socketManager, String html) {
         try {
-            socketManager.acceptRequest();
+            System.out.println(SocketManager.getIpAddress(socketManager.acceptRequest()));
             String suffix = "." + path.split("\\.")[1];
             File tmpQR = File.createTempFile(path.replace(suffix, ""), suffix);
             MatrixToImageWriter.writeToStream(new QRCodeWriter().encode(data.toString(), QR_CODE, width, height),
@@ -265,8 +306,55 @@ public class QRCodeHelper {
             }
             socketManager.writeContent(content);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            if (!e.getLocalizedMessage().contains("Socket closed"))
+                throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Method to stop a single hosting <br>
+     * Any params required
+     *
+     * @throws IllegalStateException when there are multiple listeners which can be stopped
+     * @throws IOException           when an error occurred
+     **/
+    @Wrapper
+    public void stopHosting() throws IOException {
+        if (hosts.size() == 1)
+            stopHostingOn(hosts.keys().nextElement());
+        else
+            throw new IllegalStateException("There are multiple listeners which can be stopped, you must insert the port");
+    }
+
+    /**
+     * Method to stop a single hosting
+     *
+     * @param port: port of the host to stop
+     * @throws IOException           when an error occurred
+     * @throws IllegalStateException when there are no-any host on that port found
+     **/
+    public void stopHostingOn(int port) throws IOException {
+        SocketManager socketManager = hosts.get(port);
+        if (socketManager != null) {
+            socketManager.getActiveServerSocket().close();
+            socketManager.stopListener();
+            hosts.remove(port);
+        } else
+            throw new IllegalStateException("No-any host on that port found");
+    }
+
+    /**
+     * Method to stop all the active hosting<br>
+     * Any params required
+     *
+     * @throws IOException when an error occurred
+     **/
+    public void stopAllHosting() throws IOException {
+        for (SocketManager manager : hosts.values()) {
+            manager.getActiveServerSocket().close();
+            manager.stopListener();
+        }
+        hosts.clear();
     }
 
 }

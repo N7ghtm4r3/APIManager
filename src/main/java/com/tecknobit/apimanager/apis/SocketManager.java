@@ -12,10 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -706,13 +703,13 @@ public class SocketManager {
     }
 
     /**
-     * Method to stop the communication <br>
-     * Any params required
+     * This method is used to get an ip address from a {@link Socket}
      *
-     * @throws IOException when an error occurred during the closing of the communication
+     * @param socket: socket from fetch the ip
+     * @return ip address as {@link String}
      **/
-    public void closeCommunication() throws IOException {
-        socket.close();
+    public static String getIpAddress(Socket socket) {
+        return ((InetSocketAddress) socket.getRemoteSocketAddress()).getAddress().getHostAddress();
     }
 
     /**
@@ -866,6 +863,17 @@ public class SocketManager {
             return cipher.getStringSecretKey();
         else
             return null;
+    }
+
+    /**
+     * Method to stop the communication <br>
+     * Any params required
+     *
+     * @throws IOException when an error occurred during the closing of the communication
+     **/
+    public void closeCommunication() throws IOException {
+        if (socket != null && !socket.isClosed())
+            socket.close();
     }
 
     /**
