@@ -487,7 +487,7 @@ public class SocketManager {
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
      **/
     @Wrapper
-    public <T> void writePlainContentTo(T content) throws Exception {
+    public <T> void writePlainContent(T content) throws Exception {
         writePlainContentTo(currentHost, currentServerPort, content);
     }
 
@@ -590,7 +590,7 @@ public class SocketManager {
      * @throws Exception when some errors have been occurred
      **/
     public String readLastContent() throws Exception {
-        if (cipher != null)
+        if (cipher == null)
             return lastContentRed;
         else
             return cipher.decrypt(lastContentRed);
@@ -898,46 +898,6 @@ public class SocketManager {
     }
 
     /**
-     * Method to change the cipher keys during the runtime
-     *
-     * @param ivSpec:    initialization vector as {@link String}
-     * @param secretKey: secret key as {@link String}
-     * @throws Exception when an error occurred
-     **/
-    @Wrapper
-    public void changeCipherKeys(String ivSpec, String secretKey) throws Exception {
-        changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey));
-    }
-
-    /**
-     * Method to change the cipher keys during the runtime
-     *
-     * @param ivSpec:    initialization vector as {@link String}
-     * @param secretKey: secret key as {@link String}
-     * @param algorithm: algorithm used by the {@link #cipher}
-     * @throws Exception when an error occurred
-     **/
-    @Wrapper
-    public void changeCipherKeys(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
-        changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey), algorithm);
-    }
-
-    /**
-     * Method to change the cipher keys during the runtime
-     *
-     * @param ivSpec:    initialization vector as {@link IvParameterSpec}
-     * @param secretKey: secret key as {@link SecretKey}
-     * @throws Exception when an error occurred
-     **/
-    @Wrapper
-    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey) throws Exception {
-        if (cipher != null)
-            changeCipherKeys(ivSpec, secretKey, cipher.getAlgorithm());
-        else
-            throw new Exception("The cipher of the messages is not enabled, you must use the dedicated constructor first");
-    }
-
-    /**
      * This method is used to get the initialization vector <br>
      * Any params required
      *
@@ -987,6 +947,46 @@ public class SocketManager {
             return cipher.getStringSecretKey();
         else
             return null;
+    }
+
+    /**
+     * Method to change the cipher keys during the runtime
+     *
+     * @param ivSpec:    initialization vector as {@link String}
+     * @param secretKey: secret key as {@link String}
+     * @throws Exception when an error occurred
+     **/
+    @Wrapper
+    public void changeCipherKeys(String ivSpec, String secretKey) throws Exception {
+        changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey));
+    }
+
+    /**
+     * Method to change the cipher keys during the runtime
+     *
+     * @param ivSpec:    initialization vector as {@link String}
+     * @param secretKey: secret key as {@link String}
+     * @param algorithm: algorithm used by the {@link #cipher}
+     * @throws Exception when an error occurred
+     **/
+    @Wrapper
+    public void changeCipherKeys(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
+        changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey), algorithm);
+    }
+
+    /**
+     * Method to change the cipher keys during the runtime
+     *
+     * @param ivSpec:    initialization vector as {@link IvParameterSpec}
+     * @param secretKey: secret key as {@link SecretKey}
+     * @throws Exception when an error occurred
+     **/
+    @Wrapper
+    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey) throws Exception {
+        if (cipher != null)
+            changeCipherKeys(ivSpec, secretKey, cipher.getAlgorithm());
+        else
+            throw new Exception("The cipher of the messages is not enabled, you must use the dedicated constructor first");
     }
 
     /**
