@@ -103,6 +103,11 @@ public class SocketManager {
     private String defaultSuccessResponse;
 
     /**
+     * {@code lastContentRed} last content red with {@link #readContent()} or {@link #readContent(Socket)}
+     **/
+    private String lastContentRed;
+
+    /**
      * Constructor to init {@link SocketManager}
      *
      * @param host:       server host used in the communication
@@ -456,28 +461,6 @@ public class SocketManager {
     }
 
     /**
-     * This method is used to get an ip address from a {@link Socket}
-     *
-     * @param socket: socket from fetch the ip
-     * @return ip address as {@link String}
-     **/
-    public static String getIpAddress(Socket socket) {
-        return ((InetSocketAddress) socket.getRemoteSocketAddress()).getAddress().getHostAddress();
-    }
-
-    /**
-     * Method to read a content message received with the socket request <br>
-     * Any params required
-     *
-     * @return content message received as {@link String}
-     * @throws Exception when some errors have been occurred
-     **/
-    @Wrapper
-    public String readContent() throws Exception {
-        return readContent(socket);
-    }
-
-    /**
      * Method to write a content message to send with the socket request
      *
      * @param targetSocket: target socket to use to send the content message
@@ -495,6 +478,51 @@ public class SocketManager {
         if (cipher != null)
             message = cipher.encrypt(message.replaceAll("\n", NEW_LINE_REPLACER));
         printWriter.println(message);
+    }
+
+    /**
+     * Method to read a content message received with the socket request <br>
+     * Any params required
+     *
+     * @return content message received as {@link String}
+     * @throws Exception when some errors have been occurred
+     **/
+    @Wrapper
+    public String readContent() throws Exception {
+        return readContent(socket);
+    }
+
+    /**
+     * Method to read a content message received with the socket request
+     *
+     * @param targetSocket: target socket to use to receive the content message
+     * @return content message received as {@link String}
+     * @throws Exception when some errors have been occurred
+     **/
+    public String readContent(Socket targetSocket) throws Exception {
+        String content = new BufferedReader(new InputStreamReader(targetSocket.getInputStream())).readLine();
+        lastContentRed = content;
+        if (cipher != null)
+            content = cipher.decrypt(content);
+        if (!serverUse || content == null)
+            targetSocket.close();
+        if (content != null)
+            content = content.replaceAll(NEW_LINE_REPLACER, "\n");
+        return content;
+    }
+
+    /**
+     * Method to read the last content message red in the stream with the socket request <br>
+     * Any params required
+     *
+     * @return last content message red as {@link String}
+     * @throws Exception when some errors have been occurred
+     **/
+    public String readLastContent() throws Exception {
+        if (cipher != null)
+            return lastContentRed;
+        else
+            return cipher.decrypt(lastContentRed);
     }
 
     /**
@@ -684,24 +712,6 @@ public class SocketManager {
                 listener.stopRoutine();
             executor.shutdownNow();
         }
-    }
-
-    /**
-     * Method to read a content message received with the socket request
-     *
-     * @param targetSocket: target socket to use to receive the content message
-     * @return content message received as {@link String}
-     * @throws Exception when some errors have been occurred
-     **/
-    public String readContent(Socket targetSocket) throws Exception {
-        String content = new BufferedReader(new InputStreamReader(targetSocket.getInputStream())).readLine();
-        if (cipher != null)
-            content = cipher.decrypt(content);
-        if (!serverUse || content == null)
-            targetSocket.close();
-        if (content != null)
-            content = content.replaceAll(NEW_LINE_REPLACER, "\n");
-        return content;
     }
 
     /**
@@ -984,6 +994,16 @@ public class SocketManager {
             return code;
         }
 
+    }
+
+    /**
+     * This method is used to get an ip address from a {@link Socket}
+     *
+     * @param socket: socket from fetch the ip
+     * @return ip address as {@link String}
+     **/
+    public static String getIpAddress(Socket socket) {
+        return ((InetSocketAddress) socket.getRemoteSocketAddress()).getAddress().getHostAddress();
     }
 
     /**
