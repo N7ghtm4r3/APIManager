@@ -18,6 +18,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static com.tecknobit.apimanager.apis.APIRequest.RequestMethod.GET;
+import static com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.createIvParameter;
+import static com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.createSecretKey;
 
 /**
  * The {@code SocketManager} class is useful to dynamically manage communication by socket
@@ -454,23 +456,13 @@ public class SocketManager {
     }
 
     /**
-     * Method to write a content message to send with the socket request
+     * This method is used to get an ip address from a {@link Socket}
      *
-     * @param targetSocket: target socket to use to send the content message
-     * @param content:      content message to send
-     * @throws Exception when some errors have been occurred
-     * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
+     * @param socket: socket from fetch the ip
+     * @return ip address as {@link String}
      **/
-    public <T> void writeContentTo(Socket targetSocket, T content) throws Exception {
-        PrintWriter printWriter = new PrintWriter(targetSocket.getOutputStream(), true);
-        String message = content.toString();
-        if (message.contains(NEW_LINE_REPLACER)) {
-            socket.close();
-            exit("\"@-/-/-@\" is a reserved char, please do not insert it");
-        }
-        if (cipher != null)
-            message = cipher.encryptRequest(message.replaceAll("\n", NEW_LINE_REPLACER));
-        printWriter.println(message);
+    public static String getIpAddress(Socket socket) {
+        return ((InetSocketAddress) socket.getRemoteSocketAddress()).getAddress().getHostAddress();
     }
 
     /**
@@ -486,31 +478,23 @@ public class SocketManager {
     }
 
     /**
-     * Method to read a content message received with the socket request
+     * Method to write a content message to send with the socket request
      *
-     * @param targetSocket: target socket to use to receive the content message
-     * @return content message received as {@link String}
+     * @param targetSocket: target socket to use to send the content message
+     * @param content:      content message to send
      * @throws Exception when some errors have been occurred
+     * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
      **/
-    public String readContent(Socket targetSocket) throws Exception {
-        String content = new BufferedReader(new InputStreamReader(targetSocket.getInputStream())).readLine();
+    public <T> void writeContentTo(Socket targetSocket, T content) throws Exception {
+        PrintWriter printWriter = new PrintWriter(targetSocket.getOutputStream(), true);
+        String message = content.toString();
+        if (message.contains(NEW_LINE_REPLACER)) {
+            socket.close();
+            exit("\"@-/-/-@\" is a reserved char, please do not insert it");
+        }
         if (cipher != null)
-            content = cipher.decryptResponse(content);
-        if (!serverUse || content == null)
-            targetSocket.close();
-        if (content != null)
-            content = content.replaceAll(NEW_LINE_REPLACER, "\n");
-        return content;
-    }
-
-    /**
-     * Method to get {@link #cipher} instance <br>
-     * Any params required
-     *
-     * @return {@link #cipher} instance as {@link ClientCipher}
-     **/
-    public ClientCipher getCipher() {
-        return cipher;
+            message = cipher.encrypt(message.replaceAll("\n", NEW_LINE_REPLACER));
+        printWriter.println(message);
     }
 
     /**
@@ -703,13 +687,21 @@ public class SocketManager {
     }
 
     /**
-     * This method is used to get an ip address from a {@link Socket}
+     * Method to read a content message received with the socket request
      *
-     * @param socket: socket from fetch the ip
-     * @return ip address as {@link String}
+     * @param targetSocket: target socket to use to receive the content message
+     * @return content message received as {@link String}
+     * @throws Exception when some errors have been occurred
      **/
-    public static String getIpAddress(Socket socket) {
-        return ((InetSocketAddress) socket.getRemoteSocketAddress()).getAddress().getHostAddress();
+    public String readContent(Socket targetSocket) throws Exception {
+        String content = new BufferedReader(new InputStreamReader(targetSocket.getInputStream())).readLine();
+        if (cipher != null)
+            content = cipher.decrypt(content);
+        if (!serverUse || content == null)
+            targetSocket.close();
+        if (content != null)
+            content = content.replaceAll(NEW_LINE_REPLACER, "\n");
+        return content;
     }
 
     /**
@@ -814,6 +806,57 @@ public class SocketManager {
     }
 
     /**
+     * Method to stop the communication <br>
+     * Any params required
+     *
+     * @throws IOException when an error occurred during the closing of the communication
+     **/
+    public void closeCommunication() throws IOException {
+        if (socket != null && !socket.isClosed())
+            socket.close();
+    }
+
+    /**
+     * Method to change the cipher keys during the runtime
+     *
+     * @param ivSpec:    initialization vector as {@link String}
+     * @param secretKey: secret key as {@link String}
+     * @throws Exception when an error occurred
+     **/
+    @Wrapper
+    public void changeCipherKeys(String ivSpec, String secretKey) throws Exception {
+        changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey));
+    }
+
+    /**
+     * Method to change the cipher keys during the runtime
+     *
+     * @param ivSpec:    initialization vector as {@link String}
+     * @param secretKey: secret key as {@link String}
+     * @param algorithm: algorithm used by the {@link #cipher}
+     * @throws Exception when an error occurred
+     **/
+    @Wrapper
+    public void changeCipherKeys(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
+        changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey), algorithm);
+    }
+
+    /**
+     * Method to change the cipher keys during the runtime
+     *
+     * @param ivSpec:    initialization vector as {@link IvParameterSpec}
+     * @param secretKey: secret key as {@link SecretKey}
+     * @throws Exception when an error occurred
+     **/
+    @Wrapper
+    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey) throws Exception {
+        if (cipher != null)
+            changeCipherKeys(ivSpec, secretKey, cipher.getAlgorithm());
+        else
+            throw new Exception("The cipher of the messages is not enabled, you must use the dedicated constructor first");
+    }
+
+    /**
      * This method is used to get the initialization vector <br>
      * Any params required
      *
@@ -866,14 +909,30 @@ public class SocketManager {
     }
 
     /**
-     * Method to stop the communication <br>
+     * Method to change the cipher keys during the runtime
+     *
+     * @param ivSpec:    initialization vector as {@link IvParameterSpec}
+     * @param secretKey: secret key as {@link SecretKey}
+     * @param algorithm: algorithm used by the {@link #cipher}
+     * @throws Exception when an error occurred
+     **/
+    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {
+        if (cipher != null) {
+            cipher.setIvParameterSpec(ivSpec);
+            cipher.setSecretKey(secretKey);
+            cipher.setAlgorithm(algorithm);
+        } else
+            throw new Exception("The cipher of the messages is not enabled, you must use the dedicated constructor first");
+    }
+
+    /**
+     * Method to get {@link #cipher} instance <br>
      * Any params required
      *
-     * @throws IOException when an error occurred during the closing of the communication
+     * @return {@link #cipher} instance as {@link ClientCipher}
      **/
-    public void closeCommunication() throws IOException {
-        if (socket != null && !socket.isClosed())
-            socket.close();
+    public ClientCipher getCipher() {
+        return cipher;
     }
 
     /**

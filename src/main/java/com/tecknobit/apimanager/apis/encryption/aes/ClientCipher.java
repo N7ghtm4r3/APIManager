@@ -32,12 +32,12 @@ public class ClientCipher {
     /**
      * {@code ivParameterSpec} is instance that memorizes initialization vector used for the {@link #cipher}
      **/
-    protected final IvParameterSpec ivParameterSpec;
+    protected IvParameterSpec ivParameterSpec;
 
     /**
      * {@code secretKey} is instance that memorizes secret key used for the {@link #cipher}
      **/
-    protected final SecretKey secretKey;
+    protected SecretKey secretKey;
 
     /**
      * {@code cipher} is instance that memorizes {@link Cipher} object
@@ -47,7 +47,7 @@ public class ClientCipher {
     /**
      * {@code algorithm} is instance that memorizes algorithm for {@link #cipher}
      **/
-    protected final Algorithm algorithm;
+    protected Algorithm algorithm;
 
     /**
      * Constructor to init {@link ClientCipher}
@@ -104,6 +104,16 @@ public class ClientCipher {
     }
 
     /**
+     * This method is used to get {@link #cipher} instance <br>
+     * Any params required
+     *
+     * @return {@link #cipher} instance as {@link Cipher}
+     **/
+    public Cipher getCipher() {
+        return cipher;
+    }
+
+    /**
      * This method is used to obtain a byte array from a {@link Base64} {@link String}
      *
      * @param sourceString: source to get byte
@@ -111,6 +121,16 @@ public class ClientCipher {
      **/
     public static byte[] stringToBytes(String sourceString) {
         return getDecoder().decode(sourceString);
+    }
+
+    /**
+     * This method is used to get {@link #algorithm} instance <br>
+     * Any params required
+     *
+     * @return {@link #algorithm} instance as {@link Algorithm}
+     **/
+    public Algorithm getAlgorithm() {
+        return algorithm;
     }
 
     /**
@@ -129,42 +149,10 @@ public class ClientCipher {
      * @param request: request to cipher
      * @return plain request ciphered as {@link String} es. 26XBx/esnnrehi/GH3tpnQ==
      **/
-    public String encryptRequest(String request) throws IllegalBlockSizeException, BadPaddingException,
+    public String encrypt(String request) throws IllegalBlockSizeException, BadPaddingException,
             InvalidAlgorithmParameterException, InvalidKeyException {
         cipher.init(ENCRYPT_MODE, secretKey, ivParameterSpec);
         return getEncoder().encodeToString(cipher.doFinal(request.getBytes()));
-    }
-
-    /**
-     * This method is used to decrypt a response
-     *
-     * @param response: response to decrypt
-     * @return plain response decrypted as {@link String} es. your plain text
-     **/
-    public String decryptResponse(String response) throws IllegalBlockSizeException, BadPaddingException,
-            InvalidAlgorithmParameterException, InvalidKeyException {
-        cipher.init(DECRYPT_MODE, secretKey, ivParameterSpec);
-        return new String(cipher.doFinal(getDecoder().decode(response)));
-    }
-
-    /**
-     * This method is used to get {@link #cipher} instance <br>
-     * Any params required
-     *
-     * @return {@link #cipher} instance as {@link Cipher}
-     **/
-    public Cipher getCipher() {
-        return cipher;
-    }
-
-    /**
-     * This method is used to get {@link #algorithm} instance <br>
-     * Any params required
-     *
-     * @return {@link #algorithm} instance as {@link Algorithm}
-     **/
-    public Algorithm getAlgorithm() {
-        return algorithm;
     }
 
     /**
@@ -188,6 +176,27 @@ public class ClientCipher {
     }
 
     /**
+     * This method is used to decrypt a response
+     *
+     * @param response: response to decrypt
+     * @return plain response decrypted as {@link String} es. your plain text
+     **/
+    public String decrypt(String response) throws IllegalBlockSizeException, BadPaddingException,
+            InvalidAlgorithmParameterException, InvalidKeyException {
+        cipher.init(DECRYPT_MODE, secretKey, ivParameterSpec);
+        return new String(cipher.doFinal(getDecoder().decode(response)));
+    }
+
+    /**
+     * This method is used to set the {@link #algorithm} instance
+     *
+     * @param algorithm: algorithm used by {@link #cipher}
+     **/
+    public void setAlgorithm(Algorithm algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    /**
      * This method is used to get {@link #secretKey} instance <br>
      * Any params required
      *
@@ -205,6 +214,42 @@ public class ClientCipher {
      **/
     public String getStringSecretKey() {
         return byteToString(secretKey.getEncoded());
+    }
+
+    /**
+     * This method is used to set the {@link #ivParameterSpec} instance
+     *
+     * @param ivParameterSpec: initialization vector used by {@link #cipher}
+     **/
+    public void setIvParameterSpec(String ivParameterSpec) {
+        this.ivParameterSpec = createIvParameter(ivParameterSpec);
+    }
+
+    /**
+     * This method is used to set the {@link #ivParameterSpec} instance
+     *
+     * @param ivParameterSpec: initialization vector used by {@link #cipher}
+     **/
+    public void setIvParameterSpec(IvParameterSpec ivParameterSpec) {
+        this.ivParameterSpec = ivParameterSpec;
+    }
+
+    /**
+     * This method is used to set the {@link #secretKey} instance
+     *
+     * @param secretKey: secret key used by {@link #cipher}
+     **/
+    public void setSecretKey(String secretKey) {
+        this.secretKey = createSecretKey(secretKey);
+    }
+
+    /**
+     * This method is used to set the {@link #secretKey} instance
+     *
+     * @param secretKey: secret key used by {@link #cipher}
+     **/
+    public void setSecretKey(SecretKey secretKey) {
+        this.secretKey = secretKey;
     }
 
     /**

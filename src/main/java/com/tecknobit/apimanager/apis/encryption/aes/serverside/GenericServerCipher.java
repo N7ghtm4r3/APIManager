@@ -2,10 +2,11 @@ package com.tecknobit.apimanager.apis.encryption.aes.serverside;
 
 import com.tecknobit.apimanager.apis.encryption.aes.ClientCipher;
 
-import javax.crypto.*;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
@@ -94,28 +95,6 @@ public class GenericServerCipher extends ClientCipher {
      **/
     public static String createSecretKeyString(KeySize keySize) throws NoSuchAlgorithmException {
         return byteToString(createSecretKey(keySize).getEncoded());
-    }
-
-    /**
-     * This method is used to decryptResponse a request
-     *
-     * @param request: request to decryptResponse
-     * @return plain request decrypted as {@link String} es. your plain text
-     **/
-    public String decryptRequest(String request) throws InvalidAlgorithmParameterException, IllegalBlockSizeException,
-            BadPaddingException, InvalidKeyException {
-        return decryptResponse(request);
-    }
-
-    /**
-     * This method is used to encryptRequest a response
-     *
-     * @param response: response to cipher
-     * @return plain response ciphered as {@link String} es. 26XBx/esnnrehi/GH3tpnQ==
-     **/
-    public String encryptResponse(String response) throws InvalidAlgorithmParameterException, IllegalBlockSizeException,
-            BadPaddingException, InvalidKeyException {
-        return encryptRequest(response);
     }
 
     /**

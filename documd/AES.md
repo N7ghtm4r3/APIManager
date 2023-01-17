@@ -32,7 +32,7 @@ public class Client {
     public static void main(String[] args) throws Exception {
         Algorithm algorithm = Algorithm.CBC_ALGORITHM;
         ClientCipher cipher = new ClientCipher(IV_SPEC, SECRET_KEY, algorithm);
-        System.out.println(cipher.encryptRequest("your plain text"));
+        System.out.println(cipher.encrypt("your plain text"));
     }
     //output: 26XBx/esnnrehi/GH3tpnQ==
 }
@@ -50,7 +50,7 @@ public class Server {
     public static void main(String[] args) throws Exception {
         KeySize keySize = KeySize.k256;
         CBCServerCipher serverCipher = new CBCServerCipher(IV_SPEC, SECRET_KEY, keySize); 
-        System.out.println(cipher.decryptRequest("26XBx/esnnrehi/GH3tpnQ=="));
+        System.out.println(cipher.decrypt("26XBx/esnnrehi/GH3tpnQ=="));
     }
     //output: your plain text
 }
