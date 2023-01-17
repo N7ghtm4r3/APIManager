@@ -64,7 +64,7 @@ public class SocketManager {
     /**
      * {@code cipher} instance to cipher the communication if enabled
      **/
-    private final ClientCipher cipher;
+    private ClientCipher cipher;
 
     /**
      * {@code currentServerPort} current server port used in the communication
@@ -469,7 +469,6 @@ public class SocketManager {
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
      **/
     public <T> void writeContentTo(Socket targetSocket, T content) throws Exception {
-        PrintWriter printWriter = new PrintWriter(targetSocket.getOutputStream(), true);
         String message = content.toString();
         if (message.contains(NEW_LINE_REPLACER)) {
             socket.close();
@@ -477,6 +476,78 @@ public class SocketManager {
         }
         if (cipher != null)
             message = cipher.encrypt(message.replaceAll("\n", NEW_LINE_REPLACER));
+        writePlainContentTo(targetSocket, message);
+    }
+
+    /**
+     * Method to write a plain content message to send with the socket request
+     *
+     * @param content: content message to send
+     * @throws Exception when some errors have been occurred
+     * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
+     **/
+    @Wrapper
+    public <T> void writePlainContentTo(T content) throws Exception {
+        writePlainContentTo(currentHost, currentServerPort, content);
+    }
+
+    /**
+     * Method to write a plain content message to send with the socket request
+     *
+     * @param content: content message to send
+     * @param port:    port of the server socket where this request must be accepted and routed
+     * @throws Exception when some errors have been occurred
+     * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
+     **/
+    @Wrapper
+    public <T> void writePlainContentTo(int port, T content) throws Exception {
+        writePlainContentTo(currentHost, port, content);
+    }
+
+    /**
+     * Method to write a plain content message to send with the socket request
+     *
+     * @param host:    host of the server socket where this request must be accepted and routed
+     * @param content: content message to send
+     * @throws Exception when some errors have been occurred
+     * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
+     **/
+    @Wrapper
+    public <T> void writePlainContentTo(String host, T content) throws Exception {
+        writePlainContentTo(host, currentServerPort, content);
+    }
+
+    /**
+     * Method to write a plain content message to send with the socket request
+     *
+     * @param host:    host of the server socket where this request must be accepted and routed
+     * @param content: content message to send
+     * @param port:    port of the server socket where this request must be accepted and routed
+     * @throws Exception when some errors have been occurred
+     * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
+     **/
+    @Wrapper
+    public <T> void writePlainContentTo(String host, int port, T content) throws Exception {
+        if (!serverUse)
+            socket = new Socket(host, port);
+        writePlainContentTo(socket, content);
+    }
+
+    /**
+     * Method to write a plain content message to send with the socket request
+     *
+     * @param targetSocket: target socket to use to send the content message
+     * @param content:      content message to send
+     * @throws Exception when some errors have been occurred
+     * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
+     **/
+    public <T> void writePlainContentTo(Socket targetSocket, T content) throws Exception {
+        PrintWriter printWriter = new PrintWriter(targetSocket.getOutputStream(), true);
+        String message = content.toString();
+        if (message.contains(NEW_LINE_REPLACER)) {
+            socket.close();
+            exit("\"@-/-/-@\" is a reserved char, please do not insert it");
+        }
         printWriter.println(message);
     }
 
@@ -933,6 +1004,44 @@ public class SocketManager {
             cipher.setAlgorithm(algorithm);
         } else
             throw new Exception("The cipher of the messages is not enabled, you must use the dedicated constructor first");
+    }
+
+    /**
+     * Method to set the {@link #cipher} instance
+     *
+     * @param ivSpec:    initialization vector as {@link String}
+     * @param secretKey: secret key as {@link String}
+     * @param algorithm: algorithm used by the {@link #cipher}
+     * @throws Exception when an error occurred
+     * @apiNote this will enable the auto-cipher of the communication
+     **/
+    @Wrapper
+    public void setCipher(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
+        setCipher(createIvParameter(ivSpec), createSecretKey(secretKey), algorithm);
+    }
+
+    /**
+     * Method to set the {@link #cipher} instance
+     *
+     * @param ivSpec:    initialization vector as {@link IvParameterSpec}
+     * @param secretKey: secret key as {@link SecretKey}
+     * @param algorithm: algorithm used by the {@link #cipher}
+     * @throws Exception when an error occurred
+     * @apiNote this will enable the auto-cipher of the communication
+     **/
+    @Wrapper
+    public void setCipher(IvParameterSpec ivSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {
+        setCipher(new ClientCipher(ivSpec, secretKey, algorithm));
+    }
+
+    /**
+     * Method to set the {@link #cipher} instance
+     *
+     * @param cipher: cipher to use
+     * @apiNote this will enable the auto-cipher of the communication
+     **/
+    public void setCipher(ClientCipher cipher) {
+        this.cipher = cipher;
     }
 
     /**
