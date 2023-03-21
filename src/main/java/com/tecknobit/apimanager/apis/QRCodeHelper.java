@@ -281,7 +281,6 @@ public class QRCodeHelper {
      **/
     private <T> void hostQRCode(T data, String path, int width, int height, SocketManager socketManager, String html) {
         try {
-            System.out.println(SocketManager.getIpAddress(socketManager.acceptRequest()));
             String suffix = "." + path.split("\\.")[1];
             File tmpQR = File.createTempFile(path.replace(suffix, ""), suffix);
             MatrixToImageWriter.writeToStream(new QRCodeWriter().encode(data.toString(), QR_CODE, width, height),

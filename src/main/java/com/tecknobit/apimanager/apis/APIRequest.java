@@ -895,8 +895,6 @@ public class APIRequest {
             String header = headerValue.toString();
             if (headerKey == null || headerKey.isEmpty())
                 throw new IllegalArgumentException("Key of the header cannot be null or blank");
-            if (header == null || header.isEmpty())
-                throw new IllegalArgumentException("Value of the header cannot be null or blank");
             headers.put(headerKey, header);
         }
 
@@ -1013,8 +1011,6 @@ public class APIRequest {
         public <T> void addParam(String keyParam, T valueParam) {
             if (keyParam == null || keyParam.isEmpty())
                 throw new IllegalArgumentException("Key of the param cannot be null or blank");
-            if (valueParam == null || valueParam.equals(""))
-                throw new IllegalArgumentException("Value of the param cannot be null or blank");
             params.put(keyParam, valueParam);
         }
 
