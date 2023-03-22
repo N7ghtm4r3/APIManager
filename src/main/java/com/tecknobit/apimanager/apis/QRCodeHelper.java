@@ -11,8 +11,11 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.tecknobit.apimanager.annotations.Wrapper;
 
 import javax.imageio.ImageIO;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.google.zxing.BarcodeFormat.QR_CODE;
@@ -206,12 +209,7 @@ public class QRCodeHelper {
     public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
                                File htmlPage) throws IOException {
         if (path.contains(".")) {
-            StringBuilder html = new StringBuilder();
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(htmlPage));
-            String line;
-            while ((line = bufferedReader.readLine()) != null)
-                html.append(line);
-            String sHtml = html.toString();
+            String sHtml = new Scanner(htmlPage).useDelimiter("\\Z").next();
             if (sHtml.contains(HTML_REPLACER))
                 hostQRCode(port, data, path, width, height, perpetual, sHtml);
             else
@@ -281,6 +279,7 @@ public class QRCodeHelper {
      **/
     private <T> void hostQRCode(T data, String path, int width, int height, SocketManager socketManager, String html) {
         try {
+            socketManager.acceptRequest();
             String suffix = "." + path.split("\\.")[1];
             File tmpQR = File.createTempFile(path.replace(suffix, ""), suffix);
             MatrixToImageWriter.writeToStream(new QRCodeWriter().encode(data.toString(), QR_CODE, width, height),

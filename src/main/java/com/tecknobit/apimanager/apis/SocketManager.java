@@ -1055,6 +1055,22 @@ public class SocketManager {
     }
 
     /**
+     * This method is used to ping a host on a specific port and get whether is reachable
+     *
+     * @param timeout: custom timeout to wait for the ping
+     * @return {@code "true"} if the host on the port inserted are available, {@code "false"} if is not reachable
+     * @implNote to use this method you need to use this class as {@code "client"}, so with {@link #serverUse} set on
+     * {@code "false"}, to use {@code "server-side"} you can use {@link #pingHost(String, int, int)} directly
+     **/
+    @Wrapper
+    public boolean pingHost(int timeout) {
+        if (!serverUse)
+            return pingHost(currentHost, currentServerPort, timeout);
+        else
+            throw new IllegalStateException("You cannot use this method when this class is used server-side");
+    }
+
+    /**
      * {@code StandardResponseCode} list of available response status code
      **/
     public enum StandardResponseCode {
@@ -1113,6 +1129,25 @@ public class SocketManager {
      **/
     public static String getIpAddress(Socket socket) {
         return ((InetSocketAddress) socket.getRemoteSocketAddress()).getAddress().getHostAddress();
+    }
+
+    /**
+     * This method is used to ping a host on a specific port and get whether is reachable
+     *
+     * @param host:    host to ping
+     * @param port:    port of the host to ping
+     * @param timeout: custom timeout to wait for the ping
+     * @return {@code "true"} if the host on the port inserted are available, {@code "false"} if is not reachable
+     **/
+    public static boolean pingHost(String host, int port, int timeout) {
+        try {
+            final Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(host, port), timeout);
+            socket.close();
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 
     /**

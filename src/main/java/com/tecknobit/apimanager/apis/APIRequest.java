@@ -2,6 +2,7 @@ package com.tecknobit.apimanager.apis;
 
 import com.google.api.client.http.*;
 import com.google.api.client.http.apache.v2.ApacheHttpTransport;
+import com.tecknobit.apimanager.annotations.Wrapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,6 +10,7 @@ import org.json.JSONObject;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
@@ -20,6 +22,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
+import static com.tecknobit.apimanager.apis.APIRequest.RequestMethod.DELETE;
 import static java.lang.Long.MAX_VALUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Base64.getDecoder;
@@ -91,11 +94,6 @@ public class APIRequest {
     private HttpRequest request;
 
     /**
-     * {@code response} is the instance that contains response message from request
-     **/
-    private HttpResponse gResponse;
-
-    /**
      * {@code response} is the instance that contains response message from request to return
      **/
     private String response;
@@ -104,6 +102,11 @@ public class APIRequest {
      * {@code errorResponse} is the instance that contains error message from request
      **/
     private String errorResponse;
+
+    /**
+     * {@code statusCode} status code of a request
+     **/
+    private int statusCode;
 
     /**
      * Constructor to init {@link APIRequest}
@@ -164,7 +167,8 @@ public class APIRequest {
      * @param headerKey:   header key for the request
      * @param headerValue: header value for the request
      **/
-    public <T> void sendAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue) throws IOException {
+    public <T> void sendAPIRequest(String requestUrl, RequestMethod method, String headerKey,
+                                   T headerValue) throws IOException {
         setRequest(requestUrl, method);
         request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
         performRequest();
@@ -234,8 +238,12 @@ public class APIRequest {
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      **/
     public void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, Params payload) throws IOException {
-        setRequest(requestUrl, method, payload, false);
-        performRequest();
+        if (method.equals(DELETE))
+            execDeletePayloadedRequest(requestUrl, payload, false, null);
+        else {
+            setRequest(requestUrl, method, payload, false);
+            performRequest();
+        }
     }
 
     /**
@@ -249,9 +257,15 @@ public class APIRequest {
      **/
     public <T> void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue,
                                             Params payload) throws IOException {
-        setRequest(requestUrl, method, payload, false);
-        request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
-        performRequest();
+        if (method.equals(DELETE)) {
+            Headers headers = new Headers();
+            headers.addHeader(headerKey, headerValue);
+            execDeletePayloadedRequest(requestUrl, payload, false, headers);
+        } else {
+            setRequest(requestUrl, method, payload, false);
+            request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
+            performRequest();
+        }
     }
 
     /**
@@ -264,9 +278,13 @@ public class APIRequest {
      **/
     public void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, Headers headers,
                                         Params payload) throws IOException {
-        setRequest(requestUrl, method, payload, false);
-        setHeaders(headers);
-        performRequest();
+        if (method.equals(DELETE))
+            execDeletePayloadedRequest(requestUrl, payload, false, headers);
+        else {
+            setRequest(requestUrl, method, payload, false);
+            setHeaders(headers);
+            performRequest();
+        }
     }
 
     /**
@@ -277,8 +295,12 @@ public class APIRequest {
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      **/
     public void sendJSONPayloadedAPIRequest(String requestUrl, RequestMethod method, Params payload) throws IOException {
-        setRequest(requestUrl, method, payload, true);
-        performRequest();
+        if (method.equals(DELETE))
+            execDeletePayloadedRequest(requestUrl, payload, true, null);
+        else {
+            setRequest(requestUrl, method, payload, true);
+            performRequest();
+        }
     }
 
     /**
@@ -292,9 +314,15 @@ public class APIRequest {
      **/
     public <T> void sendJSONPayloadedAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue,
                                                 Params payload) throws IOException {
-        setRequest(requestUrl, method, payload, true);
-        request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
-        performRequest();
+        if (method.equals(DELETE)) {
+            Headers headers = new Headers();
+            headers.addHeader(headerKey, headerValue);
+            execDeletePayloadedRequest(requestUrl, payload, true, headers);
+        } else {
+            setRequest(requestUrl, method, payload, true);
+            request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
+            performRequest();
+        }
     }
 
     /**
@@ -307,9 +335,47 @@ public class APIRequest {
      **/
     public void sendJSONPayloadedAPIRequest(String requestUrl, RequestMethod method, Headers headers,
                                             Params payload) throws IOException {
-        setRequest(requestUrl, method, payload, true);
-        setHeaders(headers);
-        performRequest();
+        if (method.equals(DELETE))
+            execDeletePayloadedRequest(requestUrl, payload, true, headers);
+        else {
+            setRequest(requestUrl, method, payload, true);
+            setHeaders(headers);
+            performRequest();
+        }
+    }
+
+    /**
+     * Method to send a {@link RequestMethod#DELETE} api request with a payload attached
+     *
+     * @param requestUrl:    {@code "URL"} used in the api request
+     * @param payload:       params to insert in the payload for the {@code "HTTP"} request
+     * @param isJsonPayload: flag whether payload is to send formatted in {@code "JSON"} or not
+     * @param headers:       headers for the request
+     **/
+    private void execDeletePayloadedRequest(String requestUrl, Params payload, boolean isJsonPayload,
+                                            Headers headers) throws IOException {
+        HttpURLConnection request = (HttpURLConnection) new URL(requestUrl).openConnection();
+        request.setRequestMethod(DELETE.name());
+        if (headers != null)
+            for (String key : headers.getHeadersKeys())
+                request.setRequestProperty(key, headers.getHeader(key));
+        request.setDoOutput(true);
+        OutputStreamWriter oPayload = new OutputStreamWriter(request.getOutputStream());
+        String sPayload;
+        if (isJsonPayload)
+            sPayload = payload.createJSONPayload().toString();
+        else
+            sPayload = payload.createPayload();
+        oPayload.write(sPayload);
+        oPayload.close();
+        request.connect();
+        BufferedReader responseReader;
+        statusCode = request.getResponseCode();
+        try {
+            response = readInputStream(request.getInputStream());
+        } catch (IOException e) {
+            errorResponse = readInputStream(request.getErrorStream());
+        }
     }
 
     /**
@@ -353,15 +419,11 @@ public class APIRequest {
     private void performRequest() throws IOException {
         errorResponse = null;
         request.setThrowExceptionOnExecuteError(false);
-        gResponse = request.execute();
+        HttpResponse gResponse = request.execute();
         InputStream content = gResponse.getContent();
+        statusCode = gResponse.getStatusCode();
         if (content != null) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(content));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null)
-                stringBuilder.append(line);
-            response = stringBuilder.toString();
+            response = readInputStream(content);
             if (!gResponse.isSuccessStatusCode()) {
                 errorResponse = response;
                 response = null;
@@ -369,6 +431,21 @@ public class APIRequest {
             }
         } else
             response = String.valueOf(gResponse.getStatusCode());
+    }
+
+    /**
+     * Method to read a stream from a response
+     *
+     * @param stream: the stream to read
+     * @return stream red from the response as {@link String}
+     **/
+    private String readInputStream(InputStream stream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = bufferedReader.readLine()) != null)
+            response.append(line);
+        return response.toString();
     }
 
     /**
@@ -478,7 +555,21 @@ public class APIRequest {
      * @return response code of the request as int
      **/
     public int getResponseStatusCode() {
-        return gResponse.getStatusCode();
+        return statusCode;
+    }
+
+    /**
+     * Method to concatenate a series of same key param
+     *
+     * @param initialChar: start char of concatenation, can be "" or &
+     * @param key:         key of param to concatenate es. param
+     * @param params:      values of param to concatenate es. value1, value2 as {@link ArrayList}
+     * @return series of params concatenated as {@link String} es. param=value1&param=value2
+     * @throws IllegalArgumentException when one of the params inserted does not respect correct range
+     **/
+    @Wrapper
+    public <T> String concatenateParamsList(String initialChar, String key, ArrayList<T> params) {
+        return concatenateParamsList(initialChar, key, params.toArray());
     }
 
     /**
@@ -492,25 +583,12 @@ public class APIRequest {
      **/
     @SafeVarargs
     public final <T> String concatenateParamsList(String initialChar, String key, T... params) {
-        return concatenateParamsList(initialChar, key, new ArrayList<>(Arrays.asList(params)));
-    }
-
-    /**
-     * Method to concatenate a series of same key param
-     *
-     * @param initialChar: start char of concatenation, can be "" or &
-     * @param key:         key of param to concatenate es. param
-     * @param params:      values of param to concatenate es. value1, value2 as {@link ArrayList}
-     * @return series of params concatenated as {@link String} es. param=value1&param=value2
-     * @throws IllegalArgumentException when one of the params inserted does not respect correct range
-     **/
-    public <T> String concatenateParamsList(String initialChar, String key, ArrayList<T> params) {
         if (!initialChar.isEmpty() && !initialChar.equals("&"))
             throw new IllegalArgumentException("Initial char must be \"\" or &");
         if (key == null || key.isEmpty())
             throw new IllegalArgumentException("Key cannot be empty or null");
         StringBuilder paramsConcatenation = new StringBuilder();
-        if(params.size() > 0){
+        if (params.length > 0) {
             for (T param : params) {
                 if (param == null || param.equals(""))
                     throw new IllegalArgumentException("Param value cannot be null or empty");
@@ -531,6 +609,7 @@ public class APIRequest {
      * @return list of params as {@link String} es. value,value2,value3
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      **/
+    @Wrapper
     public <T> String assembleParamsList(String separator, ArrayList<T> params) {
         return assembleParamsList(separator, params.toArray());
     }
@@ -543,7 +622,8 @@ public class APIRequest {
      * @return list of params as {@link String} es. value,value2,value3
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      **/
-    public final <T> String assembleParamsList(String separator, T[] params) {
+    @SafeVarargs
+    public final <T> String assembleParamsList(String separator, T... params) {
         if (separator == null || separator.isEmpty())
             throw new IllegalArgumentException("Separator value cannot be null or blank");
         if (params == null)
@@ -567,6 +647,7 @@ public class APIRequest {
      * @return list of params as {@link String} es. ,value","value2",value3"
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      **/
+    @Wrapper
     public <T> String assembleParamsList(String starterSeparator, String enderSeparator, ArrayList<T> params) {
         return assembleParamsList(starterSeparator, enderSeparator, params.toArray());
     }
@@ -580,7 +661,8 @@ public class APIRequest {
      * @return list of params as {@link String} es. ,value","value2",value3"
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      **/
-    public final <T> String assembleParamsList(String starterSeparator, String enderSeparator, T[] params) {
+    @SafeVarargs
+    public final <T> String assembleParamsList(String starterSeparator, String enderSeparator, T... params) {
         if (starterSeparator == null || starterSeparator.isEmpty())
             throw new IllegalArgumentException("Separator value cannot be null or blank");
         if (params == null)
@@ -602,6 +684,7 @@ public class APIRequest {
      * @return query params as {@link String} assembled es. ?param=query1&param2=query2
      * @throws IllegalArgumentException when extra params in list is empty or is null
      **/
+    @Wrapper
     public <T> String encodeQueryParams(Params queryParams) {
         return encodeAdditionalParams(null, queryParams);
     }
@@ -613,6 +696,7 @@ public class APIRequest {
      * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
      * @throws IllegalArgumentException when extra params in list is empty or is null
      **/
+    @Wrapper
     public <T> String encodeBodyParams(Params bodyParams) {
         return encodeAdditionalParams(null, bodyParams).replace("?", "");
     }
