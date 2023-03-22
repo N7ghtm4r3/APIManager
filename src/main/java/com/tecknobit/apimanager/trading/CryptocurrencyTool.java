@@ -1,11 +1,11 @@
 package com.tecknobit.apimanager.trading;
 
-import com.tecknobit.apimanager.apis.ResourcesHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Scanner;
+import java.io.InputStreamReader;
 
 /**
  * The {@code CryptocurrencyTool} class is a useful tool class that helps to work with cryptocurrencies details. <br>
@@ -14,6 +14,11 @@ import java.util.Scanner;
  * @author N7ghtm4r3 - Tecknobit
  **/
 public abstract class CryptocurrencyTool {
+
+    /**
+     * {@code coins} is the instance that contains cryptocurrencies details
+     **/
+    private static final JSONArray coins;
 
     /**
      * {@code SYMBOL_KEY} is the instance that contains symbol key for {@link #coins} map
@@ -30,18 +35,28 @@ public abstract class CryptocurrencyTool {
      **/
     private static final String IMAGE_URL_KEY = "img_url";
 
-    /**
-     * {@code coins} is the instance that contains cryptocurrencies details
-     **/
-    private static final JSONArray coins;
-
     static {
         try {
-            coins = new JSONArray(new Scanner(ResourcesHelper.getResourceFromStream(CryptocurrencyTool.class,
-                    "coins.json")).useDelimiter("\\Z").next());
+            coins = new JSONArray(loadCoinsMap());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Method to load coins map for workflow of the tool <br>
+     * Any params required
+     *
+     * @return map loaded as {@link String}
+     **/
+    private static String loadCoinsMap() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(CryptocurrencyTool.class
+                .getClassLoader().getResourceAsStream("coins.json")));
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        while ((line = bufferedReader.readLine()) != null)
+            stringBuilder.append(line);
+        return stringBuilder.toString();
     }
 
     /**
