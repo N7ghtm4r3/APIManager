@@ -2,8 +2,6 @@ package com.tecknobit.apimanager.apis;
 
 import java.io.*;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * The {@code ResourcesHelper} class is useful to manage the {@code "resources"} folder and its contents
  *
@@ -24,9 +22,13 @@ public class ResourcesHelper {
         File file = File.createTempFile("apimanager" + System.currentTimeMillis(), "");
         file.deleteOnExit();
         try (FileWriter fileWriter = new FileWriter(file)) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requireNonNull(
-                    ResourcesHelper.class.getClassLoader().getResourceAsStream(resourceName))
-            ));
+            InputStreamReader stream;
+            try {
+                stream = new InputStreamReader(context.getResourceAsStream(resourceName));
+            } catch (NullPointerException e) {
+                stream = new InputStreamReader(context.getClassLoader().getResourceAsStream(resourceName));
+            }
+            BufferedReader bufferedReader = new BufferedReader(stream);
             String line;
             while ((line = bufferedReader.readLine()) != null)
                 fileWriter.write(line);
