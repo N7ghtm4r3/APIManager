@@ -5,7 +5,6 @@ This API is based on the official <a href="https://github.com/zxing/zxing">zxing
 ### Usage/Examples
 
 ```java
-
 public class QRCode {
 
     public static void main(String[] args) throws IOException, WriterException {
@@ -61,7 +60,6 @@ public class QRCode {
         }
         
 }
-
 ```
 
 ## Authors
