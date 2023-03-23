@@ -976,7 +976,9 @@ public class APIRequest {
          * @throws IllegalArgumentException when params inserted do not respect validity range -> null or blank
          **/
         public <T> void addHeader(String headerKey, T headerValue) {
-            String header = headerValue.toString();
+            String header = null;
+            if (headerValue != null)
+                header = headerValue.toString();
             if (headerKey == null || headerKey.isEmpty())
                 throw new IllegalArgumentException("Key of the header cannot be null or blank");
             headers.put(headerKey, header);
