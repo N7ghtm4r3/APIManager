@@ -70,6 +70,7 @@ The other tools will be gradually released
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">**SocketManager**</a> allows you to manage the socket communication easily
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">**AES encryption package**</a>  allows you to use the AES encryption type easily
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/QRCodeHelper.md">**QRCodeHelper**</a>  allows you to create the QRCODE easily
+- <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/ConsolePainter.md">**ConsolePainter**</a>  allows you to customize your console outputs easily
 
 The other apis will be gradually released
 

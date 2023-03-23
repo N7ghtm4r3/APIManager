@@ -5,6 +5,7 @@ import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -19,6 +20,9 @@ import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.google.zxing.BarcodeFormat.QR_CODE;
+import static com.google.zxing.client.j2se.MatrixToImageConfig.BLACK;
+import static com.google.zxing.client.j2se.MatrixToImageConfig.WHITE;
+import static java.awt.Color.decode;
 
 /**
  * The {@code QRCodeHelper} class is useful to manage the QRCode
@@ -72,10 +76,111 @@ public class QRCodeHelper {
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
      **/
+    @Wrapper
     public <T> void createQRCode(T data, String path, int width, int height) throws IOException, WriterException {
+        createQRCode(data, path, width, height, null, null);
+    }
+
+    /**
+     * Method to create a squared QRCode file
+     *
+     * @param foregroundColor: color of the QRCode pattern
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     **/
+    @Wrapper
+    public <T> void createQRCode(String foregroundColor, T data, String path,
+                                 int squareDimension) throws IOException, WriterException {
+        createQRCode(foregroundColor, data, path, squareDimension, squareDimension);
+    }
+
+    /**
+     * Method to create a QRCode file
+     *
+     * @param foregroundColor: color of the QRCode pattern
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     **/
+    @Wrapper
+    public <T> void createQRCode(String foregroundColor, T data, String path, int width,
+                                 int height) throws IOException, WriterException {
+        createQRCode(data, path, width, height, foregroundColor, null);
+    }
+
+    /**
+     * Method to create a squared QRCode file
+     *
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     **/
+    @Wrapper
+    public <T> void createQRCode(T data, String path, int squareDimension,
+                                 String backgroundColor) throws IOException, WriterException {
+        createQRCode(data, path, squareDimension, squareDimension, backgroundColor);
+    }
+
+    /**
+     * Method to create a QRCode file
+     *
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     **/
+    @Wrapper
+    public <T> void createQRCode(T data, String path, int width, int height,
+                                 String backgroundColor) throws IOException, WriterException {
+        createQRCode(data, path, width, height, null, backgroundColor);
+    }
+
+    /**
+     * Method to create a squared QRCode file
+     *
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     **/
+    @Wrapper
+    public <T> void createQRCode(T data, String path, int squareDimension, String foregroundColor,
+                                 String backgroundColor) throws IOException, WriterException {
+        createQRCode(data, path, squareDimension, squareDimension, foregroundColor, backgroundColor);
+    }
+
+    /**
+     * Method to create a QRCode file
+     *
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     **/
+    public <T> void createQRCode(T data, String path, int width, int height, String foregroundColor,
+                                 String backgroundColor) throws IOException, WriterException {
         if (path.contains(".")) {
             MatrixToImageWriter.writeToPath(new QRCodeWriter().encode(data.toString(), QR_CODE, width, height),
-                    path.split("\\.")[1], Path.of(path));
+                    path.split("\\.")[1], Path.of(path), createQRConfig(foregroundColor, backgroundColor));
         } else
             throw new IllegalArgumentException("Path must specific its suffix");
     }
@@ -208,10 +313,37 @@ public class QRCodeHelper {
      **/
     public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
                                File htmlPage) throws IOException {
+        hostQRCode(port, data, path, width, height, perpetual, htmlPage, null, null);
+    }
+
+    /**
+     * Method to create and host a QRCode file
+     *
+     * @param port:      port where host the QRCode file
+     * @param data:      data to create the QRCode
+     * @param path:      path where create the file, included the suffix
+     * @param width:     width of the QRCode
+     * @param height:    height of the QRCode
+     * @param perpetual: whether the hosting must accept requests perpetuity or accept a single one request
+     * @param htmlPage:  custom html page where insert the QRCode
+     * @throws IOException when an error is occurred
+     * @implNote to successfully realize that <b>you must include in a custom section of your page this tag: </b>
+     * {@link #HTML_REPLACER}
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
+                               File htmlPage, String foregroundColor, String backgroundColor) throws IOException {
         if (path.contains(".")) {
             String sHtml = new Scanner(htmlPage).useDelimiter("\\Z").next();
             if (sHtml.contains(HTML_REPLACER))
-                hostQRCode(port, data, path, width, height, perpetual, sHtml);
+                hostQRCode(port, data, path, width, height, perpetual, sHtml, foregroundColor, backgroundColor);
             else
                 throw new IllegalArgumentException("To customize the html page you must include the <qrcode> tag");
         } else
@@ -239,21 +371,21 @@ public class QRCodeHelper {
      * </ul>
      **/
     private <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
-                                String html) throws IOException {
+                                String html, String foregroundColor, String backgroundColor) throws IOException {
         SocketManager socketManager = new SocketManager(false);
         socketManager.startListener(port, () -> {
             if (perpetual) {
                 hosts.put(port, socketManager);
                 while (socketManager.continueListening()) {
                     try {
-                        hostQRCode(data, path, width, height, socketManager, html);
+                        hostQRCode(data, path, width, height, socketManager, html, foregroundColor, backgroundColor);
                         socketManager.closeCommunication();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
             } else {
-                hostQRCode(data, path, width, height, socketManager, html);
+                hostQRCode(data, path, width, height, socketManager, html, foregroundColor, backgroundColor);
                 socketManager.stopListener();
             }
         });
@@ -277,13 +409,15 @@ public class QRCodeHelper {
      * </li>
      * </ul>
      **/
-    private <T> void hostQRCode(T data, String path, int width, int height, SocketManager socketManager, String html) {
+    private <T> void hostQRCode(T data, String path, int width, int height, SocketManager socketManager, String html,
+                                String foregroundColor, String backgroundColor) {
         try {
             socketManager.acceptRequest();
             String suffix = "." + path.split("\\.")[1];
             File tmpQR = File.createTempFile(path.replace(suffix, ""), suffix);
             MatrixToImageWriter.writeToStream(new QRCodeWriter().encode(data.toString(), QR_CODE, width, height),
-                    suffix.replace(".", ""), new FileOutputStream(tmpQR));
+                    suffix.replace(".", ""), new FileOutputStream(tmpQR), createQRConfig(foregroundColor,
+                            backgroundColor));
             String content;
             if (html == null) {
                 content = "HTTP/1.1 200 OK\r\n" +
@@ -307,6 +441,21 @@ public class QRCodeHelper {
             if (!e.getLocalizedMessage().contains("Socket closed"))
                 throw new RuntimeException(e);
         }
+    }
+
+    private MatrixToImageConfig createQRConfig(String foregroundColor, String backgroundColor) {
+        MatrixToImageConfig config;
+        if (foregroundColor == null && backgroundColor == null)
+            config = new MatrixToImageConfig();
+        else {
+            if (foregroundColor != null && backgroundColor != null)
+                config = new MatrixToImageConfig(decode(foregroundColor).getRGB(), decode(backgroundColor).getRGB());
+            else if (backgroundColor == null)
+                config = new MatrixToImageConfig(decode(foregroundColor).getRGB(), WHITE);
+            else
+                config = new MatrixToImageConfig(BLACK, decode(backgroundColor).getRGB());
+        }
+        return config;
     }
 
     /**

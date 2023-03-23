@@ -1119,17 +1119,20 @@ public class APIRequest {
             params.remove(keyParam);
         }
 
-        /** Method to clear all params <br>
+        /**
+         * Method to clear all params <br>
          * Any params required
-         * **/
-        public void clear(){
+         **/
+        public void clear() {
             params.clear();
         }
 
-        /** Method to get a param value
+        /**
+         * Method to get a param value
+         *
          * @param paramKey: key of the param to get
          * @return params value as {@link String}
-         * **/
+         **/
         public <T> T getParam(String paramKey) {
             return (T) params.get(paramKey);
         }
