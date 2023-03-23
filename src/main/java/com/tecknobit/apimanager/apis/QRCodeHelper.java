@@ -35,15 +35,7 @@ import static java.awt.Color.decode;
 public class QRCodeHelper {
 
     /**
-     * {@code HTML_REPLACER} replacer to use if you need to use these methods:
-     * <ul>
-     *     <li>
-     *         {@link #hostQRCode(int, Object, String, int, boolean, File)}
-     *     </li>
-     *     <li>
-     *         {@link #hostQRCode(int, Object, String, int, int, boolean, File)}
-     *     </li>
-     * </ul>
+     * {@code HTML_REPLACER} replacer to use if you need to customize your html page
      **/
     public static final String HTML_REPLACER = "<qrcode>";
 
@@ -76,7 +68,6 @@ public class QRCodeHelper {
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
      **/
-    @Wrapper
     public <T> void createQRCode(T data, String path, int width, int height) throws IOException, WriterException {
         createQRCode(data, path, width, height, null, null);
     }
@@ -108,7 +99,6 @@ public class QRCodeHelper {
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
      **/
-    @Wrapper
     public <T> void createQRCode(String foregroundColor, T data, String path, int width,
                                  int height) throws IOException, WriterException {
         createQRCode(data, path, width, height, foregroundColor, null);
@@ -133,15 +123,14 @@ public class QRCodeHelper {
     /**
      * Method to create a QRCode file
      *
-     * @param data:            data to create the QRCode
-     * @param path:            path where create the file, included the suffix
-     * @param width:           width of the QRCode
-     * @param height:          height of the QRCode
+     * @param data:   data to create the QRCode
+     * @param path:   path where create the file, included the suffix
+     * @param width:  width of the QRCode
+     * @param height: height of the QRCode
      * @param backgroundColor: background color of the QRCode pattern
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
      **/
-    @Wrapper
     public <T> void createQRCode(T data, String path, int width, int height,
                                  String backgroundColor) throws IOException, WriterException {
         createQRCode(data, path, width, height, null, backgroundColor);
@@ -167,10 +156,10 @@ public class QRCodeHelper {
     /**
      * Method to create a QRCode file
      *
-     * @param data:            data to create the QRCode
-     * @param path:            path where create the file, included the suffix
-     * @param width:           width of the QRCode
-     * @param height:          height of the QRCode
+     * @param data:   data to create the QRCode
+     * @param path:   path where create the file, included the suffix
+     * @param width:  width of the QRCode
+     * @param height: height of the QRCode
      * @param foregroundColor: color of the QRCode pattern
      * @param backgroundColor: background color of the QRCode pattern
      * @throws IOException     when an error is occurred during creation of the file
@@ -256,8 +245,160 @@ public class QRCodeHelper {
      * </ul>
      **/
     public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual) throws IOException {
+        hostQRCode(port, data, path, width, height, perpetual, (String) null, null);
+    }
+
+    /**
+     * Method to create and host a squared QRCode file
+     *
+     * @param foregroundColor: color of the QRCode pattern
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @throws IOException when an error is occurred
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    @Wrapper
+    public <T> void hostQRCode(String foregroundColor, int port, T data, String path, int squareDimension,
+                               boolean perpetual) throws IOException {
+        hostQRCode(foregroundColor, port, data, path, squareDimension, squareDimension, perpetual);
+    }
+
+    /**
+     * Method to create and host a QRCode file
+     *
+     * @param foregroundColor: color of the QRCode pattern
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @throws IOException when an error is occurred
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    public <T> void hostQRCode(String foregroundColor, int port, T data, String path, int width, int height,
+                               boolean perpetual) throws IOException {
+        hostQRCode(port, data, path, width, height, perpetual, foregroundColor, null);
+    }
+
+    /**
+     * Method to create and host a squared QRCode file
+     *
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException when an error is occurred
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    @Wrapper
+    public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual,
+                               String backgroundColor) throws IOException {
+        hostQRCode(port, data, path, squareDimension, squareDimension, perpetual, backgroundColor);
+    }
+
+    /**
+     * Method to create and host a QRCode file
+     *
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException when an error is occurred
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
+                               String backgroundColor) throws IOException {
+        hostQRCode(port, data, path, width, height, perpetual, (String) null, backgroundColor);
+    }
+
+    /**
+     * Method to create and host a squared QRCode file
+     *
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException when an error is occurred
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    @Wrapper
+    public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual,
+                               String foregroundColor, String backgroundColor) throws IOException {
+        hostQRCode(port, data, path, squareDimension, squareDimension, perpetual, foregroundColor, backgroundColor);
+    }
+
+    /**
+     * Method to create and host a QRCode file
+     *
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException when an error is occurred
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
+                               String foregroundColor, String backgroundColor) throws IOException {
         if (path.contains("."))
-            hostQRCode(port, data, path, width, height, perpetual, (String) null);
+            hostQRCode(port, data, path, width, height, perpetual, (String) null, foregroundColor, backgroundColor);
         else
             throw new IllegalArgumentException("Path must specific its suffix");
     }
@@ -317,15 +458,159 @@ public class QRCodeHelper {
     }
 
     /**
+     * Method to create and host a squared QRCode file
+     *
+     * @param foregroundColor: color of the QRCode pattern
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param htmlPage:        custom html page where insert the QRCode
+     * @throws IOException when an error is occurred
+     * @implNote to successfully realize that <b>you must include in a custom section of your page this tag: </b>
+     * {@link #HTML_REPLACER}
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    @Wrapper
+    public <T> void hostQRCode(String foregroundColor, int port, T data, String path, int squareDimension,
+                               boolean perpetual, File htmlPage) throws IOException {
+        hostQRCode(foregroundColor, port, data, path, squareDimension, squareDimension, perpetual, htmlPage);
+    }
+
+    /**
      * Method to create and host a QRCode file
      *
-     * @param port:      port where host the QRCode file
-     * @param data:      data to create the QRCode
-     * @param path:      path where create the file, included the suffix
-     * @param width:     width of the QRCode
-     * @param height:    height of the QRCode
-     * @param perpetual: whether the hosting must accept requests perpetuity or accept a single one request
-     * @param htmlPage:  custom html page where insert the QRCode
+     * @param foregroundColor: color of the QRCode pattern
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param htmlPage:        custom html page where insert the QRCode
+     * @throws IOException when an error is occurred
+     * @implNote to successfully realize that <b>you must include in a custom section of your page this tag: </b>
+     * {@link #HTML_REPLACER}
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    public <T> void hostQRCode(String foregroundColor, int port, T data, String path, int width, int height,
+                               boolean perpetual, File htmlPage) throws IOException {
+        hostQRCode(port, data, path, width, height, perpetual, htmlPage, foregroundColor, null);
+    }
+
+    /**
+     * Method to create and host a squared QRCode file
+     *
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param htmlPage:        custom html page where insert the QRCode
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException when an error is occurred
+     * @implNote to successfully realize that <b>you must include in a custom section of your page this tag: </b>
+     * {@link #HTML_REPLACER}
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    @Wrapper
+    public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual, File htmlPage,
+                               String backgroundColor) throws IOException {
+        hostQRCode(port, data, path, squareDimension, squareDimension, perpetual, htmlPage, backgroundColor);
+    }
+
+    /**
+     * Method to create and host a QRCode file
+     *
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param htmlPage:        custom html page where insert the QRCode
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException when an error is occurred
+     * @implNote to successfully realize that <b>you must include in a custom section of your page this tag: </b>
+     * {@link #HTML_REPLACER}
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual, File htmlPage,
+                               String backgroundColor) throws IOException {
+        hostQRCode(port, data, path, width, height, perpetual, htmlPage, backgroundColor, null);
+    }
+
+    /**
+     * Method to create and host a squared QRCode file
+     *
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param htmlPage:        custom html page where insert the QRCode
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
+     * @throws IOException when an error is occurred
+     * @implNote to successfully realize that <b>you must include in a custom section of your page this tag: </b>
+     * {@link #HTML_REPLACER}
+     * @apiNote <ul>
+     * <li>
+     * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
+     * </li>
+     * <li>
+     * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
+     * </li>
+     * </ul>
+     **/
+    @Wrapper
+    public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual,
+                               File htmlPage, String foregroundColor, String backgroundColor) throws IOException {
+        hostQRCode(port, data, path, squareDimension, squareDimension, perpetual, htmlPage, foregroundColor,
+                backgroundColor);
+    }
+
+    /**
+     * Method to create and host a QRCode file
+     *
+     * @param port:            port where host the QRCode file
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param perpetual:       whether the hosting must accept requests perpetuity or accept a single one request
+     * @param htmlPage:        custom html page where insert the QRCode
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
      * @throws IOException when an error is occurred
      * @implNote to successfully realize that <b>you must include in a custom section of your page this tag: </b>
      * {@link #HTML_REPLACER}
@@ -360,6 +645,8 @@ public class QRCodeHelper {
      * @param height:    height of the QRCode
      * @param perpetual: whether the hosting must accept requests perpetuity or accept a single one request
      * @param html:      html text to create the host page
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
      * @throws IOException when an error is occurred
      * @apiNote <ul>
      * <li>
@@ -400,6 +687,8 @@ public class QRCodeHelper {
      * @param height:        height of the QRCode
      * @param socketManager: manager of the hosting
      * @param html:          html text to create the host page
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
      * @apiNote <ul>
      * <li>
      * if you need access by localhost you can find the QRCode in localhost:{@code "port"}
@@ -443,6 +732,13 @@ public class QRCodeHelper {
         }
     }
 
+    /**
+     * Method to create a matrix config for customize the QRCode
+     *
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
+     * @return matrix config as {@link MatrixToImageConfig}
+     **/
     private MatrixToImageConfig createQRConfig(String foregroundColor, String backgroundColor) {
         MatrixToImageConfig config;
         if (foregroundColor == null && backgroundColor == null)
@@ -450,7 +746,7 @@ public class QRCodeHelper {
         else {
             if (foregroundColor != null && backgroundColor != null)
                 config = new MatrixToImageConfig(decode(foregroundColor).getRGB(), decode(backgroundColor).getRGB());
-            else if (backgroundColor == null)
+            else if(backgroundColor == null)
                 config = new MatrixToImageConfig(decode(foregroundColor).getRGB(), WHITE);
             else
                 config = new MatrixToImageConfig(BLACK, decode(backgroundColor).getRGB());

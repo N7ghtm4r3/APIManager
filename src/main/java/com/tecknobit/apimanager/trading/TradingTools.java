@@ -12,37 +12,43 @@ import static java.lang.String.format;
  **/
 public abstract class TradingTools {
 
-    /** Method to get percent between two values
+    /**
+     * Method to get percent between two values
+     *
      * @param startValue: first value to make compare
-     * @param lastValue: last value to compare and get percent by first value
+     * @param lastValue:  last value to compare and get percent by first value
      * @return percent value as double es. 8 or -8
      * @throws IllegalArgumentException if startValue or lastValue are negative
-     * **/
-    public static double computeAssetPercent(double startValue, double lastValue){
-        if(startValue < 0 || lastValue < 0)
+     **/
+    public static double computeAssetPercent(double startValue, double lastValue) {
+        if (startValue < 0 || lastValue < 0)
             throw new IllegalArgumentException("Start value and last value must be positive");
-        if(startValue == 0 && lastValue == 0)
+        if (startValue == 0 && lastValue == 0)
             return 0;
         return (((lastValue * 100) / startValue) - 100);
     }
 
-    /** Method to get percent between two values and round it
-     * @param startValue: first value to make compare
-     * @param lastValue: last value to compare and get percent by first value
+    /**
+     * Method to get percent between two values and round it
+     *
+     * @param startValue:    first value to make compare
+     * @param lastValue:     last value to compare and get percent by first value
      * @param decimalDigits: number of digits to round final percent value
      * @return percent value as double es. 8 or -8
      * @throws IllegalArgumentException if startValue or lastValue are negative
-     * **/
-    public static double computeAssetPercent(double startValue, double lastValue, int decimalDigits){
+     **/
+    public static double computeAssetPercent(double startValue, double lastValue, int decimalDigits) {
         return roundValue(computeAssetPercent(startValue, lastValue), decimalDigits);
     }
 
-    /** Method to get percent between two values and textualize it
+    /**
+     * Method to get percent between two values and textualize it
+     *
      * @param startValue: first value to make compare
-     * @param lastValue: last value to compare and get percent by first value
+     * @param lastValue:  last value to compare and get percent by first value
      * @return percent value es. +8% or -8% as {@link String}
-     * **/
-    public static String textualizeAssetPercent(double startValue, double lastValue){
+     **/
+    public static String textualizeAssetPercent(double startValue, double lastValue) {
         return textualizeAssetPercent(computeAssetPercent(startValue, lastValue));
     }
 
@@ -109,14 +115,16 @@ public abstract class TradingTools {
             return "=" + percent + "%";
     }
 
-    /** Method to round a value
-     * @param value: value to round
+    /**
+     * Method to round a value
+     *
+     * @param value:         value to round
      * @param decimalDigits: number of digits to round final value
      * @return value rounded with decimal digits inserted
      * @throws IllegalArgumentException if decimalDigits is negative
-     * **/
-    public static double roundValue(double value, int decimalDigits){
-        if(decimalDigits < 0)
+     **/
+    public static double roundValue(double value, int decimalDigits) {
+        if (decimalDigits < 0)
             throw new IllegalArgumentException("Decimal digits number cannot be less than 0");
         return parseDouble(format("%." + decimalDigits + "f", value).replace(",","."));
     }

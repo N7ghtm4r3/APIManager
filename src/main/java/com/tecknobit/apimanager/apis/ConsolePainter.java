@@ -219,7 +219,7 @@ public class ConsolePainter {
      * Method to print a colored bold text in the console
      *
      * @param message: message to print
-     * @param color:   color value for the message
+     * @param color: color value for the message
      **/
     public <T> void printBold(T message, ANSIColor color) {
         printNReset(BOLD + "" + color + message);
@@ -238,7 +238,7 @@ public class ConsolePainter {
      * Method to print an italic colored text in the console
      *
      * @param message: message to print
-     * @param color:   color value for the message
+     * @param color: color value for the message
      **/
     public <T> void printItalic(T message, ANSIColor color) {
         printNReset(ITALIC + "" + color + message);
@@ -257,7 +257,7 @@ public class ConsolePainter {
      * Method to print an underlined colored text in the console
      *
      * @param message: message to print
-     * @param color:   color value for the message
+     * @param color: color value for the message
      **/
     public <T> void printUnderlined(T message, ANSIColor color) {
         printNReset(UNDERLINED + "" + color + message);
@@ -276,7 +276,7 @@ public class ConsolePainter {
      * Method to print an invert colored text in the console
      *
      * @param message: message to print
-     * @param color:   color value for the message
+     * @param color: color value for the message
      **/
     public <T> void printInvert(T message, ANSIColor color) {
         printNReset(INVERT + "" + color + message);
@@ -295,7 +295,7 @@ public class ConsolePainter {
      * Method to print a crossed-out colored text in the console
      *
      * @param message: message to print
-     * @param color:   color value for the message
+     * @param color: color value for the message
      **/
     public <T> void printCrossedOut(T message, ANSIColor color) {
         printNReset(CROSSED_OUT + "" + color + message);
@@ -314,7 +314,7 @@ public class ConsolePainter {
      * Method to print a doubly underlined colored text in the console
      *
      * @param message: message to print
-     * @param color:   color value for the message
+     * @param color: color value for the message
      **/
     public <T> void printDoublyUnderlined(T message, ANSIColor color) {
         printNReset(DOUBLY_UNDERLINED + "" + color + message);
@@ -333,7 +333,7 @@ public class ConsolePainter {
      * Method to print a framed colored text in the console
      *
      * @param message: message to print
-     * @param color:   color value for the message
+     * @param color: color value for the message
      **/
     public <T> void printFramed(T message, ANSIColor color) {
         printNReset(FRAMED + "" + color + message);

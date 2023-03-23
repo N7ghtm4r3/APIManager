@@ -1129,10 +1129,9 @@ public class APIRequest {
 
         /**
          * Method to get a param value
-         *
          * @param paramKey: key of the param to get
          * @return params value as {@link String}
-         **/
+         * **/
         public <T> T getParam(String paramKey) {
             return (T) params.get(paramKey);
         }
