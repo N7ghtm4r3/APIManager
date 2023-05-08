@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * {@code "@RequestPath"} annotation is applied to those methods offered by libraries that allows to make a request. <br>
+ * {@code "@RequestPath"} annotation is applied to those methods offered by libraries that allow to make a request. <br>
  * This annotation is useful to make the request path and its possible path parameters more readable
  * <pre>
  *     {@code

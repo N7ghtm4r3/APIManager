@@ -2045,7 +2045,7 @@ public class JsonHelper{
      **/
     public static <T, V extends ArrayList<?>> ArrayList<T> fetchVList(JSONObject json, String searchKey, String listKey,
                                                                       V defValue) {
-        ArrayList<T> oList = null;
+        ArrayList<T> vList = null;
         if (containsKey(json, searchKey)) {
             ArrayList<JSONObject> subBranches = new ArrayList<>();
             for (String key : json.keySet()) {
@@ -2053,18 +2053,18 @@ public class JsonHelper{
                 if (value instanceof JSONArray list) {
                     if (listKey == null || listKey.equals(key)) {
                         if (containsKey(list, searchKey)) {
-                            oList = new ArrayList<>();
+                            vList = new ArrayList<>();
                             for (int j = 0; j < list.length(); j++)
-                                oList.add((T) JsonHelper.get(list.getJSONObject(j), searchKey));
+                                vList.add((T) JsonHelper.get(list.getJSONObject(j), searchKey));
                         }
                     }
                 } else if (value instanceof JSONObject item && containsKey(item, searchKey))
                     return fetchVList(item, searchKey, listKey);
             }
         }
-        if (oList == null && defValue != null)
-            oList = (ArrayList<T>) defValue;
-        return oList;
+        if (vList == null && defValue != null)
+            vList = (ArrayList<T>) defValue;
+        return vList;
     }
 
     /**
