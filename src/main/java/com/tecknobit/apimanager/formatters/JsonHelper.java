@@ -1871,7 +1871,21 @@ public class JsonHelper{
      **/
     @Wrapper
     public <T> ArrayList<T> fetchList(String searchKey) {
-        return fetchList(jsonObjectSource, searchKey);
+        return fetchList(searchKey, null);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a list of values automatically
+     *
+     * @param searchKey: key for value to fetch
+     * @param defValue:  default value to return if not found what searched
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
+     **/
+    @Wrapper
+    public <T, V extends ArrayList<?>> ArrayList<T> fetchList(String searchKey, V defValue) {
+        return fetchList(jsonObjectSource, searchKey, defValue);
     }
 
     /**
@@ -1883,6 +1897,18 @@ public class JsonHelper{
      **/
     @Wrapper
     public static <T> ArrayList<T> fetchList(JSONObject source, String searchKey) {
+        return fetchList(source, searchKey, null);
+    }
+
+    /**
+     * Method to get from {@link JSONArray} a list of values automatically
+     *
+     * @param source:    {@link JSONObject} source to search the {@link JSONArray} from fetch the list
+     * @param searchKey: key for value to fetch
+     * @param defValue:  default value to return if not found what searched
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     **/
+    public static <T, V extends ArrayList<?>> ArrayList<T> fetchList(JSONObject source, String searchKey, V defValue) {
         ArrayList<T> listFetched = null;
         if (containsKey(source, searchKey) && listFetched == null) {
             ArrayList<JSONObject> subBranches = new ArrayList<>();
@@ -1897,6 +1923,8 @@ public class JsonHelper{
                 if (listFetched == null)
                     listFetched = fetchList(subBranch, searchKey);
         }
+        if (listFetched == null && defValue != null)
+            listFetched = (ArrayList<T>) defValue;
         return listFetched;
     }
 
@@ -1909,8 +1937,22 @@ public class JsonHelper{
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      **/
     @Wrapper
-    public <T> ArrayList<T> fetchOList(String searchKey) {
-        return fetchOList(jsonObjectSource, searchKey);
+    public <T> ArrayList<T> fetchVList(String searchKey) {
+        return fetchVList(jsonObjectSource, searchKey, null, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a list of values automatically
+     *
+     * @param searchKey: key for value to fetch
+     * @param defValue:  default value to return if not found what searched
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
+     **/
+    @Wrapper
+    public <T, V extends ArrayList<?>> ArrayList<T> fetchVList(String searchKey, V defValue) {
+        return fetchVList(jsonObjectSource, searchKey, null, defValue);
     }
 
     /**
@@ -1923,8 +1965,23 @@ public class JsonHelper{
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      **/
     @Wrapper
-    public static <T> ArrayList<T> fetchOList(JSONObject json, String searchKey) {
-        return fetchOList(json, searchKey, null);
+    public static <T> ArrayList<T> fetchVList(JSONObject json, String searchKey) {
+        return fetchVList(json, searchKey, null, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a list of values automatically
+     *
+     * @param json:      {@link JSONObject} from fetch list
+     * @param searchKey: key for value to fetch
+     * @param defValue:  default value to return if not found what searched
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
+     **/
+    @Wrapper
+    public static <T, V extends ArrayList<?>> ArrayList<T> fetchVList(JSONObject json, String searchKey, V defValue) {
+        return fetchVList(json, searchKey, null, defValue);
     }
 
     /**
@@ -1938,8 +1995,24 @@ public class JsonHelper{
      * @implNote This method is useful when the value to fetch appears in multiple list
      **/
     @Wrapper
-    public <T> ArrayList<T> fetchOList(String searchKey, String listKey) {
-        return fetchOList(jsonObjectSource, searchKey, listKey);
+    public <T> ArrayList<T> fetchVList(String searchKey, String listKey) {
+        return fetchVList(searchKey, listKey, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a list of values automatically
+     *
+     * @param searchKey: key for value to fetch
+     * @param listKey:   list key for value to fetch
+     * @param defValue:  default value to return if not found what searched
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
+     * @implNote This method is useful when the value to fetch appears in multiple list
+     **/
+    @Wrapper
+    public <T, V extends ArrayList<?>> ArrayList<T> fetchVList(String searchKey, String listKey, V defValue) {
+        return fetchVList(jsonObjectSource, searchKey, listKey, defValue);
     }
 
     /**
@@ -1953,7 +2026,25 @@ public class JsonHelper{
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @implNote This method is useful when the value to fetch appears in multiple list
      **/
-    public static <T> ArrayList<T> fetchOList(JSONObject json, String searchKey, String listKey) {
+    @Wrapper
+    public static <T> ArrayList<T> fetchVList(JSONObject json, String searchKey, String listKey) {
+        return fetchVList(json, searchKey, listKey, null);
+    }
+
+    /**
+     * Method to get from {@link JSONObject} a list of values automatically
+     *
+     * @param json:      {@link JSONObject} from fetch list
+     * @param searchKey: key for value to fetch
+     * @param listKey:   list key for value to fetch
+     * @param defValue:  default value to return if not found what searched
+     * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
+     * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
+     * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
+     * @implNote This method is useful when the value to fetch appears in multiple list
+     **/
+    public static <T, V extends ArrayList<?>> ArrayList<T> fetchVList(JSONObject json, String searchKey, String listKey,
+                                                                      V defValue) {
         ArrayList<T> oList = null;
         if (containsKey(json, searchKey)) {
             ArrayList<JSONObject> subBranches = new ArrayList<>();
@@ -1968,9 +2059,11 @@ public class JsonHelper{
                         }
                     }
                 } else if (value instanceof JSONObject item && containsKey(item, searchKey))
-                    return fetchOList(item, searchKey, listKey);
+                    return fetchVList(item, searchKey, listKey);
             }
         }
+        if (oList == null && defValue != null)
+            oList = (ArrayList<T>) defValue;
         return oList;
     }
 
