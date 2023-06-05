@@ -9,6 +9,11 @@ package com.tecknobit.apimanager.exceptions;
 public class SaveData extends Exception {
 
     /**
+     * {@code savableContent} the content that should be saved
+     */
+    private final Object savableContent;
+
+    /**
      * Constructs a new exception with the specified detail message.  The
      * cause is not initialized, and may subsequently be initialized by
      * a call to {@link #initCause}.
@@ -19,6 +24,7 @@ public class SaveData extends Exception {
      */
     public <T> SaveData(T message) {
         super("Note: is not an error, but is an alert!\nPlease you should safely save: " + message);
+        savableContent = message;
     }
 
     /**
@@ -38,6 +44,7 @@ public class SaveData extends Exception {
      */
     public <T> SaveData(T message, Throwable cause) {
         super("Note: is not an error, but is an alert!\nPlease you should safely save: " + message, cause);
+        savableContent = message;
     }
 
     /**
@@ -56,8 +63,19 @@ public class SaveData extends Exception {
      * @since 1.7
      */
     public <T> SaveData(T message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super("Note: is not an error, but is an alert!\nPlease you should safely save: " + message, cause, enableSuppression,
-                writableStackTrace);
+        super("Note: is not an error, but is an alert!\nPlease you should safely save: " + message, cause,
+                enableSuppression, writableStackTrace);
+        savableContent = message;
+    }
+
+    /**
+     * Method to get {@link #savableContent} instance <br>
+     * No-any params required
+     *
+     * @return {@link #savableContent} instance as {@link T}
+     */
+    public <T> T getSaveableContent() {
+        return (T) savableContent;
     }
 
 }
