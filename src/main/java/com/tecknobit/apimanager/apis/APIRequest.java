@@ -731,7 +731,7 @@ public class APIRequest {
                 if (queryEncoderChar.equals("?"))
                     queryEncoderChar = "&";
             } else
-                throw new NullPointerException("Extra params key or value cannot be empty or null");
+                throw new NullPointerException("Extra params key cannot be empty or null");
         }
         return params.toString();
     }
