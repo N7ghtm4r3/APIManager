@@ -727,7 +727,7 @@ public class APIRequest {
         StringBuilder params = new StringBuilder(mandatoryParams);
         for (String key : extraParams.getParamsKeys()) {
             if ((key != null && !key.equals(""))) {
-                params.append(queryEncoderChar).append(key).append("=").append(extraParams.getParam(key).toString());
+                params.append(queryEncoderChar).append(key).append("=").append((Object) extraParams.getParam(key));
                 if (queryEncoderChar.equals("?"))
                     queryEncoderChar = "&";
             } else
