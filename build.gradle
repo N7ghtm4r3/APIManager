@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'tecknobit.com'
-version '2.1.3'
+version '2.1.4'
 
 repositories {
     mavenCentral()
@@ -26,7 +26,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.tecknobit.apimanager'
             artifactId = 'APIManager'
-            version = '2.1.3'
+            version = '2.1.4'
             from components.java
         }
     }
