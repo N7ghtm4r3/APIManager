@@ -31,14 +31,14 @@ public @interface ResId {
      * {@code id} of the resource to use
      *
      * @apiNote (id, string, drawable, etc.)
-     **/
+     */
     int id() default 0;
 
     /**
      * {@code ids} of the resources to use
      *
      * @apiNote (id, string, drawable, etc.)
-     **/
+     */
     int[] ids() default {};
 
 }

@@ -1,8 +1,8 @@
 package com.tecknobit.apimanager.apis;
 
 import com.tecknobit.apimanager.annotations.Wrapper;
-import com.tecknobit.apimanager.apis.encryption.aes.ClientCipher;
-import com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.Algorithm;
+import com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher;
+import com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.Algorithm;
 import org.json.JSONObject;
 
 import javax.crypto.Cipher;
@@ -18,8 +18,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static com.tecknobit.apimanager.apis.APIRequest.RequestMethod.GET;
-import static com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.createIvParameter;
-import static com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.createSecretKey;
+import static com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.createIvParameter;
+import static com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.createSecretKey;
 
 /**
  * The {@code SocketManager} class is useful to dynamically manage communication by socket
@@ -27,84 +27,84 @@ import static com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.createSe
  * @author N7ghtm4r3 - Tecknobit
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">SocketManager.md</a>
  * @since 2.0.2
- **/
+ */
 public class SocketManager {
 
     /**
      * {@code NEW_LINE_REPLACER} is the constants which indicates the replacer to use when the content message contains
      * multiple lines
-     **/
+     */
     private static final String NEW_LINE_REPLACER = "@-/-/-@";
 
     /**
      * {@code listeners} list of listeners to use if the {@link #allowMultipleListeners} flag is set to {@code "true"}
-     **/
+     */
     private final ConcurrentHashMap<Integer, Listener> listeners;
 
     /**
      * {@code allowMultipleListeners} whether accept multiple listeners at the same time
-     **/
+     */
     private final boolean allowMultipleListeners;
 
     /**
      * {@code "executor"} of the routines
-     **/
+     */
     private final ExecutorService executor;
 
     /**
      * {@code serverUse} whether the runtime use of this class is server side or not
-     **/
+     */
     private final boolean serverUse;
 
     /**
      * {@code serverSocket} socket managed by the server
-     **/
+     */
     private ServerSocket serverSocket;
 
     /**
      * {@code cipher} instance to cipher the communication if enabled
-     **/
-    private ClientCipher cipher;
+     */
+    private AESClientCipher cipher;
 
     /**
      * {@code currentServerPort} current server port used in the communication
-     **/
+     */
     private int currentServerPort;
 
     /**
      * {@code currentHost} current server host used in the communication
-     **/
+     */
     private final String currentHost;
 
     /**
      * {@code socket} socket used in the communication
-     **/
+     */
     private Socket socket;
 
     /**
      * {@code publicHostAddress} public host address
-     **/
+     */
     private String publicHostAddress;
 
     /**
      * {@code continueSingleRoutine} whether continue the routine for the single listener if {@link #allowMultipleListeners}
      * is set to {@code "false"}
-     **/
+     */
     private volatile boolean continueSingleRoutine;
 
     /**
      * {@code defaultErrorResponse} default error response
-     **/
+     */
     private String defaultErrorResponse;
 
     /**
      * {@code defaultSuccessResponse} default successful response
-     **/
+     */
     private String defaultSuccessResponse;
 
     /**
      * {@code lastContentRed} last content red with {@link #readContent()} or {@link #readContent(Socket)}
-     **/
+     */
     private String lastContentRed;
 
     /**
@@ -117,10 +117,10 @@ public class SocketManager {
      * @param algorithm:  algorithm used for AES cipher
      * @throws Exception when an error occurred
      * @apiNote this will set {@link #serverUse} to {@code "false"} and will be use as client side
-     **/
+     */
     public SocketManager(String host, int serverPort, String ivSpec, String secretKey,
                          Algorithm algorithm) throws Exception {
-        this(host, serverPort, new ClientCipher(ivSpec, secretKey, algorithm));
+        this(host, serverPort, new AESClientCipher(ivSpec, secretKey, algorithm));
     }
 
     /**
@@ -133,10 +133,10 @@ public class SocketManager {
      * @param algorithm:  algorithm used for AES cipher
      * @throws Exception when an error occurred
      * @apiNote this will set {@link #serverUse} to {@code "false"} and will be use as client side
-     **/
+     */
     public SocketManager(String host, int serverPort, IvParameterSpec ivSpec, SecretKey secretKey,
                          Algorithm algorithm) throws Exception {
-        this(host, serverPort, new ClientCipher(ivSpec, secretKey, algorithm));
+        this(host, serverPort, new AESClientCipher(ivSpec, secretKey, algorithm));
     }
 
     /**
@@ -145,7 +145,7 @@ public class SocketManager {
      * @param host:       server host used in the communication
      * @param serverPort: server port used in the communication
      * @apiNote this will set {@link #serverUse} to {@code "false"} and will be use as client side
-     **/
+     */
     public SocketManager(String host, int serverPort) {
         this(host, serverPort, null);
     }
@@ -157,8 +157,8 @@ public class SocketManager {
      * @param serverPort: server port used in the communication
      * @param cipher:     cipher to cipher the communication
      * @apiNote this will set {@link #serverUse} to {@code "false"} and will be use as client side
-     **/
-    public SocketManager(String host, int serverPort, ClientCipher cipher) {
+     */
+    public SocketManager(String host, int serverPort, AESClientCipher cipher) {
         serverUse = false;
         currentHost = host;
         currentServerPort = serverPort;
@@ -177,10 +177,10 @@ public class SocketManager {
      * @param algorithm:              algorithm used for AES cipher
      * @throws Exception when an error occurred
      * @apiNote this will set {@link #serverUse} to {@code "true"} and will be use as server side
-     **/
+     */
     public SocketManager(boolean allowMultipleListeners, String ivSpec, String secretKey,
                          Algorithm algorithm) throws Exception {
-        this(allowMultipleListeners, new ClientCipher(ivSpec, secretKey, algorithm));
+        this(allowMultipleListeners, new AESClientCipher(ivSpec, secretKey, algorithm));
     }
 
     /**
@@ -192,10 +192,10 @@ public class SocketManager {
      * @param algorithm:              algorithm used for AES cipher
      * @throws Exception when an error occurred
      * @apiNote this will set {@link #serverUse} to {@code "true"} and will be use as server side
-     **/
+     */
     public SocketManager(boolean allowMultipleListeners, IvParameterSpec ivSpec, SecretKey secretKey,
                          Algorithm algorithm) throws Exception {
-        this(allowMultipleListeners, new ClientCipher(ivSpec, secretKey, algorithm));
+        this(allowMultipleListeners, new AESClientCipher(ivSpec, secretKey, algorithm));
     }
 
     /**
@@ -204,7 +204,7 @@ public class SocketManager {
      * @param allowMultipleListeners: whether accept multiple listeners at the same time
      * @throws UnknownHostException when an error occurred
      * @apiNote this will set {@link #serverUse} to {@code "true"} and will be use as server side
-     **/
+     */
     public SocketManager(boolean allowMultipleListeners) throws UnknownHostException {
         this(allowMultipleListeners, null);
     }
@@ -216,8 +216,8 @@ public class SocketManager {
      * @param cipher:                 cipher to cipher the communication
      * @throws UnknownHostException when an error occurred
      * @apiNote this will set {@link #serverUse} to {@code "true"} and will be use as server side
-     **/
-    public SocketManager(boolean allowMultipleListeners, ClientCipher cipher) throws UnknownHostException {
+     */
+    public SocketManager(boolean allowMultipleListeners, AESClientCipher cipher) throws UnknownHostException {
         serverUse = true;
         this.allowMultipleListeners = allowMultipleListeners;
         currentHost = InetAddress.getLocalHost().getHostAddress();
@@ -239,7 +239,7 @@ public class SocketManager {
      * @param routine: routine to execute by the listener
      * @apiNote this method will be executed only if the {@link #serverUse} is set to {@code "true"}
      * @throws IOException when some errors have been occurred, for example same port for different listeners
-     **/
+     */
     public void startListener(int port, Runnable routine) throws IOException {
         if (serverUse) {
             if (serverSocket == null || currentServerPort != port) {
@@ -271,7 +271,7 @@ public class SocketManager {
      * @apiNote this method will be executed only if the {@link #serverUse} is set to {@code "true"}
      * @implSpec this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "false"}
      * @throws IOException when some errors have been occurred
-     **/
+     */
     @Wrapper
     public Socket acceptRequest() throws IOException {
         return acceptRequestOn(currentServerPort);
@@ -286,7 +286,7 @@ public class SocketManager {
      * @apiNote this method will be executed only if the {@link #serverUse} is set to {@code "true"}
      * @implSpec this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "true"}
      * @throws IOException when some errors have been occurred
-     **/
+     */
     public Socket acceptRequestOn(int port) throws IOException {
         if (serverUse) {
             if (allowMultipleListeners) {
@@ -308,7 +308,7 @@ public class SocketManager {
      * @param defaultErrorResponse: default error response to send as error
      * @apiNote any object will be accepted, but will be set {@link #defaultErrorResponse} as {@link String} calling
      * their {@code "toString()"} method
-     **/
+     */
     public <T> void setDefaultErrorResponse(T defaultErrorResponse) {
         this.defaultErrorResponse = defaultErrorResponse.toString();
     }
@@ -318,7 +318,7 @@ public class SocketManager {
      * Any params required
      *
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public void sendDefaultErrorResponse() throws Exception {
         writeContent(defaultErrorResponse);
     }
@@ -328,7 +328,7 @@ public class SocketManager {
      *
      * @param port: port of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public void sendDefaultErrorResponseTo(int port) throws Exception {
         writeContentTo(port, defaultErrorResponse);
     }
@@ -338,7 +338,7 @@ public class SocketManager {
      *
      * @param host: host of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public void sendDefaultErrorResponseTo(String host) throws Exception {
         writeContentTo(host, defaultErrorResponse);
     }
@@ -349,7 +349,7 @@ public class SocketManager {
      * @param port: port of the server socket where this request must be accepted and routed
      * @param host: host of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public void sendDefaultErrorResponseTo(String host, int port) throws Exception {
         writeContentTo(host, port, defaultErrorResponse);
     }
@@ -360,7 +360,7 @@ public class SocketManager {
      * @param defaultSuccessResponse: default successful response to send as success
      * @apiNote any object will be accepted, but will be set {@link #defaultSuccessResponse} as {@link String} calling
      * their {@code "toString()"} method
-     **/
+     */
     public <T> void setDefaultSuccessResponse(T defaultSuccessResponse) {
         this.defaultSuccessResponse = defaultSuccessResponse.toString();
     }
@@ -370,7 +370,7 @@ public class SocketManager {
      * Any params required
      *
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public void sendSuccessResponse() throws Exception {
         writeContent(defaultSuccessResponse);
     }
@@ -380,7 +380,7 @@ public class SocketManager {
      *
      * @param port: port of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public void sendSuccessResponseTo(int port) throws Exception {
         writeContentTo(port, defaultSuccessResponse);
     }
@@ -390,7 +390,7 @@ public class SocketManager {
      *
      * @param host: host of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public void sendSuccessResponseTo(String host) throws Exception {
         writeContentTo(host, defaultSuccessResponse);
     }
@@ -401,7 +401,7 @@ public class SocketManager {
      * @param port: port of the server socket where this request must be accepted and routed
      * @param host: host of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public void sendSuccessResponseTo(String host, int port) throws Exception {
         writeContentTo(host, port, defaultSuccessResponse);
     }
@@ -412,7 +412,7 @@ public class SocketManager {
      * @param content: content message to send
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     @Wrapper
     public <T> void writeContent(T content) throws Exception {
         writeContentTo(currentHost, currentServerPort, content);
@@ -425,7 +425,7 @@ public class SocketManager {
      * @param port:    port of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     @Wrapper
     public <T> void writeContentTo(int port, T content) throws Exception {
         writeContentTo(currentHost, port, content);
@@ -438,7 +438,7 @@ public class SocketManager {
      * @param content: content message to send
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     @Wrapper
     public <T> void writeContentTo(String host, T content) throws Exception {
         writeContentTo(host, currentServerPort, content);
@@ -452,7 +452,7 @@ public class SocketManager {
      * @param port:    port of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     @Wrapper
     public <T> void writeContentTo(String host, int port, T content) throws Exception {
         if (!serverUse)
@@ -467,7 +467,7 @@ public class SocketManager {
      * @param content:      content message to send
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     public <T> void writeContentTo(Socket targetSocket, T content) throws Exception {
         String message = content.toString();
         if (message.contains(NEW_LINE_REPLACER)) {
@@ -485,7 +485,7 @@ public class SocketManager {
      * @param content: content message to send
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     @Wrapper
     public <T> void writePlainContent(T content) throws Exception {
         writePlainContentTo(currentHost, currentServerPort, content);
@@ -498,7 +498,7 @@ public class SocketManager {
      * @param port:    port of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     @Wrapper
     public <T> void writePlainContentTo(int port, T content) throws Exception {
         writePlainContentTo(currentHost, port, content);
@@ -511,7 +511,7 @@ public class SocketManager {
      * @param content: content message to send
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     @Wrapper
     public <T> void writePlainContentTo(String host, T content) throws Exception {
         writePlainContentTo(host, currentServerPort, content);
@@ -525,7 +525,7 @@ public class SocketManager {
      * @param port:    port of the server socket where this request must be accepted and routed
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     @Wrapper
     public <T> void writePlainContentTo(String host, int port, T content) throws Exception {
         if (!serverUse)
@@ -540,7 +540,7 @@ public class SocketManager {
      * @param content:      content message to send
      * @throws Exception when some errors have been occurred
      * @apiNote will be accepted any objects, but will be called their {@code "toString()"}'s method to be sent
-     **/
+     */
     public <T> void writePlainContentTo(Socket targetSocket, T content) throws Exception {
         PrintWriter printWriter = new PrintWriter(targetSocket.getOutputStream(), true);
         String message = content.toString();
@@ -557,7 +557,7 @@ public class SocketManager {
      *
      * @return content message received as {@link String}
      * @throws Exception when some errors have been occurred
-     **/
+     */
     @Wrapper
     public String readContent() throws Exception {
         return readContent(socket);
@@ -569,7 +569,7 @@ public class SocketManager {
      * @param targetSocket: target socket to use to receive the content message
      * @return content message received as {@link String}
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public String readContent(Socket targetSocket) throws Exception {
         String content = new BufferedReader(new InputStreamReader(targetSocket.getInputStream())).readLine();
         lastContentRed = content;
@@ -588,7 +588,7 @@ public class SocketManager {
      *
      * @return last content message red as {@link String}
      * @throws Exception when some errors have been occurred
-     **/
+     */
     public String readLastContent() throws Exception {
         if (cipher == null)
             return lastContentRed;
@@ -616,7 +616,7 @@ public class SocketManager {
      *     }
      * </pre>
      * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "false"}
-     **/
+     */
     @Wrapper
     public boolean continueListening() {
         return continueListeningOn(currentServerPort);
@@ -653,7 +653,7 @@ public class SocketManager {
      * </pre>
      * <b>Note</b>: if listener has been stopped will be removed from the {@link #listeners} list
      * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "true"}
-     **/
+     */
     public boolean continueListeningOn(int port) {
         if (allowMultipleListeners) {
             boolean continueListening = listeners.get(port).continueRoutine();
@@ -688,7 +688,7 @@ public class SocketManager {
      * </pre>
      *
      * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "false"}
-     **/
+     */
     @Wrapper
     public void stopListener() {
         stopListenerOn(currentServerPort);
@@ -731,7 +731,7 @@ public class SocketManager {
      *     }
      * </pre>
      * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "true"}
-     **/
+     */
     public void stopListenerOn(int port) {
         if (allowMultipleListeners)
             listeners.get(port).stopRoutine();
@@ -776,7 +776,7 @@ public class SocketManager {
      *     }
      * </pre>
      * @apiNote this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "true"}
-     **/
+     */
     public void stopAllListeners() {
         if (allowMultipleListeners) {
             for (Listener listener : listeners.values())
@@ -789,7 +789,7 @@ public class SocketManager {
      * Method to print an error occurred and exit with status code <b>1</b>
      *
      * @param errorMessage: error message to print
-     **/
+     */
     private void exit(String errorMessage) {
         System.err.println(errorMessage);
         System.exit(1);
@@ -800,7 +800,7 @@ public class SocketManager {
      * Any params required
      *
      * @return {@link #listeners} instance as {@link ConcurrentHashMap} of {@link Listener}
-     **/
+     */
     public ConcurrentHashMap<Integer, Listener> getListeners() {
         return listeners;
     }
@@ -810,7 +810,7 @@ public class SocketManager {
      * Any params required
      *
      * @return {@link #allowMultipleListeners} instance as boolean
-     **/
+     */
     public boolean areAllowedMultipleListeners() {
         return allowMultipleListeners;
     }
@@ -820,7 +820,7 @@ public class SocketManager {
      * Any params required
      *
      * @return {@link #executor} instance as {@link ExecutorService}
-     **/
+     */
     public ExecutorService getExecutor() {
         return executor;
     }
@@ -830,7 +830,7 @@ public class SocketManager {
      * Any params required
      *
      * @return {@link #serverUse} instance as boolean
-     **/
+     */
     public boolean isServerUse() {
         return serverUse;
     }
@@ -840,7 +840,7 @@ public class SocketManager {
      * Any params required
      *
      * @return {@link #serverSocket} instance as {@link ServerSocket}
-     **/
+     */
     public ServerSocket getActiveServerSocket() {
         return serverSocket;
     }
@@ -850,7 +850,7 @@ public class SocketManager {
      * Any params required
      *
      * @return {@link #currentServerPort} instance as int
-     **/
+     */
     public int getCurrentServerPort() {
         return currentServerPort;
     }
@@ -863,7 +863,7 @@ public class SocketManager {
      * @implNote if {@code "publicAddress"} is set to {@code "true"} will be called the <a href="https://www.ipify.org/">
      * ipify API service</a> to fetch the public ip at the first invocation of this method, then will be use an
      * instance instantiated at the first invocation.
-     **/
+     */
     public String getHost(boolean publicAddress) throws IOException {
         if (publicAddress) {
             if (publicHostAddress == null) {
@@ -881,7 +881,7 @@ public class SocketManager {
      * Any params required
      *
      * @return {@link #socket} instance as {@link Socket}
-     **/
+     */
     public Socket getActiveSocket() {
         return socket;
     }
@@ -891,7 +891,7 @@ public class SocketManager {
      * Any params required
      *
      * @throws IOException when an error occurred during the closing of the communication
-     **/
+     */
     public void closeCommunication() throws IOException {
         if (socket != null && !socket.isClosed())
             socket.close();
@@ -902,7 +902,7 @@ public class SocketManager {
      * Any params required
      *
      * @return initialization vector instance as {@link IvParameterSpec}
-     **/
+     */
     public IvParameterSpec getIvParameterSpec() {
         if (cipher != null)
             return cipher.getIvParameterSpec();
@@ -915,7 +915,7 @@ public class SocketManager {
      * Any params required
      *
      * @return initialization vector instance as {@link String}
-     **/
+     */
     public String getIvSpec() {
         if (cipher != null)
             return cipher.getStringIvParameterSpec();
@@ -928,7 +928,7 @@ public class SocketManager {
      * Any params required
      *
      * @return the secret key as {@link SecretKey}
-     **/
+     */
     public SecretKey getOCipherKey() {
         if (cipher != null)
             return cipher.getSecretKey();
@@ -941,7 +941,7 @@ public class SocketManager {
      * Any params required
      *
      * @return the secret key as {@link String}
-     **/
+     */
     public String getCipherKey() {
         if (cipher != null)
             return cipher.getStringSecretKey();
@@ -955,7 +955,7 @@ public class SocketManager {
      * @param ivSpec:    initialization vector as {@link String}
      * @param secretKey: secret key as {@link String}
      * @throws Exception when an error occurred
-     **/
+     */
     @Wrapper
     public void changeCipherKeys(String ivSpec, String secretKey) throws Exception {
         changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey));
@@ -968,7 +968,7 @@ public class SocketManager {
      * @param secretKey: secret key as {@link String}
      * @param algorithm: algorithm used by the {@link #cipher}
      * @throws Exception when an error occurred
-     **/
+     */
     @Wrapper
     public void changeCipherKeys(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
         changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey), algorithm);
@@ -980,7 +980,7 @@ public class SocketManager {
      * @param ivSpec:    initialization vector as {@link IvParameterSpec}
      * @param secretKey: secret key as {@link SecretKey}
      * @throws Exception when an error occurred
-     **/
+     */
     @Wrapper
     public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey) throws Exception {
         if (cipher != null)
@@ -996,7 +996,7 @@ public class SocketManager {
      * @param secretKey: secret key as {@link SecretKey}
      * @param algorithm: algorithm used by the {@link #cipher}
      * @throws Exception when an error occurred
-     **/
+     */
     public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {
         if (cipher != null) {
             cipher.setIvParameterSpec(ivSpec);
@@ -1014,7 +1014,7 @@ public class SocketManager {
      * @param algorithm: algorithm used by the {@link #cipher}
      * @throws Exception when an error occurred
      * @apiNote this will enable the auto-cipher of the communication
-     **/
+     */
     @Wrapper
     public void setCipher(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
         setCipher(createIvParameter(ivSpec), createSecretKey(secretKey), algorithm);
@@ -1028,10 +1028,10 @@ public class SocketManager {
      * @param algorithm: algorithm used by the {@link #cipher}
      * @throws Exception when an error occurred
      * @apiNote this will enable the auto-cipher of the communication
-     **/
+     */
     @Wrapper
     public void setCipher(IvParameterSpec ivSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {
-        setCipher(new ClientCipher(ivSpec, secretKey, algorithm));
+        setCipher(new AESClientCipher(ivSpec, secretKey, algorithm));
     }
 
     /**
@@ -1039,8 +1039,8 @@ public class SocketManager {
      *
      * @param cipher: cipher to use
      * @apiNote this will enable the auto-cipher of the communication
-     **/
-    public void setCipher(ClientCipher cipher) {
+     */
+    public void setCipher(AESClientCipher cipher) {
         this.cipher = cipher;
     }
 
@@ -1048,9 +1048,9 @@ public class SocketManager {
      * Method to get {@link #cipher} instance <br>
      * Any params required
      *
-     * @return {@link #cipher} instance as {@link ClientCipher}
-     **/
-    public ClientCipher getCipher() {
+     * @return {@link #cipher} instance as {@link AESClientCipher}
+     */
+    public AESClientCipher getCipher() {
         return cipher;
     }
 
@@ -1061,7 +1061,7 @@ public class SocketManager {
      * @return {@code "true"} if the host on the port inserted are available, {@code "false"} if is not reachable
      * @implNote to use this method you need to use this class as {@code "client"}, so with {@link #serverUse} set on
      * {@code "false"}, to use {@code "server-side"} you can use {@link #pingHost(String, int, int)} directly
-     **/
+     */
     @Wrapper
     public boolean pingHost(int timeout) {
         if (!serverUse)
@@ -1072,39 +1072,39 @@ public class SocketManager {
 
     /**
      * {@code StandardResponseCode} list of available response status code
-     **/
+     */
     public enum StandardResponseCode {
 
         /**
          * {@code SUCCESSFUL} when the communication ended successfully
-         **/
+         */
         SUCCESSFUL(200),
 
         /**
          * {@code GENERIC_RESPONSE} when the communication ended with a generic error
-         **/
+         */
         GENERIC_RESPONSE(300),
 
         /**
          * {@code NOT_FOUND} when the communication ended with a not found resource
-         **/
+         */
         NOT_FOUND(404),
 
         /**
          * {@code FAILED} when the communication failed
-         **/
+         */
         FAILED(500);
 
         /**
          * {@code code} of the response
-         **/
+         */
         private final int code;
 
         /**
          * Constructor to init {@link StandardResponseCode}
          *
          * @param code: code of the response
-         **/
+         */
         StandardResponseCode(int code) {
             this.code = code;
         }
@@ -1114,7 +1114,7 @@ public class SocketManager {
          * Any params required
          *
          * @return {@link #code} instance as int
-         **/
+         */
         public int getCode() {
             return code;
         }
@@ -1126,7 +1126,7 @@ public class SocketManager {
      *
      * @param socket: socket from fetch the ip
      * @return ip address as {@link String}
-     **/
+     */
     public static String getIpAddress(Socket socket) {
         return ((InetSocketAddress) socket.getRemoteSocketAddress()).getAddress().getHostAddress();
     }
@@ -1138,7 +1138,7 @@ public class SocketManager {
      * @param port:    port of the host to ping
      * @param timeout: custom timeout to wait for the ping
      * @return {@code "true"} if the host on the port inserted are available, {@code "false"} if is not reachable
-     **/
+     */
     public static boolean pingHost(String host, int port, int timeout) {
         try {
             final Socket socket = new Socket();
@@ -1183,17 +1183,17 @@ public class SocketManager {
      * @author N7ghtm4r3 - Tecknobit
      * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">SocketManager.md</a>
      * @since 2.0.4
-     **/
+     */
     public static class Listener {
 
         /**
          * {@code serverSocket} for the listener
-         **/
+         */
         private final ServerSocket serverSocket;
 
         /**
          * {@code continueRoutine} whether continue the routine
-         **/
+         */
         private volatile boolean continueRoutine;
 
         /**
@@ -1201,7 +1201,7 @@ public class SocketManager {
          *
          * @param serverSocket:    server socket for the listener
          * @param continueRoutine: whether continue the routine
-         **/
+         */
         public Listener(ServerSocket serverSocket, boolean continueRoutine) {
             this.serverSocket = serverSocket;
             this.continueRoutine = continueRoutine;
@@ -1212,7 +1212,7 @@ public class SocketManager {
          * Any params required
          *
          * @return {@link #serverSocket} instance as {@link ServerSocket}
-         **/
+         */
         public ServerSocket getServerSocket() {
             return serverSocket;
         }
@@ -1222,7 +1222,7 @@ public class SocketManager {
          * Any params required
          *
          * @return {@link #continueRoutine} instance as boolean
-         **/
+         */
         public boolean continueRoutine() {
             return continueRoutine;
         }
@@ -1233,7 +1233,7 @@ public class SocketManager {
          * Any params required
          *
          * @apiNote the listener will be stopped and will refuse all the requests to this {@link #serverSocket}
-         **/
+         */
         public void stopRoutine() {
             continueRoutine = false;
         }

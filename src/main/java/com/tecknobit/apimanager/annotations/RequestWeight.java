@@ -27,7 +27,7 @@ public @interface RequestWeight {
 
     /**
      * {@code weight} value of the request
-     **/
+     */
     String weight();
 
 }

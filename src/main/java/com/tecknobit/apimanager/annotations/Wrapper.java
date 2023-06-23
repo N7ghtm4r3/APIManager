@@ -34,7 +34,7 @@ public @interface Wrapper {
 
     /**
      * {@code wrapper_of} method wrapped by the method with this annotation
-     **/
+     */
     String wrapper_of() default "";
 
 }

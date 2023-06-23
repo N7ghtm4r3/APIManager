@@ -20,19 +20,21 @@ import static java.lang.String.valueOf;
  * </pre>
  *
  * @author N7ghtm4r3 - Tecknobit
- **/
+ */
 public abstract class ScientificNotationParser {
 
-    /** Method to parse a numeric value and format without scientific notation
+    /**
+     * Method to parse a numeric value and format without scientific notation
+     *
      * @param value: value to fetch without scientific notation
      * @return value as {@link String} (es.) 9.2221111228E-6 -> 0.0000092221111228
-     * **/
-    public static String sNotationParse(Number value){
-        if(value == null)
+     */
+    public static String sNotationParse(Number value) {
+        if (value == null)
             throw new IllegalArgumentException("Value cannot be null");
-        if(!(value instanceof Integer)) {
+        if (!(value instanceof Integer)) {
             String number = valueOf(value);
-            if(number.contains("E")) {
+            if (number.contains("E")) {
                 int zeroCounter = parseInt(number.split("-")[1]);
                 StringBuilder zeroBuffer = new StringBuilder();
                 for (int j=0; j < zeroCounter - 1; j++)
@@ -47,11 +49,13 @@ public abstract class ScientificNotationParser {
         return valueOf(value);
     }
 
-    /** Method to parse a numeric value and format without scientific notation
+    /**
+     * Method to parse a numeric value and format without scientific notation
+     *
      * @param decimals: number of digits after comma
-     * @param value: value to fetch without scientific notation
+     * @param value:    value to fetch without scientific notation
      * @return value as {@link String} (es.) 9.2221111228E-6 -> 0.0000092221111228
-     * **/
+     */
     public static String sNotationParse(int decimals, Number value){
         if(decimals < 0)
             throw new IllegalArgumentException("Decimals digits value must be positive");
@@ -67,7 +71,7 @@ public abstract class ScientificNotationParser {
      * @param decimals: number of digits after comma
      * @param value: value to fetch without scientific notation
      * @return value as {@link String} (es.) 9.2221111228E-6 -> 0.0000092221111228
-     * **/
+     * */
     public static String sNotationParse(int integers, int decimals, Number value){
         if(integers < 0)
             throw new IllegalArgumentException("Integers digits value must be positive");

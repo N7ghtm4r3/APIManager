@@ -5,7 +5,7 @@ package com.tecknobit.apimanager.exceptions;
  * This, usually, is at the first run of that workflow
  *
  * @author Tecknobit N7ghtm4r3
- **/
+ */
 public class SaveData extends Exception {
 
     /**

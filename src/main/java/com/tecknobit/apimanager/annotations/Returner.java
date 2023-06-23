@@ -46,7 +46,7 @@ public @interface Returner {
      * LIBRARY_OBJECT -> returns the response formatted as custom object offered by library that uses this list
      * </li>
      * </ul>
-     **/
+     */
     enum ReturnFormat {
         STRING,
         JSON,

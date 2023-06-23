@@ -29,28 +29,28 @@ import java.util.List;
  * This means that all methods where a {@code "JSON"}'s structure is requested will be returned one of that classes. <br>
  * In other methods, if this class has been instantiated using the constructor with {@link String} parameter, will be
  * possible work on {@code "JSON"} and return the result requested
- **/
+ */
 public class JsonHelper{
 
     /**
      * {@code NUMERIC_DEF_VALUE_IF_MISSED} is constant that memorizes default numeric value if the main is missed
-     * **/
+     */
     public static final int NUMERIC_DEF_VALUE_IF_MISSED = -1234567890;
 
     /**
      * {@code NUMERIC_CLASS_CAST_ERROR_VALUE} is constant that memorizes default numeric value if {@link ClassCastException}
      * has been thrown
-     * **/
+     */
     public static final int NUMERIC_CLASS_CAST_ERROR_VALUE = -987654321;
 
     /**
      * {@code jsonObjectSource} is instance that memorizes {@link JSONObject} to work on
-     **/
+     */
     private JSONObject jsonObjectSource;
 
     /**
      * {@code jsonArraySource} is instance that memorizes {@link JSONArray} to work on
-     **/
+     */
     private JSONArray jsonArraySource;
 
     /**
@@ -61,7 +61,7 @@ public class JsonHelper{
      * @apiNote will be called the {@code "toString()"} method, if it will be thrown an {@link IllegalArgumentException}
      * use directly the {@code "JsonHelper(String jsonSource)"} constructor or check validity of the {@code "JSON"} source
      * inserted
-     **/
+     */
     public <T> JsonHelper(T jsonSource) {
         this(jsonSource.toString());
     }
@@ -70,7 +70,7 @@ public class JsonHelper{
      * Constructor to init {@link JsonHelper} tool class
      *
      * @param jsonObjectSource: jsonObject used to fetch data
-     **/
+     */
     public JsonHelper(JSONObject jsonObjectSource) {
         this.jsonObjectSource = jsonObjectSource;
         jsonArraySource = new JSONArray();
@@ -80,7 +80,7 @@ public class JsonHelper{
      * Constructor to init {@link JsonHelper} tool class
      *
      * @param jsonArraySource: jsonArray used to fetch data
-     **/
+     */
     public JsonHelper(JSONArray jsonArraySource) {
         this.jsonArraySource = jsonArraySource;
         jsonObjectSource = new JSONObject();
@@ -91,7 +91,7 @@ public class JsonHelper{
      *
      * @param jsonSource: the source of {@code "JSON"} to work on, it can be formatted as object or array {@code "JSON"} structures
      * @throws IllegalArgumentException when {@code "jsonSource"} inserted is not a valid {@code "JSON"} source
-     **/
+     */
     public JsonHelper(String jsonSource) throws IllegalArgumentException {
         try {
             jsonObjectSource = new JSONObject(jsonSource);
@@ -109,7 +109,7 @@ public class JsonHelper{
      *
      * @param jsonObjectSource: jsonObject used to fetch data
      * @param jsonArraySource:  jsonArray used to fetch data
-     **/
+     */
     public JsonHelper(JSONObject jsonObjectSource, JSONArray jsonArraySource) {
         this.jsonObjectSource = jsonObjectSource;
         this.jsonArraySource = jsonArraySource;
@@ -121,7 +121,7 @@ public class JsonHelper{
      * @param key: key of string value to get from json
      * @return value as {@link String}, if it is not exist will return null value
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     @Wrapper
     public String getString(String key) {
         return getString(key, null);
@@ -134,7 +134,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link String}, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     public String getString(String key, String defValue) {
         try {
             return autoSearch(jsonObjectSource, key, defValue);
@@ -153,7 +153,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static String getString(JSONObject jsonDetails, String key) {
         return getString(jsonDetails, key, null);
@@ -170,7 +170,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static String getString(JSONObject jsonDetails, String key, String defValue) {
         try {
             return autoSearch(jsonDetails, key, defValue);
@@ -184,7 +184,7 @@ public class JsonHelper{
      *
      * @param index: index of string value to get from json
      * @return value as {@link String}, if it is not exist will return null value
-     **/
+     */
     @Wrapper
     public String getString(int index) {
         return getString(index, null);
@@ -196,7 +196,7 @@ public class JsonHelper{
      * @param index:    index of string value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link String}, if it is not exist will return {@code defValue}
-     **/
+     */
     public String getString(int index, String defValue) {
         try {
             return jsonArraySource.getString(index);
@@ -212,7 +212,7 @@ public class JsonHelper{
      * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
-     **/
+     */
     @Wrapper
     public double getDouble(String key) {
         return getDouble(key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -226,7 +226,7 @@ public class JsonHelper{
      * @return value as double, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
-     **/
+     */
     public double getDouble(String key, double defValue) {
         try {
             Object value = autoSearch(jsonObjectSource, key, defValue);
@@ -250,7 +250,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static double getDouble(JSONObject jsonDetails, String key) {
         return getDouble(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -268,7 +268,7 @@ public class JsonHelper{
      * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      * as default value
      * @return value as double, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static double getDouble(JSONObject jsonDetails, String key, double defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
@@ -286,7 +286,7 @@ public class JsonHelper{
      *
      * @param index: index of double value to get from json
      * @return value as double, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     **/
+     */
     @Wrapper
     public double getDouble(int index) {
         return getDouble(index, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -298,7 +298,7 @@ public class JsonHelper{
      * @param index:    index of double value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as double, if it is not exist will return {@code defValue}
-     **/
+     */
     public double getDouble(int index, double defValue) {
         try {
             return jsonArraySource.getDouble(index);
@@ -314,7 +314,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
-     **/
+     */
     @Wrapper
     public int getInt(String key) {
         return getInt(key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -328,7 +328,7 @@ public class JsonHelper{
      * @return value as int, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
-     **/
+     */
     public int getInt(String key, int defValue) {
         try {
             Object value = autoSearch(jsonObjectSource, key, defValue);
@@ -352,7 +352,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static int getInt(JSONObject jsonDetails, String key) {
         return getInt(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -370,7 +370,7 @@ public class JsonHelper{
      * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      * as default value
      * @return value as int, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static int getInt(JSONObject jsonDetails, String key, int defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
@@ -388,7 +388,7 @@ public class JsonHelper{
      *
      * @param index: index of int value to get from json
      * @return value as int, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     **/
+     */
     @Wrapper
     public int getInt(int index) {
         return getInt(index, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -400,7 +400,7 @@ public class JsonHelper{
      * @param index:    index of int value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as int, if it is not exist will return {@code defValue}
-     **/
+     */
     public int getInt(int index, int defValue) {
         try {
             return jsonArraySource.getInt(index);
@@ -416,7 +416,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
-     **/
+     */
     @Wrapper
     public float getFloat(String key) {
         return getFloat(key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -430,7 +430,7 @@ public class JsonHelper{
      * @return value as float, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
-     **/
+     */
     public float getFloat(String key, float defValue) {
         try {
             Object value = autoSearch(jsonObjectSource, key, defValue);
@@ -454,7 +454,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static float getFloat(JSONObject jsonDetails, String key) {
         return getFloat(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -471,7 +471,7 @@ public class JsonHelper{
      * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      * as default value
      * @return value as float, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static float getFloat(JSONObject jsonDetails, String key, float defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
@@ -489,7 +489,7 @@ public class JsonHelper{
      *
      * @param index: index of float value to get from json
      * @return value as float, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     **/
+     */
     @Wrapper
     public float getFloat(int index) {
         return getFloat(index, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -501,7 +501,7 @@ public class JsonHelper{
      * @param index:    index of float value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as float, if it is not exist will return {@code defValue}
-     **/
+     */
     public float getFloat(int index, float defValue) {
         try {
             return jsonArraySource.getFloat(index);
@@ -517,7 +517,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
-     **/
+     */
     @Wrapper
     public long getLong(String key) {
         return getLong(key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -531,7 +531,7 @@ public class JsonHelper{
      * @return value as long, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      *                             as default value
-     **/
+     */
     public long getLong(String key, long defValue) {
         try {
             Object value = autoSearch(jsonObjectSource, key, defValue);
@@ -555,7 +555,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static long getLong(JSONObject jsonDetails, String key) {
         return getLong(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -572,7 +572,7 @@ public class JsonHelper{
      * @exception ClassCastException: when this exception has been thrown will be returned {@link #NUMERIC_CLASS_CAST_ERROR_VALUE}
      * as default value
      * @return value as long, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static long getLong(JSONObject jsonDetails, String key, long defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
@@ -590,7 +590,7 @@ public class JsonHelper{
      *
      * @param index: index of long value to get from json
      * @return value as long, if it is not exist will return {@link #NUMERIC_DEF_VALUE_IF_MISSED}
-     **/
+     */
     @Wrapper
     public long getLong(int index) {
         return getLong(index, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -602,7 +602,7 @@ public class JsonHelper{
      * @param index:    index of long value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as long, if it is not exist will return {@code defValue}
-     **/
+     */
     public long getLong(int index, long defValue) {
         try {
             return jsonArraySource.getLong(index);
@@ -617,7 +617,7 @@ public class JsonHelper{
      * @param key: key of BigDecimal value to get from json
      * @return value as {@link BigDecimal}, if it is not exist will return null value
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     @Wrapper
     public BigDecimal getBigDecimal(String key) {
         return getBigDecimal(key, null);
@@ -630,7 +630,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     public BigDecimal getBigDecimal(String key, BigDecimal defValue) {
         try {
             Object value = autoSearch(jsonObjectSource, key, defValue);
@@ -652,7 +652,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key) {
         return getBigDecimal(jsonDetails, key, null);
@@ -669,7 +669,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static BigDecimal getBigDecimal(JSONObject jsonDetails, String key, BigDecimal defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
@@ -686,7 +686,7 @@ public class JsonHelper{
      *
      * @param index: index of BigDecimal value to get from json
      * @return value as {@link BigDecimal}, if it is not exist will return null value
-     **/
+     */
     @Wrapper
     public BigDecimal getBigDecimal(int index) {
         return getBigDecimal(index, null);
@@ -698,7 +698,7 @@ public class JsonHelper{
      * @param index:    index of BigDecimal value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link BigDecimal}, if it is not exist will return {@code defValue}
-     **/
+     */
     public BigDecimal getBigDecimal(int index, BigDecimal defValue) {
         try {
             return jsonArraySource.getBigDecimal(index);
@@ -713,7 +713,7 @@ public class JsonHelper{
      * @param key: key of BigInteger value to get from json
      * @return value as {@link BigInteger}, if it is not exist will return null value
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     @Wrapper
     public BigInteger getBigInteger(String key) {
         return getBigInteger(key, null);
@@ -726,7 +726,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     public BigInteger getBigInteger(String key, BigInteger defValue) {
         try {
             Object value = autoSearch(jsonObjectSource, key, defValue);
@@ -748,7 +748,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static BigInteger getBigInteger(JSONObject jsonDetails, String key) {
         return getBigInteger(jsonDetails, key, null);
@@ -765,7 +765,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been trowed will be returned null as default value
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static BigInteger getBigInteger(JSONObject jsonDetails, String key, BigInteger defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
@@ -782,7 +782,7 @@ public class JsonHelper{
      *
      * @param index: index of BigInteger value to get from json
      * @return value as {@link BigInteger}, if it is not exist will return null value
-     **/
+     */
     @Wrapper
     public BigInteger getBigInteger(int index) {
         return getBigInteger(index, null);
@@ -794,7 +794,7 @@ public class JsonHelper{
      * @param index:    index of BigInteger value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
-     **/
+     */
     public BigInteger getBigInteger(int index, BigInteger defValue) {
         try {
             return jsonArraySource.getBigInteger(index);
@@ -809,7 +809,7 @@ public class JsonHelper{
      * @param key: key of Number value to get from json
      * @return value as {@link Number}, if it is not exist will return null value
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     @Wrapper
     public Number getNumber(String key) {
         return getNumber(key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -822,7 +822,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link Number}, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     public Number getNumber(String key, Number defValue) {
         try {
             Object value = autoSearch(jsonObjectSource, key, defValue);
@@ -842,7 +842,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static Number getNumber(JSONObject jsonDetails, String key) {
         return getNumber(jsonDetails, key, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -859,7 +859,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static Number getNumber(JSONObject jsonDetails, String key, Number defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
@@ -874,7 +874,7 @@ public class JsonHelper{
      *
      * @param index: index of Number value to get from json
      * @return value as {@link Number}, if it is not exist will return null value
-     **/
+     */
     @Wrapper
     public Number getNumber(int index) {
         return getNumber(index, null);
@@ -886,7 +886,7 @@ public class JsonHelper{
      * @param index:    index of Number value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link Number}, if it is not exist will return {@code defValue}
-     **/
+     */
     public Number getNumber(int index, Number defValue) {
         try {
             return jsonArraySource.getNumber(index);
@@ -901,7 +901,7 @@ public class JsonHelper{
      * @param key: key of Object value to get from json
      * @return value as {@link Object}, if it is not exist will return null value
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     @Wrapper
     public Object get(String key) {
         return get(key, null);
@@ -914,7 +914,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link Object}, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     public Object get(String key, Object defValue) {
         try {
             return autoSearch(jsonObjectSource, key, defValue);
@@ -933,7 +933,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static Object get(JSONObject jsonDetails, String key) {
         return get(jsonDetails, key, null);
@@ -950,7 +950,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static Object get(JSONObject jsonDetails, String key, Object defValue) {
         try {
             return autoSearch(jsonDetails, key, defValue);
@@ -964,7 +964,7 @@ public class JsonHelper{
      *
      * @param index: index of Object value to get from json
      * @return value as {@link Object}, if it is not exist will return null value
-     **/
+     */
     @Wrapper
     public Object get(int index) {
         return get(index, null);
@@ -976,7 +976,7 @@ public class JsonHelper{
      * @param index:    index of Object value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link Object}, if it is not exist will return {@code defValue}
-     **/
+     */
     public Object get(int index, Object defValue) {
         try {
             return jsonArraySource.get(index);
@@ -991,7 +991,7 @@ public class JsonHelper{
      * @param key: key of boolean value to get from json
      * @return value as boolean, if it is not exist will return false value
      * @throws ClassCastException: when this exception has been trowed will be returned false as default value
-     **/
+     */
     public boolean getBoolean(String key) {
         return getBoolean(key, false);
     }
@@ -1003,7 +1003,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @return value as boolean, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been trowed will be returned false as default value
-     **/
+     */
     public boolean getBoolean(String key, boolean defValue) {
         try {
             Object value = autoSearch(jsonObjectSource, key, defValue);
@@ -1021,7 +1021,7 @@ public class JsonHelper{
      *
      * @param index: index of boolean value to get from json
      * @return value as boolean, if it is not exist will return false value
-     **/
+     */
     @Wrapper
     public boolean getBoolean(int index) {
         return getBoolean(index, false);
@@ -1033,7 +1033,7 @@ public class JsonHelper{
      * @param index:    index of boolean value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as boolean, if it is not exist will return {@code defValue}
-     **/
+     */
     public boolean getBoolean(int index, boolean defValue) {
         try {
             return jsonArraySource.getBoolean(index);
@@ -1052,7 +1052,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static boolean getBoolean(JSONObject jsonDetails, String key) {
         return getBoolean(jsonDetails, key, false);
@@ -1067,7 +1067,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @exception ClassCastException: when this exception has been trowed will be returned false as default value
      * @return value as boolean, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static boolean getBoolean(JSONObject jsonDetails, String key, boolean defValue) {
         try {
             Object value = autoSearch(jsonDetails, key, defValue);
@@ -1086,7 +1086,7 @@ public class JsonHelper{
      * @param key: key of JSONArray to get from json
      * @return value as {@link JSONArray}, if it is not exist will return null value
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     @Wrapper
     public JSONArray getJSONArray(String key) {
         return getJSONArray(key, null);
@@ -1099,7 +1099,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     public JSONArray getJSONArray(String key, JSONArray defValue) {
         Object value = autoSearch(jsonObjectSource, key, defValue);
         if (value instanceof JSONArray)
@@ -1117,7 +1117,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static JSONArray getJSONArray(JSONObject jsonDetails, String key) {
         return getJSONArray(jsonDetails, key, null);
@@ -1134,7 +1134,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static JSONArray getJSONArray(JSONObject jsonDetails, String key, JSONArray defValue) {
         Object value = autoSearch(jsonDetails, key, defValue);
         if (value instanceof JSONArray)
@@ -1147,7 +1147,7 @@ public class JsonHelper{
      *
      * @param index: index of JSONArray to get from json
      * @return value as {@link JSONArray}, if it is not exist will return null value
-     **/
+     */
     @Wrapper
     public JSONArray getJSONArray(int index) {
         return getJSONArray(index, null);
@@ -1159,7 +1159,7 @@ public class JsonHelper{
      * @param index:    index of JSONArray to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JSONArray}, if it is not exist will return {@code defValue}
-     **/
+     */
     public JSONArray getJSONArray(int index, JSONArray defValue) {
         try {
             return jsonArraySource.getJSONArray(index);
@@ -1178,7 +1178,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static JSONObject getJSONObject(JSONObject jsonDetails, String key) {
         return getJSONObject(jsonDetails, key, null);
@@ -1195,7 +1195,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static JSONObject getJSONObject(JSONObject jsonDetails, String key, JSONObject defValue) {
         Object value = autoSearch(jsonDetails, key, defValue);
         if (value instanceof JSONObject)
@@ -1212,7 +1212,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static JSONObject getJSONObject(JSONArray jsonDetails, int index) {
         return getJSONObject(jsonDetails, index, null);
@@ -1226,7 +1226,7 @@ public class JsonHelper{
      * @param index: index of {@link JSONObject} to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static JSONObject getJSONObject(JSONArray jsonDetails, int index, JSONObject defValue){
         try {
             return jsonDetails.getJSONObject(index);
@@ -1244,7 +1244,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static String getString(JSONArray jsonDetails, int index) {
         return getString(jsonDetails, index, null);
@@ -1260,7 +1260,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONObject} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONObject} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static String getString(JSONArray jsonDetails, int index, String defValue) {
         try {
             return jsonDetails.getString(index);
@@ -1278,7 +1278,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static double getDouble(JSONArray jsonDetails, int index) {
         return getDouble(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -1294,7 +1294,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static double getDouble(JSONArray jsonDetails, int index, double defValue) {
         try {
@@ -1313,7 +1313,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static int getInt(JSONArray jsonDetails, int index) {
         return getInt(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
     }
@@ -1328,7 +1328,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static int getInt(JSONArray jsonDetails, int index, int defValue) {
         try {
             return jsonDetails.getInt(index);
@@ -1346,7 +1346,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static float getFloat(JSONArray jsonDetails, int index) {
         return getFloat(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -1362,7 +1362,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static float getFloat(JSONArray jsonDetails, int index, float defValue) {
         try {
             return jsonDetails.getFloat(index);
@@ -1380,7 +1380,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static long getLong(JSONArray jsonDetails, int index) {
         return getLong(jsonDetails, index, NUMERIC_DEF_VALUE_IF_MISSED);
@@ -1396,7 +1396,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static long getLong(JSONArray jsonDetails, int index, long defValue) {
         try {
             return jsonDetails.getLong(index);
@@ -1414,7 +1414,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static BigDecimal getBigDecimal(JSONArray jsonDetails, int index) {
         return getBigDecimal(jsonDetails, index, null);
@@ -1430,7 +1430,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static BigDecimal getBigDecimal(JSONArray jsonDetails, int index, BigDecimal defValue) {
         try {
             return jsonDetails.getBigDecimal(index);
@@ -1448,7 +1448,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static BigInteger getBigInteger(JSONArray jsonDetails, int index) {
         return getBigInteger(jsonDetails, index, null);
@@ -1462,7 +1462,7 @@ public class JsonHelper{
      * @param index: index of BigInteger value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link BigInteger}, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static BigInteger getBigInteger(JSONArray jsonDetails, int index, BigInteger defValue){
         try {
             return jsonDetails.getBigInteger(index);
@@ -1480,7 +1480,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static Number getNumber(JSONArray jsonDetails, int index) {
         return getNumber(jsonDetails, index, null);
@@ -1496,7 +1496,7 @@ public class JsonHelper{
      * @param index: index of Number value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link Number}, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static Number getNumber(JSONArray jsonDetails, int index, Number defValue){
         try {
             return jsonDetails.getNumber(index);
@@ -1514,7 +1514,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static Object get(JSONArray jsonDetails, int index){
         return get(jsonDetails, index, null);
@@ -1528,7 +1528,7 @@ public class JsonHelper{
      * @param index: index of Object value to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link Object}, if it is not exist will return {@code defValue}
-     * **/
+     * */
     public static Object get(JSONArray jsonDetails, int index, Object defValue){
         try {
             return jsonDetails.get(index);
@@ -1546,7 +1546,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static boolean getBoolean(JSONArray jsonDetails, int index) {
         return getBoolean(jsonDetails, index, false);
@@ -1562,7 +1562,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static boolean getBoolean(JSONArray jsonDetails, int index, boolean defValue){
         try {
             return jsonDetails.getBoolean(index);
@@ -1580,7 +1580,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static JSONArray getJSONArray(JSONArray jsonDetails, int index) {
         return getJSONArray(jsonDetails, index, null);
@@ -1596,7 +1596,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from {@link JSONArray} avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * {@link JSONArray} is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static JSONArray getJSONArray(JSONArray jsonDetails, int index, JSONArray defValue) {
         try {
             return jsonDetails.getJSONArray(index);
@@ -1641,7 +1641,7 @@ public class JsonHelper{
      *         the method will return a {@link List} of {@link String}
      *     </li>
      * </ul>
-     **/
+     */
     @Wrapper
     public <T> List<T> toList() {
         return toList(jsonArraySource);
@@ -1683,7 +1683,7 @@ public class JsonHelper{
      *         the method will return a {@link List} of {@link String}
      *     </li>
      * </ul>
-     **/
+     */
     public static <T> List<T> toList(JSONArray jsonArray) {
         return (List<T>) jsonArray.toList();
     }
@@ -1694,7 +1694,7 @@ public class JsonHelper{
      * @param key: key of {@link JSONObject} to get from json
      * @return value as {@link JSONObject}, if it is not exist will return null value
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     @Wrapper
     public JSONObject getJSONObject(String key) {
         return getJSONObject(key, null);
@@ -1707,7 +1707,7 @@ public class JsonHelper{
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
      * @throws ClassCastException: when this exception has been trowed will be returned null as default value
-     **/
+     */
     public JSONObject getJSONObject(String key, JSONObject defValue) {
         Object value = autoSearch(jsonObjectSource, key, defValue);
         if (value instanceof JSONObject)
@@ -1720,7 +1720,7 @@ public class JsonHelper{
      *
      * @param index: index of {@link JSONObject} to get from json
      * @return value as {@link JSONObject}, if it is not exist will return null value
-     **/
+     */
     @Wrapper
     public JSONObject getJSONObject(int index) {
         return getJSONObject(index, null);
@@ -1732,7 +1732,7 @@ public class JsonHelper{
      * @param index:    index of {@link JSONObject} to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JSONObject}, if it is not exist will return {@code defValue}
-     **/
+     */
     public JSONObject getJSONObject(int index, JSONObject defValue) {
         try {
             return jsonArraySource.getJSONObject(index);
@@ -1750,7 +1750,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from JSON avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * JSON source is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static <T> T getJsonHelper(JSONObject jsonDetails, String key) {
         return getJsonHelper(jsonDetails, key, null);
@@ -1766,7 +1766,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from JSON avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * JSON source is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static <T> T getJsonHelper(JSONObject jsonDetails, String key, T defValue) {
         Object value = get(jsonDetails, key);
         if (value != null)
@@ -1784,7 +1784,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from JSON avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * JSON source is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     @Wrapper
     public static <T> T getJsonHelper(JSONArray jsonDetails, int index) {
         return getJsonHelper(jsonDetails, index, null);
@@ -1800,7 +1800,7 @@ public class JsonHelper{
      * @implNote this static method is useful when you have to fetch a single value from JSON avoiding
      * instantiation of {@link JsonHelper} class, but if you have to fetch multiple value from the same
      * JSON source is recommended instantiate {@link JsonHelper} class first.
-     **/
+     */
     public static <T> T getJsonHelper(JSONArray jsonDetails, int index, T defValue) {
         Object value = get(jsonDetails, index);
         if (value != null)
@@ -1814,7 +1814,7 @@ public class JsonHelper{
      *
      * @param key: key of {@link JsonHelper} to get from json
      * @return value as {@link JsonHelper}, if it is not exist will return null
-     **/
+     */
     @Wrapper
     public JsonHelper getJsonHelper(String key) {
         return getJsonHelper(key, null);
@@ -1826,7 +1826,7 @@ public class JsonHelper{
      * @param key:      key of {@link JsonHelper} to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JsonHelper} if exists, if it is not exist will return {@code defValue} as {@link T}
-     **/
+     */
     public <T> T getJsonHelper(String key, T defValue) {
         Object value = get(key);
         if (value != null)
@@ -1840,7 +1840,7 @@ public class JsonHelper{
      *
      * @param index: index of {@link JsonHelper} to get from json
      * @return value as {@link JsonHelper}, if it is not exist will return null
-     **/
+     */
     @Wrapper
     public JsonHelper getJsonHelper(int index) {
         return getJsonHelper(index, null);
@@ -1852,7 +1852,7 @@ public class JsonHelper{
      * @param index:    index of {@link JsonHelper} to get from json
      * @param defValue: default value to return if primary value not exists
      * @return value as {@link JsonHelper} if exists, if it is not exist will return {@code defValue} as {@link T}
-     **/
+     */
     public <T> T getJsonHelper(int index, T defValue) {
         Object value = get(index);
         if (value != null)
@@ -1868,7 +1868,7 @@ public class JsonHelper{
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
      * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
-     **/
+     */
     @Wrapper
     public <T> ArrayList<T> fetchList(String searchKey) {
         return fetchList(searchKey, null);
@@ -1882,7 +1882,7 @@ public class JsonHelper{
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
      * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
-     **/
+     */
     @Wrapper
     public <T, V extends ArrayList<?>> ArrayList<T> fetchList(String searchKey, V defValue) {
         return fetchList(jsonObjectSource, searchKey, defValue);
@@ -1894,7 +1894,7 @@ public class JsonHelper{
      * @param source:    {@link JSONObject} source to search the {@link JSONArray} from fetch the list
      * @param searchKey: key for value to fetch
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
-     **/
+     */
     @Wrapper
     public static <T> ArrayList<T> fetchList(JSONObject source, String searchKey) {
         return fetchList(source, searchKey, null);
@@ -1907,7 +1907,7 @@ public class JsonHelper{
      * @param searchKey: key for value to fetch
      * @param defValue:  default value to return if not found what searched
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
-     **/
+     */
     public static <T, V extends ArrayList<?>> ArrayList<T> fetchList(JSONObject source, String searchKey, V defValue) {
         ArrayList<T> listFetched = null;
         if (containsKey(source, searchKey) && listFetched == null) {
@@ -1935,7 +1935,7 @@ public class JsonHelper{
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
-     **/
+     */
     @Wrapper
     public <T> ArrayList<T> fetchVList(String searchKey) {
         return fetchVList(jsonObjectSource, searchKey, null, null);
@@ -1949,7 +1949,7 @@ public class JsonHelper{
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
-     **/
+     */
     @Wrapper
     public <T, V extends ArrayList<?>> ArrayList<T> fetchVList(String searchKey, V defValue) {
         return fetchVList(jsonObjectSource, searchKey, null, defValue);
@@ -1963,7 +1963,7 @@ public class JsonHelper{
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
-     **/
+     */
     @Wrapper
     public static <T> ArrayList<T> fetchVList(JSONObject json, String searchKey) {
         return fetchVList(json, searchKey, null, null);
@@ -1978,7 +1978,7 @@ public class JsonHelper{
      * @return list of values as {@link ArrayList} of {@link T}, if it is not exist will return null
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
-     **/
+     */
     @Wrapper
     public static <T, V extends ArrayList<?>> ArrayList<T> fetchVList(JSONObject json, String searchKey, V defValue) {
         return fetchVList(json, searchKey, null, defValue);
@@ -1993,7 +1993,7 @@ public class JsonHelper{
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @implNote This method is useful when the value to fetch appears in multiple list
-     **/
+     */
     @Wrapper
     public <T> ArrayList<T> fetchVList(String searchKey, String listKey) {
         return fetchVList(searchKey, listKey, null);
@@ -2009,7 +2009,7 @@ public class JsonHelper{
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @implNote This method is useful when the value to fetch appears in multiple list
-     **/
+     */
     @Wrapper
     public <T, V extends ArrayList<?>> ArrayList<T> fetchVList(String searchKey, String listKey, V defValue) {
         return fetchVList(jsonObjectSource, searchKey, listKey, defValue);
@@ -2025,7 +2025,7 @@ public class JsonHelper{
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @implNote This method is useful when the value to fetch appears in multiple list
-     **/
+     */
     @Wrapper
     public static <T> ArrayList<T> fetchVList(JSONObject json, String searchKey, String listKey) {
         return fetchVList(json, searchKey, listKey, null);
@@ -2042,7 +2042,7 @@ public class JsonHelper{
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
      * @implNote This method is useful when the value to fetch appears in multiple list
-     **/
+     */
     public static <T, V extends ArrayList<?>> ArrayList<T> fetchVList(JSONObject json, String searchKey, String listKey,
                                                                       V defValue) {
         ArrayList<T> vList = null;
@@ -2075,7 +2075,7 @@ public class JsonHelper{
      * @return value as {@link T}, if it is not exist will return null
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
-     **/
+     */
     private static <T> T autoSearch(JSONObject json, String searchKey) {
         if (containsKey(json, searchKey)) {
             ArrayList<String> subKeys = new ArrayList<>();
@@ -2106,7 +2106,7 @@ public class JsonHelper{
      * @param json:      {@code "JSON"} source
      * @param searchKey: key for value to fetch
      * @return whether the source constants the key specified
-     **/
+     */
     private static boolean containsKey(Object json, String searchKey) {
         return json.toString().contains("\"" + searchKey + "\":");
     }
@@ -2120,7 +2120,7 @@ public class JsonHelper{
      * @return value as {@link T}, if it is not exist will return {@code defValue}
      * @apiNote this method does not need specific path of the {@link JSONObject} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
-     **/
+     */
     private static <T> T autoSearch(JSONObject json, String searchKey, T defValue) {
         T search = autoSearch(json, searchKey);
         if (search == null)
@@ -2135,7 +2135,7 @@ public class JsonHelper{
      * @return value as {@link ArrayList} of {@link T}, if it is not exist will return null
      * @apiNote this method does not need specific path of the {@link JSONArray} to fetch value, but it will in automatic
      * reach the value requested directly from the entire {@code "JSON"} file without path inserted by hand
-     **/
+     */
     private static <T> T assembleList(JSONArray list) {
         ArrayList<T> values = new ArrayList<>();
         if (list != null)
@@ -2149,7 +2149,7 @@ public class JsonHelper{
      * Any params required
      *
      * @return {@link #jsonObjectSource} instance as {@link JSONObject}
-     **/
+     */
     public JSONObject getJSONObjectSource() {
         return jsonObjectSource;
     }
@@ -2161,7 +2161,7 @@ public class JsonHelper{
      * @throws IllegalArgumentException when {@code "jsonObjectSource"} inserted is not a valid {@code "JSON"} source
      * @apiNote if it will be thrown an {@link IllegalArgumentException} use directly the {@link #setJSONArraySource(String)}
      * method or check validity of the {@code "JSON"} source inserted
-     **/
+     */
     public <T> void setJSONObjectSource(T jsonObjectSource) {
         try {
             this.jsonObjectSource = new JSONObject(jsonObjectSource);
@@ -2175,7 +2175,7 @@ public class JsonHelper{
      *
      * @param jsonObjectSource : new {@code "JSON"} source for {@link #jsonObjectSource}
      * @throws IllegalArgumentException when {@code "jsonObjectSource"} inserted is not a valid {@code "JSON"} source
-     **/
+     */
     public void setJSONObjectSource(String jsonObjectSource) {
         try {
             this.jsonObjectSource = new JSONObject(jsonObjectSource);
@@ -2189,7 +2189,7 @@ public class JsonHelper{
      *
      * @param jsonObjectSource : new {@code "JSON"} source for {@link #jsonObjectSource}
      * @throws IllegalArgumentException when {@code "jsonObjectSource"} inserted is not a valid {@code "JSON"} source
-     **/
+     */
     public void setJSONObjectSource(JSONObject jsonObjectSource) {
         try {
             this.jsonObjectSource = jsonObjectSource;
@@ -2203,7 +2203,7 @@ public class JsonHelper{
      * Any params required
      *
      * @return {@link #jsonArraySource} instance as {@link JSONArray}
-     **/
+     */
     public JSONArray getJSONArraySource() {
         return jsonArraySource;
     }
@@ -2215,7 +2215,7 @@ public class JsonHelper{
      * @throws IllegalArgumentException when {@code "jsonArraySource"} inserted is not a valid {@code "JSON"} source
      * @apiNote if it will be thrown an {@link IllegalArgumentException} use directly the {@link #setJSONArraySource(String)}
      * method or check validity of the {@code "JSON"} source inserted
-     **/
+     */
     public <T> void setJSONArraySource(T jsonArraySource) {
         try {
             this.jsonArraySource = new JSONArray(jsonArraySource.toString());
@@ -2229,7 +2229,7 @@ public class JsonHelper{
      *
      * @param jsonArraySource: new {@code "JSON"} source for {@link #jsonArraySource}
      * @throws IllegalArgumentException when {@code "jsonArraySource"} inserted is not a valid {@code "JSON"} source
-     **/
+     */
     public void setJSONArraySource(String jsonArraySource) {
         try {
             this.jsonArraySource = new JSONArray(jsonArraySource);
@@ -2243,7 +2243,7 @@ public class JsonHelper{
      *
      * @param jsonArraySource: new {@code "JSON"} source for {@link #jsonArraySource}
      * @throws IllegalArgumentException when {@code "jsonArraySource"} inserted is not a valid {@code "JSON"} source
-     **/
+     */
     public void setJSONArraySource(JSONArray jsonArraySource) {
         try {
             this.jsonArraySource = jsonArraySource;

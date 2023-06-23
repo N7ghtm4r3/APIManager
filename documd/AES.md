@@ -25,7 +25,7 @@ The other algorithms will be gradually released
 #### Client 
 
 ```java
-import com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.Algorithm;
+import com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.Algorithm;
 
 public class Client {
 
@@ -42,7 +42,7 @@ public class Client {
 #### Server 
 
 ```java
-import com.tecknobit.apimanager.apis.encryption.aes.serverside.GenericServerCipher.KeySize;
+import com.tecknobit.apimanager.apis.encryption.aes.serverside.AESGenericServerCipher.AESKeySize;
 
 public class Server {
     

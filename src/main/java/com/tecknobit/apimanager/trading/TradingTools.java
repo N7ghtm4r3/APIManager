@@ -9,7 +9,7 @@ import static java.lang.String.format;
  * The {@code TradingTools} class is a useful tool class that allows you to manage trading data
  *
  * @author N7ghtm4r3 - Tecknobit
- **/
+ */
 public abstract class TradingTools {
 
     /**
@@ -19,7 +19,7 @@ public abstract class TradingTools {
      * @param lastValue:  last value to compare and get percent by first value
      * @return percent value as double es. 8 or -8
      * @throws IllegalArgumentException if startValue or lastValue are negative
-     **/
+     */
     public static double computeAssetPercent(double startValue, double lastValue) {
         if (startValue < 0 || lastValue < 0)
             throw new IllegalArgumentException("Start value and last value must be positive");
@@ -36,7 +36,7 @@ public abstract class TradingTools {
      * @param decimalDigits: number of digits to round final percent value
      * @return percent value as double es. 8 or -8
      * @throws IllegalArgumentException if startValue or lastValue are negative
-     **/
+     */
     public static double computeAssetPercent(double startValue, double lastValue, int decimalDigits) {
         return roundValue(computeAssetPercent(startValue, lastValue), decimalDigits);
     }
@@ -47,7 +47,7 @@ public abstract class TradingTools {
      * @param startValue: first value to make compare
      * @param lastValue:  last value to compare and get percent by first value
      * @return percent value es. +8% or -8% as {@link String}
-     **/
+     */
     public static String textualizeAssetPercent(double startValue, double lastValue) {
         return textualizeAssetPercent(computeAssetPercent(startValue, lastValue));
     }
@@ -59,7 +59,7 @@ public abstract class TradingTools {
      * @param lastValue:     last value to compare and get percent by first value
      * @param decimalDigits: number of digits to round final percent value
      * @return percent value es. +8% or -8% as {@link String}
-     **/
+     */
     public static String textualizeAssetPercent(double startValue, double lastValue, int decimalDigits) {
         return textualizeAssetPercent(computeAssetPercent(startValue, lastValue, decimalDigits));
     }
@@ -70,7 +70,7 @@ public abstract class TradingTools {
      * @param percent:       value to compute
      * @param decimalDigits: number of digits to round final value
      * @return percent value formatted es. +8% or -8% as {@link String}
-     **/
+     */
     public static String textualizeAssetPercent(double percent, int decimalDigits) {
         return textualizeAssetPercent(roundValue(percent, decimalDigits));
     }
@@ -82,7 +82,7 @@ public abstract class TradingTools {
      * @param lastValue:  last value to compare and calculate proportion with start value
      * @return proportion value as double
      * @throws IllegalArgumentException if startValue or lastValue are negative
-     **/
+     */
     public static double computeProportion(double startValue, double lastValue) {
         return computeAssetPercent(startValue, lastValue) + 100;
     }
@@ -95,7 +95,7 @@ public abstract class TradingTools {
      * @param decimalDigits: number of digits to round final percent value
      * @return proportion value as double
      * @throws IllegalArgumentException if startValue or lastValue are negative
-     **/
+     */
     public static double computeProportion(double startValue, double lastValue, int decimalDigits) {
         return computeAssetPercent(startValue, lastValue, decimalDigits) + 100;
     }
@@ -105,7 +105,7 @@ public abstract class TradingTools {
      *
      * @param percent: value to compute
      * @return percent value formatted es. +8% or -8% as {@link String}
-     **/
+     */
     public static String textualizeAssetPercent(double percent) {
         if (percent > 0)
             return "+" + percent + "%";
@@ -122,7 +122,7 @@ public abstract class TradingTools {
      * @param decimalDigits: number of digits to round final value
      * @return value rounded with decimal digits inserted
      * @throws IllegalArgumentException if decimalDigits is negative
-     **/
+     */
     public static double roundValue(double value, int decimalDigits) {
         if (decimalDigits < 0)
             throw new IllegalArgumentException("Decimal digits number cannot be less than 0");
@@ -160,7 +160,7 @@ public abstract class TradingTools {
      *          </td>
      *     </tr>
      * </table>
-     * **/
+     * */
     public static double getPercentualizedValue(double startValue, double percentualizer){
         if(startValue < 0)
             throw new IllegalArgumentException("Start value must be positive");
@@ -212,7 +212,7 @@ public abstract class TradingTools {
      *          </td>
      *     </tr>
      * </table>
-     * **/
+     * */
     public static double getPercentualizedValue(double startValue, double percentualizer, int decimalDigits) {
         return roundValue(getPercentualizedValue(startValue, percentualizer), decimalDigits);
     }
@@ -226,7 +226,7 @@ public abstract class TradingTools {
      * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     **/
+     */
     public static double computeTPTOPIndex(ArrayList<Double> historicalValues, double lastValue, int intervalDays,
                                            double offsetRange) {
         if (lastValue < 0)
@@ -247,7 +247,7 @@ public abstract class TradingTools {
      * @param decimalDigits:    number of digits to round final forecast value
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     **/
+     */
     public static double computeTPTOPIndex(ArrayList<Double> historicalValues, double lastValue, int intervalDays,
                                            double offsetRange, int decimalDigits) {
         return roundValue(computeTPTOPIndex(historicalValues, lastValue, intervalDays, offsetRange), decimalDigits);
@@ -262,7 +262,7 @@ public abstract class TradingTools {
      * @param offsetRange:      tolerance for select similar value compared to lastValue inserted
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     **/
+     */
     public static double computeTPTOPIndex(Double[] historicalValues, double lastValue, int intervalDays,
                                            double offsetRange) {
         if (lastValue < 0)
@@ -296,7 +296,7 @@ public abstract class TradingTools {
      * @param decimalDigits:    number of digits to round final forecast value
      * @return forecast value as a double es. 8 or -8
      * @throws IllegalArgumentException if lastValue is negative or intervalDays are less or equal to 0
-     **/
+     */
     public static double computeTPTOPIndex(Double[] historicalValues, double lastValue, int intervalDays, double offsetRange,
                                            int decimalDigits) {
         return roundValue(computeTPTOPIndex(historicalValues, lastValue, intervalDays, offsetRange), decimalDigits);

@@ -1,6 +1,6 @@
 package com.tecknobit.apimanager.apis.encryption.aes.serverside;
 
-import com.tecknobit.apimanager.apis.encryption.aes.ClientCipher;
+import com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -9,7 +9,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.NoSuchAlgorithmException;
 
-import static com.tecknobit.apimanager.apis.encryption.aes.ClientCipher.Algorithm.CFB_ALGORITHM;
+import static com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.Algorithm.CFB_ALGORITHM;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.toHexString;
 
@@ -18,20 +18,20 @@ import static java.lang.Integer.toHexString;
  *
  * @author Tecknobit N7ghtm4r3
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">AES.md</a>
- * @see ClientCipher
- * @see GenericServerCipher
+ * @see AESClientCipher
+ * @see AESGenericServerCipher
  * @since 2.0.2
- **/
-public class CFBServerCipher extends GenericServerCipher {
+ */
+public class CFBServerCipher extends AESGenericServerCipher {
 
     /**
      * {@code IV_SOURCE_LENGTH} is constant that memorizes standard size for {@link IvParameterSpec}
-     **/
+     */
     public static final int IV_SOURCE_LENGTH = 32;
 
     /**
      * {@code KEY_SOURCE_LENGTH} is constant that memorizes standard size for {@link SecretKeySpec}
-     **/
+     */
     public static final int KEY_SOURCE_LENGTH = 64;
 
     /**
@@ -39,10 +39,10 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param ivParameterSpec: initialization vector as {@link IvParameterSpec}
      * @param secretKey:       secret key used in the {@link Cipher} as {@link SecretKey}
-     **/
+     */
     public CFBServerCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey) throws NoSuchPaddingException,
             NoSuchAlgorithmException {
-        super(ivParameterSpec, secretKey, CFB_ALGORITHM, KeySize.k256);
+        super(ivParameterSpec, secretKey, CFB_ALGORITHM, AESKeySize.k256);
     }
 
     /**
@@ -50,9 +50,9 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param ivParameterSpec: initialization vector as {@link String}
      * @param secretKey:       secret key used in the {@link Cipher} as {@link String}
-     **/
+     */
     public CFBServerCipher(String ivParameterSpec, String secretKey) throws NoSuchPaddingException, NoSuchAlgorithmException {
-        super(ivParameterSpec, secretKey, CFB_ALGORITHM, KeySize.k256);
+        super(ivParameterSpec, secretKey, CFB_ALGORITHM, AESKeySize.k256);
     }
 
     /**
@@ -60,7 +60,7 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param source: source string to create an initialization vector
      * @return initialization vector as {@link IvParameterSpec}
-     **/
+     */
     public static IvParameterSpec createCFBIvParameterSpec(String source) {
         checkKeyValidity(source, IV_SOURCE_LENGTH);
         return new IvParameterSpec(hexToBytes(source));
@@ -71,7 +71,7 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param source: source string to create an initialization vector
      * @return initialization vector as {@link String}
-     **/
+     */
     public static String createCFBIvParameterSpecString(String source) {
         return byteToString(createCFBIvParameterSpec(source).getIV());
     }
@@ -81,7 +81,7 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param source: source string to create a secret key
      * @return secret key as {@link SecretKey}
-     **/
+     */
     public static SecretKeySpec createCFBSecretKey(String source) {
         checkKeyValidity(source, KEY_SOURCE_LENGTH);
         return new SecretKeySpec(hexToBytes(source), AES_ALGORITHM_TYPE);
@@ -92,7 +92,7 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param source: source string to create a secret key
      * @return secret key as {@link String}
-     **/
+     */
     public static String createCFBSecretKeyString(String source) {
         return byteToString(createCFBSecretKey(source).getEncoded());
     }
@@ -102,7 +102,7 @@ public class CFBServerCipher extends GenericServerCipher {
      * Any params required
      *
      * @return initialization vector as {@link IvParameterSpec}
-     **/
+     */
     public static IvParameterSpec createCFBIvParameterSpec() {
         return createIvParameterSpec();
     }
@@ -112,7 +112,7 @@ public class CFBServerCipher extends GenericServerCipher {
      * Any params required
      *
      * @return initialization vector as {@link String}
-     **/
+     */
     public static String createCFBIvParameterSpecString() {
         return createIvParameterSpecString();
     }
@@ -122,8 +122,8 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param keySize: size for secret key
      * @return secret key as {@link SecretKey}
-     **/
-    public static SecretKey createCFBSecretKey(KeySize keySize) throws NoSuchAlgorithmException {
+     */
+    public static SecretKey createCFBSecretKey(AESKeySize keySize) throws NoSuchAlgorithmException {
         return createSecretKey(keySize);
     }
 
@@ -132,8 +132,8 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param keySize: size for secret key
      * @return secret key as {@link String}
-     **/
-    public static String createCFBSecretKeyString(KeySize keySize) throws NoSuchAlgorithmException {
+     */
+    public static String createCFBSecretKeyString(AESKeySize keySize) throws NoSuchAlgorithmException {
         return createSecretKeyString(keySize);
     }
 
@@ -142,7 +142,7 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param source:    source string to check validity
      * @param keyLength: length used for check -> {@link #IV_SOURCE_LENGTH} or {@link #KEY_SOURCE_LENGTH}
-     **/
+     */
     private static void checkKeyValidity(String source, int keyLength) {
         int sourceLength = keyLength;
         String keyType = "an initialization vector";
@@ -166,7 +166,7 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param source: source string to convert
      * @return hex string in byte array format
-     **/
+     */
     public static byte[] hexToBytes(String source) {
         if (source == null)
             throw new IllegalArgumentException("Source string cannot be null");
@@ -186,7 +186,7 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @param bytes: source byte array to convert
      * @return byte array in hexadecimal {@link String}
-     **/
+     */
     public static String bytesToHex(byte[] bytes) {
         StringBuilder result = new StringBuilder();
         for (byte mByte : bytes) {
@@ -204,8 +204,8 @@ public class CFBServerCipher extends GenericServerCipher {
      * Any params required
      *
      * @return standard size of key for CFB mode is 512 bits, so will be returned <b>null</b>
-     **/
-    public KeySize getKeySize() {
+     */
+    public AESKeySize getKeySize() {
         return null;
     }
 
@@ -216,7 +216,7 @@ public class CFBServerCipher extends GenericServerCipher {
      *
      * @return key size instance as int
      * @implNote standard size of key for CFB mode is 512 bits
-     **/
+     */
     public int getCFBKeySize() {
         return 512;
     }

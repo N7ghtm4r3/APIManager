@@ -31,17 +31,17 @@ import static java.awt.Color.decode;
  * @implNote this class is based on the official <a href="https://github.com/zxing/zxing">zxing library</a>
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/QRCodeHelper.md">QRCodeHelper.md</a>
  * @since 2.0.4
- **/
+ */
 public class QRCodeHelper {
 
     /**
      * {@code HTML_REPLACER} replacer to use if you need to customize your html page
-     **/
+     */
     public static final String HTML_REPLACER = "<qrcode>";
 
     /**
      * {@code hosts} list of current active hosts
-     **/
+     */
     private static final ConcurrentHashMap<Integer, SocketManager> hosts = new ConcurrentHashMap<>();
 
     /**
@@ -52,7 +52,7 @@ public class QRCodeHelper {
      * @param squareDimension: dimensions of the square
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
-     **/
+     */
     @Wrapper
     public <T> void createQRCode(T data, String path, int squareDimension) throws IOException, WriterException {
         createQRCode(data, path, squareDimension, squareDimension);
@@ -67,7 +67,7 @@ public class QRCodeHelper {
      * @param height: height of the QRCode
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
-     **/
+     */
     public <T> void createQRCode(T data, String path, int width, int height) throws IOException, WriterException {
         createQRCode(data, path, width, height, null, null);
     }
@@ -81,7 +81,7 @@ public class QRCodeHelper {
      * @param squareDimension: dimensions of the square
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
-     **/
+     */
     @Wrapper
     public <T> void createQRCode(String foregroundColor, T data, String path,
                                  int squareDimension) throws IOException, WriterException {
@@ -98,7 +98,7 @@ public class QRCodeHelper {
      * @param height:          height of the QRCode
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
-     **/
+     */
     public <T> void createQRCode(String foregroundColor, T data, String path, int width,
                                  int height) throws IOException, WriterException {
         createQRCode(data, path, width, height, foregroundColor, null);
@@ -113,7 +113,7 @@ public class QRCodeHelper {
      * @param backgroundColor: background color of the QRCode pattern
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
-     **/
+     */
     @Wrapper
     public <T> void createQRCode(T data, String path, int squareDimension,
                                  String backgroundColor) throws IOException, WriterException {
@@ -130,7 +130,7 @@ public class QRCodeHelper {
      * @param backgroundColor: background color of the QRCode pattern
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
-     **/
+     */
     public <T> void createQRCode(T data, String path, int width, int height,
                                  String backgroundColor) throws IOException, WriterException {
         createQRCode(data, path, width, height, null, backgroundColor);
@@ -146,7 +146,7 @@ public class QRCodeHelper {
      * @param backgroundColor: background color of the QRCode pattern
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
-     **/
+     */
     @Wrapper
     public <T> void createQRCode(T data, String path, int squareDimension, String foregroundColor,
                                  String backgroundColor) throws IOException, WriterException {
@@ -164,7 +164,7 @@ public class QRCodeHelper {
      * @param backgroundColor: background color of the QRCode pattern
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
-     **/
+     */
     public <T> void createQRCode(T data, String path, int width, int height, String foregroundColor,
                                  String backgroundColor) throws IOException, WriterException {
         if (path.contains(".")) {
@@ -180,7 +180,7 @@ public class QRCodeHelper {
      * @param QRCodePath: path where find the QRCode
      * @return content of the QRCode as {@link String}
      * @throws IOException when an error is occurred during reading of the QRCODE
-     **/
+     */
     @Wrapper
     public String readQRCode(String QRCodePath) throws IOException {
         return readQRCode(new File(QRCodePath));
@@ -192,7 +192,7 @@ public class QRCodeHelper {
      * @param QRCode: QRCode file to read
      * @return content of the QRCode as {@link String}
      * @throws IOException when an error is occurred during reading of the QRCODE
-     **/
+     */
     public String readQRCode(File QRCode) throws IOException {
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(ImageIO.read(QRCode))));
         try {
@@ -219,7 +219,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     @Wrapper
     public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual) throws IOException {
         hostQRCode(port, data, path, squareDimension, squareDimension, perpetual);
@@ -243,7 +243,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual) throws IOException {
         hostQRCode(port, data, path, width, height, perpetual, (String) null, null);
     }
@@ -266,7 +266,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     @Wrapper
     public <T> void hostQRCode(String foregroundColor, int port, T data, String path, int squareDimension,
                                boolean perpetual) throws IOException {
@@ -292,7 +292,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     public <T> void hostQRCode(String foregroundColor, int port, T data, String path, int width, int height,
                                boolean perpetual) throws IOException {
         hostQRCode(port, data, path, width, height, perpetual, foregroundColor, null);
@@ -316,7 +316,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     @Wrapper
     public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual,
                                String backgroundColor) throws IOException {
@@ -342,7 +342,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
                                String backgroundColor) throws IOException {
         hostQRCode(port, data, path, width, height, perpetual, (String) null, backgroundColor);
@@ -367,7 +367,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     @Wrapper
     public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual,
                                String foregroundColor, String backgroundColor) throws IOException {
@@ -394,7 +394,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
                                String foregroundColor, String backgroundColor) throws IOException {
         if (path.contains("."))
@@ -423,7 +423,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     @Wrapper
     public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual,
                                File htmlPage) throws IOException {
@@ -451,7 +451,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
                                File htmlPage) throws IOException {
         hostQRCode(port, data, path, width, height, perpetual, htmlPage, null, null);
@@ -478,7 +478,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     @Wrapper
     public <T> void hostQRCode(String foregroundColor, int port, T data, String path, int squareDimension,
                                boolean perpetual, File htmlPage) throws IOException {
@@ -507,7 +507,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     public <T> void hostQRCode(String foregroundColor, int port, T data, String path, int width, int height,
                                boolean perpetual, File htmlPage) throws IOException {
         hostQRCode(port, data, path, width, height, perpetual, htmlPage, foregroundColor, null);
@@ -534,7 +534,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     @Wrapper
     public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual, File htmlPage,
                                String backgroundColor) throws IOException {
@@ -563,7 +563,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual, File htmlPage,
                                String backgroundColor) throws IOException {
         hostQRCode(port, data, path, width, height, perpetual, htmlPage, backgroundColor, null);
@@ -591,7 +591,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     @Wrapper
     public <T> void hostQRCode(int port, T data, String path, int squareDimension, boolean perpetual,
                                File htmlPage, String foregroundColor, String backgroundColor) throws IOException {
@@ -622,7 +622,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     public <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
                                File htmlPage, String foregroundColor, String backgroundColor) throws IOException {
         if (path.contains(".")) {
@@ -656,7 +656,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     private <T> void hostQRCode(int port, T data, String path, int width, int height, boolean perpetual,
                                 String html, String foregroundColor, String backgroundColor) throws IOException {
         SocketManager socketManager = new SocketManager(false);
@@ -697,7 +697,7 @@ public class QRCodeHelper {
      * if you need access by an external network you can find the QRCode in {@code "external_network_address"}:{@code "port"}
      * </li>
      * </ul>
-     **/
+     */
     private <T> void hostQRCode(T data, String path, int width, int height, SocketManager socketManager, String html,
                                 String foregroundColor, String backgroundColor) {
         try {
@@ -738,7 +738,7 @@ public class QRCodeHelper {
      * @param foregroundColor: color of the QRCode pattern
      * @param backgroundColor: background color of the QRCode pattern
      * @return matrix config as {@link MatrixToImageConfig}
-     **/
+     */
     private MatrixToImageConfig createQRConfig(String foregroundColor, String backgroundColor) {
         MatrixToImageConfig config;
         if (foregroundColor == null && backgroundColor == null)
@@ -760,7 +760,7 @@ public class QRCodeHelper {
      *
      * @throws IllegalStateException when there are multiple listeners which can be stopped
      * @throws IOException           when an error occurred
-     **/
+     */
     @Wrapper
     public void stopHosting() throws IOException {
         if (hosts.size() == 1)
@@ -775,7 +775,7 @@ public class QRCodeHelper {
      * @param port: port of the host to stop
      * @throws IOException           when an error occurred
      * @throws IllegalStateException when there are no-any host on that port found
-     **/
+     */
     public void stopHostingOn(int port) throws IOException {
         SocketManager socketManager = hosts.get(port);
         if (socketManager != null) {
@@ -791,7 +791,7 @@ public class QRCodeHelper {
      * Any params required
      *
      * @throws IOException when an error occurred
-     **/
+     */
     public void stopAllHosting() throws IOException {
         for (SocketManager manager : hosts.values()) {
             manager.getActiveServerSocket().close();

@@ -12,27 +12,27 @@ import java.io.InputStreamReader;
  * This tool helps to get image logo of a crypto, get full name of a crypto or get symbol of a crypto. <br>
  *
  * @author N7ghtm4r3 - Tecknobit
- **/
+ */
 public abstract class CryptocurrencyTool {
 
     /**
      * {@code coins} is the instance that contains cryptocurrencies details
-     **/
+     */
     private static final JSONArray coins;
 
     /**
      * {@code SYMBOL_KEY} is the instance that contains symbol key for {@link #coins} map
-     **/
+     */
     private static final String SYMBOL_KEY = "symbol";
 
     /**
      * {@code NAME_KEY} is the instance that contains name key for {@link #coins} map
-     **/
+     */
     private static final String NAME_KEY = "name";
 
     /**
      * {@code IMAGE_URL_KEY} is the instance that contains image url key for {@link #coins} map
-     **/
+     */
     private static final String IMAGE_URL_KEY = "img_url";
 
     static {
@@ -48,7 +48,7 @@ public abstract class CryptocurrencyTool {
      * Any params required
      *
      * @return map loaded as {@link String}
-     **/
+     */
     private static String loadCoinsMap() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(CryptocurrencyTool.class
                 .getClassLoader().getResourceAsStream("coins.json")));
@@ -64,7 +64,7 @@ public abstract class CryptocurrencyTool {
      *
      * @param symbol: symbol of the cryptocurrency to fetch es. BTC
      * @return name of the cryptocurrency es. Bitcoin
-     **/
+     */
     public static String getCryptocurrencyName(String symbol) {
         return getValue(SYMBOL_KEY, symbol, NAME_KEY);
     }
@@ -74,7 +74,7 @@ public abstract class CryptocurrencyTool {
      *
      * @param name: name of the cryptocurrency to fetch es. Bitcoin
      * @return symbol of the cryptocurrency es. BTC
-     **/
+     */
     public static String getCryptocurrencySymbol(String name) {
         return getValue(NAME_KEY, name, SYMBOL_KEY);
     }
@@ -84,7 +84,7 @@ public abstract class CryptocurrencyTool {
      *
      * @param symbol: symbol of the cryptocurrency to fetch logo image es. BTC
      * @return image url of the cryptocurrency
-     **/
+     */
     public static String getUrlLogoBySymbol(String symbol) {
         return getValue(SYMBOL_KEY, symbol, IMAGE_URL_KEY);
     }
@@ -94,7 +94,7 @@ public abstract class CryptocurrencyTool {
      *
      * @param name: name of the cryptocurrency to fetch logo image es. Bitcoin
      * @return image url of the cryptocurrency
-     **/
+     */
     public static String getUrlLogoByName(String name) {
         return getValue(NAME_KEY, name, IMAGE_URL_KEY);
     }
@@ -106,7 +106,7 @@ public abstract class CryptocurrencyTool {
      * @param researchValue: value of researchKey
      * @param keyToFetch:    key of the detail to fetch
      * @return value of keyToFetch if exists as {@link String} and null if not exists
-     **/
+     */
     private static String getValue(String researchKey, String researchValue, String keyToFetch) {
         researchValue = researchValue.toLowerCase();
         for (int j = 0; j < coins.length(); j++) {
@@ -122,7 +122,7 @@ public abstract class CryptocurrencyTool {
      *
      * @param symbol: symbol from fetch the quote
      * @return quote symbol -> {@code "BTCETH"} -> {@code "ETH"}
-     **/
+     */
     public static String getQuoteFromSymbol(String symbol) {
         return getValueFromSymbol(symbol, true);
     }
@@ -132,7 +132,7 @@ public abstract class CryptocurrencyTool {
      *
      * @param symbol: symbol from fetch the base
      * @return base symbol -> {@code "BTCETH"} -> {@code "BTC"}
-     **/
+     */
     public static String getBaseFromSymbol(String symbol) {
         return getValueFromSymbol(symbol, false);
     }
@@ -153,7 +153,7 @@ public abstract class CryptocurrencyTool {
      *          base symbol -> {@code "BTCETH"} -> {@code "BTC"}
      *      </li>
      * </ul>
-     **/
+     */
     private static String getValueFromSymbol(String symbol, boolean isQuote) {
         if (symbol == null)
             throw new IllegalArgumentException("Symbol inserted is not a valid symbol");

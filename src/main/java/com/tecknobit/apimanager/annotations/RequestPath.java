@@ -37,22 +37,22 @@ public @interface RequestPath {
 
     /**
      * {@code method} of the request
-     **/
+     */
     RequestMethod method();
 
     /**
      * {@code path} of the request
-     **/
+     */
     String path() default "";
 
     /**
      * {@code path_parameters} path parameters of the request -> endpoint/{parameter}
-     **/
+     */
     String path_parameters() default "";
 
     /**
      * {@code query_parameters} query parameters of the request -> endpoint?{parameter}&{parameter1}
-     **/
+     */
     String query_parameters() default "";
 
     /**
@@ -65,7 +65,7 @@ public @interface RequestPath {
      *          }
      *     }
      * </pre>
-     **/
+     */
     String body_parameters() default "";
 
 }

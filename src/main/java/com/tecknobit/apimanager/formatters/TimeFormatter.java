@@ -39,12 +39,12 @@ import static java.util.Locale.getDefault;
  * </pre>
  *
  * @author N7ghtm4r3 - Tecknobit
- **/
+ */
 public abstract class TimeFormatter {
 
     /**
      * {@code dateFormatter} is instance that help to format date
-     **/
+     */
     private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", getDefault());
 
     /**
@@ -52,7 +52,7 @@ public abstract class TimeFormatter {
      *
      * @param timestamp: timestamp of the date to get
      * @return date value as {@link String}
-     **/
+     */
     public static String getStringDate(long timestamp) {
         return dateFormatter.format(new Date(timestamp));
     }
@@ -63,7 +63,7 @@ public abstract class TimeFormatter {
      * @param timestamp: timestamp of the date to get
      * @param pattern:   pattern to format return date es. dd/MM/yyyy hh:mm:ss
      * @return date value as {@link String}
-     **/
+     */
     public static String getStringDate(long timestamp, String pattern) {
         return new SimpleDateFormat(pattern).format(new Date(timestamp));
     }
@@ -73,7 +73,7 @@ public abstract class TimeFormatter {
      *
      * @param date: date as {@link String}
      * @return date value as {@link Date}
-     **/
+     */
     public static Date getDate(String date) {
         return new Date(getDateTimestamp(date));
     }
@@ -84,7 +84,7 @@ public abstract class TimeFormatter {
      * @param date:    date as {@link String}
      * @param pattern: pattern to format return date es. dd/MM/yyyy hh:mm:ss
      * @return date value as {@link Date}
-     **/
+     */
     public static Date getDate(String date, String pattern) {
         return new Date(getDateTimestamp(date, pattern));
     }
@@ -94,7 +94,7 @@ public abstract class TimeFormatter {
      *
      * @param date: date timestamp as long
      * @return date value as {@link Date}
-     **/
+     */
     public static Date getDate(long date) {
         return new Date(date);
     }
@@ -105,7 +105,7 @@ public abstract class TimeFormatter {
      * @param date:    date timestamp as long
      * @param pattern: pattern to format return date es. dd/MM/yyyy hh:mm:ss
      * @return date value as {@link Date}
-     **/
+     */
     public static Date getDate(long date, String pattern) {
         return new Date(getDateTimestamp(getStringDate(date, pattern), pattern));
     }
@@ -116,7 +116,7 @@ public abstract class TimeFormatter {
      * @param date: date to get timestamp
      * @return date timestamp value as long
      * @implNote when {@link ParseException} has been thrown return value will be -1 as default
-     **/
+     */
     public static long getDateTimestamp(Date date) {
         return getDateTimestamp(date.toString());
     }
@@ -127,7 +127,7 @@ public abstract class TimeFormatter {
      * @param date: date to get timestamp
      * @return date timestamp value as long
      * @implNote when {@link ParseException} has been thrown return value will be -1 as default
-     **/
+     */
     public static long getDateTimestamp(String date) {
         try {
             return dateFormatter.parse(date).getTime();
@@ -143,7 +143,7 @@ public abstract class TimeFormatter {
      * @param pattern: pattern to format return date es. dd/MM/yyyy hh:mm:ss
      * @return date timestamp value as long
      * @implNote when {@link ParseException} has been thrown return value will be -1 as default
-     **/
+     */
     public static long getDateTimestamp(Date date, String pattern) {
         return getDateTimestamp(date.toString(), pattern);
     }
@@ -155,7 +155,7 @@ public abstract class TimeFormatter {
      * @param pattern: pattern to format return date es. dd/MM/yyyy hh:mm:ss
      * @return date timestamp value as long
      * @implNote when {@link ParseException} has been thrown return value will be -1 as default
-     **/
+     */
     public static long getDateTimestamp(String date, String pattern) {
         try {
             return new SimpleDateFormat(pattern).parse(date).getTime();
@@ -169,7 +169,7 @@ public abstract class TimeFormatter {
      *
      * @param newPattern: new pattern to set at {@link #dateFormatter}
      * @implNote when {@link ParseException} has been thrown return value will be -1 as default
-     **/
+     */
     public static void changeDefaultPattern(String newPattern) {
         dateFormatter = new SimpleDateFormat(newPattern, getDefault());
     }
