@@ -1,24 +1,25 @@
-package com.tecknobit.apimanager.apis.encryption.aes.serverside;
+package com.tecknobit.apimanager.apis.encryption.aes;
 
-import com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher;
+import com.tecknobit.apimanager.apis.encryption.BaseCipher;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 /**
- * The {@code AESGenericServerCipher} class is useful for server side applications for general {@code "AES"}'s use
+ * The {@code AESServerCipher} class is useful for server side applications for {@code "AES"}'s encryption or decryption
  *
  * @author Tecknobit N7ghtm4r3
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">AES.md</a>
+ * @see BaseCipher
  * @see AESClientCipher
  * @since 2.0.2
  */
-public class AESGenericServerCipher extends AESClientCipher {
+public class AESServerCipher extends AESClientCipher {
 
     /**
      * {@code AESKeySize} list of available key sizes
@@ -56,7 +57,7 @@ public class AESGenericServerCipher extends AESClientCipher {
 
         /**
          * This method is used to get {@link #size} instance <br>
-         * Any params required
+         * No-any params required
          *
          * @return {@link #size} instance as int
          */
@@ -66,7 +67,7 @@ public class AESGenericServerCipher extends AESClientCipher {
 
         /**
          * This method is used to get {@link #size} instance <br>
-         * Any params required
+         * No-any params required
          *
          * @return {@link #size} instance as {@link String}
          */
@@ -78,61 +79,30 @@ public class AESGenericServerCipher extends AESClientCipher {
     }
 
     /**
-     * {@code keySize} size of the key used to cipher and to decipher the content
-     */
-    protected final AESKeySize keySize;
-
-    /**
-     * Constructor to init {@link AESGenericServerCipher}
+     * Constructor to init {@link AESServerCipher}
      *
-     * @param ivParameterSpec: initialization vector as {@link IvParameterSpec}
-     * @param secretKey:       secret key used in the {@link Cipher} as {@link SecretKey}
-     * @param algorithm:       algorithm used for AES cipher
-     * @param keySize:         size of the key used to cipher and to decipher the content
+     * @param ivParameterSpec : initialization vector as {@link IvParameterSpec}
+     * @param secretKey       :       secret key used in the {@link Cipher} as {@link SecretKey}
+     * @param algorithm       :       algorithm used for AES cipher
      */
-    public AESGenericServerCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey, Algorithm algorithm,
-                                  AESKeySize keySize) throws NoSuchPaddingException, NoSuchAlgorithmException {
+    public AESServerCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {
         super(ivParameterSpec, secretKey, algorithm);
-        this.keySize = keySize;
     }
 
     /**
-     * Constructor to init {@link AESGenericServerCipher}
+     * Constructor to init {@link AESServerCipher}
      *
-     * @param ivParameterSpec: initialization vector as {@link IvParameterSpec}
-     * @param secretKey:       secret key used in the {@link Cipher} as {@link SecretKey}
-     * @param algorithm:       algorithm used for AES cipher
-     * @param keySize:         size of the key used to cipher and to decipher the content
+     * @param ivParameterSpec : initialization vector as {@link IvParameterSpec}
+     * @param secretKey       :       secret key used in the {@link Cipher} as {@link SecretKey}
+     * @param algorithm       :       algorithm used for AES cipher
      */
-    public AESGenericServerCipher(String ivParameterSpec, String secretKey, Algorithm algorithm,
-                                  AESKeySize keySize) throws NoSuchPaddingException, NoSuchAlgorithmException {
+    public AESServerCipher(String ivParameterSpec, String secretKey, Algorithm algorithm) throws Exception {
         super(ivParameterSpec, secretKey, algorithm);
-        this.keySize = keySize;
-    }
-
-    /**
-     * This method is used to get {@link #keySize} instance <br>
-     * Any params required
-     *
-     * @return {@link #keySize} instance as {@link AESKeySize}
-     */
-    public AESKeySize getKeySize() {
-        return keySize;
     }
 
     /**
      * This method is used to create an initialization vector <br>
-     * Any params required
-     *
-     * @return initialization vector as {@link String}
-     */
-    public static String createIvParameterSpecString() {
-        return byteToString(createIvParameterSpec().getIV());
-    }
-
-    /**
-     * This method is used to create an initialization vector <br>
-     * Any params required
+     * No-any params required
      *
      * @return initialization vector as {@link IvParameterSpec}
      */
@@ -155,13 +125,23 @@ public class AESGenericServerCipher extends AESClientCipher {
     }
 
     /**
+     * This method is used to create an initialization vector <br>
+     * No-any params required
+     *
+     * @return initialization vector as {@link Base64}-{@link String}
+     */
+    public static String createBase64IvParameterSpec() {
+        return encodeBase64(createIvParameterSpec().getIV());
+    }
+
+    /**
      * This method is used to create a secret key
      *
      * @param keySize: size for secret key
-     * @return secret key as {@link String}
+     * @return secret key as {@link Base64}-{@link String}
      */
-    public static String createSecretKeyString(AESKeySize keySize) throws NoSuchAlgorithmException {
-        return byteToString(createSecretKey(keySize).getEncoded());
+    public static String createBase64SecretKey(AESKeySize keySize) throws NoSuchAlgorithmException {
+        return encodeBase64(createSecretKey(keySize).getEncoded());
     }
 
 }

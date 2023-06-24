@@ -10,6 +10,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.tecknobit.apimanager.annotations.Wrapper;
+import com.tecknobit.apimanager.apis.sockets.SocketManager;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -756,7 +757,7 @@ public class QRCodeHelper {
 
     /**
      * Method to stop a single hosting <br>
-     * Any params required
+     * No-any params required
      *
      * @throws IllegalStateException when there are multiple listeners which can be stopped
      * @throws IOException           when an error occurred
@@ -788,7 +789,7 @@ public class QRCodeHelper {
 
     /**
      * Method to stop all the active hosting<br>
-     * Any params required
+     * No-any params required
      *
      * @throws IOException when an error occurred
      */

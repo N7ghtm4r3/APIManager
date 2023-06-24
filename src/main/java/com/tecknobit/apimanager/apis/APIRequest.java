@@ -142,7 +142,7 @@ public class APIRequest {
     /**
      * Constructor to init {@link APIRequest} <br>
      * <p>
-     * Any params required
+     * No-any params required
      *
      * @apiNote {@link #requestTimeout} and {@link #defaultErrorResponse} will be instantiated with the default values:
      * <ul>
@@ -414,7 +414,7 @@ public class APIRequest {
     /**
      * Method to get the response of an {@code "HTTP"} request <br>
      * <p>
-     * Any params required
+     * No-any params required
      */
     private void performRequest() throws IOException {
         errorResponse = null;
@@ -478,7 +478,7 @@ public class APIRequest {
 
     /**
      * Method to get the response of the request <br>
-     * Any params required
+     * No-any params required
      *
      * @return response of the request as {@link String}
      */
@@ -488,7 +488,7 @@ public class APIRequest {
 
     /**
      * Method to get the response of the request <br>
-     * Any params required
+     * No-any params required
      *
      * @return response of the request formatted as {@code "JSON"} or as simple {@link String} if is not possible format
      * as {@code "JSON"}
@@ -499,7 +499,7 @@ public class APIRequest {
 
     /**
      * Method to get the error response of the request <br>
-     * Any params required
+     * No-any params required
      *
      * @return error response of the request formatted or {@link #defaultErrorResponse} as {@link String}
      */
@@ -511,7 +511,7 @@ public class APIRequest {
 
     /**
      * Method to print the error response of the request <br>
-     * Any params required
+     * No-any params required
      */
     public void printErrorResponse() {
         System.out.println(getErrorResponse());
@@ -519,7 +519,7 @@ public class APIRequest {
 
     /**
      * Method to get the error response of the request <br>
-     * Any params required
+     * No-any params required
      *
      * @return error response of the request formatted as {@code "JSON"} or {@link #defaultErrorResponse} as {@link String}
      * if is not a request error
@@ -533,7 +533,7 @@ public class APIRequest {
     /**
      * Method to print the error response of the request <br>
      * <p>
-     * Any params required
+     * No-any params required
      *
      * @apiNote the response will be printed formatted as {@code "JSON"} or a simple {@link String}
      * if is not possible format as {@code "JSON"}
@@ -550,7 +550,7 @@ public class APIRequest {
 
     /**
      * Method to get status response code of the request <br>
-     * Any params required
+     * No-any params required
      *
      * @return response code of the request as int
      */
@@ -930,7 +930,7 @@ public class APIRequest {
 
     /**
      * Returns a string representation of the object <br>
-     * Any params required
+     * No-any params required
      *
      * @return a string representation of the object as {@link String}
      */
@@ -951,7 +951,7 @@ public class APIRequest {
 
         /**
          * Constructor to init {@link Headers} <br>
-         * Any params required
+         * No-any params required
          */
         public Headers() {
             headers = new HashMap<>();
@@ -1004,23 +1004,26 @@ public class APIRequest {
             headers.remove(headerKey);
         }
 
-        /** Method to clear all headers <br>
-         * Any params required
-         * */
-        public void clear(){
+        /**
+         * Method to clear all headers <br>
+         * No-any params required
+         */
+        public void clear() {
             headers.clear();
         }
 
-        /** Method to get a header value
+        /**
+         * Method to get a header value
+         *
          * @param headerKey: key of the header to get
          * @return header value as {@link String}
-         * */
+         */
         public String getHeader(String headerKey) {
             return headers.get(headerKey);
         }
 
         /** Method to get all headers value<br>
-         * Any params required
+         * No-any params required
          * @return all headers value as {@link Collection} of {@link String}
          * */
         public Collection<String> getAllHeaders() {
@@ -1029,7 +1032,7 @@ public class APIRequest {
 
         /**
          * Method to get all headers keys<br>
-         * Any params required
+         * No-any params required
          *
          * @return all headers keys as {@link Set} of {@link String}
          */
@@ -1039,7 +1042,7 @@ public class APIRequest {
 
         /**
          * Returns a string representation of the object <br>
-         * Any params required
+         * No-any params required
          *
          * @return a string representation of the object as {@link String}
          */
@@ -1068,7 +1071,7 @@ public class APIRequest {
 
         /**
          * Constructor to init {@link Params} <br>
-         * Any params required
+         * No-any params required
          */
         public Params() {
             apiRequest = new APIRequest();
@@ -1122,7 +1125,7 @@ public class APIRequest {
 
         /**
          * Method to clear all params <br>
-         * Any params required
+         * No-any params required
          */
         public void clear() {
             params.clear();
@@ -1138,7 +1141,7 @@ public class APIRequest {
         }
 
         /** Method to get all params value<br>
-         * Any params required
+         * No-any params required
          * @return all params value as {@link Collection} of {@link T}
          * */
         public <T> Collection<T> getAllParams() {
@@ -1147,7 +1150,7 @@ public class APIRequest {
 
         /**
          * Method to get all params keys<br>
-         * Any params required
+         * No-any params required
          *
          * @return all params keys as {@link Set} of {@link String}
          */
@@ -1157,7 +1160,7 @@ public class APIRequest {
 
         /**
          * Method to assemble a query params string <br>
-         * Any params required
+         * No-any params required
          *
          * @return query params as {@link String} assembled es. ?param=query1&param2=query2
          * @throws IllegalArgumentException when extra params in list is empty or is null
@@ -1190,7 +1193,7 @@ public class APIRequest {
 
         /**
          * Method to assemble a body params of an {@code "HTTP"} request <br>
-         * Any params required
+         * No-any params required
          *
          * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
          * @throws IllegalArgumentException when extra params in list is empty or is null
@@ -1213,7 +1216,7 @@ public class APIRequest {
 
         /**
          * Method to assemble a body params of an {@code "HTTP"} request <br>
-         * Any params required
+         * No-any params required
          *
          * @return body params as {@link JSONObject}
          * @throws IllegalArgumentException when extra params in list is empty or is null
@@ -1239,7 +1242,7 @@ public class APIRequest {
 
         /**
          * Returns a string representation of the object <br>
-         * Any params required
+         * No-any params required
          *
          * @return a string representation of the object as {@link String}
          */

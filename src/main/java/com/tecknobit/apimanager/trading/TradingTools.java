@@ -126,7 +126,7 @@ public abstract class TradingTools {
     public static double roundValue(double value, int decimalDigits) {
         if (decimalDigits < 0)
             throw new IllegalArgumentException("Decimal digits number cannot be less than 0");
-        return parseDouble(format("%." + decimalDigits + "f", value).replace(",","."));
+        return parseDouble(format("%%.%df".formatted(decimalDigits), value).replace(",", "."));
     }
 
     /** Method to percentualize a value

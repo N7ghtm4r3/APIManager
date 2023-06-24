@@ -113,7 +113,7 @@ public class ConsolePainter {
 
         /**
          * Method to get {@link #color} instance <br>
-         * Any params required
+         * No-any params required
          *
          * @return {@link #color} instance as {@link String}
          */
@@ -180,7 +180,7 @@ public class ConsolePainter {
 
         /**
          * Method to get {@link #modifier} instance <br>
-         * Any params required
+         * No-any params required
          *
          * @return {@link #modifier} instance as {@link String}
          */

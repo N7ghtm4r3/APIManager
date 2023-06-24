@@ -13,13 +13,13 @@ The other algorithms will be gradually released
 #### create keys 
 
 ```java
-    //create an initialization vector with GenericServerCipher.createIvParameterSpecString(); method
-    String IV_SPEC = "ciiz/UZ+oRliqYXVogTYfw==";
+//create an initialization vector with AESServerCipher.createBase64IvParameterSpec(); method
+String IV_SPEC = "ciiz/UZ+oRliqYXVogTYfw==";
 ```
 
 ```java
-  //create a secret key with GenericServerCipher.createSecretKeyString(keySize); method
-  String SECRET_KEY = "ousG/n0Q7UD6bgamAxktgu3nU1jMntv3YuF1g19mb9c="; 
+//create a secret key with AESServerCipher.createBase64SecretKey(keySize); method
+String SECRET_KEY = "ousG/n0Q7UD6bgamAxktgu3nU1jMntv3YuF1g19mb9c="; 
 ```
 
 #### Client 
@@ -32,7 +32,7 @@ public class Client {
     public static void main(String[] args) throws Exception {
         Algorithm algorithm = Algorithm.CBC_ALGORITHM;
         ClientCipher cipher = new ClientCipher(IV_SPEC, SECRET_KEY, algorithm);
-        System.out.println(cipher.encrypt("your plain text"));
+        System.out.println(cipher.encryptBase64("your plain text"));
     }
     //output: 26XBx/esnnrehi/GH3tpnQ==
 }
@@ -42,15 +42,14 @@ public class Client {
 #### Server 
 
 ```java
-import com.tecknobit.apimanager.apis.encryption.aes.serverside.AESGenericServerCipher.AESKeySize;
+import com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.Algorithm;
 
 public class Server {
     
-    //in this example will be CBC AES type
     public static void main(String[] args) throws Exception {
-        KeySize keySize = KeySize.k256;
-        CBCServerCipher serverCipher = new CBCServerCipher(IV_SPEC, SECRET_KEY, keySize); 
-        System.out.println(cipher.decrypt("26XBx/esnnrehi/GH3tpnQ=="));
+        Algorithm algorithm = Algorithm.CBC_ALGORITHM;
+        AESServerCipher serverCipher = new AESServerCipher(IV_SPEC, SECRET_KEY, algorithm); 
+        System.out.println(cipher.decryptBase64("26XBx/esnnrehi/GH3tpnQ=="));
     }
     //output: your plain text
 }

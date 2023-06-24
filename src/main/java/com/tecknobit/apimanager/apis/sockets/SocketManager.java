@@ -1,13 +1,9 @@
-package com.tecknobit.apimanager.apis;
+package com.tecknobit.apimanager.apis.sockets;
 
 import com.tecknobit.apimanager.annotations.Wrapper;
-import com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher;
-import com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.Algorithm;
+import com.tecknobit.apimanager.apis.APIRequest;
 import org.json.JSONObject;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,8 +14,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static com.tecknobit.apimanager.apis.APIRequest.RequestMethod.GET;
-import static com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.createIvParameter;
-import static com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.createSecretKey;
 
 /**
  * The {@code SocketManager} class is useful to dynamically manage communication by socket
@@ -34,168 +28,88 @@ public class SocketManager {
      * {@code NEW_LINE_REPLACER} is the constants which indicates the replacer to use when the content message contains
      * multiple lines
      */
-    private static final String NEW_LINE_REPLACER = "@-/-/-@";
+    protected static final String NEW_LINE_REPLACER = "@-/-/-@";
 
     /**
      * {@code listeners} list of listeners to use if the {@link #allowMultipleListeners} flag is set to {@code "true"}
      */
-    private final ConcurrentHashMap<Integer, Listener> listeners;
+    protected final ConcurrentHashMap<Integer, Listener> listeners;
 
     /**
      * {@code allowMultipleListeners} whether accept multiple listeners at the same time
      */
-    private final boolean allowMultipleListeners;
+    protected final boolean allowMultipleListeners;
 
     /**
      * {@code "executor"} of the routines
      */
-    private final ExecutorService executor;
+    protected final ExecutorService executor;
 
     /**
      * {@code serverUse} whether the runtime use of this class is server side or not
      */
-    private final boolean serverUse;
+    protected final boolean serverUse;
 
     /**
      * {@code serverSocket} socket managed by the server
      */
-    private ServerSocket serverSocket;
-
-    /**
-     * {@code cipher} instance to cipher the communication if enabled
-     */
-    private AESClientCipher cipher;
+    protected ServerSocket serverSocket;
 
     /**
      * {@code currentServerPort} current server port used in the communication
      */
-    private int currentServerPort;
+    protected int currentServerPort;
 
     /**
      * {@code currentHost} current server host used in the communication
      */
-    private final String currentHost;
+    protected final String currentHost;
 
     /**
      * {@code socket} socket used in the communication
      */
-    private Socket socket;
+    protected Socket socket;
 
     /**
      * {@code publicHostAddress} public host address
      */
-    private String publicHostAddress;
+    protected String publicHostAddress;
 
     /**
      * {@code continueSingleRoutine} whether continue the routine for the single listener if {@link #allowMultipleListeners}
      * is set to {@code "false"}
      */
-    private volatile boolean continueSingleRoutine;
+    protected volatile boolean continueSingleRoutine;
 
     /**
      * {@code defaultErrorResponse} default error response
      */
-    private String defaultErrorResponse;
+    protected String defaultErrorResponse;
 
     /**
      * {@code defaultSuccessResponse} default successful response
      */
-    private String defaultSuccessResponse;
+    protected String defaultSuccessResponse;
 
     /**
      * {@code lastContentRed} last content red with {@link #readContent()} or {@link #readContent(Socket)}
      */
-    private String lastContentRed;
+    protected String lastContentRed;
 
     /**
      * Constructor to init {@link SocketManager}
      *
      * @param host:       server host used in the communication
      * @param serverPort: server port used in the communication
-     * @param ivSpec:     initialization vector as {@link String}
-     * @param secretKey:  secret key used in the {@link Cipher} as {@link String}
-     * @param algorithm:  algorithm used for AES cipher
-     * @throws Exception when an error occurred
-     * @apiNote this will set {@link #serverUse} to {@code "false"} and will be use as client side
-     */
-    public SocketManager(String host, int serverPort, String ivSpec, String secretKey,
-                         Algorithm algorithm) throws Exception {
-        this(host, serverPort, new AESClientCipher(ivSpec, secretKey, algorithm));
-    }
-
-    /**
-     * Constructor to init {@link SocketManager}
-     *
-     * @param host:       server host used in the communication
-     * @param serverPort: server port used in the communication
-     * @param ivSpec:     initialization vector as {@link IvParameterSpec}
-     * @param secretKey:  secret key used in the {@link Cipher} as {@link SecretKey}
-     * @param algorithm:  algorithm used for AES cipher
-     * @throws Exception when an error occurred
-     * @apiNote this will set {@link #serverUse} to {@code "false"} and will be use as client side
-     */
-    public SocketManager(String host, int serverPort, IvParameterSpec ivSpec, SecretKey secretKey,
-                         Algorithm algorithm) throws Exception {
-        this(host, serverPort, new AESClientCipher(ivSpec, secretKey, algorithm));
-    }
-
-    /**
-     * Constructor to init {@link SocketManager}
-     *
-     * @param host:       server host used in the communication
-     * @param serverPort: server port used in the communication
-     * @apiNote this will set {@link #serverUse} to {@code "false"} and will be use as client side
+     * @apiNote this will set {@link #serverUse} to {@code "false"} and will be used as client side
      */
     public SocketManager(String host, int serverPort) {
-        this(host, serverPort, null);
-    }
-
-    /**
-     * Constructor to init {@link SocketManager}
-     *
-     * @param host:       server host used in the communication
-     * @param serverPort: server port used in the communication
-     * @param cipher:     cipher to cipher the communication
-     * @apiNote this will set {@link #serverUse} to {@code "false"} and will be use as client side
-     */
-    public SocketManager(String host, int serverPort, AESClientCipher cipher) {
         serverUse = false;
         currentHost = host;
         currentServerPort = serverPort;
         allowMultipleListeners = false;
         listeners = null;
         executor = null;
-        this.cipher = cipher;
-    }
-
-    /**
-     * Constructor to init {@link SocketManager}
-     *
-     * @param allowMultipleListeners: whether accept multiple listeners at the same time
-     * @param ivSpec:                 initialization vector as {@link String}
-     * @param secretKey:              secret key used in the {@link Cipher} as {@link String}
-     * @param algorithm:              algorithm used for AES cipher
-     * @throws Exception when an error occurred
-     * @apiNote this will set {@link #serverUse} to {@code "true"} and will be use as server side
-     */
-    public SocketManager(boolean allowMultipleListeners, String ivSpec, String secretKey,
-                         Algorithm algorithm) throws Exception {
-        this(allowMultipleListeners, new AESClientCipher(ivSpec, secretKey, algorithm));
-    }
-
-    /**
-     * Constructor to init {@link SocketManager}
-     *
-     * @param allowMultipleListeners: whether accept multiple listeners at the same time
-     * @param ivSpec:                 initialization vector as {@link IvParameterSpec}
-     * @param secretKey:              secret key used in the {@link Cipher} as {@link SecretKey}
-     * @param algorithm:              algorithm used for AES cipher
-     * @throws Exception when an error occurred
-     * @apiNote this will set {@link #serverUse} to {@code "true"} and will be use as server side
-     */
-    public SocketManager(boolean allowMultipleListeners, IvParameterSpec ivSpec, SecretKey secretKey,
-                         Algorithm algorithm) throws Exception {
-        this(allowMultipleListeners, new AESClientCipher(ivSpec, secretKey, algorithm));
     }
 
     /**
@@ -203,21 +117,9 @@ public class SocketManager {
      *
      * @param allowMultipleListeners: whether accept multiple listeners at the same time
      * @throws UnknownHostException when an error occurred
-     * @apiNote this will set {@link #serverUse} to {@code "true"} and will be use as server side
+     * @apiNote this will set {@link #serverUse} to {@code "true"} and will be used as server side
      */
     public SocketManager(boolean allowMultipleListeners) throws UnknownHostException {
-        this(allowMultipleListeners, null);
-    }
-
-    /**
-     * Constructor to init {@link SocketManager}
-     *
-     * @param allowMultipleListeners: whether accept multiple listeners at the same time
-     * @param cipher:                 cipher to cipher the communication
-     * @throws UnknownHostException when an error occurred
-     * @apiNote this will set {@link #serverUse} to {@code "true"} and will be use as server side
-     */
-    public SocketManager(boolean allowMultipleListeners, AESClientCipher cipher) throws UnknownHostException {
         serverUse = true;
         this.allowMultipleListeners = allowMultipleListeners;
         currentHost = InetAddress.getLocalHost().getHostAddress();
@@ -229,7 +131,6 @@ public class SocketManager {
             executor = Executors.newFixedThreadPool(1);
             listeners = null;
         }
-        this.cipher = cipher;
     }
 
     /**
@@ -265,12 +166,12 @@ public class SocketManager {
 
     /**
      * Method to accept a new socket request <br>
-     * Any params required
+     * No-any params required
      *
      * @return socket accepted as {@link Socket}
+     * @throws IOException when some errors have been occurred
      * @apiNote this method will be executed only if the {@link #serverUse} is set to {@code "true"}
      * @implSpec this method need to be invoked when {@link #allowMultipleListeners} is set to {@code "false"}
-     * @throws IOException when some errors have been occurred
      */
     @Wrapper
     public Socket acceptRequest() throws IOException {
@@ -315,7 +216,7 @@ public class SocketManager {
 
     /**
      * Method to send the {@link #defaultErrorResponse} <br>
-     * Any params required
+     * No-any params required
      *
      * @throws Exception when some errors have been occurred
      */
@@ -367,7 +268,7 @@ public class SocketManager {
 
     /**
      * Method to send the {@link #defaultSuccessResponse} <br>
-     * Any params required
+     * No-any params required
      *
      * @throws Exception when some errors have been occurred
      */
@@ -474,8 +375,6 @@ public class SocketManager {
             socket.close();
             exit("\"@-/-/-@\" is a reserved char, please do not insert it");
         }
-        if (cipher != null)
-            message = cipher.encrypt(message.replaceAll("\n", NEW_LINE_REPLACER));
         writePlainContentTo(targetSocket, message);
     }
 
@@ -553,7 +452,7 @@ public class SocketManager {
 
     /**
      * Method to read a content message received with the socket request <br>
-     * Any params required
+     * No-any params required
      *
      * @return content message received as {@link String}
      * @throws Exception when some errors have been occurred
@@ -573,8 +472,6 @@ public class SocketManager {
     public String readContent(Socket targetSocket) throws Exception {
         String content = new BufferedReader(new InputStreamReader(targetSocket.getInputStream())).readLine();
         lastContentRed = content;
-        if (cipher != null)
-            content = cipher.decrypt(content);
         if (!serverUse || content == null)
             targetSocket.close();
         if (content != null)
@@ -584,16 +481,13 @@ public class SocketManager {
 
     /**
      * Method to read the last content message red in the stream with the socket request <br>
-     * Any params required
+     * No-any params required
      *
      * @return last content message red as {@link String}
      * @throws Exception when some errors have been occurred
      */
     public String readLastContent() throws Exception {
-        if (cipher == null)
-            return lastContentRed;
-        else
-            return cipher.decrypt(lastContentRed);
+        return lastContentRed;
     }
 
     /**
@@ -743,7 +637,7 @@ public class SocketManager {
 
     /**
      * Method to stop the listener's workflow <br>
-     * Any params required
+     * No-any params required
      *
      * @implNote example of use case:
      * <pre>
@@ -790,14 +684,14 @@ public class SocketManager {
      *
      * @param errorMessage: error message to print
      */
-    private void exit(String errorMessage) {
+    protected void exit(String errorMessage) {
         System.err.println(errorMessage);
         System.exit(1);
     }
 
     /**
      * Method to get {@link #listeners} instance <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #listeners} instance as {@link ConcurrentHashMap} of {@link Listener}
      */
@@ -807,7 +701,7 @@ public class SocketManager {
 
     /**
      * Method to get {@link #allowMultipleListeners} instance <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #allowMultipleListeners} instance as boolean
      */
@@ -817,7 +711,7 @@ public class SocketManager {
 
     /**
      * Method to get {@link #executor} instance <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #executor} instance as {@link ExecutorService}
      */
@@ -827,7 +721,7 @@ public class SocketManager {
 
     /**
      * Method to get {@link #serverUse} instance <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #serverUse} instance as boolean
      */
@@ -837,7 +731,7 @@ public class SocketManager {
 
     /**
      * Method to get {@link #serverSocket} instance <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #serverSocket} instance as {@link ServerSocket}
      */
@@ -847,7 +741,7 @@ public class SocketManager {
 
     /**
      * Method to get {@link #currentServerPort} instance <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #currentServerPort} instance as int
      */
@@ -861,7 +755,7 @@ public class SocketManager {
      * @param publicAddress: whether to get the public address or just the local address
      * @return host as {@link String}
      * @implNote if {@code "publicAddress"} is set to {@code "true"} will be called the <a href="https://www.ipify.org/">
-     * ipify API service</a> to fetch the public ip at the first invocation of this method, then will be use an
+     * ipify API service</a> to fetch the public ip at the first invocation of this method, then will be used an
      * instance instantiated at the first invocation.
      */
     public String getHost(boolean publicAddress) throws IOException {
@@ -878,7 +772,7 @@ public class SocketManager {
 
     /**
      * Method to get {@link #socket} instance <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #socket} instance as {@link Socket}
      */
@@ -888,170 +782,13 @@ public class SocketManager {
 
     /**
      * Method to stop the communication <br>
-     * Any params required
+     * No-any params required
      *
      * @throws IOException when an error occurred during the closing of the communication
      */
     public void closeCommunication() throws IOException {
         if (socket != null && !socket.isClosed())
             socket.close();
-    }
-
-    /**
-     * This method is used to get the initialization vector <br>
-     * Any params required
-     *
-     * @return initialization vector instance as {@link IvParameterSpec}
-     */
-    public IvParameterSpec getIvParameterSpec() {
-        if (cipher != null)
-            return cipher.getIvParameterSpec();
-        else
-            return null;
-    }
-
-    /**
-     * This method is used to get the initialization vector <br>
-     * Any params required
-     *
-     * @return initialization vector instance as {@link String}
-     */
-    public String getIvSpec() {
-        if (cipher != null)
-            return cipher.getStringIvParameterSpec();
-        else
-            return null;
-    }
-
-    /**
-     * This method is used to get the secret key <br>
-     * Any params required
-     *
-     * @return the secret key as {@link SecretKey}
-     */
-    public SecretKey getOCipherKey() {
-        if (cipher != null)
-            return cipher.getSecretKey();
-        else
-            return null;
-    }
-
-    /**
-     * This method is used to get the secret key <br>
-     * Any params required
-     *
-     * @return the secret key as {@link String}
-     */
-    public String getCipherKey() {
-        if (cipher != null)
-            return cipher.getStringSecretKey();
-        else
-            return null;
-    }
-
-    /**
-     * Method to change the cipher keys during the runtime
-     *
-     * @param ivSpec:    initialization vector as {@link String}
-     * @param secretKey: secret key as {@link String}
-     * @throws Exception when an error occurred
-     */
-    @Wrapper
-    public void changeCipherKeys(String ivSpec, String secretKey) throws Exception {
-        changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey));
-    }
-
-    /**
-     * Method to change the cipher keys during the runtime
-     *
-     * @param ivSpec:    initialization vector as {@link String}
-     * @param secretKey: secret key as {@link String}
-     * @param algorithm: algorithm used by the {@link #cipher}
-     * @throws Exception when an error occurred
-     */
-    @Wrapper
-    public void changeCipherKeys(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
-        changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey), algorithm);
-    }
-
-    /**
-     * Method to change the cipher keys during the runtime
-     *
-     * @param ivSpec:    initialization vector as {@link IvParameterSpec}
-     * @param secretKey: secret key as {@link SecretKey}
-     * @throws Exception when an error occurred
-     */
-    @Wrapper
-    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey) throws Exception {
-        if (cipher != null)
-            changeCipherKeys(ivSpec, secretKey, cipher.getAlgorithm());
-        else
-            throw new Exception("The cipher of the messages is not enabled, you must use the dedicated constructor first");
-    }
-
-    /**
-     * Method to change the cipher keys during the runtime
-     *
-     * @param ivSpec:    initialization vector as {@link IvParameterSpec}
-     * @param secretKey: secret key as {@link SecretKey}
-     * @param algorithm: algorithm used by the {@link #cipher}
-     * @throws Exception when an error occurred
-     */
-    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {
-        if (cipher != null) {
-            cipher.setIvParameterSpec(ivSpec);
-            cipher.setSecretKey(secretKey);
-            cipher.setAlgorithm(algorithm);
-        } else
-            throw new Exception("The cipher of the messages is not enabled, you must use the dedicated constructor first");
-    }
-
-    /**
-     * Method to set the {@link #cipher} instance
-     *
-     * @param ivSpec:    initialization vector as {@link String}
-     * @param secretKey: secret key as {@link String}
-     * @param algorithm: algorithm used by the {@link #cipher}
-     * @throws Exception when an error occurred
-     * @apiNote this will enable the auto-cipher of the communication
-     */
-    @Wrapper
-    public void setCipher(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
-        setCipher(createIvParameter(ivSpec), createSecretKey(secretKey), algorithm);
-    }
-
-    /**
-     * Method to set the {@link #cipher} instance
-     *
-     * @param ivSpec:    initialization vector as {@link IvParameterSpec}
-     * @param secretKey: secret key as {@link SecretKey}
-     * @param algorithm: algorithm used by the {@link #cipher}
-     * @throws Exception when an error occurred
-     * @apiNote this will enable the auto-cipher of the communication
-     */
-    @Wrapper
-    public void setCipher(IvParameterSpec ivSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {
-        setCipher(new AESClientCipher(ivSpec, secretKey, algorithm));
-    }
-
-    /**
-     * Method to set the {@link #cipher} instance
-     *
-     * @param cipher: cipher to use
-     * @apiNote this will enable the auto-cipher of the communication
-     */
-    public void setCipher(AESClientCipher cipher) {
-        this.cipher = cipher;
-    }
-
-    /**
-     * Method to get {@link #cipher} instance <br>
-     * Any params required
-     *
-     * @return {@link #cipher} instance as {@link AESClientCipher}
-     */
-    public AESClientCipher getCipher() {
-        return cipher;
     }
 
     /**
@@ -1111,7 +848,7 @@ public class SocketManager {
 
         /**
          * Method to get {@link #code} instance <br>
-         * Any params required
+         * No-any params required
          *
          * @return {@link #code} instance as int
          */
@@ -1152,7 +889,7 @@ public class SocketManager {
 
     /**
      * Returns a string representation of the object <br>
-     * Any params required
+     * No-any params required
      *
      * @return a string representation of the object as {@link String}
      */
@@ -1209,7 +946,7 @@ public class SocketManager {
 
         /**
          * Method to get {@link #serverSocket} instance <br>
-         * Any params required
+         * No-any params required
          *
          * @return {@link #serverSocket} instance as {@link ServerSocket}
          */
@@ -1219,7 +956,7 @@ public class SocketManager {
 
         /**
          * Method to get {@link #continueRoutine} instance <br>
-         * Any params required
+         * No-any params required
          *
          * @return {@link #continueRoutine} instance as boolean
          */
@@ -1230,7 +967,7 @@ public class SocketManager {
         /**
          * Method to stop the routine of the listener setting {@link #continueRoutine}
          * to {@code "false"} <br>
-         * Any params required
+         * No-any params required
          *
          * @apiNote the listener will be stopped and will refuse all the requests to this {@link #serverSocket}
          */

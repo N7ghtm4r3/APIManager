@@ -45,7 +45,7 @@ public abstract class CryptocurrencyTool {
 
     /**
      * Method to load coins map for workflow of the tool <br>
-     * Any params required
+     * No-any params required
      *
      * @return map loaded as {@link String}
      */

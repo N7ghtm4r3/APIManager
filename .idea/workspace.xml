@@ -4,34 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="Fixed some issues and added the getSaveableContent(); in SaveData exception">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/BaseCipher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/rsa/RSAClientCipher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/rsa/RSAServerCipher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/interfaces/Manager.java" afterDir="false" />
+    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/documd/RSA.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/sockets/encrypteds/AESSocketManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/sockets/encrypteds/EncryptedSocketManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/documd/AES.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/AES.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/RequestPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/RequestPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/RequestWeight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/RequestWeight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/Returner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/Returner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/Wrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/Wrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/android/ResId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/annotations/android/ResId.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/APIRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/APIRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/ConsolePainter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/ConsolePainter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/QRCodeHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/QRCodeHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/SocketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/SocketManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/ClientCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/AESClientCipher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/CBCServerCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/CBCServerCipher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/CFBServerCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/CFBServerCipher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/CTRServerCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/CTRServerCipher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/GenericServerCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/AESGenericServerCipher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/OFBServerCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/OFBServerCipher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/exceptions/SaveData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/exceptions/SaveData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/SocketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/sockets/SocketManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/BaseCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/BaseCipher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/AESClientCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/AESClientCipher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/AESGenericServerCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/AESServerCipher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/CBCServerCipher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/CFBServerCipher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/CTRServerCipher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/aes/serverside/OFBServerCipher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/rsa/RSAClientCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/rsa/RSAClientCipher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/rsa/RSAServerCipher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/encryption/rsa/RSAServerCipher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/formatters/JsonHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/formatters/JsonHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/formatters/ScientificNotationParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/formatters/ScientificNotationParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/formatters/TimeFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/formatters/TimeFormatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/trading/CryptocurrencyTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/trading/CryptocurrencyTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/trading/TradingTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/trading/TradingTools.java" afterDir="false" />
     </list>
@@ -109,6 +103,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.tecknobit.apimanager.apis.sockets" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\utente\Desktop\Tecknobit\Dependencies\JavaNative\APIManager\documd" />
       <recent name="C:\Users\utente\Desktop\Tecknobit\Dependencies\JavaNative\APIManager" />
@@ -124,7 +121,14 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="A" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="A" />
+      <module name="APIManager.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="azul-18" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -136,6 +140,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.A" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -148,13 +153,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650100650185</updated>
-    </task>
-    <task id="LOCAL-00058" summary="Fix some issues">
-      <created>1661197245272</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1661197245272</updated>
     </task>
     <task id="LOCAL-00059" summary="Fix some issues and adding some features">
       <created>1661249719823</created>
@@ -492,7 +490,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685973914013</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="Added the Manager interface">
+      <created>1687533896959</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1687533896959</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -511,7 +516,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/APIManager" />
     </ignored-roots>
-    <MESSAGE value="Added print error method in APIRequest class&#10;Added static method to fetch detail in JsonHelper tool" />
     <MESSAGE value="Fix some issues&#10;Added new methods" />
     <MESSAGE value="Added methods for JSONArray class type" />
     <MESSAGE value="Fix some issues&#10;Added some methods&#10;Upgrade performance" />
@@ -536,7 +540,8 @@
     <MESSAGE value="Work on JsonHelper" />
     <MESSAGE value="Added two new annotations" />
     <MESSAGE value="Fixed some issues and added the getSaveableContent(); in SaveData exception" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed some issues and added the getSaveableContent(); in SaveData exception" />
+    <MESSAGE value="Added the Manager interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the Manager interface" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

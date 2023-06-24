@@ -1,78 +1,24 @@
 package com.tecknobit.apimanager.apis.encryption.aes;
 
-import javax.crypto.*;
+import com.tecknobit.apimanager.apis.encryption.BaseCipher;
+
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 
-import static java.util.Base64.getDecoder;
-import static java.util.Base64.getEncoder;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
 
 /**
- * The {@code AESClientCipher} class is useful for general {@code "AES"}'s use
+ * The {@code AESClientCipher} class is useful for {@code "AES"} encryption
  *
  * @author Tecknobit N7ghtm4r3
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">AES.md</a>
+ * @see BaseCipher
  * @since 2.0.2
  */
-public class AESClientCipher {
-
-    /**
-     * {@code Algorithm} list of available algorithms for {@code "AES"}'s use
-     */
-    public enum Algorithm {
-
-        /**
-         * {@code "CBC_ALGORITHM"} algorithm
-         */
-        CBC_ALGORITHM("AES/CBC/PKCS5Padding"),
-
-        /**
-         * {@code "CFB_ALGORITHM"} algorithm
-         */
-        CFB_ALGORITHM("AES/CFB/NoPadding"),
-
-        /**
-         * {@code "OFB_ALGORITHM"} algorithm
-         */
-        OFB_ALGORITHM("AES/OFB/NoPadding"),
-
-        /**
-         * {@code "CTR_ALGORITHM"} algorithm
-         */
-        CTR_ALGORITHM("AES/CTR/NoPadding");
-
-        /**
-         * {@code "algorithm"} type
-         */
-        private final String algorithm;
-
-        /**
-         * Method to init {@link Algorithm}
-         *
-         * @param algorithm: algorithm type
-         */
-        Algorithm(String algorithm) {
-            this.algorithm = algorithm;
-        }
-
-        /**
-         * Method to get {@link #algorithm} instance <br>
-         * Any params required
-         *
-         * @return {@link #algorithm} instance as {@link String}
-         */
-        @Override
-        public String toString() {
-            return algorithm;
-        }
-
-    }
+public class AESClientCipher extends BaseCipher {
 
     /**
      * {@code AES_ALGORITHM_TYPE} is constant that memorizes algorithm type used for the {@link #cipher}
@@ -90,24 +36,13 @@ public class AESClientCipher {
     protected SecretKey secretKey;
 
     /**
-     * {@code cipher} is instance that memorizes {@link Cipher} object
-     */
-    protected final Cipher cipher;
-
-    /**
-     * {@code algorithm} is instance that memorizes algorithm for {@link #cipher}
-     */
-    protected Algorithm algorithm;
-
-    /**
      * Constructor to init {@link AESClientCipher}
      *
      * @param ivParameterSpec: initialization vector as {@link String}
      * @param secretKey:       secret key used in the {@link Cipher} as {@link String}
      * @param algorithm:       algorithm used for AES cipher
      */
-    public AESClientCipher(String ivParameterSpec, String secretKey, Algorithm algorithm) throws NoSuchAlgorithmException,
-            NoSuchPaddingException {
+    public AESClientCipher(String ivParameterSpec, String secretKey, Algorithm algorithm) throws Exception {
         this(createIvParameter(ivParameterSpec), createSecretKey(secretKey), algorithm);
     }
 
@@ -118,47 +53,40 @@ public class AESClientCipher {
      * @param secretKey:       secret key used in the {@link Cipher} as {@link SecretKey}
      * @param algorithm:       algorithm used for AES cipher
      */
-    public AESClientCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey, Algorithm algorithm) throws NoSuchAlgorithmException,
-            NoSuchPaddingException {
-        if (ivParameterSpec == null)
-            throw new IllegalArgumentException("Initialization vector cannot be null");
-        else
-            this.ivParameterSpec = ivParameterSpec;
-        if (secretKey == null)
-            throw new IllegalArgumentException("Secret key cannot be null");
-        else
-            this.secretKey = secretKey;
+    public AESClientCipher(IvParameterSpec ivParameterSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {
+        super(algorithm);
+        this.ivParameterSpec = ivParameterSpec;
+        this.secretKey = secretKey;
         this.algorithm = algorithm;
-        cipher = Cipher.getInstance(algorithm.toString());
     }
 
     /**
-     * This method is used to encrypt a content
+     * Method to encrypt any content
      *
-     * @param content: content to cipher
-     * @return plain content ciphered as {@link String} es. 26XBx/esnnrehi/GH3tpnQ==
+     * @param content: content to encrypt
+     * @return content encrypted as array of byte
      */
-    public String encrypt(String content) throws IllegalBlockSizeException, BadPaddingException,
-            InvalidAlgorithmParameterException, InvalidKeyException {
+    @Override
+    public <T> byte[] encrypt(T content) throws Exception {
         cipher.init(ENCRYPT_MODE, secretKey, ivParameterSpec);
-        return getEncoder().encodeToString(cipher.doFinal(content.getBytes()));
+        return super.encrypt(content);
     }
 
     /**
-     * This method is used to decrypt a content
+     * Method to decrypt a content
      *
      * @param content: content to decrypt
-     * @return plain content decrypted as {@link String} es. your plain text
+     * @return content decrypted as array of byte
      */
-    public String decrypt(String content) throws IllegalBlockSizeException, BadPaddingException,
-            InvalidAlgorithmParameterException, InvalidKeyException {
+    @Override
+    public byte[] decrypt(byte[] content) throws Exception {
         cipher.init(DECRYPT_MODE, secretKey, ivParameterSpec);
-        return new String(cipher.doFinal(getDecoder().decode(content)));
+        return super.decrypt(content);
     }
 
     /**
      * This method is used to get {@link #ivParameterSpec} instance <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #ivParameterSpec} instance as {@link IvParameterSpec}
      */
@@ -168,12 +96,12 @@ public class AESClientCipher {
 
     /**
      * This method is used to get {@link #ivParameterSpec} instance as {@link String} <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #ivParameterSpec} instance as {@link String}
      */
-    public String getStringIvParameterSpec() {
-        return byteToString(ivParameterSpec.getIV());
+    public String getBase64IvParameterSpec() {
+        return encodeBase64(ivParameterSpec.getIV());
     }
 
     /**
@@ -196,7 +124,7 @@ public class AESClientCipher {
 
     /**
      * This method is used to get {@link #secretKey} instance <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #secretKey} instance as {@link SecretKey}
      */
@@ -206,12 +134,12 @@ public class AESClientCipher {
 
     /**
      * This method is used to get {@link #secretKey} instance as {@link String} <br>
-     * Any params required
+     * No-any params required
      *
      * @return {@link #secretKey} instance as {@link String}
      */
-    public String getStringSecretKey() {
-        return byteToString(secretKey.getEncoded());
+    public String getBase64SecretKey() {
+        return encodeBase64(secretKey.getEncoded());
     }
 
     /**
@@ -233,42 +161,13 @@ public class AESClientCipher {
     }
 
     /**
-     * This method is used to get {@link #cipher} instance <br>
-     * Any params required
-     *
-     * @return {@link #cipher} instance as {@link Cipher}
-     */
-    public Cipher getCipher() {
-        return cipher;
-    }
-
-    /**
-     * This method is used to get {@link #algorithm} instance <br>
-     * Any params required
-     *
-     * @return {@link #algorithm} instance as {@link Algorithm}
-     */
-    public Algorithm getAlgorithm() {
-        return algorithm;
-    }
-
-    /**
-     * This method is used to set the {@link #algorithm} instance
-     *
-     * @param algorithm: algorithm used by {@link #cipher}
-     */
-    public void setAlgorithm(Algorithm algorithm) {
-        this.algorithm = algorithm;
-    }
-
-    /**
      * This method is used to create an initialization vector from a {@link String} object
      *
      * @param ivParameter: initialization vector as {@link String}
      * @return initialization vector as {@link IvParameterSpec}
      */
     public static IvParameterSpec createIvParameter(String ivParameter) {
-        return new IvParameterSpec(stringToBytes(ivParameter));
+        return new IvParameterSpec(decodeBase64(ivParameter));
     }
 
     /**
@@ -278,28 +177,8 @@ public class AESClientCipher {
      * @return secret key as {@link SecretKey}
      */
     public static SecretKey createSecretKey(String secretKey) {
-        byte[] keyBytes = stringToBytes(secretKey);
+        byte[] keyBytes = decodeBase64(secretKey);
         return new SecretKeySpec(keyBytes, 0, keyBytes.length, AES_ALGORITHM_TYPE);
-    }
-
-    /**
-     * This method is used to obtain a byte array from a {@link Base64} {@link String}
-     *
-     * @param sourceString: source to get byte
-     * @return byte array
-     */
-    public static byte[] stringToBytes(String sourceString) {
-        return getDecoder().decode(sourceString);
-    }
-
-    /**
-     * This method is used to obtain a {@link String} from a {@link Base64} byte array
-     *
-     * @param bytes: source to get string
-     * @return string as {@link String}
-     */
-    public static String byteToString(byte[] bytes) {
-        return getEncoder().encodeToString(bytes);
     }
 
 }

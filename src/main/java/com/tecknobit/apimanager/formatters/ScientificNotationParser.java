@@ -62,7 +62,7 @@ public abstract class ScientificNotationParser {
         if(value == null)
             throw new IllegalArgumentException("Value cannot be null");
         if(!(value instanceof Integer))
-            return String.format("%." + decimals + "f", value).replace(",", ".");
+            return String.format("%%.%df".formatted(decimals), value).replace(",", ".");
         return valueOf(value);
     }
 
