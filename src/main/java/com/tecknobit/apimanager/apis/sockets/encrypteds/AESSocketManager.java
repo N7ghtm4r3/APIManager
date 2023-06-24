@@ -13,7 +13,7 @@ import static com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.creat
 import static com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher.createSecretKey;
 
 /**
- * The {@code AESSocketManager} class is useful to dynamically manage communication by socket with AES encrypted communication
+ * The {@code AESSocketManager} class is useful to dynamically manage communication by sockets with AES encryption
  *
  * @author N7ghtm4r3 - Tecknobit
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">SocketManager.md</a>
@@ -34,7 +34,8 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      * @throws Exception when an error occurred
      * @apiNote this will set {@link #serverUse} to {@code "false"} and will be used as client side
      */
-    public AESSocketManager(String host, int serverPort, String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
+    public AESSocketManager(String host, int serverPort, String ivSpec, String secretKey,
+                            Algorithm algorithm) throws Exception {
         super(host, serverPort, new AESClientCipher(ivSpec, secretKey, algorithm));
     }
 
@@ -52,6 +53,18 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
     public AESSocketManager(String host, int serverPort, IvParameterSpec ivSpec, SecretKey secretKey,
                             Algorithm algorithm) throws Exception {
         super(host, serverPort, new AESClientCipher(ivSpec, secretKey, algorithm));
+    }
+
+    /**
+     * Constructor to init {@link AESSocketManager}
+     *
+     * @param host:            server host used in the communication
+     * @param serverPort:      server port used in the communication
+     * @param aesClientCipher: the AES cipher used during the communication
+     * @apiNote this will set {@link #serverUse} to {@code "false"} and will be used as client side
+     */
+    public AESSocketManager(String host, int serverPort, AESClientCipher aesClientCipher) {
+        super(host, serverPort, aesClientCipher);
     }
 
     /**
@@ -85,16 +98,25 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
     }
 
     /**
+     * Constructor to init {@link AESSocketManager}
+     *
+     * @param allowMultipleListeners: whether accept multiple listeners at the same time
+     * @param aesClientCipher:        the AES cipher used during the communication
+     * @throws Exception when an error occurred
+     * @apiNote this will set {@link #serverUse} to {@code "true"} and will be used as server side
+     */
+    public AESSocketManager(boolean allowMultipleListeners, AESClientCipher aesClientCipher) throws Exception {
+        super(allowMultipleListeners, aesClientCipher);
+    }
+
+    /**
      * This method is used to get the initialization vector <br>
      * No-any params required
      *
      * @return initialization vector instance as {@link IvParameterSpec}
      */
     public IvParameterSpec getIvParameterSpec() {
-        if (cipher != null)
-            return cipher.getIvParameterSpec();
-        else
-            return null;
+        return cipher.getIvParameterSpec();
     }
 
     /**
@@ -104,10 +126,7 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      * @return initialization vector instance as {@link String}
      */
     public String getBase64IvParameterSpec() {
-        if (cipher != null)
-            return cipher.getBase64IvParameterSpec();
-        else
-            return null;
+        return cipher.getBase64IvParameterSpec();
     }
 
     /**
@@ -117,10 +136,7 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      * @return the secret key as {@link SecretKey}
      */
     public SecretKey getSecretKey() {
-        if (cipher != null)
-            return cipher.getSecretKey();
-        else
-            return null;
+        return cipher.getSecretKey();
     }
 
     /**
@@ -130,10 +146,7 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      * @return the secret key as {@link String}
      */
     public String getBase64SecretKey() {
-        if (cipher != null)
-            return cipher.getBase64SecretKey();
-        else
-            return null;
+        return cipher.getBase64SecretKey();
     }
 
     /**
@@ -141,10 +154,9 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      *
      * @param ivSpec:    initialization vector as {@link String}
      * @param secretKey: secret key as {@link String}
-     * @throws Exception when an error occurred
      */
     @Wrapper
-    public void changeCipherKeys(String ivSpec, String secretKey) throws Exception {
+    public void changeCipherKeys(String ivSpec, String secretKey) {
         changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey));
     }
 
@@ -154,10 +166,9 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      * @param ivSpec:    initialization vector as {@link String}
      * @param secretKey: secret key as {@link String}
      * @param algorithm: algorithm used by the {@link #cipher}
-     * @throws Exception when an error occurred
      */
     @Wrapper
-    public void changeCipherKeys(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
+    public void changeCipherKeys(String ivSpec, String secretKey, Algorithm algorithm) {
         changeCipherKeys(createIvParameter(ivSpec), createSecretKey(secretKey), algorithm);
     }
 
@@ -166,14 +177,10 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      *
      * @param ivSpec:    initialization vector as {@link IvParameterSpec}
      * @param secretKey: secret key as {@link SecretKey}
-     * @throws Exception when an error occurred
      */
     @Wrapper
-    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey) throws Exception {
-        if (cipher != null)
-            changeCipherKeys(ivSpec, secretKey, cipher.getAlgorithm());
-        else
-            throw new Exception("The cipher of the messages is not enabled, you must use the dedicated constructor first");
+    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey) {
+        changeCipherKeys(ivSpec, secretKey, cipher.getAlgorithm());
     }
 
     /**
@@ -182,15 +189,11 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      * @param ivSpec:    initialization vector as {@link IvParameterSpec}
      * @param secretKey: secret key as {@link SecretKey}
      * @param algorithm: algorithm used by the {@link #cipher}
-     * @throws Exception when an error occurred
      */
-    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {
-        if (cipher != null) {
-            cipher.setIvParameterSpec(ivSpec);
-            cipher.setSecretKey(secretKey);
-            cipher.setAlgorithm(algorithm);
-        } else
-            throw new Exception("The cipher of the messages is not enabled, you must use the dedicated constructor first");
+    public void changeCipherKeys(IvParameterSpec ivSpec, SecretKey secretKey, Algorithm algorithm) {
+        cipher.setIvParameterSpec(ivSpec);
+        cipher.setSecretKey(secretKey);
+        cipher.setAlgorithm(algorithm);
     }
 
     /**
@@ -200,7 +203,6 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      * @param secretKey: secret key as {@link String}
      * @param algorithm: algorithm used by the {@link #cipher}
      * @throws Exception when an error occurred
-     * @apiNote this will enable the auto-cipher of the communication
      */
     @Wrapper
     public void setCipher(String ivSpec, String secretKey, Algorithm algorithm) throws Exception {
@@ -214,7 +216,6 @@ public class AESSocketManager extends EncryptedSocketManager<AESClientCipher> {
      * @param secretKey: secret key as {@link SecretKey}
      * @param algorithm: algorithm used by the {@link #cipher}
      * @throws Exception when an error occurred
-     * @apiNote this will enable the auto-cipher of the communication
      */
     @Wrapper
     public void setCipher(IvParameterSpec ivSpec, SecretKey secretKey, Algorithm algorithm) throws Exception {

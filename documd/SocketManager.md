@@ -1,4 +1,17 @@
 ## SocketManager
+
+For encryption are available the following algorithms:
+<ul>
+    <li>
+        <b>AES</b>
+    </li>
+    <li>
+        <b>RSA</b>
+    </li>
+</ul>
+
+The other algorithms will be gradually released
+
 ### Usage/Examples
 
 #### Single listener
@@ -11,13 +24,15 @@ public class Client {
 
     public static void main(String[] args) throws Exception {
         
-        //NOT CIPHERED the communication will not be automatically ciphered
+        //NOT ENCRYPTED the communication will not be automatically encrypted
         
         SocketManager client = new SocketManager("localhost", 1000);
         
-        //CIPHERED -- the communication will be automatically ciphered with the keys inserted
+        //ENCRYPTED -- the communication will be automatically encrypted with the keys and the algorithm choosen
                 
-        SocketManager client = new SocketManager("localhost", 1000, new ClientCipher("ivSpec", "secretKey", algorithm));
+        AESSocketManager client = new AESSocketManager("localhost", 1000, new AESClientCipher("ivSpec", "secretKey", algorithm));
+        
+        RSASocketManager client = new RSASocketManager("localhost", 1000, new RSAClientCipher("privateKey", "publicKey"));
         
         // will start the communication sending the content message
         client.writeContent("makeSomething"); 
@@ -39,14 +54,16 @@ public class Server {
     
     public static void main(String[] args) throws Exception {
         
-        //NOT CIPHERED the communication will not be automatically ciphered
+        //NOT ENCRYPTED the communication will not be automatically encrypted
         
         // set to false to allow only a single listener
         SocketManager server = new SocketManager(false); 
         
-        //CIPHERED -- the communication will be automatically ciphered with the keys inserted
+        //ENCRYPTED -- the communication will be automatically encrypted with the keys and the algorithm choosen
                 
-        SocketManager server = new SocketManager(false, new ClientCipher("ivSpec", "secretKey", algorithm));
+        AESSocketManager server = new AESSocketManager(false, new AESClientCipher("ivSpec", "secretKey", algorithm));
+        
+        RSASocketManager server = new RSASocketManager(false, new RSAClientCipher("privateKey", "publicKey"));
         
         // set the default error response
         socketManager.setDefaultErrorResponse(SocketManager.StandardResponseCode.FAILED);  
@@ -66,16 +83,12 @@ public class Server {
                         // will start the communication reading the content message
                         String request = server.readContent();
                         if (request != null) {
-                            switch (request) {
-                                case "makeSomething":
-                                     // will end the communication sending the response content message
+                            if(request.equals("makeSomething")){// will end the communication sending the response content message
                                     socketManager.writeContent("executed");
                                     //or
                                     socketManager.sendSuccessResponse();
-                                    break;
-                                default:
-                                    socketManager.sendDefaultErrorResponse();
-                            }
+}else {socketManager.sendDefaultErrorResponse();
+}
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -99,13 +112,15 @@ public class Client {
 
     public static void main(String[] args) throws Exception {
         
-        //NOT CIPHERED the communication will not be automatically ciphered
+        //NOT ENCRYPTED the communication will not be automatically encrypted
                 
         SocketManager client = new SocketManager("localhost", 1000);
         
-        //CIPHERED -- the communication will be automatically ciphered with the keys inserted
+        //ENCRYPTED -- the communication will be automatically encrypted with the keys inserted
                         
-        SocketManager client = new SocketManager("localhost", 1000, new ClientCipher("ivSpec", "secretKey", algorithm));
+        AESSocketManager client = new AESSocketManager("localhost", 1000, new AESClientCipher("ivSpec", "secretKey", algorithm));
+        
+        RSASocketManager client = new RSASocketManager("localhost", 1000, new RSAClientCipher("privateKey", "publicKey"));
         
         // will start the communication with the listener with 1000 as port, 
         // sending the content message
@@ -134,14 +149,16 @@ public class Server {
     
     public static void main(String[] args) throws Exception {
         
-        //NOT CIPHERED the communication will not be automatically ciphered
+        //NOT ENCRYPTED the communication will not be automatically encrypted
         
         // set to true to allow a multiple listeners
         SocketManager server = new SocketManager(true);
         
-        //CIPHERED -- the communication will be automatically ciphered with the keys inserted
+        //ENCRYPTED -- the communication will be automatically encrypted with the keys inserted
                 
-        SocketManager server = new SocketManager(true, new ClientCipher("ivSpec", "secretKey", algorithm));
+        AESSocketManager server = new AESSocketManager(true, new AESClientCipher("ivSpec", "secretKey", algorithm));
+        
+        RSASocketManager server = new RSASocketManager(false, new RSAClientCipher("privateKey", "publicKey"));
         
         // set the default error response
         socketManager.setDefaultErrorResponse(SocketManager.StandardResponseCode.FAILED);  
@@ -161,16 +178,12 @@ public class Server {
                         // will start the communication reading the content message
                         String request = server.readContent();
                         if (request != null) {
-                            switch (request) {
-                                case "makeSomething":
-                                     // will end the communication sending the response content message
+                            if(request.equals("makeSomething")){// will end the communication sending the response content message
                                     socketManager.writeContent("executedFrom1000");
                                     //or
                                     socketManager.sendSuccessResponse();
-                                    break;
-                                default:
-                                    socketManager.sendDefaultErrorResponse();
-                            }
+}else {socketManager.sendDefaultErrorResponse();
+}
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -192,16 +205,12 @@ public class Server {
                         // will start the communication reading the content message
                         String request = server.readContent();
                         if (request != null) {
-                            switch (request) {
-                                case "makeSomething":
-                                     // will end the communication sending the response content message
+                            if(request.equals("makeSomething")){// will end the communication sending the response content message
                                     socketManager.writeContent("executedFrom1001");
                                     //or
                                     socketManager.sendSuccessResponse();
-                                    break;
-                                default:
-                                    socketManager.sendDefaultErrorResponse();
-                            }
+}else {socketManager.sendDefaultErrorResponse();
+}
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

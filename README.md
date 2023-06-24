@@ -1,5 +1,5 @@
 # APIManager
-**v2.1.4**
+**v2.1.5**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -23,7 +23,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.N7ghtm4r3:APIManager:2.1.4'
+    implementation 'com.github.N7ghtm4r3:APIManager:2.1.5'
 }
 ```
 
@@ -45,7 +45,7 @@ dependencies {
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
   <artifactId>APIManager</artifactId>
-  <version>2.1.4</version>
+  <version>2.1.5</version>
 </dependency>
 ```
 
@@ -69,6 +69,7 @@ The other tools will be gradually released
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/APIRequest.md">**APIRequest**</a> allows you to manage the API request of the APIs services
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">**SocketManager**</a> allows you to manage the socket communication easily
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/AES.md">**AES encryption package**</a>  allows you to use the AES encryption type easily
+- <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/RSA.md">**RSA encryption package**</a>  allows you to use the RSA encryption type easily
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/QRCodeHelper.md">**QRCodeHelper**</a>  allows you to create the QRCODE easily
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/ConsolePainter.md">**ConsolePainter**</a>  allows you to customize your console outputs easily
 

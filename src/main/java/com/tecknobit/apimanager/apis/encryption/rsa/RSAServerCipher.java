@@ -27,14 +27,17 @@ public class RSAServerCipher extends RSAClientCipher {
          * {@code LOW_STRENGTH_KEY} strength
          */
         LOW_STRENGTH_KEY(512),
+
         /**
          * {@code MEDIUM_STRENGTH_KEY} strength
          */
         MEDIUM_STRENGTH_KEY(1024),
+
         /**
          * {@code HIGH_STRENGTH_KEY} strength
          */
         HIGH_STRENGTH_KEY(2048),
+
         /**
          * {@code VERY_HIGH_STRENGTH_KEY} strength
          */

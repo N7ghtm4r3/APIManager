@@ -1,6 +1,7 @@
 package com.tecknobit.apimanager.apis.encryption;
 
 import com.tecknobit.apimanager.annotations.Structure;
+import com.tecknobit.apimanager.annotations.Wrapper;
 import com.tecknobit.apimanager.apis.encryption.aes.AESClientCipher;
 import org.json.JSONObject;
 
@@ -114,6 +115,7 @@ public abstract class BaseCipher {
      * @param content: content to encrypt
      * @return content encrypted as {@link Base64}-{@link String}
      */
+    @Wrapper
     public <T> String encryptBase64(T content) throws Exception {
         return encodeBase64(encrypt(content));
     }
@@ -134,6 +136,7 @@ public abstract class BaseCipher {
      * @param content: content to decrypt
      * @return {@link Base64} content decrypted as {@link String}
      */
+    @Wrapper
     public String decryptBase64(String content) throws Exception {
         return new String(decrypt(decodeBase64(content)), UTF_8);
     }
@@ -183,6 +186,7 @@ public abstract class BaseCipher {
      * @param source: source to encode
      * @return source in {@link Base64} encoded as {@link String}
      */
+    @Wrapper
     public static String encodeBase64(String source) {
         return encodeBase64(source.getBytes());
     }

@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 import static com.tecknobit.apimanager.apis.APIRequest.RequestMethod.GET;
 
 /**
- * The {@code SocketManager} class is useful to dynamically manage communication by socket
+ * The {@code SocketManager} class is useful to dynamically manage communication by sockets
  *
  * @author N7ghtm4r3 - Tecknobit
  * @apiNote see the usage at <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/SocketManager.md">SocketManager.md</a>
