@@ -634,8 +634,8 @@ public class APIRequest {
                 throw new IllegalArgumentException("Param value cannot be null or empty");
             paramsList.append(param).append(separator);
         }
-        paramsList.replace(paramsList.length() - 1, paramsList.length(), "");
-        return paramsList.toString();
+        int listLength = paramsList.length();
+        return paramsList.delete(listLength - separator.length(), listLength).toString();
     }
 
     /**
@@ -648,8 +648,8 @@ public class APIRequest {
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      */
     @Wrapper
-    public <T> String assembleParamsList(String starterSeparator, String enderSeparator, ArrayList<T> params) {
-        return assembleParamsList(starterSeparator, enderSeparator, params.toArray());
+    public <T> String assembleSeparatedParamsList(String starterSeparator, String enderSeparator, ArrayList<T> params) {
+        return assembleSeparatedParamsList(starterSeparator, enderSeparator, params.toArray());
     }
 
     /**
@@ -662,7 +662,7 @@ public class APIRequest {
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      */
     @SafeVarargs
-    public final <T> String assembleParamsList(String starterSeparator, String enderSeparator, T... params) {
+    public final <T> String assembleSeparatedParamsList(String starterSeparator, String enderSeparator, T... params) {
         if (starterSeparator == null || starterSeparator.isEmpty())
             throw new IllegalArgumentException("Separator value cannot be null or blank");
         if (params == null)
@@ -673,7 +673,9 @@ public class APIRequest {
                 throw new IllegalArgumentException("Param value cannot be null or empty");
             paramsList.append(starterSeparator).append(param).append(enderSeparator);
         }
-        paramsList.replace(paramsList.length() - 1, paramsList.length(), "");
+        int listLength = paramsList.length();
+        if (enderSeparator != null)
+            paramsList = paramsList.delete(listLength - enderSeparator.length(), listLength);
         return paramsList.toString();
     }
 
