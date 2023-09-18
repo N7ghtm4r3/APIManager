@@ -76,6 +76,21 @@ public abstract class TradingTools {
     }
 
     /**
+     * Method get percent between two values and textualize it
+     *
+     * @param percent: value to compute
+     * @return percent value formatted es. +8% or -8% as {@link String}
+     */
+    public static String textualizeAssetPercent(double percent) {
+        if (percent > 0)
+            return "+" + percent + "%";
+        else if (percent < 0)
+            return percent + "%";
+        else
+            return "=" + percent + "%";
+    }
+
+    /**
      * Method to get proportion between two values
      *
      * @param startValue: first value to make compare
@@ -97,22 +112,7 @@ public abstract class TradingTools {
      * @throws IllegalArgumentException if startValue or lastValue are negative
      */
     public static double computeProportion(double startValue, double lastValue, int decimalDigits) {
-        return computeAssetPercent(startValue, lastValue, decimalDigits) + 100;
-    }
-
-    /**
-     * Method get percent between two values and textualize it
-     *
-     * @param percent: value to compute
-     * @return percent value formatted es. +8% or -8% as {@link String}
-     */
-    public static String textualizeAssetPercent(double percent) {
-        if (percent > 0)
-            return "+" + percent + "%";
-        else if (percent < 0)
-            return percent + "%";
-        else
-            return "=" + percent + "%";
+        return roundValue(computeAssetPercent(startValue, lastValue) + 100, decimalDigits);
     }
 
     /**
