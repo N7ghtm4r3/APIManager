@@ -84,11 +84,12 @@ public class Server {
                         String request = server.readContent();
                         if (request != null) {
                             if(request.equals("makeSomething")){// will end the communication sending the response content message
-                                    socketManager.writeContent("executed");
-                                    //or
-                                    socketManager.sendSuccessResponse();
-}else {socketManager.sendDefaultErrorResponse();
-}
+                                socketManager.writeContent("executed");
+                                //or
+                                socketManager.sendSuccessResponse();
+                            } else {
+                                socketManager.sendDefaultErrorResponse();
+                            }
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -182,8 +183,9 @@ public class Server {
                                     socketManager.writeContent("executedFrom1000");
                                     //or
                                     socketManager.sendSuccessResponse();
-}else {socketManager.sendDefaultErrorResponse();
-}
+                            } else {
+                                socketManager.sendDefaultErrorResponse();
+                            }
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -206,11 +208,12 @@ public class Server {
                         String request = server.readContent();
                         if (request != null) {
                             if(request.equals("makeSomething")){// will end the communication sending the response content message
-                                    socketManager.writeContent("executedFrom1001");
-                                    //or
-                                    socketManager.sendSuccessResponse();
-}else {socketManager.sendDefaultErrorResponse();
-}
+                                socketManager.writeContent("executedFrom1001");
+                                //or
+                                socketManager.sendSuccessResponse();
+                            } else {
+                                socketManager.sendDefaultErrorResponse();
+                            }
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
