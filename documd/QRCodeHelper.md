@@ -62,6 +62,23 @@ public class QRCode {
 }
 ```
 
+### Android's implementation
+
+To use this library on Android you must follow two simple steps:
+
+- Add permission to AndroidManifest file
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
+
+- Create a single one strict detector
+
+```java
+StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+StrictMode.setThreadPolicy(policy);
+```
+
 ## Authors
 
 - [@N7ghtm4r3](https://www.github.com/N7ghtm4r3)
