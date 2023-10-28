@@ -76,9 +76,14 @@ public abstract class EncryptedSocketManager<T extends BaseCipher> extends Socke
      */
     @Override
     public String readContent(Socket targetSocket) throws Exception {
-        String content = cipher.decryptBase64(new BufferedReader(new InputStreamReader(targetSocket.getInputStream()))
-                .readLine());
-        lastContentRed = content;
+        String content = new BufferedReader(new InputStreamReader(targetSocket.getInputStream())).readLine();
+        try {
+            content = cipher.decryptBase64(content);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+        } finally {
+            lastContentRed = content;
+        }
         if (!serverUse || content == null)
             targetSocket.close();
         if (content != null)
@@ -95,7 +100,11 @@ public abstract class EncryptedSocketManager<T extends BaseCipher> extends Socke
      */
     @Override
     public String readLastContent() throws Exception {
-        return cipher.decryptBase64(super.readLastContent());
+        try {
+            return cipher.decryptBase64(lastContentRed);
+        } catch (IllegalArgumentException e) {
+            return lastContentRed;
+        }
     }
 
     /**
