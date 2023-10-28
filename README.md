@@ -1,5 +1,5 @@
 # APIManager
-**v2.1.7**
+**v2.1.8**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -35,7 +35,7 @@ Add the JitPack repository to your build file
          
     ```gradle
     dependencies {
-        implementation 'com.github.N7ghtm4r3:APIManager:2.1.7'
+        implementation 'com.github.N7ghtm4r3:APIManager:2.1.8'
     }
     ```
 
@@ -43,7 +43,7 @@ Add the JitPack repository to your build file
          
     ```gradle
     dependencies {
-        implementation("com.github.N7ghtm4r3:APIManager:2.1.7")
+        implementation("com.github.N7ghtm4r3:APIManager:2.1.8")
     }
     ```
 
@@ -65,7 +65,7 @@ Add the JitPack repository to your build file
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
   <artifactId>APIManager</artifactId>
-  <version>2.1.7</version>
+  <version>2.1.8</version>
 </dependency>
 ```
 

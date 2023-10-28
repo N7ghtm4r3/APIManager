@@ -3,6 +3,7 @@ package com.tecknobit.apimanager.apis.sockets.encrypteds;
 import com.tecknobit.apimanager.apis.encryption.BaseCipher;
 import com.tecknobit.apimanager.apis.sockets.SocketManager;
 
+import javax.crypto.BadPaddingException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.Socket;
@@ -79,8 +80,8 @@ public abstract class EncryptedSocketManager<T extends BaseCipher> extends Socke
         String content = new BufferedReader(new InputStreamReader(targetSocket.getInputStream())).readLine();
         try {
             content = cipher.decryptBase64(content);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
+        } catch (Exception e) {
+            throw new Exception(e);
         } finally {
             lastContentRed = content;
         }
@@ -102,7 +103,7 @@ public abstract class EncryptedSocketManager<T extends BaseCipher> extends Socke
     public String readLastContent() throws Exception {
         try {
             return cipher.decryptBase64(lastContentRed);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | BadPaddingException e) {
             return lastContentRed;
         }
     }

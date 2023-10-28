@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/sockets/encrypteds/EncryptedSocketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/sockets/encrypteds/EncryptedSocketManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,23 +31,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="APIManager" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="APIManager" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="APIManager" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -533,7 +518,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687619511094</updated>
     </task>
-    <option name="localTasksCounter" value="113" />
+    <option name="localTasksCounter" value="114" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -552,7 +537,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/APIManager" />
     </ignored-roots>
-    <MESSAGE value="Fix some issues and adding some features" />
     <MESSAGE value="Fix some issues and optimized JsonHelper tool" />
     <MESSAGE value="Fix some issues at JsonHelper tool" />
     <MESSAGE value="Fix some issues, added some encoder methods in APIRequest&#10;and optimized CryptocurrencyTool" />
@@ -577,7 +561,8 @@
     <MESSAGE value="New socket managers released" />
     <MESSAGE value="Fixed some issues" />
     <MESSAGE value="Fixed some issues of TradingTools class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed some issues of TradingTools class" />
+    <MESSAGE value="Fixed some issues of EncryptedSocketManager" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some issues of EncryptedSocketManager" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
