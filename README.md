@@ -1,5 +1,6 @@
 # APIManager
-**v2.1.8**
+
+**v2.2.0**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -35,7 +36,7 @@ Add the JitPack repository to your build file
          
     ```gradle
     dependencies {
-        implementation 'com.github.N7ghtm4r3:APIManager:2.1.8'
+        implementation 'com.github.N7ghtm4r3:APIManager:2.2.0'
     }
     ```
 
@@ -43,7 +44,7 @@ Add the JitPack repository to your build file
          
     ```gradle
     dependencies {
-        implementation("com.github.N7ghtm4r3:APIManager:2.1.8")
+        implementation("com.github.N7ghtm4r3:APIManager:2.2.0")
     }
     ```
 
@@ -65,7 +66,7 @@ Add the JitPack repository to your build file
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
   <artifactId>APIManager</artifactId>
-  <version>2.1.8</version>
+  <version>2.2.0</version>
 </dependency>
 ```
 
@@ -127,10 +128,10 @@ If you need to contact me for a project
 
 If you want support project and developer
 
-| Crypto  | Address| Network |
-| ------------- | ------------- | ------------- |
-| ![](https://img.shields.io/badge/Bitcoin-000000?style=for-the-badge&logo=bitcoin&logoColor=white) | **3H3jyCzcRmnxroHthuXh22GXXSmizin2yp** | Bitcoin |
-| ![](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)  | **0x1b45bc41efeb3ed655b078f95086f25fc83345c4**  | Ethereum |
+| Crypto                                                                                              | Address                                        | Network  |
+|-----------------------------------------------------------------------------------------------------|------------------------------------------------|----------|
+| ![](https://img.shields.io/badge/Bitcoin-000000?style=for-the-badge&logo=bitcoin&logoColor=white)   | **3H3jyCzcRmnxroHthuXh22GXXSmizin2yp**         | Bitcoin  |
+| ![](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white) | **0x1b45bc41efeb3ed655b078f95086f25fc83345c4** | Ethereum |
 
 If you want support project and developer
 with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">PayPal</a>

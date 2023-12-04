@@ -5,8 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/documd/ServerProtector.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/ServerProtector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documd/AES.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/AES.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documd/APIRequest.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/APIRequest.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documd/ConsolePainter.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/ConsolePainter.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documd/QRCodeHelper.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/QRCodeHelper.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documd/RSA.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/RSA.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documd/SocketManager.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/SocketManager.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,15 +65,14 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="27sEyV3aAYrD7xoLG1wklgpbIVl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -103,15 +114,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.APIManager [clean]">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="azul-18" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="APIManager.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="APIManager [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -156,11 +158,14 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Gradle.APIManager [build]" />
+      <item itemvalue="Gradle.APIManager [clean]" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.APIManager [clean]" />
         <item itemvalue="Gradle.APIManager [build]" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
