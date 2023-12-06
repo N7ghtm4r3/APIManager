@@ -1,16 +1,19 @@
 package com.tecknobit.apimanager.apis;
 
-import com.google.api.client.http.*;
-import com.google.api.client.http.apache.v2.ApacheHttpTransport;
 import com.tecknobit.apimanager.annotations.Wrapper;
+import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.*;
-import java.net.HttpURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
@@ -20,13 +23,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.*;
 
-import static com.tecknobit.apimanager.apis.APIRequest.RequestMethod.DELETE;
+import static com.tecknobit.apimanager.apis.APIRequest.RequestMethod.PATCH;
 import static java.lang.Long.MAX_VALUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Base64.getDecoder;
 import static java.util.Base64.getEncoder;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.apache.commons.codec.binary.Hex.encodeHexString;
 
 /**
@@ -74,9 +80,19 @@ public class APIRequest {
     public static final String SHA256_ALGORITHM = "SHA-256";
 
     /**
-     * {@code transport} is the instance useful for the requests
+     * **okHttpClient** -> the http client to execute the requests
      */
-    private static final ApacheHttpTransport transport = new ApacheHttpTransport();
+    private OkHttpClient okHttpClient;
+
+    /**
+     * {@code request} is the instance useful for the requests
+     */
+    private Request.Builder request;
+
+    /**
+     * {@code contentType} is the type of the content of the payload request, default is {@code "text/plain"}
+     */
+    private MediaType contentType = MediaType.parse("text/plain");
 
     /**
      * {@code requestTimeout} is the instance that contains time to keep alive request
@@ -89,9 +105,9 @@ public class APIRequest {
     private String defaultErrorResponse;
 
     /**
-     * {@code request} is the instance useful for the requests
+     * {@code isSuccessfulRequest} whether the request has been successful
      */
-    private HttpRequest request;
+    private boolean isSuccessfulRequest;
 
     /**
      * {@code response} is the instance that contains response message from request to return
@@ -112,21 +128,9 @@ public class APIRequest {
      * Constructor to init {@link APIRequest}
      *
      * @param defaultErrorResponse error message to return if is not request error
-     * @param requestTimeout       timeout for the requests
-     */
-    public APIRequest(String defaultErrorResponse, int requestTimeout) {
-        this.defaultErrorResponse = defaultErrorResponse;
-        this.requestTimeout = requestTimeout;
-    }
-
-    /**
-     * Constructor to init {@link APIRequest}
-     *
-     * @param defaultErrorResponse error message to return if is not request error
      */
     public APIRequest(String defaultErrorResponse) {
-        requestTimeout = DEFAULT_REQUEST_TIMEOUT;
-        this.defaultErrorResponse = defaultErrorResponse;
+        this(defaultErrorResponse, DEFAULT_REQUEST_TIMEOUT);
     }
 
     /**
@@ -135,8 +139,20 @@ public class APIRequest {
      * @param requestTimeout timeout for the requests
      */
     public APIRequest(int requestTimeout) {
+        this(DEFAULT_ERROR_RESPONSE, requestTimeout);
+    }
+
+    /**
+     * Constructor to init {@link APIRequest}
+     *
+     * @param defaultErrorResponse error message to return if is not request error
+     * @param requestTimeout       timeout for the requests
+     */
+    public APIRequest(String defaultErrorResponse, int requestTimeout) {
+        this.defaultErrorResponse = defaultErrorResponse;
         this.requestTimeout = requestTimeout;
-        defaultErrorResponse = DEFAULT_ERROR_RESPONSE;
+        if (requestTimeout != DEFAULT_REQUEST_TIMEOUT)
+            okHttpClient = new OkHttpClient.Builder().readTimeout(requestTimeout, MILLISECONDS).build();
     }
 
     /**
@@ -157,6 +173,47 @@ public class APIRequest {
     public APIRequest() {
         requestTimeout = DEFAULT_REQUEST_TIMEOUT;
         defaultErrorResponse = DEFAULT_ERROR_RESPONSE;
+        okHttpClient = new OkHttpClient();
+    }
+
+    /**
+     * Method to set the content type of the payload of the request
+     *
+     * @param contentType: the content type to set
+     */
+    public void setContentType(String contentType) {
+        this.contentType = MediaType.parse(contentType);
+    }
+
+    /**
+     * Method to validate a self-signed SLL certificate and bypass the checks of its validity<br>
+     * No-any params required
+     *
+     * @apiNote this method disable all checks on the SLL certificate validity, so is recommended to use for test only or
+     * in a private distribution on own infrastructure
+     */
+    public void validateSelfSignedCertificate() {
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+            public X509Certificate[] getAcceptedIssuers() {
+                return new X509Certificate[]{};
+            }
+
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {
+            }
+
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {
+            }
+
+        }};
+        try {
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustAllCerts, new SecureRandom());
+            OkHttpClient.Builder builder = okHttpClient.newBuilder();
+            builder.sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustAllCerts[0]);
+            builder.hostnameVerifier(((hostname, session) -> true));
+            okHttpClient = builder.build();
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -170,7 +227,7 @@ public class APIRequest {
     public <T> void sendAPIRequest(String requestUrl, RequestMethod method, String headerKey,
                                    T headerValue) throws IOException {
         setRequest(requestUrl, method);
-        request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
+        addHeader(headerKey, headerValue);
         performRequest();
     }
 
@@ -211,7 +268,7 @@ public class APIRequest {
     public <T> void sendAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue,
                                    Params queryParams) throws IOException {
         setRequest(requestUrl + queryParams.createQueryString(), method);
-        request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
+        addHeader(headerKey, headerValue);
         performRequest();
     }
 
@@ -238,12 +295,8 @@ public class APIRequest {
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      */
     public void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, Params payload) throws IOException {
-        if (method.equals(DELETE))
-            execDeletePayloadedRequest(requestUrl, payload, false, null);
-        else {
-            setRequest(requestUrl, method, payload, false);
-            performRequest();
-        }
+        setRequest(requestUrl, method, payload, false);
+        performRequest();
     }
 
     /**
@@ -257,15 +310,9 @@ public class APIRequest {
      */
     public <T> void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue,
                                             Params payload) throws IOException {
-        if (method.equals(DELETE)) {
-            Headers headers = new Headers();
-            headers.addHeader(headerKey, headerValue);
-            execDeletePayloadedRequest(requestUrl, payload, false, headers);
-        } else {
-            setRequest(requestUrl, method, payload, false);
-            request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
-            performRequest();
-        }
+        setRequest(requestUrl, method, payload, false);
+        addHeader(headerKey, headerValue);
+        performRequest();
     }
 
     /**
@@ -278,13 +325,9 @@ public class APIRequest {
      */
     public void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, Headers headers,
                                         Params payload) throws IOException {
-        if (method.equals(DELETE))
-            execDeletePayloadedRequest(requestUrl, payload, false, headers);
-        else {
-            setRequest(requestUrl, method, payload, false);
-            setHeaders(headers);
-            performRequest();
-        }
+        setRequest(requestUrl, method, payload, false);
+        setHeaders(headers);
+        performRequest();
     }
 
     /**
@@ -295,12 +338,8 @@ public class APIRequest {
      * @param payload:    params to insert in the payload for the {@code "HTTP"} request
      */
     public void sendJSONPayloadedAPIRequest(String requestUrl, RequestMethod method, Params payload) throws IOException {
-        if (method.equals(DELETE))
-            execDeletePayloadedRequest(requestUrl, payload, true, null);
-        else {
-            setRequest(requestUrl, method, payload, true);
-            performRequest();
-        }
+        setRequest(requestUrl, method, payload, true);
+        performRequest();
     }
 
     /**
@@ -314,15 +353,9 @@ public class APIRequest {
      */
     public <T> void sendJSONPayloadedAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue,
                                                 Params payload) throws IOException {
-        if (method.equals(DELETE)) {
-            Headers headers = new Headers();
-            headers.addHeader(headerKey, headerValue);
-            execDeletePayloadedRequest(requestUrl, payload, true, headers);
-        } else {
-            setRequest(requestUrl, method, payload, true);
-            request.setHeaders(new HttpHeaders().set(headerKey, headerValue));
-            performRequest();
-        }
+        setRequest(requestUrl, method, payload, true);
+        addHeader(headerKey, headerValue);
+        performRequest();
     }
 
     /**
@@ -335,47 +368,9 @@ public class APIRequest {
      */
     public void sendJSONPayloadedAPIRequest(String requestUrl, RequestMethod method, Headers headers,
                                             Params payload) throws IOException {
-        if (method.equals(DELETE))
-            execDeletePayloadedRequest(requestUrl, payload, true, headers);
-        else {
-            setRequest(requestUrl, method, payload, true);
-            setHeaders(headers);
-            performRequest();
-        }
-    }
-
-    /**
-     * Method to send a {@link RequestMethod#DELETE} api request with a payload attached
-     *
-     * @param requestUrl:    {@code "URL"} used in the api request
-     * @param payload:       params to insert in the payload for the {@code "HTTP"} request
-     * @param isJsonPayload: flag whether payload is to send formatted in {@code "JSON"} or not
-     * @param headers:       headers for the request
-     */
-    private void execDeletePayloadedRequest(String requestUrl, Params payload, boolean isJsonPayload,
-                                            Headers headers) throws IOException {
-        HttpURLConnection request = (HttpURLConnection) new URL(requestUrl).openConnection();
-        request.setRequestMethod(DELETE.name());
-        if (headers != null)
-            for (String key : headers.getHeadersKeys())
-                request.setRequestProperty(key, headers.getHeader(key));
-        request.setDoOutput(true);
-        OutputStreamWriter oPayload = new OutputStreamWriter(request.getOutputStream());
-        String sPayload;
-        if (isJsonPayload)
-            sPayload = payload.createJSONPayload().toString();
-        else
-            sPayload = payload.createPayload();
-        oPayload.write(sPayload);
-        oPayload.close();
-        request.connect();
-        BufferedReader responseReader;
-        statusCode = request.getResponseCode();
-        try {
-            response = readInputStream(request.getInputStream());
-        } catch (IOException e) {
-            errorResponse = readInputStream(request.getErrorStream());
-        }
+        setRequest(requestUrl, method, payload, true);
+        setHeaders(headers);
+        performRequest();
     }
 
     /**
@@ -384,9 +379,9 @@ public class APIRequest {
      * @param requestUrl: {@code "URL"} used to make {@code "HTTP"} request
      * @param method:     method used to make {@code "HTTP"} request
      */
+    @Wrapper
     private void setRequest(String requestUrl, RequestMethod method) throws IOException {
-        request = transport.createRequestFactory().buildRequest(method.name(), new GenericUrl(requestUrl), null);
-        request.setConnectTimeout(requestTimeout);
+        setRequest(requestUrl, method, null, false);
     }
 
     /**
@@ -397,55 +392,53 @@ public class APIRequest {
      * @param payload:       params to insert in the payload for the {@code "HTTP"} request
      * @param isJsonPayload: flag whether payload is to send formatted in {@code "JSON"} or not
      */
-    private void setRequest(String requestUrl, RequestMethod method, Params payload, boolean isJsonPayload) throws IOException {
-        ByteArrayContent content = null;
+    private void setRequest(String requestUrl, RequestMethod method, Params payload, boolean isJsonPayload) {
+        RequestBody requestBody = null;
         if (payload != null) {
             String cPayload;
-            if (isJsonPayload)
+            if (isJsonPayload) {
+                setContentType("application/json");
                 cPayload = payload.createJSONPayload().toString();
-            else
+            } else
                 cPayload = payload.createPayload();
-            content = ByteArrayContent.fromString(null, cPayload);
-        }
-        request = transport.createRequestFactory().buildRequest(method.name(), new GenericUrl(requestUrl), content);
-        request.setConnectTimeout(requestTimeout);
+            requestBody = RequestBody.create(contentType, cPayload);
+        } else if (payload == null && method == PATCH)
+            requestBody = RequestBody.create(contentType, "");
+        request = new Request.Builder()
+                .method(method.name(), requestBody)
+                .url(requestUrl);
     }
 
     /**
      * Method to get the response of an {@code "HTTP"} request <br>
-     * <p>
+     *
      * No-any params required
      */
     private void performRequest() throws IOException {
         errorResponse = null;
-        request.setThrowExceptionOnExecuteError(false);
-        HttpResponse gResponse = request.execute();
-        InputStream content = gResponse.getContent();
-        statusCode = gResponse.getStatusCode();
-        if (content != null) {
-            response = readInputStream(content);
-            if (!gResponse.isSuccessStatusCode()) {
-                errorResponse = response;
-                response = null;
-                throw new IOException();
-            }
-        } else
-            response = String.valueOf(gResponse.getStatusCode());
+        response = null;
+        Call call = okHttpClient.newCall(request.build());
+        Response rResponse = call.execute();
+        String requestResponse = rResponse.body().string();
+        isSuccessfulRequest = rResponse.isSuccessful();
+        if (isSuccessfulRequest)
+            response = requestResponse;
+        else
+            errorResponse = requestResponse;
+        statusCode = rResponse.code();
+        okHttpClient.connectionPool().evictAll();
     }
 
     /**
-     * Method to read a stream from a response
+     * Method to set the headers of an {@code "HTTP"} request <br>
      *
-     * @param stream: the stream to read
-     * @return stream red from the response as {@link String}
+     * @param headerKey:   header key for the request
+     * @param headerValue: header value for the request
      */
-    private String readInputStream(InputStream stream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = bufferedReader.readLine()) != null)
-            response.append(line);
-        return response.toString();
+    private <T> void addHeader(String headerKey, T headerValue) {
+        Headers headers = new Headers();
+        headers.addHeader(headerKey, headerValue);
+        setHeaders(headers);
     }
 
     /**
@@ -454,10 +447,7 @@ public class APIRequest {
      * @param headers: headers for the request
      */
     private void setHeaders(Headers headers) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        for (String key : headers.getHeadersKeys())
-            httpHeaders.set(key, headers.getHeader(key));
-        request.setHeaders(httpHeaders);
+        request.headers(okhttp3.Headers.of(headers.headers));
     }
 
     /**
@@ -474,6 +464,16 @@ public class APIRequest {
         } catch (JSONException e) {
             return (T) response;
         }
+    }
+
+    /**
+     * Method to get whether the response has been successful <br>
+     * No-any params required
+     *
+     * @return whether the response has been successful as boolean
+     */
+    public boolean isSuccessful() {
+        return isSuccessfulRequest;
     }
 
     /**
@@ -728,7 +728,7 @@ public class APIRequest {
         }
         StringBuilder params = new StringBuilder(mandatoryParams);
         for (String key : extraParams.getParamsKeys()) {
-            if ((key != null && !key.equals(""))) {
+            if ((key != null && !key.isEmpty())) {
                 params.append(queryEncoderChar).append(key).append("=").append((Object) extraParams.getParam(key));
                 if (queryEncoderChar.equals("?"))
                     queryEncoderChar = "&";
