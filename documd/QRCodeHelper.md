@@ -11,9 +11,11 @@ public class QRCode {
             QRCodeHelper qrCodeHelper = new QRCodeHelper();
             
             // This will create a file at "yourPath/file.itsSuffix" with a squared QRCode
+            // You need to add the "com.google.zxing:javase" dependencies to your project to work correctly
             qrCodeHelper.createQRCode("YOUR DATA", "yourPath/file.itsSuffix", 250);
     
             // This will create a file at "yourPath/file.itsSuffix" with a custom dimensions QRCode
+            // You need to add the "com.google.zxing:javase" dependencies to your project to work correctly
             qrCodeHelper.createQRCode("YOUR DATA", "yourPath/file.itsSuffix", 250, 200);
             
             // This will read a QRCode and shows its content
