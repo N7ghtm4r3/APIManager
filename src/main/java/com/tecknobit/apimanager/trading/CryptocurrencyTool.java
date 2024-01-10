@@ -62,8 +62,8 @@ public abstract class CryptocurrencyTool {
     /**
      * Method to fetch cryptocurrency name
      *
-     * @param symbol: symbol of the cryptocurrency to fetch es. BTC
-     * @return name of the cryptocurrency es. Bitcoin
+     * @param symbol: symbol of the cryptocurrency to fetch e.g. BTC
+     * @return name of the cryptocurrency e.g. Bitcoin
      */
     public static String getCryptocurrencyName(String symbol) {
         return getValue(SYMBOL_KEY, symbol, NAME_KEY);
@@ -72,8 +72,8 @@ public abstract class CryptocurrencyTool {
     /**
      * Method to fetch cryptocurrency symbol
      *
-     * @param name: name of the cryptocurrency to fetch es. Bitcoin
-     * @return symbol of the cryptocurrency es. BTC
+     * @param name: name of the cryptocurrency to fetch e.g. Bitcoin
+     * @return symbol of the cryptocurrency e.g. BTC
      */
     public static String getCryptocurrencySymbol(String name) {
         return getValue(NAME_KEY, name, SYMBOL_KEY);
@@ -82,7 +82,7 @@ public abstract class CryptocurrencyTool {
     /**
      * Method to fetch cryptocurrency url logo image by cryptocurrency symbol
      *
-     * @param symbol: symbol of the cryptocurrency to fetch logo image es. BTC
+     * @param symbol: symbol of the cryptocurrency to fetch logo image e.g. BTC
      * @return image url of the cryptocurrency
      */
     public static String getUrlLogoBySymbol(String symbol) {
@@ -92,7 +92,7 @@ public abstract class CryptocurrencyTool {
     /**
      * Method to fetch cryptocurrency url logo image by cryptocurrency name
      *
-     * @param name: name of the cryptocurrency to fetch logo image es. Bitcoin
+     * @param name: name of the cryptocurrency to fetch logo image e.g. Bitcoin
      * @return image url of the cryptocurrency
      */
     public static String getUrlLogoByName(String name) {

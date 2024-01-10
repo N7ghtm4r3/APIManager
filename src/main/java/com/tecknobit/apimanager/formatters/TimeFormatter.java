@@ -61,7 +61,7 @@ public abstract class TimeFormatter {
      * This method is used to get from a timestamp a date formatted by {@code "Locale"}
      *
      * @param timestamp: timestamp of the date to get
-     * @param pattern:   pattern to format return date es. dd/MM/yyyy hh:mm:ss
+     * @param pattern:   pattern to format return date e.g. dd/MM/yyyy hh:mm:ss
      * @return date value as {@link String}
      */
     public static String getStringDate(long timestamp, String pattern) {
@@ -82,7 +82,7 @@ public abstract class TimeFormatter {
      * This method is used to get a date from a date string formatted by {@code "Locale"}
      *
      * @param date:    date as {@link String}
-     * @param pattern: pattern to format return date es. dd/MM/yyyy hh:mm:ss
+     * @param pattern: pattern to format return date e.g. dd/MM/yyyy hh:mm:ss
      * @return date value as {@link Date}
      */
     public static Date getDate(String date, String pattern) {
@@ -103,7 +103,7 @@ public abstract class TimeFormatter {
      * This method is used to get a date from a date timestamp
      *
      * @param date:    date timestamp as long
-     * @param pattern: pattern to format return date es. dd/MM/yyyy hh:mm:ss
+     * @param pattern: pattern to format return date e.g. dd/MM/yyyy hh:mm:ss
      * @return date value as {@link Date}
      */
     public static Date getDate(long date, String pattern) {
@@ -140,7 +140,7 @@ public abstract class TimeFormatter {
      * This method is used to get from a date its timestamp value
      *
      * @param date:    date to get timestamp
-     * @param pattern: pattern to format return date es. dd/MM/yyyy hh:mm:ss
+     * @param pattern: pattern to format return date e.g. dd/MM/yyyy hh:mm:ss
      * @return date timestamp value as long
      * @implNote when {@link ParseException} has been thrown return value will be -1 as default
      */
@@ -152,7 +152,7 @@ public abstract class TimeFormatter {
      * This method is used to get from a date its timestamp value
      *
      * @param date:    date to get timestamp
-     * @param pattern: pattern to format return date es. dd/MM/yyyy hh:mm:ss
+     * @param pattern: pattern to format return date e.g. dd/MM/yyyy hh:mm:ss
      * @return date timestamp value as long
      * @implNote when {@link ParseException} has been thrown return value will be -1 as default
      */

@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
@@ -562,9 +563,9 @@ public class APIRequest {
      * Method to concatenate a series of same key param
      *
      * @param initialChar: start char of concatenation, can be "" or &
-     * @param key:         key of param to concatenate es. param
-     * @param params:      values of param to concatenate es. value1, value2 as {@link ArrayList}
-     * @return series of params concatenated as {@link String} es. param=value1&param=value2
+     * @param key:         key of param to concatenate e.g. param
+     * @param params:      values of param to concatenate e.g. value1, value2 as {@link ArrayList}
+     * @return series of params concatenated as {@link String} e.g. param=value1&param=value2
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      */
     @Wrapper
@@ -576,9 +577,9 @@ public class APIRequest {
      * Method to concatenate a series of same key param
      *
      * @param initialChar: start char of concatenation, can be "" or &
-     * @param key:         key of param to concatenate es. param
-     * @param params:      values of param to concatenate es. value1, value2 as {@link Object} arrays
-     * @return series of params concatenated as {@link String} es. param=value1&param=value2
+     * @param key:         key of param to concatenate e.g. param
+     * @param params:      values of param to concatenate e.g. value1, value2 as {@link Object} arrays
+     * @return series of params concatenated as {@link String} e.g. param=value1&param=value2
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      */
     @SafeVarargs
@@ -593,7 +594,8 @@ public class APIRequest {
                 if (param == null || param.equals(""))
                     throw new IllegalArgumentException("Param value cannot be null or empty");
                 else
-                    paramsConcatenation.append(initialChar).append(key).append("=").append(param);
+                    paramsConcatenation.append(initialChar).append(key).append("=")
+                            .append(URLEncoder.encode(param.toString(), UTF_8));
                 initialChar = "&";
             }
             return paramsConcatenation.toString();
@@ -606,7 +608,7 @@ public class APIRequest {
      *
      * @param separator: char to divide items of the list
      * @param params:    values of the list to concatenate
-     * @return list of params as {@link String} es. value,value2,value3
+     * @return list of params as {@link String} e.g. value,value2,value3
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      */
     @Wrapper
@@ -619,7 +621,7 @@ public class APIRequest {
      *
      * @param separator: char to divide items of the list
      * @param params:    values of the list to concatenate
-     * @return list of params as {@link String} es. value,value2,value3
+     * @return list of params as {@link String} e.g. value,value2,value3
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      */
     @SafeVarargs
@@ -632,7 +634,7 @@ public class APIRequest {
         for (T param : params) {
             if (param == null || param.equals(""))
                 throw new IllegalArgumentException("Param value cannot be null or empty");
-            paramsList.append(param).append(separator);
+            paramsList.append(URLEncoder.encode(param.toString(), UTF_8)).append(separator);
         }
         int listLength = paramsList.length();
         return paramsList.delete(listLength - separator.length(), listLength).toString();
@@ -644,7 +646,7 @@ public class APIRequest {
      * @param starterSeparator: initial char to divide items of the list
      * @param enderSeparator:   final char to divide items of the list
      * @param params:           values of the list to concatenate
-     * @return list of params as {@link String} es. ,value","value2",value3"
+     * @return list of params as {@link String} e.g. ,"value","value2",value3"
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      */
     @Wrapper
@@ -658,7 +660,7 @@ public class APIRequest {
      * @param starterSeparator: initial char to divide items of the list
      * @param enderSeparator:   final char to divide items of the list
      * @param params:           values of the list to concatenate
-     * @return list of params as {@link String} es. ,value","value2",value3"
+     * @return list of params as {@link String} e.g. ,"value","value2",value3"
      * @throws IllegalArgumentException when one of the params inserted does not respect correct range
      */
     @SafeVarargs
@@ -671,7 +673,7 @@ public class APIRequest {
         for (T param : params) {
             if (param == null || param.equals(""))
                 throw new IllegalArgumentException("Param value cannot be null or empty");
-            paramsList.append(starterSeparator).append(param).append(enderSeparator);
+            paramsList.append(starterSeparator).append(URLEncoder.encode(param.toString(), UTF_8)).append(enderSeparator);
         }
         int listLength = paramsList.length();
         if (enderSeparator != null)
@@ -683,7 +685,7 @@ public class APIRequest {
      * Method to assemble a query params for an {@code "HTTP"} request
      *
      * @param queryParams: queryParams of request (?param=mandatory1&param2=mandatory2)
-     * @return query params as {@link String} assembled es. ?param=query1&param2=query2
+     * @return query params as {@link String} assembled e.g. ?param=query1&param2=query2
      * @throws IllegalArgumentException when extra params in list is empty or is null
      */
     @Wrapper
@@ -695,7 +697,7 @@ public class APIRequest {
      * Method to assemble a body params of an {@code "HTTP"} request
      *
      * @param bodyParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
-     * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
+     * @return body params as {@link String} assembled e.g. param=mandatory1&param2=mandatory2
      * @throws IllegalArgumentException when extra params in list is empty or is null
      */
     @Wrapper
@@ -707,8 +709,10 @@ public class APIRequest {
      * Method to assemble a query string params of an {@code "HTTP"} request
      *
      * @param mandatoryParams: mandatory params of request (?param=mandatory1&param2=mandatory2)
-     * @param extraParams:     not mandatory params of request that have to be concatenated (&param2=valueParam2&param3=valueParam3)
-     * @return params as {@link String} assembled es. ?param=mandatory1&param2=mandatory2&param2=valueParam2&param3=valueParam3
+     * @param extraParams:     not mandatory params of request that have to be concatenated 
+     *                   (&param2=valueParam2&param3=valueParam3)
+     * @return params as {@link String} assembled e.g.
+     * ?param=mandatory1&param2=mandatory2&param2=valueParam2&param3=valueParam3
      * @throws IllegalArgumentException when extra params in list is empty or is null
      */
     public <T> String encodeAdditionalParams(String mandatoryParams, Params extraParams) {
@@ -729,7 +733,8 @@ public class APIRequest {
         StringBuilder params = new StringBuilder(mandatoryParams);
         for (String key : extraParams.getParamsKeys()) {
             if ((key != null && !key.isEmpty())) {
-                params.append(queryEncoderChar).append(key).append("=").append((Object) extraParams.getParam(key));
+                params.append(queryEncoderChar).append(key).append("=")
+                        .append(URLEncoder.encode(extraParams.getParam(key), UTF_8));
                 if (queryEncoderChar.equals("?"))
                     queryEncoderChar = "&";
             } else
@@ -816,7 +821,7 @@ public class APIRequest {
      * @param signatureKey: key used to signature request
      * @param data:         data to sign
      * @param algorithm:    algorithm used in signature -> HmacSHA256 or HmacSHA512
-     * @return signature es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4"
+     * @return signature e.g. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4"
      */
     public static String getSignature(String signatureKey, String data, String algorithm) throws Exception {
         if (algorithm == null || (!algorithm.equals(HMAC_SHA256_ALGORITHM) && !algorithm.equals(HMAC_SHA512_ALGORITHM)))
@@ -832,7 +837,7 @@ public class APIRequest {
      * @param signatureKey: key bytes used to signature request
      * @param data:         data to sign
      * @param algorithm:    algorithm used in signature -> HmacSHA256 or HmacSHA512
-     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
+     * @return signature in base64 form e.g. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
      */
     public static String getBase64Signature(byte[] signatureKey, String data, String algorithm) throws Exception {
         if (algorithm == null || (!algorithm.equals(HMAC_SHA256_ALGORITHM) && !algorithm.equals(HMAC_SHA512_ALGORITHM)))
@@ -848,7 +853,7 @@ public class APIRequest {
      * @param signatureKey: key used to signature request
      * @param data:         data to sign
      * @param algorithm:    algorithm used in signature -> HmacSHA256 or HmacSHA512
-     * @return signature in base64 form es. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
+     * @return signature in base64 form e.g. c8db66725ae71d6d79447319e617115f4a920f5agcdabcb2838bd6b712b053c4=="
      */
     public static String getBase64Signature(String signatureKey, String data, String algorithm) throws Exception {
         return getBase64Signature(getDecoder().decode(signatureKey), data, algorithm);
@@ -858,7 +863,7 @@ public class APIRequest {
      * Method to download a file from an {@code "URL"} source
      *
      * @param url:      source URL from download the file
-     * @param pathName: path name for the file, this must include also the suffix es. -> download.{suffix}
+     * @param pathName: path name for the file, this must include also the suffix e.g. -> download.{suffix}
      * @param save:     flag whether save the file, if is set to {@code "false"} will be created a temporary file
      *                  that will be deleted on exit
      * @return file downloaded as {@link File}
@@ -1164,7 +1169,7 @@ public class APIRequest {
          * Method to assemble a query params string <br>
          * No-any params required
          *
-         * @return query params as {@link String} assembled es. ?param=query1&param2=query2
+         * @return query params as {@link String} assembled e.g. ?param=query1&param2=query2
          * @throws IllegalArgumentException when extra params in list is empty or is null
          */
         public String createQueryString() {
@@ -1175,7 +1180,7 @@ public class APIRequest {
          * Method to assemble a query params string
          *
          * @param mandatoryParams: mandatory params of the request as {@link Params}
-         * @return query params as {@link String} assembled es. ?param=query1&param2=query2
+         * @return query params as {@link String} assembled e.g. ?param=query1&param2=query2
          * @throws IllegalArgumentException when extra params in list is empty or is null
          */
         public String createQueryString(String mandatoryParams) {
@@ -1186,7 +1191,7 @@ public class APIRequest {
          * Method to assemble a query params string
          *
          * @param mandatoryParams: mandatory params of the request as {@link Params}
-         * @return query params as {@link Params} assembled es. ?param=query1&param2=query2
+         * @return query params as {@link Params} assembled e.g. ?param=query1&param2=query2
          * @throws IllegalArgumentException when extra params in list is empty or is null
          */
         public String createQueryString(Params mandatoryParams) {
@@ -1197,7 +1202,7 @@ public class APIRequest {
          * Method to assemble a body params of an {@code "HTTP"} request <br>
          * No-any params required
          *
-         * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
+         * @return body params as {@link String} assembled e.g. param=mandatory1&param2=mandatory2
          * @throws IllegalArgumentException when extra params in list is empty or is null
          */
         public String createPayload() {
@@ -1208,7 +1213,7 @@ public class APIRequest {
          * Method to assemble a body params of an {@code "HTTP"} request
          *
          * @param extraPayload: extra payload data to add
-         * @return body params as {@link String} assembled es. param=mandatory1&param2=mandatory2
+         * @return body params as {@link String} assembled e.g. param=mandatory1&param2=mandatory2
          * @throws IllegalArgumentException when extra params in list is empty or is null
          */
         public String createPayload(Params extraPayload) {

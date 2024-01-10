@@ -27,7 +27,7 @@ public abstract class ScientificNotationParser {
      * Method to parse a numeric value and format without scientific notation
      *
      * @param value: value to fetch without scientific notation
-     * @return value as {@link String} (es.) 9.2221111228E-6 -> 0.0000092221111228
+     * @return value as {@link String} (e.g.) 9.2221111228E-6 -> 0.0000092221111228
      */
     public static String sNotationParse(Number value) {
         if (value == null)
@@ -54,7 +54,7 @@ public abstract class ScientificNotationParser {
      *
      * @param decimals: number of digits after comma
      * @param value:    value to fetch without scientific notation
-     * @return value as {@link String} (es.) 9.2221111228E-6 -> 0.0000092221111228
+     * @return value as {@link String} (e.g.) 9.2221111228E-6 -> 0.0000092221111228
      */
     public static String sNotationParse(int decimals, Number value){
         if(decimals < 0)
@@ -70,7 +70,7 @@ public abstract class ScientificNotationParser {
      * @param integers: number of digits before comma
      * @param decimals: number of digits after comma
      * @param value: value to fetch without scientific notation
-     * @return value as {@link String} (es.) 9.2221111228E-6 -> 0.0000092221111228
+     * @return value as {@link String} (e.g.) 9.2221111228E-6 -> 0.0000092221111228
      * */
     public static String sNotationParse(int integers, int decimals, Number value){
         if(integers < 0)
