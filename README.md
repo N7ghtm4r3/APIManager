@@ -1,6 +1,6 @@
 # APIManager
 
-**v2.2.1**
+**v2.2.2**
 
 This is a Java Based library useful to work with all json api services.
 
@@ -36,7 +36,7 @@ Add the JitPack repository to your build file
          
     ```gradle
     dependencies {
-        implementation 'com.github.N7ghtm4r3:APIManager:2.2.1'
+        implementation 'com.github.N7ghtm4r3:APIManager:2.2.2'
     }
     ```
 
@@ -44,7 +44,7 @@ Add the JitPack repository to your build file
          
     ```gradle
     dependencies {
-        implementation("com.github.N7ghtm4r3:APIManager:2.2.1")
+        implementation("com.github.N7ghtm4r3:APIManager:2.2.2")
     }
     ```
 
@@ -66,7 +66,7 @@ Add the JitPack repository to your build file
 <dependency>
     <groupId>com.github.N7ghtm4r3</groupId>
   <artifactId>APIManager</artifactId>
-  <version>2.2.1</version>
+  <version>2.2.2</version>
 </dependency>
 ```
 
@@ -93,6 +93,8 @@ The other tools will be gradually released
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/RSA.md">**RSA encryption package**</a>  allows you to use the RSA encryption type easily
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/QRCodeHelper.md">**QRCodeHelper**</a>  allows you to create the QRCODE easily
 - <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/ConsolePainter.md">**ConsolePainter**</a>  allows you to customize your console outputs easily
+- <a href="https://github.com/N7ghtm4r3/APIManager/blob/main/documd/ResourcesUtils.md">**ResourcesUtils**</a>  allows
+  you to use the resources folder easily
 
 The other apis will be gradually released
 
@@ -136,4 +138,4 @@ If you want support project and developer
 If you want support project and developer
 with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">PayPal</a>
 
-Copyright © 2023 Tecknobit
+Copyright © 2024 Tecknobit

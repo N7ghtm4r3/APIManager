@@ -1,26 +1,24 @@
-## ConsolePainter
+## ResourcesUtils
 
 ### Usage/Examples
 
 ```java
-public class ConsolePainterDemo {
+public class MyCallingClass {
 
-    public static void main(String[] args) throws Exception {
-        ConsolePainter consolePainter = new ConsolePainter();
-        
-        // method to print out a text with a different color
-        consolePainter.printColoured(/*anything you want to be printed*/, /*ANSIColor.color*/);
-        
-        // in this class there are different methods to change the modifier of the style of the text 
-        // printed, but without change its color
-        consolePainter.printSomeModifier(/*anything you want to be printed*/);
-        
-        // in this class there are different methods to change the modifier of the style of the text 
-        // printed and its color
-        consolePainter.printSomeModifier(/*anything you want to be printed*/, /*ANSIColor.color*/);
-        
+    public static void main(String[] args) throws IOException {
+
+        // Invoking a ResourcesUtils method one time
+        String resourceContent = ResourcesUtils.getResourceContent("my_path_name.resource", MyCallingClass.class);
+
+        // Invoking a ResourcesUtils methods multiple time is more efficient instantiating a dedicated object
+        ResourcesUtils<Class<MyCallingClass>> resourcesUtils = new ResourcesUtils<>(MyCallingClass.class);
+
+        String firstResourceContent = resourcesUtils.getResourceContent("my_first_path_name.resource");
+
+        String secondResourceContent = resourcesUtils.getResourceContent("my_second_path_name.resource");
+
     }
-    
+
 }
 ```
 
@@ -48,7 +46,7 @@ Thank you for your help!
 
 ## Business contact
 
-If you need to contact me for a project 
+If you need to contact me for a project
 
 [![](https://img.shields.io/badge/fiverr-1DBF73?style=for-the-badge&logo=fiverr&logoColor=white)](https://www.fiverr.com/manuel_maurizio)
 
@@ -61,6 +59,7 @@ If you want support project and developer
 | ![](https://img.shields.io/badge/Bitcoin-000000?style=for-the-badge&logo=bitcoin&logoColor=white)   | **3H3jyCzcRmnxroHthuXh22GXXSmizin2yp**         | Bitcoin  |
 | ![](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white) | **0x1b45bc41efeb3ed655b078f95086f25fc83345c4** | Ethereum |
 
-If you want support project and developer with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">PayPal</a>
+If you want support project and developer with <a href="https://www.paypal.com/donate/?hosted_button_id=5QMN5UQH7LDT4">
+PayPal</a>
 
 Copyright © 2024 Tecknobit
