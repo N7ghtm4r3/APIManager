@@ -903,12 +903,15 @@ public class APIRequest {
      * @throws IOException when an error occurred during the creation of the directories
      */
     private static void checkToCreateDirs(String pathName) throws IOException {
-        String pathValue = pathName.substring(0, pathName.lastIndexOf("/"));
-        Path path = Path.of(pathValue);
-        if (!Files.exists(path)) {
-            boolean success = new File(pathValue).mkdirs();
-            if (!success)
-                throw new IOException("The pathname cannot be created");
+        int lastIndexOf = pathName.lastIndexOf("/");
+        if (lastIndexOf != -1) {
+            String pathValue = pathName.substring(0, pathName.lastIndexOf("/"));
+            Path path = Path.of(pathValue);
+            if (!Files.exists(path)) {
+                boolean success = new File(pathValue).mkdirs();
+                if (!success)
+                    throw new IOException("The pathname cannot be created");
+            }
         }
     }
 

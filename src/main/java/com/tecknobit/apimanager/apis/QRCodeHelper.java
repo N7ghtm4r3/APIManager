@@ -14,8 +14,10 @@ import com.tecknobit.apimanager.apis.sockets.SocketManager;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,9 +43,151 @@ public class QRCodeHelper {
     public static final String HTML_REPLACER = "<qrcode>";
 
     /**
+     * {@code qrcodes} list of current active qrcodes {@link FileInputStream} created
+     */
+    private static final ConcurrentHashMap<Object, String> qrcodes = new ConcurrentHashMap<>();
+    
+    /**
      * {@code hosts} list of current active hosts
      */
     private static final ConcurrentHashMap<Integer, SocketManager> hosts = new ConcurrentHashMap<>();
+
+    /**
+     * Method to create a squared QRCode and get its stream
+     *
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @return stream of the qrcode file created as {@link FileInputStream}
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     */
+    @Wrapper
+    public <T> FileInputStream getQRCodeStream(T data, String path, int squareDimension) throws IOException, WriterException {
+        return getQRCodeStream(data, path, squareDimension, squareDimension);
+    }
+
+    /**
+     * Method to create a QRCode file and get its stream
+     *
+     * @param data:   data to create the QRCode
+     * @param path:   path where create the file, included the suffix
+     * @param width:  width of the QRCode
+     * @param height: height of the QRCode
+     * @return stream of the qrcode file created as {@link FileInputStream}
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     */
+    public <T> FileInputStream getQRCodeStream(T data, String path, int width, int height) throws IOException, WriterException {
+        return getQRCodeStream(data, path, width, height, null, null);
+    }
+
+    /**
+     * Method to create a squared QRCode file and get its stream
+     *
+     * @param foregroundColor: color of the QRCode pattern
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @return stream of the qrcode file created as {@link FileInputStream}
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     */
+    @Wrapper
+    public <T> FileInputStream getQRCodeStream(String foregroundColor, T data, String path,
+                                               int squareDimension) throws IOException, WriterException {
+        return getQRCodeStream(foregroundColor, data, path, squareDimension, squareDimension);
+    }
+
+    /**
+     * Method to create a QRCode file and get its stream
+     *
+     * @param foregroundColor: color of the QRCode pattern
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @return the input stream of the qrcode created as {@link FileInputStream}
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     */
+    public <T> FileInputStream getQRCodeStream(String foregroundColor, T data, String path, int width,
+                                               int height) throws IOException, WriterException {
+        return getQRCodeStream(data, path, width, height, foregroundColor, null);
+    }
+
+    /**
+     * Method to create a squared QRCode file and get its stream
+     *
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param backgroundColor: background color of the QRCode pattern
+     * @return the input stream of the qrcode created as {@link FileInputStream}
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     */
+    @Wrapper
+    public <T> FileInputStream getQRCodeStream(T data, String path, int squareDimension,
+                                               String backgroundColor) throws IOException, WriterException {
+        return getQRCodeStream(data, path, squareDimension, squareDimension, backgroundColor);
+    }
+
+    /**
+     * Method to create a QRCode file and get its stream
+     *
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param backgroundColor: background color of the QRCode pattern
+     * @return the input stream of the qrcode created as {@link FileInputStream}
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     */
+    public <T> FileInputStream getQRCodeStream(T data, String path, int width, int height,
+                                               String backgroundColor) throws IOException, WriterException {
+        return getQRCodeStream(data, path, width, height, null, backgroundColor);
+    }
+
+    /**
+     * Method to create a squared QRCode file and get its stream
+     *
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param squareDimension: dimensions of the square
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
+     * @return the input stream of the qrcode created as {@link FileInputStream}
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     */
+    @Wrapper
+    public <T> FileInputStream getQRCodeStream(T data, String path, int squareDimension, String foregroundColor,
+                                               String backgroundColor) throws IOException, WriterException {
+        return getQRCodeStream(data, path, squareDimension, squareDimension, foregroundColor, backgroundColor);
+    }
+
+    /**
+     * Method to create a QRCode file and get its stream
+     *
+     * @param data:            data to create the QRCode
+     * @param path:            path where create the file, included the suffix
+     * @param width:           width of the QRCode
+     * @param height:          height of the QRCode
+     * @param foregroundColor: color of the QRCode pattern
+     * @param backgroundColor: background color of the QRCode pattern
+     * @return the input stream of the qrcode created as {@link FileInputStream}
+     * @throws IOException     when an error is occurred during creation of the file
+     * @throws WriterException when an error is occurred during creation of the QRCODE
+     */
+    public <T> FileInputStream getQRCodeStream(T data, String path, int width, int height, String foregroundColor,
+                                               String backgroundColor) throws IOException, WriterException {
+        createQRCode(data, path, width, height, foregroundColor, backgroundColor);
+        FileInputStream fileInputStream = new FileInputStream(path);
+        qrcodes.put(fileInputStream, path);
+        return fileInputStream;
+    }
 
     /**
      * Method to create a squared QRCode file
@@ -53,10 +197,12 @@ public class QRCodeHelper {
      * @param squareDimension: dimensions of the square
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
+     *
+     * @return the qrcode created as {@link File}
      */
     @Wrapper
-    public <T> void createQRCode(T data, String path, int squareDimension) throws IOException, WriterException {
-        createQRCode(data, path, squareDimension, squareDimension);
+    public <T> File createQRCode(T data, String path, int squareDimension) throws IOException, WriterException {
+        return createQRCode(data, path, squareDimension, squareDimension);
     }
 
     /**
@@ -68,9 +214,11 @@ public class QRCodeHelper {
      * @param height: height of the QRCode
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
+     *
+     * @return the qrcode created as {@link File}
      */
-    public <T> void createQRCode(T data, String path, int width, int height) throws IOException, WriterException {
-        createQRCode(data, path, width, height, null, null);
+    public <T> File createQRCode(T data, String path, int width, int height) throws IOException, WriterException {
+        return createQRCode(data, path, width, height, null, null);
     }
 
     /**
@@ -82,11 +230,13 @@ public class QRCodeHelper {
      * @param squareDimension: dimensions of the square
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
+     *
+     * @return the qrcode created as {@link File}
      */
     @Wrapper
-    public <T> void createQRCode(String foregroundColor, T data, String path,
+    public <T> File createQRCode(String foregroundColor, T data, String path,
                                  int squareDimension) throws IOException, WriterException {
-        createQRCode(foregroundColor, data, path, squareDimension, squareDimension);
+        return createQRCode(foregroundColor, data, path, squareDimension, squareDimension);
     }
 
     /**
@@ -99,10 +249,12 @@ public class QRCodeHelper {
      * @param height:          height of the QRCode
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
+     *
+     * @return the qrcode created as {@link File}
      */
-    public <T> void createQRCode(String foregroundColor, T data, String path, int width,
+    public <T> File createQRCode(String foregroundColor, T data, String path, int width,
                                  int height) throws IOException, WriterException {
-        createQRCode(data, path, width, height, foregroundColor, null);
+        return createQRCode(data, path, width, height, foregroundColor, null);
     }
 
     /**
@@ -114,11 +266,13 @@ public class QRCodeHelper {
      * @param backgroundColor: background color of the QRCode pattern
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
+     *
+     * @return the qrcode created as {@link File}
      */
     @Wrapper
-    public <T> void createQRCode(T data, String path, int squareDimension,
+    public <T> File createQRCode(T data, String path, int squareDimension,
                                  String backgroundColor) throws IOException, WriterException {
-        createQRCode(data, path, squareDimension, squareDimension, backgroundColor);
+        return createQRCode(data, path, squareDimension, squareDimension, backgroundColor);
     }
 
     /**
@@ -132,9 +286,9 @@ public class QRCodeHelper {
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
      */
-    public <T> void createQRCode(T data, String path, int width, int height,
+    public <T> File createQRCode(T data, String path, int width, int height,
                                  String backgroundColor) throws IOException, WriterException {
-        createQRCode(data, path, width, height, null, backgroundColor);
+        return createQRCode(data, path, width, height, null, backgroundColor);
     }
 
     /**
@@ -149,9 +303,9 @@ public class QRCodeHelper {
      * @throws WriterException when an error is occurred during creation of the QRCODE
      */
     @Wrapper
-    public <T> void createQRCode(T data, String path, int squareDimension, String foregroundColor,
+    public <T> File createQRCode(T data, String path, int squareDimension, String foregroundColor,
                                  String backgroundColor) throws IOException, WriterException {
-        createQRCode(data, path, squareDimension, squareDimension, foregroundColor, backgroundColor);
+        return createQRCode(data, path, squareDimension, squareDimension, foregroundColor, backgroundColor);
     }
 
     /**
@@ -166,13 +320,52 @@ public class QRCodeHelper {
      * @throws IOException     when an error is occurred during creation of the file
      * @throws WriterException when an error is occurred during creation of the QRCODE
      */
-    public <T> void createQRCode(T data, String path, int width, int height, String foregroundColor,
+    public <T> File createQRCode(T data, String path, int width, int height, String foregroundColor,
                                  String backgroundColor) throws IOException, WriterException {
         if (path.contains(".")) {
-            MatrixToImageWriter.writeToPath(new QRCodeWriter().encode(data.toString(), QR_CODE, width, height),
-                    path.split("\\.")[1], Path.of(path), createQRConfig(foregroundColor, backgroundColor));
+            checkToCreateDirs(path);
+            MatrixToImageWriter.writeToPath(
+                    new QRCodeWriter().encode(
+                            data.toString(),
+                            QR_CODE,
+                            width,
+                            height
+                    ),
+                    path.split("\\.")[1],
+                    Path.of(path),
+                    createQRConfig(foregroundColor, backgroundColor)
+            );
+            return new File(path);
         } else
             throw new IllegalArgumentException("Path must specific its suffix");
+    }
+
+    /**
+     * Method to delete a qrcode stream and the related file created in the past
+     *
+     * @param qrcode: the qrcode stream to delete
+     * @return whether the deletion has been successful as boolean
+     * @apiNote will be removed also from the {@link #qrcodes} map also
+     */
+    public boolean deleteQRCode(FileInputStream qrcode) {
+        try {
+            qrcode.close();
+            boolean deleted = new File(qrcodes.get(qrcode)).delete();
+            qrcodes.remove(qrcode);
+            return deleted;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Method to delete a qrcode file created in the past
+     *
+     * @param qrcode: the qrcode file to delete
+     * @return whether the deletion has been successful as boolean
+     */
+    public boolean deleteQRCode(File qrcode) {
+        return qrcode.delete();
     }
 
     /**
@@ -704,10 +897,18 @@ public class QRCodeHelper {
         try {
             socketManager.acceptRequest();
             String suffix = "." + path.split("\\.")[1];
+            checkToCreateDirs(path);
             File tmpQR = File.createTempFile(path.replace(suffix, ""), suffix);
-            MatrixToImageWriter.writeToStream(new QRCodeWriter().encode(data.toString(), QR_CODE, width, height),
-                    suffix.replace(".", ""), new FileOutputStream(tmpQR), createQRConfig(foregroundColor,
-                            backgroundColor));
+            MatrixToImageWriter.writeToStream(
+                    new QRCodeWriter().encode(
+                            data.toString(),
+                            QR_CODE,
+                            width,
+                            height
+                    ),
+                    suffix.replace(".", ""),
+                    new FileOutputStream(tmpQR),
+                    createQRConfig(foregroundColor, backgroundColor));
             String content;
             if (html == null) {
                 content = "HTTP/1.1 200 OK\r\n" +
@@ -730,6 +931,26 @@ public class QRCodeHelper {
         } catch (Exception e) {
             if (!e.getLocalizedMessage().contains("Socket closed"))
                 throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Method to check if the pathname (without the name and the suffix of the file to save) given by the user exists then
+     * if not exists create that pathname
+     *
+     * @param pathName: the pathname where save the file
+     * @throws IOException when an error occurred during the creation of the directories
+     */
+    private void checkToCreateDirs(String pathName) throws IOException {
+        int lastIndexOf = pathName.lastIndexOf("/");
+        if (lastIndexOf != -1) {
+            String pathValue = pathName.substring(0, pathName.lastIndexOf("/"));
+            Path path = Path.of(pathValue);
+            if (!Files.exists(path)) {
+                boolean success = new File(pathValue).mkdirs();
+                if (!success)
+                    throw new IOException("The pathname cannot be created");
+            }
         }
     }
 

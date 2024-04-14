@@ -9,6 +9,14 @@ public class QRCode {
 
     public static void main(String[] args) throws IOException, WriterException {
             QRCodeHelper qrCodeHelper = new QRCodeHelper();
+
+        // This will create a file at "yourPath/file.itsSuffix" with a squared QRCode and return its stream
+        // You need to add the "com.google.zxing:javase" dependencies to your project to work correctly
+        qrCodeHelper.getQRCodeStream("YOUR DATA", "yourPath/file.itsSuffix", 250);
+
+        // This will create a file at "yourPath/file.itsSuffix" with a custom dimensions QRCode and return its stream
+        // You need to add the "com.google.zxing:javase" dependencies to your project to work correctly
+        qrCodeHelper.getQRCodeStream("YOUR DATA", "yourPath/file.itsSuffix", 250, 200);
             
             // This will create a file at "yourPath/file.itsSuffix" with a squared QRCode
             // You need to add the "com.google.zxing:javase" dependencies to your project to work correctly
@@ -102,12 +110,6 @@ Thank you for your help!
 [![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.oracle.com/java/)
 
 [![](https://jitpack.io/v/N7ghtm4r3/APIManager.svg)](https://jitpack.io/#N7ghtm4r3/APIManager)
-
-## Business contact
-
-If you need to contact me for a project 
-
-[![](https://img.shields.io/badge/fiverr-1DBF73?style=for-the-badge&logo=fiverr&logoColor=white)](https://www.fiverr.com/manuel_maurizio)
 
 ## Donations
 
