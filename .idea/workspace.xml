@@ -4,20 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="Encoded URL parameters and working on ResourcesUtils">
-      <change afterPath="$PROJECT_DIR$/documd/ResourcesUtils.md" afterDir="false" />
+    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="Changed the TimeFormatter workflow">
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE.md" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documd/AES.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/AES.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documd/APIRequest.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/APIRequest.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documd/ConsolePainter.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/ConsolePainter.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documd/QRCodeHelper.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/QRCodeHelper.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documd/RSA.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/RSA.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documd/ServerProtector.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/ServerProtector.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documd/SocketManager.md" beforeDir="false" afterPath="$PROJECT_DIR$/documd/SocketManager.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/ResourcesUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/ResourcesUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/APIRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/APIRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/QRCodeHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/QRCodeHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,8 +43,8 @@
       <list>
         <option value="HTML File" />
         <option value="AnnotationType" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -63,7 +54,15 @@
         <option value="t" />
       </list>
     </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="1ed13b2b-5ab1-4376-b8e7-a4ed9035e641" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -78,24 +77,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Gradle.APIManager [:ma.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.APIManager [clean].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ToolWindowRun.ShowToolbar&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/utente/Desktop/Tecknobit/Dependencies/JavaNative/APIManager/documd&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Gradle.APIManager [:Main.main()].executor": "Run",
+    "Gradle.APIManager [:a.main()].executor": "Run",
+    "Gradle.APIManager [:ma.main()].executor": "Run",
+    "Gradle.APIManager [build].executor": "Run",
+    "Gradle.APIManager [clean].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ToolWindowRun.ShowToolbar": "false",
+    "git-widget-placeholder": "2.2.3",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/utente/Desktop/Tecknobit/Dependencies/JavaNative/APIManager/documd",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.tecknobit.apimanager.apis.sockets" />
@@ -116,22 +118,16 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.APIManager [clean]">
-    <configuration name="MyCallingClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MyCallingClass" />
+    <configuration name="Main$a" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main$a" />
       <module name="APIManager.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="mqin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.tecknobit.apimanager.mqin" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="APIManager.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.tecknobit.apimanager.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -181,17 +177,17 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.MyCallingClass" />
-      <item itemvalue="Application.mqin" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Main$a" />
       <item itemvalue="Gradle.APIManager [build]" />
       <item itemvalue="Gradle.APIManager [clean]" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.APIManager [clean]" />
-        <item itemvalue="Application.MyCallingClass" />
-        <item itemvalue="Application.mqin" />
         <item itemvalue="Gradle.APIManager [build]" />
+        <item itemvalue="Application.Main$a" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -555,7 +551,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687619511094</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -574,9 +570,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/APIManager" />
     </ignored-roots>
-    <MESSAGE value="Added proportion method in TradingTools and fix library's packages" />
-    <MESSAGE value="Added proportion method in TradingTools" />
-    <MESSAGE value="Fix some issues and optimized library workflow" />
     <MESSAGE value="Fix some issues and optimize library workflow" />
     <MESSAGE value="Added new features and optimized the library" />
     <MESSAGE value="Massive reorganization of the library" />
@@ -599,7 +592,10 @@
     <MESSAGE value="Integrated the ServerProtector api" />
     <MESSAGE value="Changed the core of the APIRequest api" />
     <MESSAGE value="Encoded URL parameters and working on ResourcesUtils" />
-    <option name="LAST_COMMIT_MESSAGE" value="Encoded URL parameters and working on ResourcesUtils" />
+    <MESSAGE value="Documented the new ResourcesUtils api" />
+    <MESSAGE value="Fixed the downloadFile api in APIRequest, now if the path name does not exists will be created first" />
+    <MESSAGE value="Changed the TimeFormatter workflow" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed the TimeFormatter workflow" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -610,15 +606,6 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/MyCallingClass.java</url>
-          <line>19</line>
-          <properties class="MyCallingClass">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

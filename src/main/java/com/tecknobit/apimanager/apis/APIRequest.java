@@ -878,6 +878,7 @@ public class APIRequest {
             ReadableByteChannel byteChannel = Channels.newChannel(new URL(url).openStream());
             if (!pathName.contains("."))
                 throw new IOException("Path name must also contains the suffix for the file");
+            checkToCreateDirs(pathName);
             try (FileOutputStream fileOutputStream = new FileOutputStream(pathName)) {
                 FileChannel fileChannel = fileOutputStream.getChannel();
                 fileChannel.transferFrom(byteChannel, 0, MAX_VALUE);
@@ -891,6 +892,26 @@ public class APIRequest {
             }
         } catch (MalformedURLException e) {
             throw new IOException("The URL source is not a valid source: " + e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Method to check if the pathname (without the name and the suffix of the file to save) given by the user exists then
+     * if not exists create that pathname
+     *
+     * @param pathName: the pathname where save the file
+     * @throws IOException when an error occurred during the creation of the directories
+     */
+    private static void checkToCreateDirs(String pathName) throws IOException {
+        int lastIndexOf = pathName.lastIndexOf("/");
+        if (lastIndexOf != -1) {
+            String pathValue = pathName.substring(0, pathName.lastIndexOf("/"));
+            Path path = Path.of(pathValue);
+            if (!Files.exists(path)) {
+                boolean success = new File(pathValue).mkdirs();
+                if (!success)
+                    throw new IOException("The pathname cannot be created");
+            }
         }
     }
 
