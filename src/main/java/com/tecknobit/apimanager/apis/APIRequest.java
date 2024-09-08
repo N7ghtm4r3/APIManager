@@ -96,14 +96,15 @@ public class APIRequest {
     private MediaType contentType = MediaType.parse("text/plain");
 
     /**
-     * {@code requestTimeout} is the instance that contains time to keep alive request
-     */
-    private int requestTimeout;
-
-    /**
      * {@code defaultErrorResponse} is the instance that contains default error message
      */
     private String defaultErrorResponse;
+
+    /**
+     * {@code enableCertificatesValidation} whether enable the <b>SSL</b> certificates validation, this for example
+     * when the certificate is a self-signed certificate to by-pass
+     */
+    private boolean enableCertificatesValidation;
 
     /**
      * {@code isSuccessfulRequest} whether the request has been successful
@@ -128,6 +129,16 @@ public class APIRequest {
     /**
      * Constructor to init {@link APIRequest}
      *
+     * @param enableCertificatesValidation: whether enable the <b>SSL</b> certificates validation, this for example
+     *                                      when the certificate is a self-signed certificate to by-pass
+     */
+    public APIRequest(boolean enableCertificatesValidation) {
+        this(DEFAULT_ERROR_RESPONSE, DEFAULT_REQUEST_TIMEOUT, enableCertificatesValidation);
+    }
+
+    /**
+     * Constructor to init {@link APIRequest}
+     *
      * @param defaultErrorResponse error message to return if is not request error
      */
     public APIRequest(String defaultErrorResponse) {
@@ -137,10 +148,32 @@ public class APIRequest {
     /**
      * Constructor to init {@link APIRequest}
      *
+     * @param defaultErrorResponse          error message to return if is not request error
+     * @param enableCertificatesValidation: whether enable the <b>SSL</b> certificates validation, this for example
+     *                                      when the certificate is a self-signed certificate to by-pass
+     */
+    public APIRequest(String defaultErrorResponse, boolean enableCertificatesValidation) {
+        this(defaultErrorResponse, DEFAULT_REQUEST_TIMEOUT, enableCertificatesValidation);
+    }
+
+    /**
+     * Constructor to init {@link APIRequest}
+     *
      * @param requestTimeout timeout for the requests
      */
-    public APIRequest(int requestTimeout) {
+    public APIRequest(long requestTimeout) {
         this(DEFAULT_ERROR_RESPONSE, requestTimeout);
+    }
+
+    /**
+     * Constructor to init {@link APIRequest}
+     *
+     * @param requestTimeout                timeout for the requests
+     * @param enableCertificatesValidation: whether enable the <b>SSL</b> certificates validation, this for example
+     *                                      when the certificate is a self-signed certificate to by-pass
+     */
+    public APIRequest(long requestTimeout, boolean enableCertificatesValidation) {
+        this(DEFAULT_ERROR_RESPONSE, requestTimeout, enableCertificatesValidation);
     }
 
     /**
@@ -149,11 +182,23 @@ public class APIRequest {
      * @param defaultErrorResponse error message to return if is not request error
      * @param requestTimeout       timeout for the requests
      */
-    public APIRequest(String defaultErrorResponse, int requestTimeout) {
+    public APIRequest(String defaultErrorResponse, long requestTimeout) {
         this.defaultErrorResponse = defaultErrorResponse;
-        this.requestTimeout = requestTimeout;
-        if (requestTimeout != DEFAULT_REQUEST_TIMEOUT)
-            okHttpClient = new OkHttpClient.Builder().readTimeout(requestTimeout, MILLISECONDS).build();
+        okHttpClient = new OkHttpClient.Builder().connectTimeout(requestTimeout, MILLISECONDS).build();
+    }
+
+    /**
+     * Constructor to init {@link APIRequest}
+     *
+     * @param defaultErrorResponse          error message to return if is not request error
+     * @param requestTimeout                timeout for the requests
+     * @param enableCertificatesValidation: whether enable the <b>SSL</b> certificates validation, this for example
+     *                                      when the certificate is a self-signed certificate to by-pass
+     */
+    public APIRequest(String defaultErrorResponse, long requestTimeout, boolean enableCertificatesValidation) {
+        this.defaultErrorResponse = defaultErrorResponse;
+        okHttpClient = new OkHttpClient.Builder().connectTimeout(requestTimeout, MILLISECONDS).build();
+        this.enableCertificatesValidation = enableCertificatesValidation;
     }
 
     /**
@@ -161,20 +206,23 @@ public class APIRequest {
      * <p>
      * No-any params required
      *
-     * @apiNote {@link #requestTimeout} and {@link #defaultErrorResponse} will be instantiated with the default values:
+     * @apiNote the request details will be instantiated with the default values:
      * <ul>
      *     <li>
-     *         {@link #requestTimeout} = {@link #DEFAULT_REQUEST_TIMEOUT}
+     *         request timeout  = {@link #DEFAULT_REQUEST_TIMEOUT}
      *     </li>
      *     <li>
      *         {@link #defaultErrorResponse} = {@link #DEFAULT_ERROR_RESPONSE}
      *     </li>
+     *     <li>
+     *         {@link #enableCertificatesValidation} = false
+     *     </li>
      * </ul>
      */
     public APIRequest() {
-        requestTimeout = DEFAULT_REQUEST_TIMEOUT;
         defaultErrorResponse = DEFAULT_ERROR_RESPONSE;
         okHttpClient = new OkHttpClient();
+        enableCertificatesValidation = false;
     }
 
     /**
@@ -332,6 +380,49 @@ public class APIRequest {
     }
 
     /**
+     * Method to send an api request with a payload
+     *
+     * @param requestUrl: {@code "URL"} used in the api request
+     * @param method:     method used in the api request
+     * @param payload:    the multipart payload of the request
+     */
+    public void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, MultipartBody payload) throws IOException {
+        setRequest(requestUrl, method, payload);
+        performRequest();
+    }
+
+    /**
+     * Method to send an api request with a payload and with a single header
+     *
+     * @param requestUrl:  {@code "URL"} used in the api request
+     * @param method:      method used in the api request
+     * @param headerKey:   header key for the request
+     * @param headerValue: header value for the request
+     * @param payload:     the multipart payload of the request
+     */
+    public <T> void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, String headerKey, T headerValue,
+                                            MultipartBody payload) throws IOException {
+        setRequest(requestUrl, method, payload);
+        addHeader(headerKey, headerValue);
+        performRequest();
+    }
+
+    /**
+     * Method to send an api request with a payload and with different headers
+     *
+     * @param requestUrl: {@code "URL"} used in the api request
+     * @param method:     method used in the api request
+     * @param headers:    headers for the request
+     * @param payload:    the multipart payload of the request
+     */
+    public void sendPayloadedAPIRequest(String requestUrl, RequestMethod method, Headers headers,
+                                        MultipartBody payload) throws IOException {
+        setRequest(requestUrl, method, payload);
+        setHeaders(headers);
+        performRequest();
+    }
+
+    /**
      * Method to send an api request with a payload formatted in {@code "JSON"}
      *
      * @param requestUrl: {@code "URL"} used in the api request
@@ -375,18 +466,18 @@ public class APIRequest {
     }
 
     /**
-     * Method to set up connection by an endpoint
+     * Method to set up the request details
      *
      * @param requestUrl: {@code "URL"} used to make {@code "HTTP"} request
      * @param method:     method used to make {@code "HTTP"} request
      */
     @Wrapper
-    private void setRequest(String requestUrl, RequestMethod method) throws IOException {
+    private void setRequest(String requestUrl, RequestMethod method) {
         setRequest(requestUrl, method, null, false);
     }
 
     /**
-     * Method to set up connection by an endpoint
+     * Method to set up the request details
      *
      * @param requestUrl:    {@code "URL"} used to make {@code "HTTP"} request
      * @param method:        method used to make {@code "HTTP"} request
@@ -411,6 +502,19 @@ public class APIRequest {
     }
 
     /**
+     * Method to set up the request details
+     *
+     * @param requestUrl: {@code "URL"} used to make {@code "HTTP"} request
+     * @param method:     method used to make {@code "HTTP"} request
+     * @param payload:    the multipart payload of the request
+     */
+    private void setRequest(String requestUrl, RequestMethod method, MultipartBody payload) {
+        request = new Request.Builder()
+                .method(method.name(), payload)
+                .url(requestUrl);
+    }
+
+    /**
      * Method to get the response of an {@code "HTTP"} request <br>
      *
      * No-any params required
@@ -418,6 +522,8 @@ public class APIRequest {
     private void performRequest() throws IOException {
         errorResponse = null;
         response = null;
+        if(enableCertificatesValidation)
+            validateSelfSignedCertificate();
         Call call = okHttpClient.newCall(request.build());
         Response rResponse = call.execute();
         String requestResponse = rResponse.body().string();
@@ -952,8 +1058,20 @@ public class APIRequest {
      *
      * @param requestTimeout: timeout for the requests
      */
-    public void setRequestTimeout(int requestTimeout) {
-        this.requestTimeout = requestTimeout;
+    public void setConnectionTimeout(long requestTimeout) {
+        okHttpClient = okHttpClient.newBuilder()
+                .connectTimeout(requestTimeout, MILLISECONDS)
+                .build();
+    }
+
+    /**
+     * Method to set programmatically {@link #enableCertificatesValidation} value
+     *
+     * @param enableCertificatesValidation: whether enable the <b>SSL</b> certificates validation, this for example
+     *                                      when the certificate is a self-signed certificate to by-pass
+     */
+    public void enableCertificatesValidation(boolean enableCertificatesValidation) {
+        this.enableCertificatesValidation = enableCertificatesValidation;
     }
 
     /**
