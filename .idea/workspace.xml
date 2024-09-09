@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="Changed the TimeFormatter workflow">
+    <list default="true" id="5c1c5469-af14-4798-9a0a-94463d8ae04d" name="Changes" comment="Added the stream method to the QRCodeHelper and the methods to delete a qrcode">
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/APIRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/APIRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/QRCodeHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/apis/QRCodeHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/formatters/TimeFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecknobit/apimanager/formatters/TimeFormatter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +34,12 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="APIManager" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -61,9 +69,28 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "N7ghtm4r3"
+  }
+}]]></component>
   <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="1ed13b2b-5ab1-4376-b8e7-a4ed9035e641" />
+    <option name="defaultAccountId" value="0fd6fa14-0ad4-4519-940b-8ee0c93ad37e" />
   </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="u2\.2\.4" />
+      </list>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/N7ghtm4r3/APIManager.git",
+    "accountId": "0fd6fa14-0ad4-4519-940b-8ee0c93ad37e"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -89,13 +116,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ToolWindowRun.ShowToolbar": "false",
-    "git-widget-placeholder": "2.2.3",
+    "git-widget-placeholder": "u2.2.4",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/utente/Desktop/Tecknobit/Dependencies/JavaNative/APIManager/documd",
+    "last_opened_file_path": "C:/Users/Manu/Desktop/Tecknobit/Dependencies/JavaNative/APIManager",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -117,7 +144,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.APIManager [clean]">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main$a" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main$a" />
       <module name="APIManager.main" />
@@ -190,14 +217,6 @@
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-18.0.2-azul-18.0.2.1-8336523bb0d9-9ca2f5c4" />
-        <option value="jdk-19.0.2-corretto-19.0.2-8336523bb0d9-b81783ad" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -551,7 +570,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687619511094</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -570,7 +589,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/APIManager" />
     </ignored-roots>
-    <MESSAGE value="Fix some issues and optimize library workflow" />
     <MESSAGE value="Added new features and optimized the library" />
     <MESSAGE value="Massive reorganization of the library" />
     <MESSAGE value="Added SocketManager API class" />
@@ -595,7 +613,8 @@
     <MESSAGE value="Documented the new ResourcesUtils api" />
     <MESSAGE value="Fixed the downloadFile api in APIRequest, now if the path name does not exists will be created first" />
     <MESSAGE value="Changed the TimeFormatter workflow" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed the TimeFormatter workflow" />
+    <MESSAGE value="Added the stream method to the QRCodeHelper and the methods to delete a qrcode" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the stream method to the QRCodeHelper and the methods to delete a qrcode" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
