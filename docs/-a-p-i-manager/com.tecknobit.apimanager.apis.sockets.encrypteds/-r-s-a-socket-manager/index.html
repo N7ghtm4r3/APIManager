@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>RSASocketManager</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            APIManager
+                    </a>
+            </div>
+            <div class="library-version">
+2.2.4            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":dokkaHtml/main">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="APIManager::com.tecknobit.apimanager.apis.sockets.encrypteds/RSASocketManager///PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../index.html">APIManager</a><span class="delimiter">/</span><a href="../index.html">com.tecknobit.apimanager.apis.sockets.encrypteds</a><span class="delimiter">/</span><span class="current">RSASocketManager</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>RSASocket</span><wbr></wbr><span><span>Manager</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">RSASocketManager</a> : <a href="../-encrypted-socket-manager/index.html">EncryptedSocketManager</a><span class="token operator">&lt;</span><a href="../-encrypted-socket-manager/index.html">T</a><span class="token operator">&gt; </span></div><p class="paragraph">The <code class="lang-kotlin">RSASocketManager</code> class is useful to dynamically manage communication by sockets with RSA encryption</p><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">N7ghtm4r3 - Tecknobit</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.1.5</p></span><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/index.html"><span>Socket</span><wbr></wbr><span><span>Manager</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-encrypted-socket-manager/index.html"><span>Encrypted</span><wbr></wbr><span>Socket</span><wbr></wbr><span><span>Manager</span></span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-447515910%2FConstructors%2F769193423" anchor-label="RSASocketManager" id="-447515910%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-s-a-socket-manager.html"><span>RSASocket</span><wbr></wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-447515910%2FConstructors%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">serverPort<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">RSASocketManager</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">serverPort<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">keyPair<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html">KeyPair</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">RSASocketManager</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">serverPort<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">RSASocketManager</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">serverPort<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">rsaClientCipher<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.encryption.rsa/-r-s-a-client-cipher/index.html">RSAClientCipher</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">RSASocketManager</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">allowMultipleListeners<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">RSASocketManager</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">allowMultipleListeners<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">keyPair<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html">KeyPair</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">RSASocketManager</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">allowMultipleListeners<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">RSASocketManager</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">allowMultipleListeners<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">rsaClientCipher<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.encryption.rsa/-r-s-a-client-cipher/index.html">RSAClientCipher</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">RSASocketManager</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-329274543%2FProperties%2F769193423" anchor-label="allowMultipleListeners" id="-329274543%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/allow-multiple-listeners.html"><span>allow</span><wbr></wbr><span>Multiple</span><wbr></wbr><span><span>Listeners</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-329274543%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">val </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/allow-multiple-listeners.html">allowMultipleListeners</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><code class="lang-kotlin">allowMultipleListeners</code> whether accept multiple listeners at the same time</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="327422153%2FProperties%2F769193423" anchor-label="cipher" id="327422153%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-encrypted-socket-manager/cipher.html"><span><span>cipher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="327422153%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-encrypted-socket-manager/cipher.html">cipher</a><span class="token operator">: </span><a href="../-encrypted-socket-manager/index.html">T</a></div><div class="brief "><code class="lang-kotlin">cipher</code> to manage the encryption or decryption during the communication</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1881654670%2FProperties%2F769193423" anchor-label="continueSingleRoutine" id="1881654670%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/continue-single-routine.html"><span>continue</span><wbr></wbr><span>Single</span><wbr></wbr><span><span>Routine</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1881654670%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/continue-single-routine.html">continueSingleRoutine</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><code class="lang-kotlin">continueSingleRoutine</code> whether continue the routine for the single listener if <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/allow-multiple-listeners.html">allowMultipleListeners</a> is set to <code class="lang-kotlin">&quot;false&quot;</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1844660798%2FProperties%2F769193423" anchor-label="currentHost" id="-1844660798%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/current-host.html"><span>current</span><wbr></wbr><span><span>Host</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1844660798%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">val </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/current-host.html">currentHost</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief "><code class="lang-kotlin">currentHost</code> current server host used in the communication</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-428220730%2FProperties%2F769193423" anchor-label="currentServerPort" id="-428220730%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/current-server-port.html"><span>current</span><wbr></wbr><span>Server</span><wbr></wbr><span><span>Port</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-428220730%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/current-server-port.html">currentServerPort</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><code class="lang-kotlin">currentServerPort</code> current server port used in the communication</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1208308783%2FProperties%2F769193423" anchor-label="defaultErrorResponse" id="1208308783%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/default-error-response.html"><span>default</span><wbr></wbr><span>Error</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1208308783%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/default-error-response.html">defaultErrorResponse</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief "><code class="lang-kotlin">defaultErrorResponse</code> default error response</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="857738964%2FProperties%2F769193423" anchor-label="defaultSuccessResponse" id="857738964%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/default-success-response.html"><span>default</span><wbr></wbr><span>Success</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="857738964%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/default-success-response.html">defaultSuccessResponse</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief "><code class="lang-kotlin">defaultSuccessResponse</code> default successful response</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-764733852%2FProperties%2F769193423" anchor-label="executor" id="-764733852%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/executor.html"><span><span>executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-764733852%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">val </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/executor.html">executor</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a></div><div class="brief "><code class="lang-kotlin">&quot;executor&quot;</code> of the routines</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1918792585%2FProperties%2F769193423" anchor-label="lastContentRed" id="1918792585%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/last-content-red.html"><span>last</span><wbr></wbr><span>Content</span><wbr></wbr><span><span>Red</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1918792585%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/last-content-red.html">lastContentRed</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief "><code class="lang-kotlin">lastContentRed</code> last content red with <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/read-content.html">readContent</a> or <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/read-content.html">readContent</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1882087036%2FProperties%2F769193423" anchor-label="listeners" id="-1882087036%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/listeners.html"><span><span>listeners</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1882087036%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">val </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/listeners.html">listeners</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html">ConcurrentHashMap</a><span class="token operator">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a><span class="token punctuation">, </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/-listener/index.html">SocketManager.Listener</a><span class="token operator">&gt;</span></div><div class="brief "><code class="lang-kotlin">listeners</code> list of listeners to use if the <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/allow-multiple-listeners.html">allowMultipleListeners</a> flag is set to <code class="lang-kotlin">&quot;true&quot;</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1794448505%2FProperties%2F769193423" anchor-label="NEW_LINE_REPLACER" id="1794448505%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/-n-e-w_-l-i-n-e_-r-e-p-l-a-c-e-r.html"><span><span>NEW_LINE_REPLACER</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1794448505%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">val </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/-n-e-w_-l-i-n-e_-r-e-p-l-a-c-e-r.html">NEW_LINE_REPLACER</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator"> = </span><span class="token string">&quot;@-/-/-@&quot;</span></div><div class="brief "><code class="lang-kotlin">NEW_LINE_REPLACER</code> is the constants which indicates the replacer to use when the content message contains multiple lines</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1604515648%2FProperties%2F769193423" anchor-label="publicHostAddress" id="1604515648%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/public-host-address.html"><span>public</span><wbr></wbr><span>Host</span><wbr></wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1604515648%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/public-host-address.html">publicHostAddress</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief "><code class="lang-kotlin">publicHostAddress</code> public host address</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1328699647%2FProperties%2F769193423" anchor-label="serverSocket" id="-1328699647%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/server-socket.html"><span>server</span><wbr></wbr><span><span>Socket</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1328699647%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/server-socket.html">serverSocket</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/ServerSocket.html">ServerSocket</a></div><div class="brief "><code class="lang-kotlin">serverSocket</code> socket managed by the server</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1651507169%2FProperties%2F769193423" anchor-label="serverUse" id="-1651507169%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/server-use.html"><span>server</span><wbr></wbr><span><span>Use</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1651507169%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">val </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/server-use.html">serverUse</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><code class="lang-kotlin">serverUse</code> whether the runtime use of this class is server side or not</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-503127484%2FProperties%2F769193423" anchor-label="socket" id="-503127484%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/socket.html"><span><span>socket</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-503127484%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/socket.html">socket</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a></div><div class="brief "><code class="lang-kotlin">socket</code> socket used in the communication</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-722988708%2FFunctions%2F769193423" anchor-label="acceptRequest" id="-722988708%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/accept-request.html"><span>accept</span><wbr></wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-722988708%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/accept-request.html"><span class="token function">acceptRequest</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a></div><div class="brief ">Method to accept a new socket request  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1894574934%2FFunctions%2F769193423" anchor-label="acceptRequestOn" id="1894574934%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/accept-request-on.html"><span>accept</span><wbr></wbr><span>Request</span><wbr></wbr><span><span>On</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1894574934%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/accept-request-on.html"><span class="token function">acceptRequestOn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a></div><div class="brief ">Method to accept a new socket request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="24499720%2FFunctions%2F769193423" anchor-label="areAllowedMultipleListeners" id="24499720%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/are-allowed-multiple-listeners.html"><span>are</span><wbr></wbr><span>Allowed</span><wbr></wbr><span>Multiple</span><wbr></wbr><span><span>Listeners</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="24499720%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/are-allowed-multiple-listeners.html"><span class="token function">areAllowedMultipleListeners</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">Method to get <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/allow-multiple-listeners.html">allowMultipleListeners</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="389437690%2FFunctions%2F769193423" anchor-label="changeCipherKeys" id="389437690%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="change-cipher-keys.html"><span>change</span><wbr></wbr><span>Cipher</span><wbr></wbr><span><span>Keys</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="389437690%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="change-cipher-keys.html"><span class="token function">changeCipherKeys</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">keyPair<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html">KeyPair</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="change-cipher-keys.html"><span class="token function">changeCipherKeys</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="change-cipher-keys.html"><span class="token function">changeCipherKeys</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to change the cipher keys during the runtime</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-378646439%2FFunctions%2F769193423" anchor-label="closeCommunication" id="-378646439%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/close-communication.html"><span>close</span><wbr></wbr><span><span>Communication</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-378646439%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/close-communication.html"><span class="token function">closeCommunication</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Method to stop the communication  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1842466703%2FFunctions%2F769193423" anchor-label="continueListening" id="1842466703%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/continue-listening.html"><span>continue</span><wbr></wbr><span><span>Listening</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1842466703%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/continue-listening.html"><span class="token function">continueListening</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">Method to get if the listener's workflow needs to continue or not  Any param required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1854860029%2FFunctions%2F769193423" anchor-label="continueListeningOn" id="-1854860029%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/continue-listening-on.html"><span>continue</span><wbr></wbr><span>Listening</span><wbr></wbr><span><span>On</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1854860029%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/continue-listening-on.html"><span class="token function">continueListeningOn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">Method to get if the listener's workflow needs to continue or not</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1992596108%2FFunctions%2F769193423" anchor-label="exit" id="-1992596108%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/exit.html"><span><span>exit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1992596108%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/exit.html"><span class="token function">exit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">errorMessage<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to print an error occurred and exit with status code <strong>1</strong></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1740548465%2FFunctions%2F769193423" anchor-label="getActiveServerSocket" id="1740548465%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-active-server-socket.html"><span>get</span><wbr></wbr><span>Active</span><wbr></wbr><span>Server</span><wbr></wbr><span><span>Socket</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1740548465%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-active-server-socket.html"><span class="token function">getActiveServerSocket</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/ServerSocket.html">ServerSocket</a></div><div class="brief ">Method to get <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/server-socket.html">serverSocket</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-658343756%2FFunctions%2F769193423" anchor-label="getActiveSocket" id="-658343756%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-active-socket.html"><span>get</span><wbr></wbr><span>Active</span><wbr></wbr><span><span>Socket</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-658343756%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-active-socket.html"><span class="token function">getActiveSocket</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a></div><div class="brief ">Method to get <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/socket.html">socket</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1525664511%2FFunctions%2F769193423" anchor-label="getBase64PrivateKey" id="-1525664511%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-base64-private-key.html"><span>get</span><wbr></wbr><span>Base64Private</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1525664511%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-base64-private-key.html"><span class="token function">getBase64PrivateKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to get the current private key used instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="767670695%2FFunctions%2F769193423" anchor-label="getBase64PublicKey" id="767670695%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-base64-public-key.html"><span>get</span><wbr></wbr><span>Base64Public</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="767670695%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-base64-public-key.html"><span class="token function">getBase64PublicKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to get current public key used instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2134523333%2FFunctions%2F769193423" anchor-label="getCipher" id="2134523333%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-encrypted-socket-manager/get-cipher.html"><span>get</span><wbr></wbr><span><span>Cipher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2134523333%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-encrypted-socket-manager/get-cipher.html"><span class="token function">getCipher</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-encrypted-socket-manager/index.html">T</a></div><div class="brief ">Method to get <a href="../-encrypted-socket-manager/cipher.html">cipher</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="462109360%2FFunctions%2F769193423" anchor-label="getCurrentServerPort" id="462109360%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-current-server-port.html"><span>get</span><wbr></wbr><span>Current</span><wbr></wbr><span>Server</span><wbr></wbr><span><span>Port</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="462109360%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-current-server-port.html"><span class="token function">getCurrentServerPort</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief ">Method to get <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/current-server-port.html">currentServerPort</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1293366470%2FFunctions%2F769193423" anchor-label="getExecutor" id="-1293366470%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-executor.html"><span>get</span><wbr></wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1293366470%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-executor.html"><span class="token function">getExecutor</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a></div><div class="brief ">Method to get <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/executor.html">executor</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1228065909%2FFunctions%2F769193423" anchor-label="getHost" id="1228065909%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-host.html"><span>get</span><wbr></wbr><span><span>Host</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1228065909%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-host.html"><span class="token function">getHost</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">publicAddress<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to get host where the server is running</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="320312658%2FFunctions%2F769193423" anchor-label="getIpAddress" id="320312658%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-ip-address.html"><span>get</span><wbr></wbr><span>Ip</span><wbr></wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="320312658%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-ip-address.html"><span class="token function">getIpAddress</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">socket<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">This method is used to get an ip address from a <a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1089829010%2FFunctions%2F769193423" anchor-label="getListeners" id="-1089829010%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-listeners.html"><span>get</span><wbr></wbr><span><span>Listeners</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1089829010%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/get-listeners.html"><span class="token function">getListeners</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html">ConcurrentHashMap</a><span class="token operator">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a><span class="token punctuation">, </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/-listener/index.html">SocketManager.Listener</a><span class="token operator">&gt;</span></div><div class="brief ">Method to get <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/listeners.html">listeners</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1115587600%2FFunctions%2F769193423" anchor-label="getPrivateKey" id="1115587600%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-private-key.html"><span>get</span><wbr></wbr><span>Private</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1115587600%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-private-key.html"><span class="token function">getPrivateKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a></div><div class="brief ">Method to get the current private key used  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="852872376%2FFunctions%2F769193423" anchor-label="getPublicKey" id="852872376%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-public-key.html"><span>get</span><wbr></wbr><span>Public</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="852872376%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-public-key.html"><span class="token function">getPublicKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></div><div class="brief ">Method to get the current public key used No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1892257129%2FFunctions%2F769193423" anchor-label="isServerUse" id="1892257129%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/is-server-use.html"><span>is</span><wbr></wbr><span>Server</span><wbr></wbr><span><span>Use</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1892257129%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/is-server-use.html"><span class="token function">isServerUse</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">Method to get <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/server-use.html">serverUse</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-957750186%2FFunctions%2F769193423" anchor-label="pingHost" id="-957750186%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/ping-host.html"><span>ping</span><wbr></wbr><span><span>Host</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-957750186%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/ping-host.html"><span class="token function">pingHost</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timeout<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/ping-host.html"><span class="token function">pingHost</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">timeout<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">This method is used to ping a host on a specific port and get whether is reachable</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="256618563%2FFunctions%2F769193423" anchor-label="readContent" id="256618563%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/read-content.html"><span>read</span><wbr></wbr><span><span>Content</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="256618563%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/read-content.html"><span class="token function">readContent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to read a content message received with the socket request  No-any params required</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-encrypted-socket-manager/read-content.html"><span class="token function">readContent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">targetSocket<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to read an encrypted content message received with the socket request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-54620167%2FFunctions%2F769193423" anchor-label="readLastContent" id="-54620167%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-encrypted-socket-manager/read-last-content.html"><span>read</span><wbr></wbr><span>Last</span><wbr></wbr><span><span>Content</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-54620167%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-encrypted-socket-manager/read-last-content.html"><span class="token function">readLastContent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to read the last encrypted content message red in the stream with the socket request  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-887311225%2FFunctions%2F769193423" anchor-label="sendDefaultErrorResponse" id="-887311225%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-default-error-response.html"><span>send</span><wbr></wbr><span>Default</span><wbr></wbr><span>Error</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-887311225%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-default-error-response.html"><span class="token function">sendDefaultErrorResponse</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Method to send the <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/default-error-response.html">defaultErrorResponse</a> No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-108052557%2FFunctions%2F769193423" anchor-label="sendDefaultErrorResponseTo" id="-108052557%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-default-error-response-to.html"><span>send</span><wbr></wbr><span>Default</span><wbr></wbr><span>Error</span><wbr></wbr><span>Response</span><wbr></wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-108052557%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-default-error-response-to.html"><span class="token function">sendDefaultErrorResponseTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-default-error-response-to.html"><span class="token function">sendDefaultErrorResponseTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-default-error-response-to.html"><span class="token function">sendDefaultErrorResponseTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send the <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/default-error-response.html">defaultErrorResponse</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="435299879%2FFunctions%2F769193423" anchor-label="sendSuccessResponse" id="435299879%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-success-response.html"><span>send</span><wbr></wbr><span>Success</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="435299879%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-success-response.html"><span class="token function">sendSuccessResponse</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Method to send the <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/default-success-response.html">defaultSuccessResponse</a> No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2130519121%2FFunctions%2F769193423" anchor-label="sendSuccessResponseTo" id="2130519121%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-success-response-to.html"><span>send</span><wbr></wbr><span>Success</span><wbr></wbr><span>Response</span><wbr></wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2130519121%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-success-response-to.html"><span class="token function">sendSuccessResponseTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-success-response-to.html"><span class="token function">sendSuccessResponseTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/send-success-response-to.html"><span class="token function">sendSuccessResponseTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send the <a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/default-success-response.html">defaultSuccessResponse</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-930353349%2FFunctions%2F769193423" anchor-label="setCipher" id="-930353349%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-encrypted-socket-manager/set-cipher.html"><span>set</span><wbr></wbr><span><span>Cipher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-930353349%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-encrypted-socket-manager/set-cipher.html"><span class="token function">setCipher</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cipher<span class="token operator">: </span><a href="../-encrypted-socket-manager/index.html">T</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-cipher.html"><span class="token function">setCipher</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">keyPair<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html">KeyPair</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-cipher.html"><span class="token function">setCipher</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-cipher.html"><span class="token function">setCipher</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set the <a href="../-encrypted-socket-manager/cipher.html">cipher</a> instance</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-259026987%2FFunctions%2F769193423" anchor-label="setDefaultErrorResponse" id="-259026987%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/set-default-error-response.html"><span>set</span><wbr></wbr><span>Default</span><wbr></wbr><span>Error</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-259026987%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/set-default-error-response.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/set-default-error-response.html"><span class="token function">setDefaultErrorResponse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">defaultErrorResponse<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/set-default-error-response.html">T</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set the default error response to send as error</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-622574512%2FFunctions%2F769193423" anchor-label="setDefaultSuccessResponse" id="-622574512%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/set-default-success-response.html"><span>set</span><wbr></wbr><span>Default</span><wbr></wbr><span>Success</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-622574512%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/set-default-success-response.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/set-default-success-response.html"><span class="token function">setDefaultSuccessResponse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">defaultSuccessResponse<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/set-default-success-response.html">T</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set the default successful response to send as success</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2101724856%2FFunctions%2F769193423" anchor-label="startListener" id="-2101724856%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/start-listener.html"><span>start</span><wbr></wbr><span><span>Listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2101724856%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/start-listener.html"><span class="token function">startListener</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">routine<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Runnable</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to start a new listener</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1610956009%2FFunctions%2F769193423" anchor-label="stopAllListeners" id="-1610956009%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/stop-all-listeners.html"><span>stop</span><wbr></wbr><span>All</span><wbr></wbr><span><span>Listeners</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1610956009%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/stop-all-listeners.html"><span class="token function">stopAllListeners</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Method to stop the listener's workflow  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1957815103%2FFunctions%2F769193423" anchor-label="stopListener" id="-1957815103%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/stop-listener.html"><span>stop</span><wbr></wbr><span><span>Listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1957815103%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/stop-listener.html"><span class="token function">stopListener</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Method to stop the listener's workflow Any param required <div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">
+         SocketManager socketManager = new SocketManager(false);
+         socketManager.startListener(3218, new Runnable() {
+            
+            public void run() {
+                while (socketManager.continueListening()) {
+                    // do listener's workflow
+                }
+                // listener's workflow when has been stopped
+            }
+        });
+
+        // your code's workflow
+
+        socketManager.stopListener(); // --&gt; the single listener will be stopped
+    </code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1005532945%2FFunctions%2F769193423" anchor-label="stopListenerOn" id="1005532945%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/stop-listener-on.html"><span>stop</span><wbr></wbr><span>Listener</span><wbr></wbr><span><span>On</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1005532945%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/stop-listener-on.html"><span class="token function">stopListenerOn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to stop the listener's workflow</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-656176405%2FFunctions%2F769193423" anchor-label="toString" id="-656176405%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/to-string.html"><span>to</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-656176405%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Returns a string representation of the object  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="875215441%2FFunctions%2F769193423" anchor-label="writeContent" id="875215441%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content.html"><span>write</span><wbr></wbr><span><span>Content</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="875215441%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content.html"><span class="token function">writeContent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content.html">T</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to write a content message to send with the socket request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="904059259%2FFunctions%2F769193423" anchor-label="writeContentTo" id="904059259%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html"><span>write</span><wbr></wbr><span>Content</span><wbr></wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="904059259%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html"><span class="token function">writeContentTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html">T</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html"><span class="token function">writeContentTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html">T</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html"><span class="token function">writeContentTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">targetSocket<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html">T</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html"><span class="token function">writeContentTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-content-to.html">T</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to write a content message to send with the socket request</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-encrypted-socket-manager/write-content-to.html">V</a><span class="token operator">&gt; </span><a href="../-encrypted-socket-manager/write-content-to.html"><span class="token function">writeContentTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">targetSocket<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="../-encrypted-socket-manager/write-content-to.html">V</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to write an encrypted content message to send with the socket request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="59325945%2FFunctions%2F769193423" anchor-label="writePlainContent" id="59325945%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content.html"><span>write</span><wbr></wbr><span>Plain</span><wbr></wbr><span><span>Content</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="59325945%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content.html"><span class="token function">writePlainContent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content.html">T</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to write a plain content message to send with the socket request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="621638279%2FFunctions%2F769193423" anchor-label="writePlainContentTo" id="621638279%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html"><span>write</span><wbr></wbr><span>Plain</span><wbr></wbr><span>Content</span><wbr></wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="621638279%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html"><span class="token function">writePlainContentTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html">T</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html"><span class="token function">writePlainContentTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html">T</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html"><span class="token function">writePlainContentTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">targetSocket<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/net/Socket.html">Socket</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html">T</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html"><span class="token function">writePlainContentTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">host<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">port<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.sockets/-socket-manager/write-plain-content-to.html">T</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to write a plain content message to send with the socket request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>(c) 2024 Tecknobit</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

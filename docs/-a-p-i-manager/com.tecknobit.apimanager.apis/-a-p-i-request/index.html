@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>APIRequest</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            APIManager
+                    </a>
+            </div>
+            <div class="library-version">
+2.2.4            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":dokkaHtml/main">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="APIManager::com.tecknobit.apimanager.apis/APIRequest///PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../index.html">APIManager</a><span class="delimiter">/</span><a href="../index.html">com.tecknobit.apimanager.apis</a><span class="delimiter">/</span><span class="current">APIRequest</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>APIRequest</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">APIRequest</a></div><p class="paragraph">The <code class="lang-kotlin">APIRequest</code> class is useful to send and manage any <code class="lang-kotlin">&quot;API&quot;</code> requests and their responses</p><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">N7ghtm4r3 - Tecknobit</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.0.0</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="510395857%2FConstructors%2F769193423" anchor-label="APIRequest" id="510395857%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-p-i-request.html"><span><span>APIRequest</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="510395857%2FConstructors%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enableCertificatesValidation<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">APIRequest</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">defaultErrorResponse<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">APIRequest</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">defaultErrorResponse<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">enableCertificatesValidation<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">APIRequest</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestTimeout<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">APIRequest</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestTimeout<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">enableCertificatesValidation<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">APIRequest</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">defaultErrorResponse<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">requestTimeout<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">APIRequest</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">defaultErrorResponse<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">requestTimeout<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">enableCertificatesValidation<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">APIRequest</a></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init <a href="index.html">APIRequest</a> No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-635007871%2FClasslikes%2F769193423" anchor-label="Headers" id="-635007871%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-headers/index.html"><span><span>Headers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-635007871%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-headers/index.html">Headers</a></div><div class="brief ">The <code class="lang-kotlin">Headers</code> class is useful to assemble headers values for the request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1816396181%2FClasslikes%2F769193423" anchor-label="Params" id="1816396181%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-params/index.html"><span><span>Params</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1816396181%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-params/index.html">Params</a></div><div class="brief ">The <code class="lang-kotlin">Params</code> class is useful to assemble params values for the request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1870668407%2FClasslikes%2F769193423" anchor-label="RequestMethod" id="1870668407%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-request-method/index.html"><span>Request</span><wbr></wbr><span><span>Method</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1870668407%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-request-method/index.html">RequestMethod</a></div><div class="brief "><code class="lang-kotlin">RequestMethod</code> list of available request methods</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1198175423%2FProperties%2F769193423" anchor-label="contentType" id="-1198175423%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="content-type.html"><span>content</span><wbr></wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1198175423%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="content-type.html">contentType</a><span class="token operator">: </span><span data-unresolved-link="okhttp3/MediaType///PointingToDeclaration/">MediaType</span></div><div class="brief "><code class="lang-kotlin">contentType</code> is the type of the content of the payload request, default is <code class="lang-kotlin">&quot;text/plain&quot;</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1991477776%2FProperties%2F769193423" anchor-label="DEFAULT_ERROR_RESPONSE" id="1991477776%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-f-a-u-l-t_-e-r-r-o-r_-r-e-s-p-o-n-s-e.html"><span><span>DEFAULT_ERROR_RESPONSE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1991477776%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-e-f-a-u-l-t_-e-r-r-o-r_-r-e-s-p-o-n-s-e.html">DEFAULT_ERROR_RESPONSE</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator"> = </span><span class="token string">&quot;Error is not in api request, check out your code&quot;</span></div><div class="brief "><code class="lang-kotlin">DEFAULT_ERROR_RESPONSE</code> is constant that contains default error message if user not custom it</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1424101695%2FProperties%2F769193423" anchor-label="DEFAULT_REQUEST_TIMEOUT" id="-1424101695%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-f-a-u-l-t_-r-e-q-u-e-s-t_-t-i-m-e-o-u-t.html"><span><span>DEFAULT_REQUEST_TIMEOUT</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1424101695%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-e-f-a-u-l-t_-r-e-q-u-e-s-t_-t-i-m-e-o-u-t.html">DEFAULT_REQUEST_TIMEOUT</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">10000</span></div><div class="brief "><code class="lang-kotlin">DEFAULT_REQUEST_TIMEOUT</code> is constant that contains default request timeout if user not custom it</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="277647742%2FProperties%2F769193423" anchor-label="defaultErrorResponse" id="277647742%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="default-error-response.html"><span>default</span><wbr></wbr><span>Error</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="277647742%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="default-error-response.html">defaultErrorResponse</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief "><code class="lang-kotlin">defaultErrorResponse</code> is the instance that contains default error message</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1206575250%2FProperties%2F769193423" anchor-label="enableCertificatesValidation" id="-1206575250%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable-certificates-validation.html"><span>enable</span><wbr></wbr><span>Certificates</span><wbr></wbr><span><span>Validation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1206575250%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="enable-certificates-validation.html">enableCertificatesValidation</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><code class="lang-kotlin">enableCertificatesValidation</code> whether enable the <strong>SSL</strong> certificates validation, this for example when the certificate is a self-signed certificate to by-pass</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1923604267%2FProperties%2F769193423" anchor-label="errorResponse" id="1923604267%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="error-response.html"><span>error</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1923604267%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="error-response.html">errorResponse</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief "><code class="lang-kotlin">errorResponse</code> is the instance that contains error message from request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="465548197%2FProperties%2F769193423" anchor-label="HMAC_SHA256_ALGORITHM" id="465548197%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h-m-a-c_-s-h-a256_-a-l-g-o-r-i-t-h-m.html"><span><span>HMAC_SHA256_ALGORITHM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="465548197%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-h-m-a-c_-s-h-a256_-a-l-g-o-r-i-t-h-m.html">HMAC_SHA256_ALGORITHM</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator"> = </span><span class="token string">&quot;HmacSHA256&quot;</span></div><div class="brief "><code class="lang-kotlin">HMAC_SHA256_ALGORITHM</code> is constant that contains <code class="lang-kotlin">&quot;HMAC SHA 256&quot;</code> algorithm type</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="538663426%2FProperties%2F769193423" anchor-label="HMAC_SHA512_ALGORITHM" id="538663426%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h-m-a-c_-s-h-a512_-a-l-g-o-r-i-t-h-m.html"><span><span>HMAC_SHA512_ALGORITHM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="538663426%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-h-m-a-c_-s-h-a512_-a-l-g-o-r-i-t-h-m.html">HMAC_SHA512_ALGORITHM</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator"> = </span><span class="token string">&quot;HmacSHA512&quot;</span></div><div class="brief "><code class="lang-kotlin">HMAC_SHA512_ALGORITHM</code> is constant that contains <code class="lang-kotlin">&quot;HMAC SHA 512&quot;</code> algorithm type</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-613434359%2FProperties%2F769193423" anchor-label="isSuccessfulRequest" id="-613434359%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-successful-request.html"><span>is</span><wbr></wbr><span>Successful</span><wbr></wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-613434359%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="is-successful-request.html">isSuccessfulRequest</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><code class="lang-kotlin">isSuccessfulRequest</code> whether the request has been successful</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1521628570%2FProperties%2F769193423" anchor-label="MD5_ALGORITHM" id="-1521628570%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-d5_-a-l-g-o-r-i-t-h-m.html"><span><span>MD5_ALGORITHM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1521628570%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-d5_-a-l-g-o-r-i-t-h-m.html">MD5_ALGORITHM</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator"> = </span><span class="token string">&quot;MD5&quot;</span></div><div class="brief "><code class="lang-kotlin">MD5_ALGORITHM</code> is constant that contains <code class="lang-kotlin">&quot;MD5&quot;</code> algorithm type</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="629370007%2FProperties%2F769193423" anchor-label="okHttpClient" id="629370007%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ok-http-client.html"><span>ok</span><wbr></wbr><span>Http</span><wbr></wbr><span><span>Client</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="629370007%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="ok-http-client.html">okHttpClient</a><span class="token operator">: </span><span data-unresolved-link="okhttp3/OkHttpClient///PointingToDeclaration/">OkHttpClient</span></div><div class="brief ">**okHttpClient** -> the http client to execute the requests</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-468100347%2FProperties%2F769193423" anchor-label="request" id="-468100347%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="request.html"><span><span>request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-468100347%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="request.html">request</a><span class="token operator">: </span><span data-unresolved-link="okhttp3/Request.Builder///PointingToDeclaration/">Request.Builder</span></div><div class="brief "><code class="lang-kotlin">request</code> is the instance useful for the requests</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1196061051%2FProperties%2F769193423" anchor-label="response" id="-1196061051%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="response.html"><span><span>response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1196061051%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="response.html">response</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief "><code class="lang-kotlin">response</code> is the instance that contains response message from request to return</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="741602513%2FProperties%2F769193423" anchor-label="SHA1_ALGORITHM" id="741602513%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-h-a1_-a-l-g-o-r-i-t-h-m.html"><span><span>SHA1_ALGORITHM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="741602513%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-h-a1_-a-l-g-o-r-i-t-h-m.html">SHA1_ALGORITHM</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator"> = </span><span class="token string">&quot;SHA-1&quot;</span></div><div class="brief "><code class="lang-kotlin">SHA1_ALGORITHM</code> is constant that contains <code class="lang-kotlin">&quot;SHA-1&quot;</code> algorithm type</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-142518737%2FProperties%2F769193423" anchor-label="SHA256_ALGORITHM" id="-142518737%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-h-a256_-a-l-g-o-r-i-t-h-m.html"><span><span>SHA256_ALGORITHM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-142518737%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-h-a256_-a-l-g-o-r-i-t-h-m.html">SHA256_ALGORITHM</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator"> = </span><span class="token string">&quot;SHA-256&quot;</span></div><div class="brief "><code class="lang-kotlin">SHA256_ALGORITHM</code> is constant that contains <code class="lang-kotlin">&quot;SHA-256&quot;</code> algorithm type</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="77387079%2FProperties%2F769193423" anchor-label="statusCode" id="77387079%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="status-code.html"><span>status</span><wbr></wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="77387079%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="status-code.html">statusCode</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><code class="lang-kotlin">statusCode</code> status code of a request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="28364912%2FFunctions%2F769193423" anchor-label="addHeader" id="28364912%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-header.html"><span>add</span><wbr></wbr><span><span>Header</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="28364912%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="add-header.html">T</a><span class="token operator">&gt; </span><a href="add-header.html"><span class="token function">addHeader</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">headerKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">headerValue<span class="token operator">: </span><a href="add-header.html">T</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set the headers of an <code class="lang-kotlin">&quot;HTTP&quot;</code> request </div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1914224617%2FFunctions%2F769193423" anchor-label="assembleParamsList" id="-1914224617%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="assemble-params-list.html"><span>assemble</span><wbr></wbr><span>Params</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1914224617%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/SafeVarargs.html"><span class="token annotation builtin">SafeVarargs</span></a></div></div><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="assemble-params-list.html">T</a><span class="token operator">&gt; </span><a href="assemble-params-list.html"><span class="token function">assembleParamsList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">separator<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">params<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="assemble-params-list.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="assemble-params-list.html">T</a><span class="token operator">&gt; </span><a href="assemble-params-list.html"><span class="token function">assembleParamsList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">separator<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">params<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html">ArrayList</a><span class="token operator">&lt;</span><a href="assemble-params-list.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to concatenate a list of params</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-509332041%2FFunctions%2F769193423" anchor-label="assembleSeparatedParamsList" id="-509332041%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="assemble-separated-params-list.html"><span>assemble</span><wbr></wbr><span>Separated</span><wbr></wbr><span>Params</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-509332041%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/SafeVarargs.html"><span class="token annotation builtin">SafeVarargs</span></a></div></div><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="assemble-separated-params-list.html">T</a><span class="token operator">&gt; </span><a href="assemble-separated-params-list.html"><span class="token function">assembleSeparatedParamsList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">starterSeparator<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">enderSeparator<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">params<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="assemble-separated-params-list.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="assemble-separated-params-list.html">T</a><span class="token operator">&gt; </span><a href="assemble-separated-params-list.html"><span class="token function">assembleSeparatedParamsList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">starterSeparator<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">enderSeparator<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">params<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html">ArrayList</a><span class="token operator">&lt;</span><a href="assemble-separated-params-list.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to concatenate a list of params</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1976957017%2FFunctions%2F769193423" anchor-label="base64Digest" id="-1976957017%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="base64-digest.html"><span><span>base64Digest</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1976957017%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="base64-digest.html"><span class="token function">base64Digest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">data<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">algorithm<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="base64-digest.html"><span class="token function">base64Digest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">data<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">algorithm<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to get digest</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1706535190%2FFunctions%2F769193423" anchor-label="checkToCreateDirs" id="-1706535190%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="check-to-create-dirs.html"><span>check</span><wbr></wbr><span>To</span><wbr></wbr><span>Create</span><wbr></wbr><span><span>Dirs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1706535190%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">fun </span><a href="check-to-create-dirs.html"><span class="token function">checkToCreateDirs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pathName<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to check if the pathname (without the name and the suffix of the file to save) given by the user exists then if not exists create that pathname</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-306344393%2FFunctions%2F769193423" anchor-label="concatenateParamsList" id="-306344393%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concatenate-params-list.html"><span>concatenate</span><wbr></wbr><span>Params</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-306344393%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/SafeVarargs.html"><span class="token annotation builtin">SafeVarargs</span></a></div></div><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="concatenate-params-list.html">T</a><span class="token operator">&gt; </span><a href="concatenate-params-list.html"><span class="token function">concatenateParamsList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initialChar<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">key<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">params<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="concatenate-params-list.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="concatenate-params-list.html">T</a><span class="token operator">&gt; </span><a href="concatenate-params-list.html"><span class="token function">concatenateParamsList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initialChar<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">key<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">params<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html">ArrayList</a><span class="token operator">&lt;</span><a href="concatenate-params-list.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to concatenate a series of same key param</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1968523249%2FFunctions%2F769193423" anchor-label="createDataURIScheme" id="1968523249%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-data-u-r-i-scheme.html"><span>create</span><wbr></wbr><span>Data</span><wbr></wbr><span><span>URIScheme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1968523249%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="create-data-u-r-i-scheme.html"><span class="token function">createDataURIScheme</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">file<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/io/File.html">File</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to create a data URI scheme</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2068407815%2FFunctions%2F769193423" anchor-label="digest" id="2068407815%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="digest.html"><span><span>digest</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2068407815%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="digest.html"><span class="token function">digest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">data<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">algorithm<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="digest.html"><span class="token function">digest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">data<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">algorithm<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span></div><div class="brief ">Method to get digest</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-688491432%2FFunctions%2F769193423" anchor-label="downloadFile" id="-688491432%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="download-file.html"><span>download</span><wbr></wbr><span><span>File</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-688491432%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="download-file.html"><span class="token function">downloadFile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">url<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">pathName<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">save<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/io/File.html">File</a></div><div class="brief ">Method to download a file from an <code class="lang-kotlin">&quot;URL&quot;</code> source</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="35497196%2FFunctions%2F769193423" anchor-label="enableCertificatesValidation" id="35497196%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable-certificates-validation.html"><span>enable</span><wbr></wbr><span>Certificates</span><wbr></wbr><span><span>Validation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="35497196%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="enable-certificates-validation.html"><span class="token function">enableCertificatesValidation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enableCertificatesValidation<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set programmatically <a href="enable-certificates-validation.html">enableCertificatesValidation</a> value</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1830089668%2FFunctions%2F769193423" anchor-label="encodeAdditionalParams" id="1830089668%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="encode-additional-params.html"><span>encode</span><wbr></wbr><span>Additional</span><wbr></wbr><span><span>Params</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1830089668%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="encode-additional-params.html">T</a><span class="token operator">&gt; </span><a href="encode-additional-params.html"><span class="token function">encodeAdditionalParams</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mandatoryParams<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">extraParams<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to assemble a query string params of an <code class="lang-kotlin">&quot;HTTP&quot;</code> request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1338042557%2FFunctions%2F769193423" anchor-label="encodeBodyParams" id="1338042557%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="encode-body-params.html"><span>encode</span><wbr></wbr><span>Body</span><wbr></wbr><span><span>Params</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1338042557%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="encode-body-params.html">T</a><span class="token operator">&gt; </span><a href="encode-body-params.html"><span class="token function">encodeBodyParams</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">bodyParams<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to assemble a body params of an <code class="lang-kotlin">&quot;HTTP&quot;</code> request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1079722583%2FFunctions%2F769193423" anchor-label="encodeQueryParams" id="-1079722583%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="encode-query-params.html"><span>encode</span><wbr></wbr><span>Query</span><wbr></wbr><span><span>Params</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1079722583%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="encode-query-params.html">T</a><span class="token operator">&gt; </span><a href="encode-query-params.html"><span class="token function">encodeQueryParams</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">queryParams<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to assemble a query params for an <code class="lang-kotlin">&quot;HTTP&quot;</code> request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1469528747%2FFunctions%2F769193423" anchor-label="getBase64Signature" id="1469528747%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-base64-signature.html"><span>get</span><wbr></wbr><span><span>Base64Signature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1469528747%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-base64-signature.html"><span class="token function">getBase64Signature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">signatureKey<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">data<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">algorithm<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-base64-signature.html"><span class="token function">getBase64Signature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">signatureKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">data<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">algorithm<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to get params signature for an <code class="lang-kotlin">&quot;HTTP&quot;</code> request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1578921659%2FFunctions%2F769193423" anchor-label="getJSONErrorResponse" id="1578921659%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-j-s-o-n-error-response.html"><span>get</span><wbr></wbr><span>JSONError</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1578921659%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="get-j-s-o-n-error-response.html">T</a><span class="token operator">&gt; </span><a href="get-j-s-o-n-error-response.html"><span class="token function">getJSONErrorResponse</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="get-j-s-o-n-error-response.html">T</a></div><div class="brief ">Method to get the error response of the request  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1402370827%2FFunctions%2F769193423" anchor-label="getJSONResponse" id="-1402370827%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-j-s-o-n-response.html"><span>get</span><wbr></wbr><span><span>JSONResponse</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1402370827%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="get-j-s-o-n-response.html">T</a><span class="token operator">&gt; </span><a href="get-j-s-o-n-response.html"><span class="token function">getJSONResponse</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="get-j-s-o-n-response.html">T</a></div><div class="brief ">Method to get the response of the request  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1739139358%2FFunctions%2F769193423" anchor-label="getResponseStatusCode" id="1739139358%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-response-status-code.html"><span>get</span><wbr></wbr><span>Response</span><wbr></wbr><span>Status</span><wbr></wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1739139358%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-response-status-code.html"><span class="token function">getResponseStatusCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief ">Method to get status response code of the request  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1948194015%2FFunctions%2F769193423" anchor-label="getSignature" id="1948194015%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-signature.html"><span>get</span><wbr></wbr><span><span>Signature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1948194015%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-signature.html"><span class="token function">getSignature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">signatureKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">data<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">algorithm<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to get params signature for an <code class="lang-kotlin">&quot;HTTP&quot;</code> request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1875403710%2FFunctions%2F769193423" anchor-label="isSuccessful" id="-1875403710%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-successful.html"><span>is</span><wbr></wbr><span><span>Successful</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1875403710%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-successful.html"><span class="token function">isSuccessful</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">Method to get whether the response has been successful  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="609998977%2FFunctions%2F769193423" anchor-label="parseResponseAsJson" id="609998977%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="parse-response-as-json.html"><span>parse</span><wbr></wbr><span>Response</span><wbr></wbr><span>As</span><wbr></wbr><span><span>Json</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="609998977%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="parse-response-as-json.html">T</a><span class="token operator">&gt; </span><a href="parse-response-as-json.html"><span class="token function">parseResponseAsJson</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">response<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="parse-response-as-json.html">T</a></div><div class="brief ">Method to parse the response of the request and format it as <code class="lang-kotlin">&quot;JSON&quot;</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-526083912%2FFunctions%2F769193423" anchor-label="performRequest" id="-526083912%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="perform-request.html"><span>perform</span><wbr></wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-526083912%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">fun </span><a href="perform-request.html"><span class="token function">performRequest</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Method to get the response of an <code class="lang-kotlin">&quot;HTTP&quot;</code> request  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-503430358%2FFunctions%2F769193423" anchor-label="printErrorResponse" id="-503430358%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="print-error-response.html"><span>print</span><wbr></wbr><span>Error</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-503430358%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="print-error-response.html"><span class="token function">printErrorResponse</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Method to print the error response of the request  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1784774418%2FFunctions%2F769193423" anchor-label="printJSONErrorResponse" id="1784774418%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="print-j-s-o-n-error-response.html"><span>print</span><wbr></wbr><span>JSONError</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1784774418%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="print-j-s-o-n-error-response.html">T</a><span class="token operator">&gt; </span><a href="print-j-s-o-n-error-response.html"><span class="token function">printJSONErrorResponse</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Method to print the error response of the request  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-731502188%2FFunctions%2F769193423" anchor-label="sendAPIRequest" id="-731502188%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-a-p-i-request.html"><span>send</span><wbr></wbr><span><span>APIRequest</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-731502188%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-a-p-i-request.html"><span class="token function">sendAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-a-p-i-request.html"><span class="token function">sendAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">queryParams<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send an api request</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-a-p-i-request.html"><span class="token function">sendAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headers<span class="token operator">: </span><a href="-headers/index.html">APIRequest.Headers</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-a-p-i-request.html"><span class="token function">sendAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headers<span class="token operator">: </span><a href="-headers/index.html">APIRequest.Headers</a><span class="token punctuation">, </span></span><span class="parameter ">queryParams<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send an api request with different headers</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="send-a-p-i-request.html">T</a><span class="token operator">&gt; </span><a href="send-a-p-i-request.html"><span class="token function">sendAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headerKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">headerValue<span class="token operator">: </span><a href="send-a-p-i-request.html">T</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="send-a-p-i-request.html">T</a><span class="token operator">&gt; </span><a href="send-a-p-i-request.html"><span class="token function">sendAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headerKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">headerValue<span class="token operator">: </span><a href="send-a-p-i-request.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">queryParams<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send an api request with a single header</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1403543230%2FFunctions%2F769193423" anchor-label="sendJSONPayloadedAPIRequest" id="-1403543230%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-j-s-o-n-payloaded-a-p-i-request.html"><span>send</span><wbr></wbr><span>JSONPayloaded</span><wbr></wbr><span><span>APIRequest</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1403543230%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-j-s-o-n-payloaded-a-p-i-request.html"><span class="token function">sendJSONPayloadedAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send an api request with a payload formatted in <code class="lang-kotlin">&quot;JSON&quot;</code></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-j-s-o-n-payloaded-a-p-i-request.html"><span class="token function">sendJSONPayloadedAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headers<span class="token operator">: </span><a href="-headers/index.html">APIRequest.Headers</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send an api request with a payload formatted in <code class="lang-kotlin">&quot;JSON&quot;</code> and with different headers</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="send-j-s-o-n-payloaded-a-p-i-request.html">T</a><span class="token operator">&gt; </span><a href="send-j-s-o-n-payloaded-a-p-i-request.html"><span class="token function">sendJSONPayloadedAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headerKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">headerValue<span class="token operator">: </span><a href="send-j-s-o-n-payloaded-a-p-i-request.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send an api request with a payload formatted in <code class="lang-kotlin">&quot;JSON&quot;</code> and with a single header</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2391572%2FFunctions%2F769193423" anchor-label="sendPayloadedAPIRequest" id="-2391572%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-payloaded-a-p-i-request.html"><span>send</span><wbr></wbr><span>Payloaded</span><wbr></wbr><span><span>APIRequest</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2391572%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-payloaded-a-p-i-request.html"><span class="token function">sendPayloadedAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-payloaded-a-p-i-request.html"><span class="token function">sendPayloadedAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><span data-unresolved-link="okhttp3/MultipartBody///PointingToDeclaration/">MultipartBody</span></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send an api request with a payload</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-payloaded-a-p-i-request.html"><span class="token function">sendPayloadedAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headers<span class="token operator">: </span><a href="-headers/index.html">APIRequest.Headers</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-payloaded-a-p-i-request.html"><span class="token function">sendPayloadedAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headers<span class="token operator">: </span><a href="-headers/index.html">APIRequest.Headers</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><span data-unresolved-link="okhttp3/MultipartBody///PointingToDeclaration/">MultipartBody</span></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send an api request with a payload and with different headers</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="send-payloaded-a-p-i-request.html">T</a><span class="token operator">&gt; </span><a href="send-payloaded-a-p-i-request.html"><span class="token function">sendPayloadedAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headerKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">headerValue<span class="token operator">: </span><a href="send-payloaded-a-p-i-request.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="send-payloaded-a-p-i-request.html">T</a><span class="token operator">&gt; </span><a href="send-payloaded-a-p-i-request.html"><span class="token function">sendPayloadedAPIRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">headerKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">headerValue<span class="token operator">: </span><a href="send-payloaded-a-p-i-request.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><span data-unresolved-link="okhttp3/MultipartBody///PointingToDeclaration/">MultipartBody</span></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to send an api request with a payload and with a single header</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-625643287%2FFunctions%2F769193423" anchor-label="setConnectionTimeout" id="-625643287%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-connection-timeout.html"><span>set</span><wbr></wbr><span>Connection</span><wbr></wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-625643287%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-connection-timeout.html"><span class="token function">setConnectionTimeout</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestTimeout<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set programmatically timeout for the request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1219591280%2FFunctions%2F769193423" anchor-label="setContentType" id="1219591280%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-content-type.html"><span>set</span><wbr></wbr><span>Content</span><wbr></wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1219591280%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-content-type.html"><span class="token function">setContentType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">contentType<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set the content type of the payload of the request</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1684836155%2FFunctions%2F769193423" anchor-label="setDefaultErrorResponse" id="-1684836155%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-default-error-response.html"><span>set</span><wbr></wbr><span>Default</span><wbr></wbr><span>Error</span><wbr></wbr><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1684836155%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-default-error-response.html"><span class="token function">setDefaultErrorResponse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">defaultErrorResponse<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set programmatically default error message to return if is not request error</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1160834131%2FFunctions%2F769193423" anchor-label="setHeaders" id="1160834131%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-headers.html"><span>set</span><wbr></wbr><span><span>Headers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1160834131%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-headers.html"><span class="token function">setHeaders</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">headers<span class="token operator">: </span><a href="-headers/index.html">APIRequest.Headers</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set the headers of an <code class="lang-kotlin">&quot;HTTP&quot;</code> request </div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1726272095%2FFunctions%2F769193423" anchor-label="setRequest" id="1726272095%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-request.html"><span>set</span><wbr></wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1726272095%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-request.html"><span class="token function">setRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-request.html"><span class="token function">setRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><span data-unresolved-link="okhttp3/MultipartBody///PointingToDeclaration/">MultipartBody</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-request.html"><span class="token function">setRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestUrl<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">method<span class="token operator">: </span><a href="-request-method/index.html">APIRequest.RequestMethod</a><span class="token punctuation">, </span></span><span class="parameter ">payload<span class="token operator">: </span><a href="-params/index.html">APIRequest.Params</a><span class="token punctuation">, </span></span><span class="parameter ">isJsonPayload<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set up the request details</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2137753%2FFunctions%2F769193423" anchor-label="stringDigest" id="-2137753%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="string-digest.html"><span>string</span><wbr></wbr><span><span>Digest</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2137753%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="string-digest.html"><span class="token function">stringDigest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">data<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">algorithm<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="string-digest.html"><span class="token function">stringDigest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">data<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">algorithm<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to get digest</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="416876218%2FFunctions%2F769193423" anchor-label="toString" id="416876218%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="416876218%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Returns a string representation of the object  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="511189531%2FFunctions%2F769193423" anchor-label="validateSelfSignedCertificate" id="511189531%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="validate-self-signed-certificate.html"><span>validate</span><wbr></wbr><span>Self</span><wbr></wbr><span>Signed</span><wbr></wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="511189531%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="validate-self-signed-certificate.html"><span class="token function">validateSelfSignedCertificate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Method to validate a self-signed SLL certificate and bypass the checks of its validity No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>(c) 2024 Tecknobit</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

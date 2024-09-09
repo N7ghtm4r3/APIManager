@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>RSAServerCipher</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            APIManager
+                    </a>
+            </div>
+            <div class="library-version">
+2.2.4            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":dokkaHtml/main">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="APIManager::com.tecknobit.apimanager.apis.encryption.rsa/RSAServerCipher///PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../index.html">APIManager</a><span class="delimiter">/</span><a href="../index.html">com.tecknobit.apimanager.apis.encryption.rsa</a><span class="delimiter">/</span><span class="current">RSAServerCipher</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>RSAServer</span><wbr></wbr><span><span>Cipher</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">RSAServerCipher</a> : <a href="../-r-s-a-client-cipher/index.html">RSAClientCipher</a></div><p class="paragraph">The <code class="lang-kotlin">RSAServerCipher</code> class is useful for server side applications for <code class="lang-kotlin">&quot;RSA&quot;</code>'s encryption or decryption</p><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">Tecknobit N7ghtm4r3</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.1.5</p></span><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/index.html"><span>Base</span><wbr></wbr><span><span>Cipher</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-r-s-a-client-cipher/index.html"><span>RSAClient</span><wbr></wbr><span><span>Cipher</span></span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-159295209%2FConstructors%2F769193423" anchor-label="RSAServerCipher" id="-159295209%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-s-a-server-cipher.html"><span>RSAServer</span><wbr></wbr><span><span>Cipher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-159295209%2FConstructors%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init a <a href="index.html">RSAServerCipher</a> object</div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">keyPair<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html">KeyPair</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init a <a href="index.html">RSAServerCipher</a> object</div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Constructor to init a <a href="index.html">RSAServerCipher</a> object</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-569745223%2FClasslikes%2F769193423" anchor-label="RSAKeyStrength" id="-569745223%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-s-a-key-strength/index.html"><span>RSAKey</span><wbr></wbr><span><span>Strength</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-569745223%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-r-s-a-key-strength/index.html">RSAKeyStrength</a></div><div class="brief "><code class="lang-kotlin">RSAKeyStrength</code> list of available key strengths</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-746939913%2FProperties%2F769193423" anchor-label="algorithm" id="-746939913%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/algorithm.html"><span><span>algorithm</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-746939913%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/algorithm.html">algorithm</a><span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/-algorithm/index.html">BaseCipher.Algorithm</a></div><div class="brief "><code class="lang-kotlin">algorithm</code> used during the encryption and the decryption phases</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="843525353%2FProperties%2F769193423" anchor-label="cipher" id="843525353%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/cipher.html"><span><span>cipher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="843525353%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">val </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/cipher.html">cipher</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/javax/crypto/Cipher.html">Cipher</a></div><div class="brief "><code class="lang-kotlin">cipher</code> to manage the encryption and the decryption phases</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1979779132%2FProperties%2F769193423" anchor-label="keyPairMatrix" id="1979779132%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="key-pair-matrix.html"><span>key</span><wbr></wbr><span>Pair</span><wbr></wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1979779132%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="key-pair-matrix.html">keyPairMatrix</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html">KeyPair</a></div><div class="brief "><code class="lang-kotlin">keyPairMatrix</code> used to generate and manage the keys of the same pair</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1104244656%2FProperties%2F769193423" anchor-label="privateKey" id="-1104244656%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/private-key.html"><span>private</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1104244656%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-r-s-a-client-cipher/private-key.html">privateKey</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a></div><div class="brief "><code class="lang-kotlin">privateKey</code> the private key used to decrypt the content</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="919812216%2FProperties%2F769193423" anchor-label="publicKey" id="919812216%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/public-key.html"><span>public</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="919812216%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">protected </span><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-r-s-a-client-cipher/public-key.html">publicKey</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></div><div class="brief "><code class="lang-kotlin">publicKey</code> the public key used to encrypt the content</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="66679058%2FFunctions%2F769193423" anchor-label="decodeBase64" id="66679058%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/decode-base64.html"><span>decode</span><wbr></wbr><span><span>Base64</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="66679058%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/decode-base64.html"><span class="token function">decodeBase64</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">source<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span></div><div class="brief ">Method to decode a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Base64.html">Base64</a> source</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="238919831%2FFunctions%2F769193423" anchor-label="decrypt" id="238919831%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/decrypt.html"><span><span>decrypt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="238919831%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/decrypt.html"><span class="token function">decrypt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">content<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span></div><div class="brief ">Method to decrypt a content</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-273489083%2FFunctions%2F769193423" anchor-label="decryptBase64" id="-273489083%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/decrypt-base64.html"><span>decrypt</span><wbr></wbr><span><span>Base64</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-273489083%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/decrypt-base64.html"><span class="token function">decryptBase64</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">content<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to decrypt a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Base64.html">Base64</a> content</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="31873041%2FFunctions%2F769193423" anchor-label="encodeBase64" id="31873041%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/encode-base64.html"><span>encode</span><wbr></wbr><span><span>Base64</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="31873041%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/encode-base64.html"><span class="token function">encodeBase64</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">source<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/encode-base64.html"><span class="token function">encodeBase64</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">source<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to encode in <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Base64.html">Base64</a> a source</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-748999707%2FFunctions%2F769193423" anchor-label="encrypt" id="-748999707%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/encrypt.html"><span><span>encrypt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-748999707%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-r-s-a-client-cipher/encrypt.html">T</a><span class="token operator">&gt; </span><a href="../-r-s-a-client-cipher/encrypt.html"><span class="token function">encrypt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">content<span class="token operator">: </span><a href="../-r-s-a-client-cipher/encrypt.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span></div><div class="brief ">Method to encrypt any content</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2058085372%2FFunctions%2F769193423" anchor-label="encryptBase64" id="2058085372%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/encrypt-base64.html"><span>encrypt</span><wbr></wbr><span><span>Base64</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2058085372%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/encrypt-base64.html">T</a><span class="token operator">&gt; </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/encrypt-base64.html"><span class="token function">encryptBase64</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">content<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/encrypt-base64.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to encrypt and format in <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Base64.html">Base64</a> any content</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="311296103%2FFunctions%2F769193423" anchor-label="generateBase64PrivateKey" id="311296103%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="generate-base64-private-key.html"><span>generate</span><wbr></wbr><span>Base64Private</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="311296103%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="generate-base64-private-key.html"><span class="token function">generateBase64PrivateKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">keyStrength<span class="token operator">: </span><a href="-r-s-a-key-strength/index.html">RSAServerCipher.RSAKeyStrength</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to generate an RSA private key</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2097663356%2FFunctions%2F769193423" anchor-label="generateBase64PublicKey" id="-2097663356%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="generate-base64-public-key.html"><span>generate</span><wbr></wbr><span>Base64Public</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2097663356%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="generate-base64-public-key.html"><span class="token function">generateBase64PublicKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to generate an RSA public key  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-697531464%2FFunctions%2F769193423" anchor-label="generatePrivateKey" id="-697531464%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="generate-private-key.html"><span>generate</span><wbr></wbr><span>Private</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-697531464%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="generate-private-key.html"><span class="token function">generatePrivateKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">keyStrength<span class="token operator">: </span><a href="-r-s-a-key-strength/index.html">RSAServerCipher.RSAKeyStrength</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a></div><div class="brief ">Method to generate an RSA private key</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-316969131%2FFunctions%2F769193423" anchor-label="generatePublicKey" id="-316969131%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="generate-public-key.html"><span>generate</span><wbr></wbr><span>Public</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-316969131%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="generate-public-key.html"><span class="token function">generatePublicKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></div><div class="brief ">Method to generate an RSA public key  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1589144277%2FFunctions%2F769193423" anchor-label="generateRSAKeyPair" id="1589144277%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="generate-r-s-a-key-pair.html"><span>generate</span><wbr></wbr><span>RSAKey</span><wbr></wbr><span><span>Pair</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1589144277%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="generate-r-s-a-key-pair.html"><span class="token function">generateRSAKeyPair</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">keyStrength<span class="token operator">: </span><a href="-r-s-a-key-strength/index.html">RSAServerCipher.RSAKeyStrength</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html">KeyPair</a></div><div class="brief ">Method to generate the RSA key pair</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="286724027%2FFunctions%2F769193423" anchor-label="getAlgorithm" id="286724027%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/get-algorithm.html"><span>get</span><wbr></wbr><span><span>Algorithm</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="286724027%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/get-algorithm.html"><span class="token function">getAlgorithm</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/-algorithm/index.html">BaseCipher.Algorithm</a></div><div class="brief ">Method to get <a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/algorithm.html">algorithm</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-787132211%2FFunctions%2F769193423" anchor-label="getBase64PrivateKey" id="-787132211%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/get-base64-private-key.html"><span>get</span><wbr></wbr><span>Base64Private</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-787132211%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/get-base64-private-key.html"><span class="token function">getBase64PrivateKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to get <a href="../-r-s-a-client-cipher/private-key.html">privateKey</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1979452325%2FFunctions%2F769193423" anchor-label="getBase64PublicKey" id="-1979452325%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/get-base64-public-key.html"><span>get</span><wbr></wbr><span>Base64Public</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1979452325%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/get-base64-public-key.html"><span class="token function">getBase64PublicKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Method to get <a href="../-r-s-a-client-cipher/public-key.html">publicKey</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1382034853%2FFunctions%2F769193423" anchor-label="getCipher" id="1382034853%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/get-cipher.html"><span>get</span><wbr></wbr><span><span>Cipher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1382034853%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/get-cipher.html"><span class="token function">getCipher</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/javax/crypto/Cipher.html">Cipher</a></div><div class="brief ">Method to get <a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/cipher.html">cipher</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1337497380%2FFunctions%2F769193423" anchor-label="getPrivateKey" id="-1337497380%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/get-private-key.html"><span>get</span><wbr></wbr><span>Private</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1337497380%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/get-private-key.html"><span class="token function">getPrivateKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a></div><div class="brief ">Method to get <a href="../-r-s-a-client-cipher/private-key.html">privateKey</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1858658708%2FFunctions%2F769193423" anchor-label="getPublicKey" id="-1858658708%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/get-public-key.html"><span>get</span><wbr></wbr><span>Public</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1858658708%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/get-public-key.html"><span class="token function">getPublicKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></div><div class="brief ">Method to get <a href="../-r-s-a-client-cipher/public-key.html">publicKey</a> instance  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1385767796%2FFunctions%2F769193423" anchor-label="recreateKey" id="1385767796%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/recreate-key.html"><span>recreate</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1385767796%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-r-s-a-client-cipher/recreate-key.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/Key.html">Key</a><span class="token operator">?</span><span class="token operator">&gt; </span><a href="../-r-s-a-client-cipher/recreate-key.html"><span class="token function">recreateKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">isPrivateKey<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-r-s-a-client-cipher/recreate-key.html">T</a></div><div class="brief ">Method to recreate from a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> source a key</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1839788651%2FFunctions%2F769193423" anchor-label="setAlgorithm" id="-1839788651%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/set-algorithm.html"><span>set</span><wbr></wbr><span><span>Algorithm</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1839788651%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/set-algorithm.html"><span class="token function">setAlgorithm</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">algorithm<span class="token operator">: </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/-algorithm/index.html">BaseCipher.Algorithm</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set <a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/algorithm.html">algorithm</a> instance</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-668114585%2FFunctions%2F769193423" anchor-label="setKeys" id="-668114585%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/set-keys.html"><span>set</span><wbr></wbr><span><span>Keys</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-668114585%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/set-keys.html"><span class="token function">setKeys</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">keyPair<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html">KeyPair</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/set-keys.html"><span class="token function">setKeys</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/set-keys.html"><span class="token function">setKeys</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a><span class="token punctuation">, </span></span><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set the keys</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="943616403%2FFunctions%2F769193423" anchor-label="setPrivateKey" id="943616403%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/set-private-key.html"><span>set</span><wbr></wbr><span>Private</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="943616403%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/set-private-key.html"><span class="token function">setPrivateKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/set-private-key.html"><span class="token function">setPrivateKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PrivateKey.html">PrivateKey</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set <a href="../-r-s-a-client-cipher/private-key.html">privateKey</a> instance</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1655604943%2FFunctions%2F769193423" anchor-label="setPublicKey" id="1655604943%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-r-s-a-client-cipher/set-public-key.html"><span>set</span><wbr></wbr><span>Public</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1655604943%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/set-public-key.html"><span class="token function">setPublicKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-r-s-a-client-cipher/set-public-key.html"><span class="token function">setPublicKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">publicKey<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/security/PublicKey.html">PublicKey</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Method to set <a href="../-r-s-a-client-cipher/public-key.html">publicKey</a> instance</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="196273640%2FFunctions%2F769193423" anchor-label="toString" id="196273640%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/to-string.html"><span>to</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="196273640%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../com.tecknobit.apimanager.apis.encryption/-base-cipher/to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></div><div class="brief ">Returns a string representation of the object  No-any params required</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>(c) 2024 Tecknobit</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
